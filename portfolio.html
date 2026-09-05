@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Portfolio | GUNKOWII SABA</title>
+
+  <meta name="description"
+    content="Explore the portfolio of GUNKOWII SABA — real e-commerce, Shopify, SEO, CRO, digital marketing, web development, and application projects.">
+
+  <meta name="keywords"
+    content="Gunkowii Saba, Shopify Expert, Etsy Expert, E-commerce Portfolio, CRO, SEO, Digital Marketing, Web Development">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f2e8;
+      color: #173c32;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #103b30;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      width: 150px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 18px;
+    }
+
+    nav a {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #d4af37;
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        linear-gradient(rgba(16, 59, 48, 0.94), rgba(16, 59, 48, 0.94)),
+        url("Screenshot_2026-09-04-12-50-03-770_com.openai.chatgpt-edit.jpg")
+        center/cover;
+
+      color: #fff;
+      padding: 100px 22px;
+    }
+
+    .hero-content {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.05;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      font-size: 18px;
+      color: #f4eee2;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-gold {
+      background: #d4af37;
+      color: #103b30;
+    }
+
+    .btn-outline {
+      border: 1px solid #d4af37;
+      color: #fff;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 85px 22px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .section-heading {
+      max-width: 750px;
+      margin-bottom: 45px;
+    }
+
+    .section-heading span {
+      color: #a58217;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .section-heading h2 {
+      font-family: Georgia, serif;
+      font-size: clamp(34px, 5vw, 52px);
+      line-height: 1.15;
+      margin: 10px 0 15px;
+      color: #103b30;
+    }
+
+    .section-heading p {
+      color: #52665f;
+      font-size: 17px;
+    }
+
+    /* CONTRIBUTION NOTICE */
+
+    .notice {
+      background: #103b30;
+      color: #fff;
+      border-left: 5px solid #d4af37;
+      padding: 24px;
+      border-radius: 7px;
+      margin-bottom: 45px;
+    }
+
+    .notice strong {
+      color: #d4af37;
+    }
+
+    /* PROJECT GRID */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 35px;
+    }
+
+    .project-card {
+      background: #fff;
+      border: 1px solid #e2d8c5;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(16, 59, 48, 0.08);
+      transition: 0.35s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 18px 45px rgba(16, 59, 48, 0.14);
+    }
+
+    .project-image {
+      height: 280px;
+      overflow: hidden;
+      background: #eee;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.4s;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.04);
+    }
+
+    .project-content {
+      padding: 27px;
+    }
+
+    .project-number {
+      color: #a58217;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .project-content h3 {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      margin: 7px 0;
+      color: #103b30;
+    }
+
+    .project-type {
+      color: #a58217;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .project-content p {
+      color: #52665f;
+      margin-bottom: 18px;
+    }
+
+    .contribution-title {
+      font-weight: bold;
+      color: #103b30;
+      margin-bottom: 8px;
+    }
+
+    .contribution-list {
+      list-style: none;
+      margin-bottom: 22px;
+    }
+
+    .contribution-list li {
+      padding: 5px 0;
+      color: #52665f;
+    }
+
+    .contribution-list li::before {
+      content: "✓";
+      color: #a58217;
+      font-weight: bold;
+      margin-right: 9px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 23px;
+    }
+
+    .tag {
+      background: #eef3ef;
+      border: 1px solid #d7e0da;
+      color: #245344;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .project-link {
+      display: inline-block;
+      background: #103b30;
+      color: #fff;
+      padding: 11px 17px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .project-link:hover {
+      background: #d4af37;
+      color: #103b30;
+    }
+
+    /* FEATURED SOFTWARE */
+
+    .featured {
+      background: #103b30;
+      color: #fff;
+    }
+
+    .featured .section-heading h2 {
+      color: #fff;
+    }
+
+    .featured .section-heading p {
+      color: #d9e3dd;
+    }
+
+    .software-card {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .software-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .software-images img {
+      height: 220px;
+      object-fit: cover;
+      border-radius: 7px;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .software-images img:first-child {
+      grid-column: span 2;
+      height: 280px;
+    }
+
+    .software-content h3 {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      color: #d4af37;
+      line-height: 1.2;
+      margin-bottom: 17px;
+    }
+
+    .software-content p {
+      color: #d9e3dd;
+      margin-bottom: 20px;
+    }
+
+    .software-list {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .software-list li {
+      padding: 5px 0;
+      color: #f4eee2;
+    }
+
+    .software-list li::before {
+      content: "◆";
+      color: #d4af37;
+      margin-right: 9px;
+      font-size: 10px;
+    }
+
+    /* PLATFORM SHOWCASE */
+
+    .platforms {
+      background: #eee8dc;
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .platform-card {
+      background: #fff;
+      padding: 35px;
+      border-radius: 9px;
+      border-top: 4px solid #d4af37;
+    }
+
+    .platform-card h3 {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      color: #103b30;
+      margin-bottom: 12px;
+    }
+
+    .platform-card p {
+      color: #52665f;
+      margin-bottom: 18px;
+    }
+
+    .platform-points {
+      list-style: none;
+    }
+
+    .platform-points li {
+      padding: 6px 0;
+      color: #52665f;
+    }
+
+    .platform-points li::before {
+      content: "✓";
+      color: #a58217;
+      margin-right: 8px;
+      font-weight: bold;
+    }
+
+    /* CTA */
+
+    .cta {
+      text-align: center;
+      background: #f7f2e8;
+    }
+
+    .cta-box {
+      max-width: 850px;
+      margin: auto;
+      background: #103b30;
+      color: #fff;
+      padding: 60px 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
+
+    .cta-box h2 {
+      font-family: Georgia, serif;
+      font-size: clamp(34px, 5vw, 52px);
+      color: #d4af37;
+      margin-bottom: 15px;
+    }
+
+    .cta-box p {
+      color: #e0e8e3;
+      max-width: 650px;
+      margin: 0 auto 25px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0b2c24;
+      color: #cbd8d2;
+      padding: 45px 22px;
+      text-align: center;
+    }
+
+    footer .footer-brand {
+      color: #d4af37;
+      font-family: Georgia, serif;
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+
+      nav {
+        gap: 10px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .projects-grid,
+      .platform-grid,
+      .software-card {
+        grid-template-columns: 1fr;
+      }
+
+      .software-images {
+        order: 1;
+      }
+
+      .software-content {
+        order: 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .nav-container {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding: 75px 20px;
+      }
+
+      section {
+        padding: 65px 18px;
+      }
+
+      .project-image {
+        height: 220px;
+      }
+
+      .software-images img:first-child {
+        height: 220px;
+      }
+
+      .software-images img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+    <div class="nav-container">
+
+      <a href="index.html">
+        <img
+          src="gunkowii-saba-logo.png"
+          alt="GUNKOWII SABA"
+          class="logo">
+      </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="process.html">Process</a>
+        <a href="audit.html">Audit</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        Real Stores • Real Projects • Practical Work
+      </div>
+
+      <h1>
+        Selected Work
+      </h1>
+
+      <p>
+        A practical look at the e-commerce, Shopify, SEO, CRO,
+        digital marketing, web development, and application projects
+        I've contributed to.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="#projects" class="btn btn-gold">
+          Explore Projects
+        </a>
+
+        <a href="contact.html" class="btn btn-outline">
+          Work With Me
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PROJECTS -->
+
+  <section id="projects">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span>Portfolio</span>
+
+        <h2>
+          Real E-commerce Projects
+        </h2>
+
+        <p>
+          These projects represent practical work across Shopify,
+          e-commerce optimization, user experience, SEO, CRO,
+          website management, and digital growth.
+        </p>
+
+      </div>
+
+
+      <div class="notice">
+
+        <strong>Project attribution:</strong>
+        The projects below include collaborative and team-based work.
+        On collaborative projects, my contribution covered approximately
+        60–75% of the relevant project work, depending on the project
+        scope and responsibilities.
+
+      </div>
+
+
+      <div class="projects-grid">
+
+
+        <!-- TEEOLOGY -->
+
+        <article class="project-card">
+
+          <div class="project-image">
+            <img
+              src="assets/projects/teeology/teeology-home.jpg"
+              alt="Teeology Clothing Shopify store">
+          </div>
+
+          <div class="project-content">
+
+            <div class="project-number">01</div>
+
+            <h3>Teeology Clothing</h3>
+
+            <div class="project-type">
+              Shopify E-commerce
+            </div>
+
+            <p>
+              A collaborative Shopify e-commerce project for a
+              streetwear brand, focused on store structure,
+              product presentation, user experience, and
+              conversion-focused improvements.
+            </p>
+
+            <div class="contribution-title">
+              My Contribution
+            </div>
+
+            <ul class="contribution-list">
+              <li>Store structure and organization</li>
+              <li>Product presentation</li>
+              <li>User experience improvements</li>
+              <li>Conversion-focused analysis</li>
+              <li>E-commerce optimization</li>
+            </ul>
+
+            <div class="tags">
+              <span class="tag">Shopify</span>
+              <span class="tag">E-commerce</span>
+              <span class="tag">CRO</span>
+              <span class="tag">UX</span>
+              <span class="tag">Streetwear</span>
+            </div>
+
+            <a
+              href="https://teeologyclothing.com/"
+              target="_blank"
+              rel="noopener"
+              class="project-link">
+              View Project →
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- BEEYOUTI -->
+
+        <article class="project-card">
+
+          <div class="project-image">
+            <img
+              src="assets/projects/beeyouti/beeyouti-home.jpg"
+              alt="BeeYouti Shopify store">
+          </div>
+
+          <div class="project-content">
+
+            <div class="project-number">02</div>
+
+            <h3>BeeYouti</h3>
+
+            <div class="project-type">
+              Shopify E-commerce
+            </div>
+
+            <p>
+              A collaborative Shopify project for a beauty and
+              wellness brand, focused on product presentation,
+              store structure, customer experience, SEO opportunities,
+              and conversion optimization.
+            </p>
+
+            <div class="contribution-title">
+              My Contribution
+            </div>
+
+            <ul class="contribution-list">
+              <li>Product presentation</li>
+              <li>Store structure</li>
+              <li>Customer experience</li>
+              <li>SEO opportunities</li>
+              <li>Conversion-focused improvements</li>
+              <li>E-commerce optimization</li>
+            </ul>
+
+            <div class="tags">
+              <span class="tag">Shopify</span>
+              <span class="tag">E-commerce</span>
+              <span class="tag">CRO</span>
+              <span class="tag">UX</span>
+              <span class="tag">SEO</span>
+              <span class="tag">Beauty</span>
+            </div>
+
+            <a
+              href="https://beeyouti.com/"
+              target="_blank"
+              rel="noopener"
+              class="project-link">
+              View Project →
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- LOOK FOR IT HERE -->
+
+        <article class="project-card">
+
+          <div class="project-image">
+            <img
+              src="assets/projects/look-for-it-here/look-for-it-here-home.jpg"
+              alt="Look For It Here Shopify store">
+          </div>
+
+          <div class="project-content">
+
+            <div class="project-number">03</div>
+
+            <h3>Look For It Here</h3>
+
+            <div class="project-type">
+              Shopify E-commerce
+            </div>
+
+            <p>
+              A collaborative multi-category e-commerce project
+              focused on store structure, product organization,
+              customer journey, SEO opportunities, and
+              conversion-focused improvements.
+            </p>
+
+            <div class="contribution-title">
+              My Contribution
+            </div>
+
+            <ul class="contribution-list">
+              <li>Store structure</li>
+              <li>Product organization</li>
+              <li>Customer journey analysis</li>
+              <li>SEO opportunities</li>
+              <li>Conversion optimization</li>
+              <li>User experience</li>
+            </ul>
+
+            <div class="tags">
+              <span class="tag">Shopify</span>
+              <span class="tag">E-commerce</span>
+              <span class="tag">CRO</span>
+              <span class="tag">UX</span>
+              <span class="tag">SEO</span>
+            </div>
+
+            <a
+              href="https://www.lookforithere.com.ar/"
+              target="_blank"
+              rel="noopener"
+              class="project-link">
+              View Project →
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- IRON THERAPY -->
+
+        <article class="project-card">
+
+          <div class="project-image">
+            <img
+              src="assets/projects/iron-therapy/iron-therapy-home.jpg"
+              alt="Iron Therapy Fitness e-commerce store">
+          </div>
+
+          <div class="project-content">
+
+            <div class="project-number">04</div>
+
+            <h3>Iron Therapy Fitness</h3>
+
+            <div class="project-type">
+              E-commerce & Digital Growth
+            </div>
+
+            <p>
+              A collaborative e-commerce and digital growth project
+              for a fitness brand, covering website management,
+              content presentation, user experience, SEO opportunities,
+              and customer engagement.
+            </p>
+
+            <div class="contribution-title">
+              My Contribution
+            </div>
+
+            <ul class="contribution-list">
+              <li>Website management</li>
+              <li>Content presentation</li>
+              <li>User experience</li>
+              <li>SEO opportunities</li>
+              <li>Customer engagement</li>
+              <li>E-commerce optimization</li>
+            </ul>
+
+            <div class="tags">
+              <span class="tag">E-commerce</span>
+              <span class="tag">UX</span>
+              <span class="tag">SEO</span>
+              <span class="tag">Content</span>
+              <span class="tag">Fitness</span>
+            </div>
+
+            <a
+              href="https://irontherapyfitness.net/"
+              target="_blank"
+              rel="noopener"
+              class="project-link">
+              View Project →
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- AESTEVI -->
+
+        <article class="project-card">
+
+          <div class="project-image">
+            <img
+              src="assets/projects/aestevi/aestevi-home.jpg"
+              alt="Aestevi e-commerce store">
+          </div>
+
+          <div class="project-content">
+
+            <div class="project-number">05</div>
+
+            <h3>Aestevi</h3>
+
+            <div class="project-type">
+              E-commerce Audit & Optimization
+            </div>
+
+            <p>
+              An e-commerce analysis and optimization project
+              focused on store structure, customer experience,
+              product presentation, SEO opportunities, and
+              conversion optimization.
+            </p>
+
+            <div class="contribution-title">
+              My Contribution
+            </div>
+
+            <ul class="contribution-list">
+              <li>Store audit</li>
+              <li>CRO analysis</li>
+              <li>SEO analysis</li>
+              <li>Product presentation review</li>
+              <li>Customer experience analysis</li>
+              <li>Optimization recommendations</li>
+            </ul>
+
+            <div class="tags">
+              <span class="tag">E-commerce</span>
+              <span class="tag">SEO</span>
+              <span class="tag">CRO</span>
+              <span class="tag">UX</span>
+              <span class="tag">Store Audit</span>
+            </div>
+
+            <a
+              href="https://aestevi.com/"
+              target="_blank"
+              rel="noopener"
+              class="project-link">
+              View Project →
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- MANBAUL ANWAR -->
+
+        <article class="project-card">
+
+          <div class="project-image">
+            <img
+              src="assets/projects/manbaul-anwar/manbaul-anwar-login.jpg"
+              alt="MANBAUL ANWAR Arabic School Management System">
+          </div>
+
+          <div class="project-content">
+
+            <div class="project-number">06</div>
+
+            <h3>MANBAUL ANWAR Arabic School Management System</h3>
+
+            <div class="project-type">
+              Web & Application Development
+            </div>
+
+            <p>
+              A digital management and learning system designed
+              around the operational and academic needs of an
+              educational institution.
+            </p>
+
+            <div class="contribution-title">
+              Project Areas
+            </div>
+
+            <ul class="contribution-list">
+              <li>Student management</li>
+              <li>Teacher management</li>
+              <li>Parent access</li>
+              <li>Academic records</li>
+              <li>Examination management</li>
+              <li>Online learning</li>
+              <li>Finance and library</li>
+              <li>Role-based access</li>
+              <li>Firebase backend integration</li>
+            </ul>
+
+            <div class="tags">
+              <span class="tag">Flutter</span>
+              <span class="tag">Dart</span>
+              <span class="tag">Firebase</span>
+              <span class="tag">Firestore</span>
+              <span class="tag">Web App</span>
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEATURED SOFTWARE -->
+
+  <section class="featured">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span>Featured Software Project</span>
+
+        <h2>
+          Building Beyond E-commerce
+        </h2>
+
+        <p>
+          My work also extends into practical software and
+          application development where businesses and organizations
+          need more than a traditional website.
+        </p>
+
+      </div>
+
+
+      <div class="software-card">
+
+        <div class="software-images">
+
+          <img
+            src="assets/projects/manbaul-anwar/manbaul-anwar-login.jpg"
+            alt="MANBAUL ANWAR login interface">
+
+          <img
+            src="assets/projects/manbaul-anwar/manbaul-anwar-news.jpg"
+            alt="MANBAUL ANWAR news interface">
+
+          <img
+            src="assets/projects/manbaul-anwar/manbaul-anwar-dashboard.jpg"
+            alt="MANBAUL ANWAR dashboard">
+
+        </div>
+
+
+        <div class="software-content">
+
+          <h3>
+            MANBAUL ANWAR ARABIC SCHOOL MANAGEMENT SYSTEM
+          </h3>
+
+          <p>
+            A digital management and learning system designed
+            around the operational and academic requirements of
+            an educational institution.
+          </p>
+
+          <ul class="software-list">
+            <li>Student management</li>
+            <li>Teacher management</li>
+            <li>Parent access</li>
+            <li>Academic records</li>
+            <li>Examination management</li>
+            <li>Online learning</li>
+            <li>Finance</li>
+            <li>Library</li>
+            <li>Transport</li>
+            <li>Hostel management</li>
+            <li>Role-based access</li>
+            <li>Firebase backend integration</li>
+          </ul>
+
+          <div class="tags">
+
+            <span class="tag">Flutter</span>
+            <span class="tag">Dart</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">Firestore</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PLATFORMS -->
+
+  <section class="platforms">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span>Platforms</span>
+
+        <h2>
+          E-commerce Platforms I Work With
+        </h2>
+
+        <p>
+          My e-commerce work is not limited to simply making stores
+          look good. I focus on structure, discoverability,
+          usability, conversion, and the customer journey.
+        </p>
+
+      </div>
+
+
+      <div class="platform-grid">
+
+        <div class="platform-card">
+
+          <h3>Shopify</h3>
+
+          <p>
+            Store optimization and growth work focused on creating
+            a clearer and more conversion-focused shopping experience.
+          </p>
+
+          <ul class="platform-points">
+            <li>Store structure</li>
+            <li>Product pages</li>
+            <li>Collections</li>
+            <li>Mobile UX</li>
+            <li>SEO</li>
+            <li>CRO</li>
+            <li>Merchandising</li>
+            <li>Customer journey</li>
+          </ul>
+
+        </div>
+
+
+        <div class="platform-card">
+
+          <h3>Etsy</h3>
+
+          <p>
+            Marketplace optimization focused on helping products
+            become easier to discover, understand, trust, and buy.
+          </p>
+
+          <ul class="platform-points">
+            <li>Listing optimization</li>
+            <li>Product presentation</li>
+            <li>Search visibility</li>
+            <li>Keyword targeting</li>
+            <li>Conversion thinking</li>
+            <li>Customer trust</li>
+            <li>Marketplace strategy</li>
+            <li>Growth opportunities</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <div class="container">
+
+      <div class="cta-box">
+
+        <h2>
+          Have a Store or Digital Project?
+        </h2>
+
+        <p>
+          If you want a practical review of your store, website,
+          marketplace presence, or digital growth strategy,
+          let's discuss what needs to improve first.
+        </p>
+
+        <a
+          href="https://wa.me/message/V26H2754ROXUB1"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-gold">
+          Message Gunkowii Elite Pro →
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-brand">
+      GUNKOWII SABA
+    </div>
+
+    <p>
+      E-COMMERCE • DIGITAL • TECHNOLOGY
+    </p>
+
+    <p style="margin-top: 10px;">
+      © 2026 GUNKOWII SABA. All rights reserved.
+    </p>
+
+  </footer>
+
+</body>
+</html>
