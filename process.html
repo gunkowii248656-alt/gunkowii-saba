@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Process | GUNKOWII SABA</title>
+
+  <meta name="description" content="Discover the GUNKOWII SABA process for e-commerce, Shopify, Etsy, SEO, CRO, digital marketing, email marketing and web development projects.">
+
+  <meta name="keywords" content="Shopify process, e-commerce strategy, CRO process, SEO process, Etsy optimization, digital marketing, GUNKOWII SABA">
+
+  <style>
+    :root{
+      --green:#063f35;
+      --green-dark:#032d27;
+      --green-light:#0b594a;
+      --gold:#c9a44a;
+      --gold-light:#e1c56d;
+      --cream:#f7f1e3;
+      --white:#ffffff;
+      --text:#24312d;
+      --muted:#687570;
+      --border:#e6dfcf;
+      --soft:#fbf8f0;
+      --shadow:0 18px 45px rgba(0,0,0,.08);
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--cream);
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:min(1180px,92%);
+      margin:auto;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(3,45,39,.97);
+      border-bottom:1px solid rgba(225,197,109,.25);
+    }
+
+    .nav{
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:25px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#fff;
+      font-weight:800;
+      letter-spacing:.4px;
+    }
+
+    .logo img{
+      width:46px;
+      height:46px;
+      object-fit:contain;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:var(--cream);
+      font-size:14px;
+      transition:.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:var(--gold-light);
+    }
+
+    /* HERO */
+
+    .hero{
+      padding:105px 0 85px;
+      background:
+        linear-gradient(rgba(3,45,39,.94),rgba(3,45,39,.94)),
+        radial-gradient(circle at top right,#0b594a,transparent 45%);
+      color:#fff;
+      text-align:center;
+    }
+
+    .kicker{
+      color:var(--gold-light);
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:13px;
+      font-weight:800;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-family:Georgia,serif;
+      font-size:clamp(42px,7vw,76px);
+      line-height:1.05;
+      margin-bottom:22px;
+    }
+
+    .hero h2{
+      color:var(--gold-light);
+      font-size:clamp(21px,3vw,32px);
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:auto;
+      color:#e5eee9;
+      font-size:18px;
+    }
+
+    /* GENERAL */
+
+    .section{
+      padding:85px 0;
+    }
+
+    .section-heading{
+      max-width:800px;
+      margin:0 auto 55px;
+      text-align:center;
+    }
+
+    .section-heading span{
+      display:block;
+      color:var(--green-light);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      font-size:13px;
+      margin-bottom:10px;
+    }
+
+    .section-heading h2{
+      font-family:Georgia,serif;
+      color:var(--green);
+      font-size:clamp(32px,5vw,50px);
+      margin-bottom:15px;
+    }
+
+    .section-heading p{
+      color:var(--muted);
+    }
+
+    /* PROCESS */
+
+    .process-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:25px;
+    }
+
+    .process-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:34px 28px;
+      box-shadow:var(--shadow);
+      transition:.3s ease;
+      position:relative;
+    }
+
+    .process-card:hover{
+      transform:translateY(-6px);
+      border-color:var(--gold);
+    }
+
+    .process-number{
+      font-family:Georgia,serif;
+      font-size:48px;
+      font-weight:900;
+      color:var(--gold);
+      line-height:1;
+      margin-bottom:18px;
+    }
+
+    .process-card h3{
+      color:var(--green);
+      font-family:Georgia,serif;
+      font-size:27px;
+      margin-bottom:12px;
+    }
+
+    .process-card p{
+      color:var(--muted);
+      margin-bottom:18px;
+    }
+
+    .process-card a{
+      color:var(--green-light);
+      font-weight:800;
+      font-size:14px;
+    }
+
+    .process-card a:hover{
+      color:var(--gold);
+    }
+
+    /* JOURNEY */
+
+    .journey{
+      background:var(--green);
+      color:#fff;
+    }
+
+    .journey .section-heading h2{
+      color:#fff;
+    }
+
+    .journey .section-heading span{
+      color:var(--gold-light);
+    }
+
+    .journey .section-heading p{
+      color:#d7e5df;
+    }
+
+    .journey-flow{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .journey-step{
+      padding:15px 20px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(225,197,109,.35);
+      border-radius:999px;
+      color:#fff;
+      font-weight:800;
+      text-align:center;
+    }
+
+    .arrow{
+      color:var(--gold-light);
+      font-size:24px;
+      font-weight:900;
+    }
+
+    /* PROJECT FIT */
+
+    .fit-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+    }
+
+    .fit-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:27px 22px;
+      text-align:center;
+      transition:.3s ease;
+    }
+
+    .fit-card:hover{
+      transform:translateY(-5px);
+      border-color:var(--gold);
+    }
+
+    .fit-icon{
+      width:48px;
+      height:48px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 15px;
+      border-radius:50%;
+      background:var(--green);
+      color:var(--gold-light);
+      font-weight:900;
+    }
+
+    .fit-card h3{
+      color:var(--green);
+      margin-bottom:8px;
+    }
+
+    .fit-card p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* COLLABORATION */
+
+    .collaboration{
+      background:var(--soft);
+    }
+
+    .collab-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+      align-items:stretch;
+    }
+
+    .collab-box{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .collab-box h3{
+      color:var(--green);
+      font-family:Georgia,serif;
+      font-size:28px;
+      margin-bottom:15px;
+    }
+
+    .collab-box p{
+      color:var(--muted);
+      margin-bottom:18px;
+    }
+
+    .collab-box ul{
+      list-style:none;
+    }
+
+    .collab-box li{
+      padding:8px 0;
+      border-bottom:1px solid #eee9dc;
+      color:#46534e;
+    }
+
+    .collab-box li::before{
+      content:"✓";
+      color:var(--gold);
+      font-weight:900;
+      margin-right:10px;
+    }
+
+    /* CTA */
+
+    .cta{
+      padding:90px 0;
+      background:
+        linear-gradient(rgba(247,241,227,.95),rgba(247,241,227,.95)),
+        radial-gradient(circle at center,var(--gold-light),transparent 45%);
+      text-align:center;
+    }
+
+    .cta-box{
+      max-width:850px;
+      margin:auto;
+    }
+
+    .cta h2{
+      font-family:Georgia,serif;
+      color:var(--green);
+      font-size:clamp(34px,5vw,52px);
+      margin-bottom:16px;
+    }
+
+    .cta p{
+      color:var(--muted);
+      margin-bottom:28px;
+    }
+
+    .cta-buttons{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 22px;
+      border-radius:999px;
+      font-weight:800;
+      transition:.25s ease;
+    }
+
+    .btn-primary{
+      background:var(--green);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--green-light);
+      transform:translateY(-2px);
+    }
+
+    .btn-gold{
+      background:var(--gold);
+      color:var(--green-dark);
+    }
+
+    .btn-gold:hover{
+      background:var(--gold-light);
+      transform:translateY(-2px);
+    }
+
+    /* FOOTER */
+
+    footer{
+      background:var(--green-dark);
+      color:#dce8e3;
+      padding:45px 0 25px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      gap:40px;
+      margin-bottom:35px;
+    }
+
+    footer h3{
+      color:#fff;
+      margin-bottom:14px;
+    }
+
+    footer p{
+      color:#b9cbc5;
+      font-size:14px;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      font-size:14px;
+    }
+
+    .footer-links a:hover{
+      color:var(--gold-light);
+    }
+
+    .copyright{
+      border-top:1px solid rgba(255,255,255,.1);
+      padding-top:20px;
+      text-align:center;
+      color:#9fb3ac;
+      font-size:13px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px){
+
+      .nav{
+        flex-direction:column;
+        padding:15px 0;
+      }
+
+      .nav-links{
+        gap:12px;
+      }
+
+      .process-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .fit-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .collab-grid{
+        grid-template-columns:1fr;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:600px){
+
+      .hero{
+        padding:75px 0 60px;
+      }
+
+      .section{
+        padding:65px 0;
+      }
+
+      .process-grid{
+        grid-template-columns:1fr;
+      }
+
+      .fit-grid{
+        grid-template-columns:1fr;
+      }
+
+      .journey-flow{
+        flex-direction:column;
+      }
+
+      .arrow{
+        transform:rotate(90deg);
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+<header>
+
+  <div class="container nav">
+
+    <a href="index.html" class="logo">
+
+      <img
+        src="gunkowii-saba-logo.png"
+        alt="GUNKOWII SABA Logo"
+      >
+
+      <span>GUNKOWII SABA</span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+      <a href="index.html">Home</a>
+
+      <a href="about.html">About</a>
+
+      <a href="services.html">Services</a>
+
+      <a href="portfolio.html">Portfolio</a>
+
+      <a href="reviews.html">Reviews</a>
+
+      <a href="pricing.html">Pricing</a>
+
+      <a href="process.html" class="active">Process</a>
+
+      <a href="audit.html">Free Audit</a>
+
+      <a href="contact.html">Contact</a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="kicker">
+      How I Approach Digital Projects
+    </div>
+
+    <h1>From Storefront to Growth.</h1>
+
+    <h2>A Practical Process Built Around the Business.</h2>
+
+    <p>
+      I don't begin by changing things randomly. I first understand the
+      business, identify where opportunities and friction exist, prioritize
+      the work, implement improvements, and then use available data and
+      objectives to determine what should happen next.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- SIX STEPS -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>The Process</span>
+
+      <h2>
+        Understand → Analyze → Prioritize → Optimize → Measure → Grow
+      </h2>
+
+      <p>
+        Every project is different, but the underlying approach remains
+        focused on solving the right problem before trying to scale it.
+      </p>
+
+    </div>
+
+
+    <div class="process-grid">
+
+
+      <!-- 01 -->
+
+      <article class="process-card">
+
+        <div class="process-number">01</div>
+
+        <h3>Understand</h3>
+
+        <p>
+          Before making recommendations, I look at the business itself:
+          products, customers, positioning, current digital presence,
+          objectives and commercial priorities.
+        </p>
+
+        <a href="contact.html">
+          Start a Conversation →
+        </a>
+
+      </article>
+
+
+      <!-- 02 -->
+
+      <article class="process-card">
+
+        <div class="process-number">02</div>
+
+        <h3>Analyze</h3>
+
+        <p>
+          I examine the available information to identify usability issues,
+          SEO opportunities, conversion barriers, content gaps, trust issues
+          and customer journey friction.
+        </p>
+
+        <a href="audit.html">
+          Request an Audit →
+        </a>
+
+      </article>
+
+
+      <!-- 03 -->
+
+      <article class="process-card">
+
+        <div class="process-number">03</div>
+
+        <h3>Prioritize</h3>
+
+        <p>
+          Not every problem needs to be solved at once. I organize the
+          opportunities according to potential impact, urgency, available
+          resources and project objectives.
+        </p>
+
+        <a href="services.html">
+          Explore Services →
+        </a>
+
+      </article>
+
+
+      <!-- 04 -->
+
+      <article class="process-card">
+
+        <div class="process-number">04</div>
+
+        <h3>Optimize</h3>
+
+        <p>
+          Improvements can cover navigation, product presentation, messaging,
+          SEO structure, trust elements, user experience, conversion paths,
+          marketing and retention.
+        </p>
+
+        <a href="portfolio.html">
+          See Project Work →
+        </a>
+
+      </article>
+
+
+      <!-- 05 -->
+
+      <article class="process-card">
+
+        <div class="process-number">05</div>
+
+        <h3>Measure</h3>
+
+        <p>
+          Where useful performance data is available, I review relevant
+          metrics and business objectives to understand what is working and
+          what should be improved next.
+        </p>
+
+        <a href="services.html">
+          View Growth Services →
+        </a>
+
+      </article>
+
+
+      <!-- 06 -->
+
+      <article class="process-card">
+
+        <div class="process-number">06</div>
+
+        <h3>Grow</h3>
+
+        <p>
+          Once the foundation is stronger, acquisition and retention
+          strategies can be developed or scaled more effectively.
+        </p>
+
+        <a href="pricing.html">
+          View Working Plans →
+        </a>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CUSTOMER JOURNEY -->
+
+<section class="section journey">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>The Bigger Picture</span>
+
+      <h2>The Customer Journey Matters.</h2>
+
+      <p>
+        An online store is not just a collection of pages. Each stage affects
+        what happens next.
+      </p>
+
+    </div>
+
+
+    <div class="journey-flow">
+
+      <a href="services.html" class="journey-step">
+        Traffic
+      </a>
+
+      <div class="arrow">→</div>
+
+      <a href="services.html" class="journey-step">
+        User Experience
+      </a>
+
+      <div class="arrow">→</div>
+
+      <a href="services.html" class="journey-step">
+        Trust
+      </a>
+
+      <div class="arrow">→</div>
+
+      <a href="portfolio.html" class="journey-step">
+        Product Presentation
+      </a>
+
+      <div class="arrow">→</div>
+
+      <a href="services.html" class="journey-step">
+        Conversion
+      </a>
+
+      <div class="arrow">→</div>
+
+      <a href="services.html" class="journey-step">
+        Retention
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PROJECT TYPES -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>Where This Approach Applies</span>
+
+      <h2>One Strategy, Different Digital Problems.</h2>
+
+      <p>
+        The same structured thinking can be applied across different parts
+        of an online business.
+      </p>
+
+    </div>
+
+
+    <div class="fit-grid">
+
+
+      <div class="fit-card">
+
+        <a href="services.html">
+
+          <div class="fit-icon">S</div>
+
+          <h3>Shopify</h3>
+
+          <p>
+            Store structure, UX, product pages, collections and conversion
+            improvements.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="fit-card">
+
+        <a href="services.html">
+
+          <div class="fit-icon">E</div>
+
+          <h3>Etsy</h3>
+
+          <p>
+            Listing presentation, shop organization, search visibility and
+            customer experience.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="fit-card">
+
+        <a href="services.html">
+
+          <div class="fit-icon">G</div>
+
+          <h3>Growth</h3>
+
+          <p>
+            SEO, Google, Meta, social acquisition, retargeting and digital
+            marketing.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="fit-card">
+
+        <a href="services.html">
+
+          <div class="fit-icon">R</div>
+
+          <h3>Retention</h3>
+
+          <p>
+            Email marketing, customer lifecycle communication and
+            re-engagement.
+          </p>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- COLLABORATION -->
+
+<section class="section collaboration">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>Working With Teams</span>
+
+      <h2>Good Work Is Often Collaborative.</h2>
+
+      <p>
+        Digital projects can involve designers, developers, marketers,
+        store owners and other specialists. Clear responsibilities make the
+        work stronger.
+      </p>
+
+    </div>
+
+
+    <div class="collab-grid">
+
+
+      <div class="collab-box">
+
+        <h3>My Role</h3>
+
+        <p>
+          Depending on the project, I can take responsibility for substantial
+          parts of the work, including:
+        </p>
+
+        <ul>
+
+          <li>E-commerce analysis</li>
+
+          <li>Shopify optimization</li>
+
+          <li>SEO</li>
+
+          <li>CRO</li>
+
+          <li>Product and collection improvements</li>
+
+          <li>Digital marketing</li>
+
+          <li>Email marketing</li>
+
+          <li>Website management</li>
+
+          <li>Web development</li>
+
+          <li>Research and strategy</li>
+
+        </ul>
+
+      </div>
+
+
+      <div class="collab-box">
+
+        <h3>The Team Behind the Work</h3>
+
+        <p>
+          On collaborative projects, responsibilities are shared according
+          to the scope and needs of the client.
+        </p>
+
+        <ul>
+
+          <li>Clear responsibilities</li>
+
+          <li>Communication between contributors</li>
+
+          <li>Shared project objectives</li>
+
+          <li>Consistent execution</li>
+
+          <li>Client-focused decision making</li>
+
+          <li>Practical problem solving</li>
+
+          <li>Review and optimization</li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTRIBUTION -->
+
+<section class="section" style="background:#fff;">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>Project Transparency</span>
+
+      <h2>Real Work. Clear Contribution.</h2>
+
+      <p>
+        Some projects in my portfolio are collaborative or team-based.
+        On those projects, my contribution generally covers approximately
+        60–75% of the relevant project work depending on the scope and
+        responsibilities.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+  <div class="container">
+
+    <div class="cta-box">
+
+      <h2>Ready to Look at Your Business?</h2>
+
+      <p>
+        Start with the problem. Tell me what you are trying to improve,
+        and we can determine whether an audit, a specific service,
+        a trial project or a broader working arrangement makes sense.
+      </p>
+
+
+      <div class="cta-buttons">
+
+        <a
+          href="audit.html"
+          class="btn btn-gold"
+        >
+          Get a Free Audit
+        </a>
+
+
+        <a
+          href="services.html"
+          class="btn btn-primary"
+        >
+          Explore Services
+        </a>
+
+
+        <a
+          href="contact.html"
+          class="btn btn-primary"
+        >
+          Contact Me
+        </a>
+
+
+        <a
+          href="https://wa.me/message/V26H2754ROXUB1"
+          class="btn btn-primary"
+          target="_blank"
+        >
+          Message Gunkowii Elite Pro
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+
+      <div>
+
+        <h3>
+          <a href="index.html">
+            GUNKOWII SABA
+          </a>
+        </h3>
+
+        <p>
+          E-commerce & Digital Marketing Expert focused on Shopify,
+          Etsy, SEO, CRO, digital marketing, email marketing and
+          web development.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>Explore</h3>
+
+        <div class="footer-links">
+
+          <a href="about.html">About</a>
+
+          <a href="services.html">Services</a>
+
+          <a href="portfolio.html">Portfolio</a>
+
+          <a href="reviews.html">Reviews</a>
+
+          <a href="pricing.html">Pricing</a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <h3>Work With Me</h3>
+
+        <div class="footer-links">
+
+          <a href="process.html">Process</a>
+
+          <a href="audit.html">Free Audit</a>
+
+          <a href="contact.html">Contact</a>
+
+          <a
+            href="https://wa.me/message/V26H2754ROXUB1"
+            target="_blank"
+          >
+            WhatsApp
+          </a>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+
+      © 2026 GUNKOWII SABA.
+      E-COMMERCE • DIGITAL • TECHNOLOGY
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+</body>
+</html>
