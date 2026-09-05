@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Reviews & Client Feedback | GUNKOWII SABA</title>
+
+  <meta name="description"
+    content="Real client feedback, team-project testimonials, e-commerce experience and collaborative work from GUNKOWII SABA.">
+
+  <meta name="keywords"
+    content="Gunkowii Saba reviews, Shopify expert reviews, ecommerce testimonials, Bofowo reviews, Shopify CRO, SEO">
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f2e8;
+      color: #173c32;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #103b30;
+      border-bottom: 1px solid rgba(212,175,55,.35);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      width: 150px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 18px;
+    }
+
+    nav a {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: .3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #d4af37;
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        linear-gradient(
+          rgba(16,59,48,.93),
+          rgba(16,59,48,.93)
+        ),
+        url("Screenshot_2026-09-04-12-50-03-770_com.openai.chatgpt-edit.jpg")
+        center/cover;
+
+      color: #fff;
+      padding: 105px 22px;
+    }
+
+    .hero-content {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(42px,7vw,72px);
+      line-height: 1.05;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 800px;
+      color: #e7eee9;
+      font-size: 18px;
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 85px 22px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .heading {
+      max-width: 800px;
+      margin-bottom: 45px;
+    }
+
+    .heading span {
+      color: #a58217;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .heading h2 {
+      font-family: Georgia, serif;
+      color: #103b30;
+      font-size: clamp(34px,5vw,52px);
+      line-height: 1.15;
+      margin: 10px 0 15px;
+    }
+
+    .heading p {
+      color: #52665f;
+      font-size: 17px;
+    }
+
+    /* TRUST */
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .trust-card {
+      background: #fff;
+      border: 1px solid #e1d7c4;
+      border-radius: 10px;
+      padding: 35px;
+    }
+
+    .trust-card h3 {
+      font-family: Georgia, serif;
+      color: #103b30;
+      font-size: 29px;
+      margin-bottom: 12px;
+    }
+
+    .trust-card p {
+      color: #52665f;
+      margin-bottom: 15px;
+    }
+
+    .trust-list {
+      list-style: none;
+    }
+
+    .trust-list li {
+      color: #52665f;
+      padding: 5px 0;
+    }
+
+    .trust-list li::before {
+      content: "✓";
+      color: #a58217;
+      font-weight: bold;
+      margin-right: 9px;
+    }
+
+    /* REVIEWS */
+
+    .reviews-section {
+      background: #eee8dc;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 25px;
+    }
+
+    .review-card {
+      background: #fff;
+      border: 1px solid #e1d7c4;
+      border-radius: 10px;
+      padding: 32px;
+      position: relative;
+      transition: .3s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(16,59,48,.09);
+    }
+
+    .quote {
+      color: #d4af37;
+      font-family: Georgia, serif;
+      font-size: 58px;
+      line-height: .8;
+      margin-bottom: 18px;
+    }
+
+    .stars {
+      color: #d4af37;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    .review-text {
+      color: #52665f;
+      font-size: 16px;
+      font-style: italic;
+      margin-bottom: 22px;
+    }
+
+    .review-meta {
+      border-top: 1px solid #e1d7c4;
+      padding-top: 15px;
+    }
+
+    .review-meta strong {
+      display: block;
+      color: #103b30;
+    }
+
+    .review-meta span {
+      color: #a58217;
+      font-size: 13px;
+    }
+
+    .team-label {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      background: #edf3ef;
+      color: #103b30;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .source-note {
+      margin-top: 35px;
+      padding: 24px;
+      background: #103b30;
+      color: #fff;
+      border-left: 5px solid #d4af37;
+      border-radius: 7px;
+    }
+
+    .source-note strong {
+      color: #d4af37;
+    }
+
+    .source-note p {
+      color: #dce5e0;
+      margin-top: 5px;
+    }
+
+    .source-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    /* TEAM */
+
+    .team {
+      background: #103b30;
+      color: #fff;
+    }
+
+    .team .heading h2 {
+      color: #fff;
+    }
+
+    .team .heading p {
+      color: #d7e2dc;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+    }
+
+    .team-card {
+      border: 1px solid rgba(212,175,55,.35);
+      border-radius: 9px;
+      padding: 30px;
+    }
+
+    .team-card .number {
+      color: #d4af37;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .team-card h3 {
+      font-family: Georgia, serif;
+      color: #fff;
+      font-size: 25px;
+      margin: 8px 0;
+    }
+
+    .team-card p {
+      color: #d6e0db;
+      font-size: 14px;
+    }
+
+    /* PROJECT PROOF */
+
+    .projects {
+      background: #f7f2e8;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      background: #fff;
+      border: 1px solid #e1d7c4;
+      border-radius: 9px;
+      overflow: hidden;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .project-content {
+      padding: 23px;
+    }
+
+    .project-content small {
+      color: #a58217;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    .project-content h3 {
+      font-family: Georgia, serif;
+      color: #103b30;
+      font-size: 24px;
+      margin: 7px 0;
+    }
+
+    .project-content p {
+      color: #52665f;
+      font-size: 14px;
+    }
+
+    /* CONTRIBUTION */
+
+    .contribution {
+      background: #eee8dc;
+    }
+
+    .contribution-box {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 42px;
+      border-left: 5px solid #d4af37;
+      border-radius: 9px;
+    }
+
+    .contribution-box h3 {
+      font-family: Georgia, serif;
+      color: #103b30;
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .contribution-box p {
+      color: #52665f;
+      margin-bottom: 14px;
+    }
+
+    /* AUTHENTICITY */
+
+    .authenticity {
+      background: #103b30;
+      color: #fff;
+      text-align: center;
+    }
+
+    .auth-box {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .auth-box h2 {
+      font-family: Georgia, serif;
+      color: #d4af37;
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .auth-box p {
+      color: #dce5e0;
+    }
+
+    /* CTA */
+
+    .cta {
+      text-align: center;
+      background: #eee8dc;
+    }
+
+    .cta-box {
+      max-width: 850px;
+      margin: auto;
+      background: #103b30;
+      padding: 60px 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(212,175,55,.4);
+    }
+
+    .cta-box h2 {
+      font-family: Georgia, serif;
+      color: #d4af37;
+      font-size: clamp(34px,5vw,50px);
+      margin-bottom: 15px;
+    }
+
+    .cta-box p {
+      color: #dce5e0;
+      max-width: 650px;
+      margin: 0 auto 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 5px;
+      font-weight: bold;
+      background: #d4af37;
+      color: #103b30;
+      transition: .3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0b2c24;
+      color: #cbd8d2;
+      padding: 45px 22px;
+      text-align: center;
+    }
+
+    footer .brand {
+      color: #d4af37;
+      font-family: Georgia, serif;
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    footer p {
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px) {
+
+      .trust-grid,
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-grid,
+      .project-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+    }
+
+    @media(max-width:600px) {
+
+      .nav-container {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+        gap: 10px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 75px 20px;
+      }
+
+      section {
+        padding: 65px 18px;
+      }
+
+      .team-grid,
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .review-card,
+      .trust-card,
+      .contribution-box {
+        padding: 25px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="nav-container">
+
+    <a href="index.html">
+      <img
+        src="gunkowii-saba-logo.png"
+        alt="GUNKOWII SABA"
+        class="logo">
+    </a>
+
+    <nav>
+
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="reviews.html" class="active">Reviews</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="process.html">Process</a>
+      <a href="audit.html">Audit</a>
+      <a href="contact.html">Contact</a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      Real Client Feedback • Team Projects • Professional Experience
+    </div>
+
+    <h1>
+      Real Work. Real Feedback.
+    </h1>
+
+    <p>
+      The strongest proof of digital expertise is not simply a list
+      of services. It is the work delivered, the problems solved,
+      the collaboration behind it and the experience clients have
+      throughout the project.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- TRUST -->
+
+<section>
+
+  <div class="container">
+
+    <div class="heading">
+
+      <span>Professional Credibility</span>
+
+      <h2>
+        Feedback From Real E-commerce Work.
+      </h2>
+
+      <p>
+        The testimonials below come from collaborative projects
+        delivered through our wider professional team environment.
+        My contribution to collaborative projects is clearly
+        disclosed rather than presented as individual ownership
+        of the entire project.
+      </p>
+
+    </div>
+
+
+    <div class="trust-grid">
+
+      <div class="trust-card">
+
+        <h3>
+          What Clients Are Evaluating
+        </h3>
+
+        <ul class="trust-list">
+
+          <li>Shopify store quality</li>
+          <li>Store structure</li>
+          <li>Product presentation</li>
+          <li>User experience</li>
+          <li>Conversion optimization</li>
+          <li>SEO improvements</li>
+          <li>Marketing implementation</li>
+          <li>Communication and delivery</li>
+
+        </ul>
+
+      </div>
+
+
+      <div class="trust-card">
+
+        <h3>
+          What My Role Adds
+        </h3>
+
+        <ul class="trust-list">
+
+          <li>E-commerce analysis</li>
+          <li>Shopify optimization</li>
+          <li>SEO and CRO</li>
+          <li>Product and collection improvements</li>
+          <li>Marketing support</li>
+          <li>Email marketing</li>
+          <li>Website management</li>
+          <li>Research and strategy</li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REAL REVIEWS -->
+
+<section class="reviews-section">
+
+  <div class="container">
+
+    <div class="heading">
+
+      <span>Team Project Testimonials</span>
+
+      <h2>
+        What Clients Say About the Work.
+      </h2>
+
+      <p>
+        These are genuine client reviews from projects delivered
+        through the Bofowo Agency team environment. They are shown
+        here as collaborative project feedback.
+      </p>
+
+    </div>
+
+
+    <div class="reviews-grid">
+
+
+      <!-- REVIEW 1 -->
+
+      <article class="review-card">
+
+        <div class="quote">
+          “
+        </div>
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p class="review-text">
+          Professional store setup with clear guidance every step.
+          The client also indicated they would return for ads and
+          email flows.
+        </p>
+
+        <div class="review-meta">
+
+          <strong>
+            London Listings
+          </strong>
+
+          <span>
+            United Kingdom • Shopify Store Setup
+          </span>
+
+          <div class="team-label">
+            Team Project Feedback
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW 2 -->
+
+      <article class="review-card">
+
+        <div class="quote">
+          “
+        </div>
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p class="review-text">
+          The store was delivered on time with recordings and notes,
+          making the handoff easier for the client's team to manage.
+        </p>
+
+        <div class="review-meta">
+
+          <strong>
+            Maple Markets
+          </strong>
+
+          <span>
+            Canada • Shopify Project
+          </span>
+
+          <div class="team-label">
+            Team Project Feedback
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW 3 -->
+
+      <article class="review-card">
+
+        <div class="quote">
+          “
+        </div>
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p class="review-text">
+          Facebook Shop and Instagram Shopping were connected to
+          the catalog and a campaign was launched to help generate
+          real buyers.
+        </p>
+
+        <div class="review-meta">
+
+          <strong>
+            Mumbai Merch
+          </strong>
+
+          <span>
+            India • Social Commerce & Campaign
+          </span>
+
+          <div class="team-label">
+            Team Project Feedback
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW 4 -->
+
+      <article class="review-card">
+
+        <div class="quote">
+          “
+        </div>
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p class="review-text">
+          Store speed, layout and checkout were polished, with
+          excellent communication throughout the project.
+        </p>
+
+        <div class="review-meta">
+
+          <strong>
+            Berlin Basics
+          </strong>
+
+          <span>
+            Germany • Store Optimization
+          </span>
+
+          <div class="team-label">
+            Team Project Feedback
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW 5 -->
+
+      <article class="review-card">
+
+        <div class="quote">
+          “
+        </div>
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p class="review-text">
+          The Shopify funnel and Meta Ads were rebuilt with a clearer
+          strategy and cleaner execution, with the client reporting
+          an improvement in conversion rate.
+        </p>
+
+        <div class="review-meta">
+
+          <strong>
+            Shopflow Paris
+          </strong>
+
+          <span>
+            France • Shopify Funnel & Meta Ads
+          </span>
+
+          <div class="team-label">
+            Team Project Feedback
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW 6 -->
+
+      <article class="review-card">
+
+        <div class="quote">
+          “
+        </div>
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p class="review-text">
+          Fast communication, a structured process and trustworthy
+          product pages helped create a stronger store experience.
+        </p>
+
+        <div class="review-meta">
+
+          <strong>
+            Coastal Cart
+          </strong>
+
+          <span>
+            United States • Product Page & Store Work
+          </span>
+
+          <div class="team-label">
+            Team Project Feedback
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW 7 -->
+
+      <article class="review-card">
+
+        <div class="quote">
+          “
+        </div>
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p class="review-text">
+          Communication was sharp and the store performed better
+          after the optimization work, including analytics, page
+          speed and product-page SEO improvements.
+        </p>
+
+        <div class="review-meta">
+
+          <strong>
+            Berlin Basics
+          </strong>
+
+          <span>
+            Store Optimization • SEO • Performance
+          </span>
+
+          <div class="team-label">
+            Team Project Feedback
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW 8 -->
+
+      <article class="review-card">
+
+        <div class="quote">
+          “
+        </div>
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p class="review-text">
+          The fashion Shopify store matched the brand, with smooth
+          checkout and email flows designed to support repeat buyers.
+        </p>
+
+        <div class="review-meta">
+
+          <strong>
+            Osaka Outfit
+          </strong>
+
+          <span>
+            Fashion Store • Shopify & Email
+          </span>
+
+          <div class="team-label">
+            Team Project Feedback
+          </div>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+
+    <div class="source-note">
+
+      <strong>
+        Review source & attribution
+      </strong>
+
+      <p>
+        These testimonials are from the public Bofowo Agency
+        review collection. They represent work delivered through
+        the wider team environment and are not presented as
+        individual one-person client engagements.
+      </p>
+
+      <a
+        href="https://www.bofowoagency.com/full-reviews"
+        target="_blank"
+        rel="noopener"
+        class="source-link">
+
+        View Original Bofowo Reviews →
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TEAM -->
+
+<section class="team">
+
+  <div class="container">
+
+    <div class="heading">
+
+      <span>The Team Behind the Work</span>
+
+      <h2>
+        Collaboration Is Part of the Expertise.
+      </h2>
+
+      <p>
+        E-commerce projects often involve several specialists.
+        Strong results come from combining different skills while
+        keeping everyone focused on the same client objective.
+      </p>
+
+    </div>
+
+
+    <div class="team-grid">
+
+
+      <div class="team-card">
+
+        <div class="number">
+          01
+        </div>
+
+        <h3>
+          Bofowo Agency
+        </h3>
+
+        <p>
+          Shopify, e-commerce, marketing, optimization and
+          client-delivery environment.
+        </p>
+
+        <a
+          href="https://www.bofowoagency.com/"
+          target="_blank"
+          rel="noopener"
+          style="display:inline-block;margin-top:15px;color:#d4af37;font-weight:bold;">
+
+          Visit Agency →
+
+        </a>
+
+      </div>
+
+
+      <div class="team-card">
+
+        <div class="number">
+          02
+        </div>
+
+        <h3>
+          Ola
+        </h3>
+
+        <p>
+          Professional collaborator whose project experience
+          forms part of the wider team work represented in this
+          portfolio.
+        </p>
+
+        <a
+          href="https://mr-ola.base44.app/portfolio"
+          target="_blank"
+          rel="noopener"
+          style="display:inline-block;margin-top:15px;color:#d4af37;font-weight:bold;">
+
+          View Ola's Portfolio →
+
+        </a>
+
+      </div>
+
+
+      <div class="team-card">
+
+        <div class="number">
+          03
+        </div>
+
+        <h3>
+          Diamond Ahmed
+        </h3>
+
+        <p>
+          Technology and digital project collaborator whose work
+          is connected to the wider web and application development
+          environment.
+        </p>
+
+        <a
+          href="https://diamondahmed123.base44.app"
+          target="_blank"
+          rel="noopener"
+          style="display:inline-block;margin-top:15px;color:#d4af37;font-weight:bold;">
+
+          View Project →
+
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PROJECT PROOF -->
+
+<section class="projects">
+
+  <div class="container">
+
+    <div class="heading">
+
+      <span>Projects Behind the Experience</span>
+
+      <h2>
+        Real Stores. Real Digital Work.
+      </h2>
+
+      <p>
+        Client feedback becomes more meaningful when it can be
+        connected to the type of work being delivered.
+      </p>
+
+    </div>
+
+
+    <div class="project-grid">
+
+
+      <article class="project-card">
+
+        <img
+          src="assets/projects/teeology/teeology-home.jpg"
+          alt="Teeology Clothing">
+
+        <div class="project-content">
+
+          <small>
+            Shopify
+          </small>
+
+          <h3>
+            Teeology
+          </h3>
+
+          <p>
+            Store structure, product presentation, UX and
+            conversion-focused e-commerce work.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="project-card">
+
+        <img
+          src="assets/projects/beeyouti/beeyouti-home.jpg"
+          alt="BeeYouti">
+
+        <div class="project-content">
+
+          <small>
+            Shopify
+          </small>
+
+          <h3>
+            BeeYouti
+          </h3>
+
+          <p>
+            Product presentation, customer experience, SEO
+            opportunities and conversion optimization.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="project-card">
+
+        <img
+          src="assets/projects/iron-therapy/iron-therapy-home.jpg"
+          alt="Iron Therapy Fitness">
+
+        <div class="project-content">
+
+          <small>
+            E-commerce
+          </small>
+
+          <h3>
+            Iron Therapy
+          </h3>
+
+          <p>
+            Website management, UX, content presentation and
+            customer engagement improvements.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="project-card">
+
+        <img
+          src="assets/projects/look-for-it-here/look-for-it-here-home.jpg"
+          alt="Look For It Here">
+
+        <div class="project-content">
+
+          <small>
+            Shopify
+          </small>
+
+          <h3>
+            Look For It Here
+          </h3>
+
+          <p>
+            Store structure, product organization, SEO and
+            customer journey optimization.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="project-card">
+
+        <img
+          src="assets/projects/aestevi/aestevi-home.jpg"
+          alt="Aestevi">
+
+        <div class="project-content">
+
+          <small>
+            Audit & CRO
+          </small>
+
+          <h3>
+            Aestevi
+          </h3>
+
+          <p>
+            Store audit, CRO analysis, SEO review and
+            optimization recommendations.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="project-card">
+
+        <img
+          src="assets/projects/manbaul-anwar/manbaul-anwar-dashboard.jpg"
+          alt="MANBAUL ANWAR Arabic School Management System">
+
+        <div class="project-content">
+
+          <small>
+            Web Application
+          </small>
+
+          <h3>
+            MANBAUL ANWAR
+          </h3>
+
+          <p>
+            Digital management and learning system using
+            Flutter, Dart, Firebase and Firestore.
+          </p>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTRIBUTION -->
+
+<section class="contribution">
+
+  <div class="container">
+
+    <div class="contribution-box">
+
+      <h3>
+        My Contribution to Team Projects
+      </h3>
+
+      <p>
+        My experience includes individual projects, collaborative
+        projects and team-based e-commerce work.
+      </p>
+
+      <p>
+        On collaborative projects, I typically contribute a
+        substantial portion of the relevant project work, with my
+        involvement generally ranging from
+        <strong>60–75%</strong> depending on the project scope
+        and responsibilities.
+      </p>
+
+      <p>
+        My responsibilities can include e-commerce analysis,
+        Shopify optimization, SEO, CRO, product and collection
+        improvements, digital marketing, email marketing,
+        website management, development, research and strategy.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- AUTHENTICITY -->
+
+<section class="authenticity">
+
+  <div class="container">
+
+    <div class="auth-box">
+
+      <h2>
+        Real Work. Honest Attribution.
+      </h2>
+
+      <p>
+        I believe professional credibility should be built on
+        genuine projects, genuine feedback and clear attribution.
+      </p>
+
+      <p style="margin-top:15px;">
+        When a project is collaborative, I share the recognition
+        with the team while clearly explaining my own contribution.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+  <div class="container">
+
+    <div class="cta-box">
+
+      <h2>
+        Let's Work on Your Next Project.
+      </h2>
+
+      <p>
+        Have a Shopify store, Etsy business, website or digital
+        project that needs improvement? Let's discuss the problem
+        first and identify where the biggest opportunity is.
+      </p>
+
+      <a
+        href="https://wa.me/message/V26H2754ROXUB1"
+        target="_blank"
+        rel="noopener"
+        class="btn">
+
+        Message Gunkowii Elite Pro →
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="brand">
+    GUNKOWII SABA
+  </div>
+
+  <p>
+    E-COMMERCE • DIGITAL • TECHNOLOGY
+  </p>
+
+  <p style="margin-top:10px;">
+    © 2026 GUNKOWII SABA. All rights reserved.
+  </p>
+
+</footer>
+
+</body>
+</html>
