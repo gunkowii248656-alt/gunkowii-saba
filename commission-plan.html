@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Commission Plan | GUNKOWII SABA</title>
+
+  <meta name="description" content="Learn how the Commission Plan works, its benefits, considerations, risks, and whether performance-based e-commerce collaboration is right for your business.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f3e9;
+      color: #17352b;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      background: #123c2d;
+      color: #fff;
+      padding: 18px 6%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 15px rgba(0,0,0,.15);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #d8b45a;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: #d8b45a;
+    }
+
+    .hero {
+      background: #123c2d;
+      color: #fff;
+      padding: 90px 6%;
+    }
+
+    .hero-inner {
+      max-width: 1150px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .eyebrow {
+      color: #d8b45a;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 780px;
+      color: #f1ead9;
+      font-size: 18px;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 22px;
+      display: block;
+      border: 4px solid rgba(216,180,90,.7);
+      box-shadow: 0 20px 45px rgba(0,0,0,.28);
+    }
+
+    .image-label {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      background: rgba(18,60,45,.94);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 75px 6%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      font-family: Georgia, serif;
+      font-size: 38px;
+      color: #123c2d;
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      max-width: 720px;
+      margin: auto;
+      color: #5d685f;
+    }
+
+    .intro {
+      max-width: 850px;
+      margin: auto;
+      font-size: 18px;
+      text-align: center;
+      color: #405048;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      border: 1px solid #e5dcc8;
+      box-shadow: 0 10px 30px rgba(18,60,45,.07);
+    }
+
+    .card h3 {
+      color: #123c2d;
+      margin-bottom: 12px;
+      font-family: Georgia, serif;
+      font-size: 24px;
+    }
+
+    .card p {
+      color: #59635d;
+    }
+
+    .card ul {
+      padding-left: 20px;
+      margin-top: 15px;
+      color: #4e5952;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    .highlight {
+      background: #123c2d;
+      color: #fff;
+      border-radius: 20px;
+      padding: 45px;
+      margin-top: 50px;
+    }
+
+    .highlight h2 {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      margin-bottom: 15px;
+      color: #d8b45a;
+    }
+
+    .highlight p {
+      color: #edf1eb;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      background: #fff;
+      padding: 28px;
+      border-radius: 15px;
+      border: 1px solid #e5dcc8;
+    }
+
+    .number {
+      color: #d8b45a;
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .step h3 {
+      margin-bottom: 8px;
+      font-family: Georgia, serif;
+    }
+
+    .step p {
+      color: #59635d;
+      font-size: 15px;
+    }
+
+    .warning {
+      background: #fff;
+      border-left: 5px solid #d8b45a;
+      padding: 25px 30px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+
+    .warning strong {
+      color: #123c2d;
+    }
+
+    .comparison {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      min-width: 700px;
+    }
+
+    th,
+    td {
+      padding: 18px;
+      border-bottom: 1px solid #e7dfcf;
+      text-align: left;
+    }
+
+    th {
+      background: #123c2d;
+      color: #fff;
+    }
+
+    td {
+      color: #4d5851;
+    }
+
+    .cta {
+      background: #eadfca;
+      text-align: center;
+      padding: 80px 6%;
+    }
+
+    .cta h2 {
+      font-family: Georgia, serif;
+      font-size: 40px;
+      color: #123c2d;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      max-width: 700px;
+      margin: 0 auto 28px;
+      color: #526057;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 25px;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: #123c2d;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      border: 2px solid #123c2d;
+      color: #123c2d;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      opacity: .9;
+    }
+
+    footer {
+      background: #0d2d22;
+      color: #dfe8e2;
+      text-align: center;
+      padding: 35px 6%;
+      font-size: 14px;
+    }
+
+    footer strong {
+      color: #d8b45a;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero p {
+        margin: auto;
+      }
+
+      .hero-image {
+        max-width: 600px;
+        width: 100%;
+        margin: auto;
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 800px) {
+      .nav {
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight {
+        padding: 30px;
+      }
+
+      .hero {
+        padding: 70px 6%;
+      }
+
+      .hero-image img {
+        max-height: 430px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="brand">GUNKOWII SABA</a>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Plans</a>
+      <a href="process.html">Process</a>
+      <a href="audit.html">Audit</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <div class="eyebrow">
+        Plan 02 • Performance-Based Collaboration
+      </div>
+
+      <h1>Commission Plan</h1>
+
+      <p>
+        A performance-based engagement model where compensation is connected
+        to agreed commercial outcomes rather than relying entirely on a
+        traditional upfront project fee.
+      </p>
+    </div>
+
+    <div class="hero-image">
+      <img
+        src="Screenshot_2026-09-04-12-53-39-223_com.openai.chatgpt-edit.jpg"
+        alt="Gunkowii SABA working in a professional office environment"
+      >
+
+      <div class="image-label">
+        GUNKOWII SABA • E-COMMERCE & DIGITAL
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>What Is the Commission Plan?</h2>
+  </div>
+
+  <p class="intro">
+    Instead of paying only for a fixed project, a business and I can agree
+    on a commission structure where my compensation is connected to defined
+    results, such as qualifying sales or orders generated during the agreed
+    engagement.
+  </p>
+
+  <div class="highlight">
+    <h2>The Important Part</h2>
+
+    <p>
+      This is not a promise of guaranteed sales. Performance depends on many
+      factors, including the product, pricing, market demand, store quality,
+      traffic, advertising budget, fulfillment, customer trust, and the
+      agreed strategy.
+    </p>
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>How It Works</h2>
+
+    <p>
+      A successful commission arrangement needs clear expectations before
+      the work begins.
+    </p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="number">01</div>
+      <h3>Evaluate</h3>
+
+      <p>
+        We review the store, products, current position, traffic,
+        marketing situation, and business objectives.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="number">02</div>
+      <h3>Agree</h3>
+
+      <p>
+        We agree on the scope, qualifying results, commission structure,
+        tracking method, timeframe, and responsibilities.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="number">03</div>
+      <h3>Execute</h3>
+
+      <p>
+        I work on the agreed areas such as store optimization,
+        CRO, SEO, marketing, or customer acquisition.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="number">04</div>
+      <h3>Measure</h3>
+
+      <p>
+        Performance is reviewed using the agreed tracking method and
+        compensation is handled according to the agreed terms.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>What Can Be Included?</h2>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>🛒 Store Optimization</h3>
+
+      <ul>
+        <li>Shopify improvements</li>
+        <li>Product-page optimization</li>
+        <li>Store structure</li>
+        <li>Customer journey improvements</li>
+        <li>Conversion opportunities</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📣 Customer Acquisition</h3>
+
+      <ul>
+        <li>Marketing strategy</li>
+        <li>Google Ads opportunities</li>
+        <li>Google Shopping</li>
+        <li>Meta advertising</li>
+        <li>Retargeting strategies</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🔎 Search & Visibility</h3>
+
+      <ul>
+        <li>SEO opportunities</li>
+        <li>Product SEO</li>
+        <li>Collection optimization</li>
+        <li>Search visibility improvements</li>
+        <li>Content opportunities</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📧 Retention</h3>
+
+      <ul>
+        <li>Email campaigns</li>
+        <li>Customer re-engagement</li>
+        <li>Abandoned-cart strategies</li>
+        <li>Customer lifecycle communication</li>
+        <li>Repeat-purchase opportunities</li>
+      </ul>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>Benefits of the Commission Plan</h2>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>Lower Upfront Commitment</h3>
+
+      <p>
+        Depending on the agreed arrangement, the business may not need
+        to make the same type of upfront investment required by a
+        traditional expert engagement.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Shared Performance Focus</h3>
+
+      <p>
+        The model creates a strong focus on commercial outcomes because
+        compensation is connected to the agreed performance criteria.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Good for Testing Collaboration</h3>
+
+      <p>
+        It can provide an alternative for businesses that want to explore
+        a working relationship before committing to a larger fixed project.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Growth-Oriented Approach</h3>
+
+      <p>
+        The strategy can focus on the complete path from traffic and
+        customer experience through conversion and retention.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>Advantages & Disadvantages</h2>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+
+      <h3>Advantages</h3>
+
+      <ul>
+        <li>Potentially lower upfront cost</li>
+        <li>Strong focus on agreed commercial outcomes</li>
+        <li>Can align incentives between both sides</li>
+        <li>Useful for businesses comfortable with performance-based arrangements</li>
+        <li>Can combine strategy, optimization, and marketing</li>
+      </ul>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Disadvantages & Risks</h3>
+
+      <ul>
+        <li>Income depends on the agreed performance criteria</li>
+        <li>Results cannot be guaranteed</li>
+        <li>Sales may depend on factors outside my control</li>
+        <li>Attribution can become complicated without proper tracking</li>
+        <li>Both sides need clear responsibilities and reporting</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+  <div class="warning">
+
+    <strong>Important:</strong>
+
+    A commission arrangement should never be based on vague promises.
+    Before starting, both sides should clearly define what counts as a
+    qualifying result, how results will be tracked, what timeframe applies,
+    and what happens when external factors affect performance.
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+
+    <h2>Who Should Consider This Plan?</h2>
+
+    <p>
+      This model is not ideal for every business. It works best when the
+      business and project are suitable for measurable performance tracking.
+    </p>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+
+      <h3>Businesses With a Sellable Product</h3>
+
+      <p>
+        The product or service should have a clear market, reasonable
+        pricing, and a genuine opportunity to attract customers.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Businesses Ready to Track Results</h3>
+
+      <p>
+        The business should be willing to provide access to the relevant
+        information required to measure agreed outcomes accurately.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Businesses Open to Collaboration</h3>
+
+      <p>
+        Store owners still have responsibilities involving pricing,
+        inventory, fulfillment, customer service, and other operational areas.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Businesses Seeking Growth</h3>
+
+      <p>
+        This can suit businesses that want to focus heavily on customer
+        acquisition, conversion, and measurable commercial improvement.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+
+    <h2>What Must Be Clear Before Starting?</h2>
+
+  </div>
+
+  <div class="comparison">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>What Should Be Agreed</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td>Commission</td>
+          <td>The percentage or compensation structure.</td>
+        </tr>
+
+        <tr>
+          <td>Qualifying result</td>
+          <td>Exactly which sales, orders, or outcomes count.</td>
+        </tr>
+
+        <tr>
+          <td>Tracking</td>
+          <td>How qualifying results will be identified and verified.</td>
+        </tr>
+
+        <tr>
+          <td>Timeframe</td>
+          <td>When the performance arrangement begins and ends.</td>
+        </tr>
+
+        <tr>
+          <td>Responsibilities</td>
+          <td>What I handle and what the business owner remains responsible for.</td>
+        </tr>
+
+        <tr>
+          <td>External factors</td>
+          <td>How refunds, cancellations, inventory shortages, or other factors are treated.</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+
+    <h2>Commission Does Not Mean “No Investment”</h2>
+
+  </div>
+
+  <p class="intro">
+
+    A performance-based arrangement may reduce or change the upfront
+    professional fee, but the business may still need to invest in areas
+    such as advertising, inventory, software, fulfillment, content,
+    payment processing, or other operating requirements.
+
+    <br><br>
+
+    The purpose is to change how professional compensation is structured,
+    not to suggest that e-commerce growth requires no investment.
+
+  </p>
+
+</section>
+
+<section class="cta">
+
+  <h2>Wondering If Commission Is Right for You?</h2>
+
+  <p>
+    Tell me about your store, products, current situation, and growth goal.
+    We can determine whether a commission-based arrangement is suitable
+    or whether another plan would make more sense.
+  </p>
+
+  <div class="buttons">
+
+    <a href="contact.html" class="btn btn-primary">
+      Discuss Your Project
+    </a>
+
+    <a href="pricing.html" class="btn btn-secondary">
+      Compare All Plans
+    </a>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <p>
+    <strong>GUNKOWII SABA</strong><br>
+    E-COMMERCE • DIGITAL • TECHNOLOGY
+  </p>
+
+  <p style="margin-top:10px;">
+    © 2026 GUNKOWII SABA. All rights reserved.
+  </p>
+
+</footer>
+
+</body>
+</html>
