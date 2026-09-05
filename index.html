@@ -1,2385 +1,2418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>GUNKOWII SABA | E-commerce & Digital Marketing Expert</title>
-
-  <meta
-    name="description"
-    content="GUNKOWII SABA is an E-commerce & Digital Marketing Expert specializing in Shopify, Etsy, SEO, CRO, paid advertising, email marketing and web development."
-  >
-
-  <meta
-    name="keywords"
-    content="Gunkowii Saba, Shopify Expert, Etsy Expert, E-commerce Expert, SEO, CRO, Digital Marketing, Email Marketing, Web Development"
-  >
-
-  <meta name="author" content="GUNKOWII SABA">
-
-  <style>
-    :root {
-      --green-dark: #062f27;
-      --green: #0b4d3c;
-      --green-light: #12634d;
-      --gold: #d6ad55;
-      --gold-light: #efd28b;
-      --cream: #f7f1e3;
-      --white: #ffffff;
-      --black: #07110f;
-      --text: #24332e;
-      --muted: #68756f;
-      --border: rgba(11, 77, 60, 0.12);
-      --shadow: 0 18px 50px rgba(3, 38, 31, 0.10);
-      --radius: 20px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: #fffdf8;
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .container {
-      width: min(1180px, 92%);
-      margin: auto;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(6, 47, 39, 0.97);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(214, 173, 85, 0.18);
-    }
-
-    .nav {
-      min-height: 78px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-    }
-
-    .logo img {
-      width: 150px;
-      height: auto;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      transition: 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold-light);
-    }
-
-    .nav-cta {
-      padding: 11px 17px;
-      border: 1px solid var(--gold);
-      border-radius: 999px;
-      color: var(--gold-light) !important;
-    }
-
-    .menu-btn {
-      display: none;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: transparent;
-      color: white;
-      padding: 9px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      background:
-        radial-gradient(circle at 85% 15%, rgba(214,173,85,0.16), transparent 30%),
-        linear-gradient(135deg, #052b24, #0b4d3c);
-      color: white;
-      padding: 95px 0 85px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      border: 1px solid rgba(214,173,85,0.13);
-      border-radius: 50%;
-      right: -160px;
-      top: -160px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: center;
-      gap: 70px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-kicker {
-      color: var(--gold-light);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(48px, 7vw, 84px);
-      line-height: 0.98;
-      margin-bottom: 15px;
-      letter-spacing: -2px;
-    }
-
-    .hero h2 {
-      color: var(--gold-light);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(20px, 3vw, 30px);
-      margin-bottom: 22px;
-      letter-spacing: 1px;
-    }
-
-    .hero p {
-      max-width: 680px;
-      color: rgba(255,255,255,0.82);
-      font-size: 17px;
-      margin-bottom: 30px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 13px;
-    }
-
-    .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      min-height: 50px;
-      padding: 13px 21px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 14px;
-      transition: 0.3s ease;
-    }
-
-    .btn-gold {
-      background: var(--gold);
-      color: var(--green-dark);
-    }
-
-    .btn-gold:hover {
-      transform: translateY(-3px);
-      background: var(--gold-light);
-    }
-
-    .btn-outline {
-      border: 1px solid rgba(255,255,255,0.35);
-      color: white;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--gold);
-      color: var(--gold-light);
-    }
-
-    .hero-photo {
-      position: relative;
-    }
-
-    .hero-photo img {
-      width: 100%;
-      max-width: 470px;
-      margin-left: auto;
-      border-radius: 30px;
-      border: 5px solid rgba(214,173,85,0.25);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
-    }
-
-    .experience-badge {
-      position: absolute;
-      left: 15px;
-      bottom: 25px;
-      background: rgba(255,255,255,0.96);
-      color: var(--green-dark);
-      padding: 17px 20px;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      max-width: 230px;
-    }
-
-    .experience-badge strong {
-      display: block;
-      color: var(--green);
-      font-size: 19px;
-      font-family: Georgia, serif;
-    }
-
-    .experience-badge span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* =========================
-       GENERAL SECTIONS
-    ========================= */
-
-    section {
-      padding: 90px 0;
-    }
-
-    .section-heading {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto 50px;
-    }
-
-    .section-kicker {
-      color: var(--green-light);
-      text-transform: uppercase;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-
-    .section-heading h2 {
-      color: var(--green-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.1;
-      margin-bottom: 15px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-    }
-
-    /* =========================
-       METRICS
-    ========================= */
-
-    .metrics {
-      margin-top: -1px;
-      background: var(--cream);
-      padding: 45px 0;
-    }
-
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .metric {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 28px 18px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(3, 38, 31, 0.05);
-    }
-
-    .metric-number {
-      font-family: Georgia, serif;
-      color: var(--green);
-      font-size: 42px;
-      line-height: 1;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .metric-label {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    /* =========================
-       EXPERTISE
-    ========================= */
-
-    .expertise-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .expertise-card {
-      padding: 30px;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 10px 35px rgba(3, 38, 31, 0.05);
-      transition: 0.3s ease;
-    }
-
-    .expertise-card:hover {
-      transform: translateY(-7px);
-      box-shadow: var(--shadow);
-    }
-
-    .expertise-icon {
-      width: 54px;
-      height: 54px;
-      display: grid;
-      place-items: center;
-      background: var(--green-dark);
-      color: var(--gold-light);
-      border-radius: 15px;
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 20px;
-    }
-
-    .expertise-card h3 {
-      color: var(--green-dark);
-      font-family: Georgia, serif;
-      font-size: 22px;
-      margin-bottom: 9px;
-    }
-
-    .expertise-card p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* =========================
-       PLATFORM SHOWCASE
-    ========================= */
-
-    .platform-section {
-      background: var(--green-dark);
-      color: white;
-    }
-
-    .platform-section .section-kicker {
-      color: var(--gold-light);
-    }
-
-    .platform-section .section-heading h2 {
-      color: white;
-    }
-
-    .platform-section .section-heading p {
-      color: rgba(255,255,255,0.7);
-    }
-
-    .platform-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-    }
-
-    .platform-card {
-      min-height: 320px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 25px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: #0b4d3c;
-    }
-
-    .platform-card-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0.36;
-      transition: 0.5s ease;
-    }
-
-    .platform-card:hover .platform-card-bg {
-      transform: scale(1.05);
-      opacity: 0.45;
-    }
-
-    .platform-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(3,25,21,0.98), rgba(3,25,21,0.20));
-    }
-
-    .platform-content {
-      position: absolute;
-      bottom: 28px;
-      left: 28px;
-      right: 28px;
-      z-index: 2;
-    }
-
-    .platform-logo {
-      width: 68px;
-      height: 68px;
-      display: grid;
-      place-items: center;
-      border-radius: 18px;
-      background: white;
-      color: var(--green-dark);
-      font-size: 23px;
-      font-weight: 900;
-      font-family: Arial, sans-serif;
-      margin-bottom: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.20);
-    }
-
-    .platform-content h3 {
-      font-family: Georgia, serif;
-      font-size: 32px;
-      margin-bottom: 7px;
-    }
-
-    .platform-content p {
-      color: rgba(255,255,255,0.78);
-      font-size: 14px;
-      max-width: 480px;
-    }
-
-    .platform-tag {
-      display: inline-block;
-      margin-top: 14px;
-      color: var(--gold-light);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-    }
-
-    /* =========================
-       LOGO / CHANNEL GRID
-    ========================= */
-
-    .channel-section {
-      background: #f7f1e3;
-    }
-
-    .channel-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 15px;
-    }
-
-    .channel-card {
-      min-height: 150px;
-      background: white;
-      border: 1px solid rgba(11,77,60,0.10);
-      border-radius: 18px;
-      padding: 22px 15px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: 0.3s ease;
-    }
-
-    .channel-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow);
-      border-color: rgba(214,173,85,0.65);
-    }
-
-    .channel-logo {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      background: var(--green-dark);
-      color: var(--gold-light);
-      font-weight: 900;
-      font-size: 18px;
-      margin-bottom: 12px;
-    }
-
-    .channel-card h3 {
-      font-size: 14px;
-      color: var(--green-dark);
-      margin-bottom: 4px;
-    }
-
-    .channel-card p {
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    /* =========================
-       PROJECTS
-    ========================= */
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .project-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 0 10px 35px rgba(3,38,31,0.06);
-      transition: 0.3s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-7px);
-      box-shadow: var(--shadow);
-    }
-
-    .project-image {
-      height: 220px;
-      overflow: hidden;
-      background: #e9eee9;
-    }
-
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: 0.5s ease;
-    }
-
-    .project-card:hover .project-image img {
-      transform: scale(1.04);
-    }
-
-    .project-body {
-      padding: 24px;
-    }
-
-    .project-type {
-      display: inline-block;
-      color: var(--green-light);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .project-body h3 {
-      color: var(--green-dark);
-      font-family: Georgia, serif;
-      font-size: 22px;
-      margin-bottom: 9px;
-    }
-
-    .project-body p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 16px;
-    }
-
-    .project-meta {
-      border-top: 1px solid #edf0ec;
-      padding-top: 14px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .project-link {
-      display: inline-flex;
-      margin-top: 16px;
-      color: var(--green);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .project-link:hover {
-      color: #a47d25;
-    }
-
-    /* =========================
-       MANBAUL MINI GALLERY
-    ========================= */
-
-    .mini-gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-      height: 220px;
-      background: #e9eee9;
-    }
-
-    .mini-gallery img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      min-width: 0;
-    }
-
-    /* =========================
-       APPROACH
-    ========================= */
-
-    .approach-section {
-      background: white;
-    }
-
-    .approach-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 15px;
-    }
-
-    .approach-card {
-      text-align: center;
-      padding: 25px 15px;
-      border-radius: 18px;
-      background: #f8f5ed;
-      border: 1px solid var(--border);
-    }
-
-    .approach-number {
-      font-size: 12px;
-      color: var(--gold);
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-
-    .approach-card h3 {
-      color: var(--green-dark);
-      font-family: Georgia, serif;
-      margin-bottom: 7px;
-    }
-
-    .approach-card p {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    /* =========================
-       TEAM / PROFILE
-    ========================= */
-
-    .dark-section {
-      background: var(--green-dark);
-      color: white;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .split-image img {
-      width: 100%;
-      max-width: 500px;
-      margin: auto;
-      border-radius: 25px;
-      border: 4px solid rgba(214,173,85,0.20);
-    }
-
-    .dark-section h2 {
-      color: white;
-      font-family: Georgia, serif;
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.1;
-      margin-bottom: 18px;
-    }
-
-    .dark-section p {
-      color: rgba(255,255,255,0.74);
-      margin-bottom: 18px;
-    }
-
-    .check-list {
-      list-style: none;
-      margin: 25px 0;
-    }
-
-    .check-list li {
-      position: relative;
-      padding-left: 28px;
-      margin-bottom: 12px;
-      color: rgba(255,255,255,0.86);
-      font-size: 14px;
-    }
-
-    .check-list li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--gold-light);
-      font-weight: 900;
-    }
-
-    /* =========================
-       PROFILE
-    ========================= */
-
-    .profile-section {
-      background: #fffdf8;
-    }
-
-    .profile-card {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 55px;
-      align-items: center;
-      background: var(--cream);
-      border-radius: 28px;
-      padding: 35px;
-      border: 1px solid var(--border);
-    }
-
-    .profile-card img {
-      width: 100%;
-      max-width: 430px;
-      margin: auto;
-      border-radius: 22px;
-    }
-
-    .profile-card h2 {
-      font-family: Georgia, serif;
-      color: var(--green-dark);
-      font-size: 38px;
-      margin-bottom: 15px;
-    }
-
-    .profile-card p {
-      color: var(--muted);
-      margin-bottom: 15px;
-    }
-
-    /* =========================
-       CTA
-    ========================= */
-
-    .cta {
-      background:
-        radial-gradient(circle at 15% 20%, rgba(214,173,85,0.16), transparent 30%),
-        linear-gradient(135deg, #07392f, #0b4d3c);
-      color: white;
-      text-align: center;
-    }
-
-    .cta h2 {
-      font-family: Georgia, serif;
-      font-size: clamp(34px, 5vw, 54px);
-      margin-bottom: 15px;
-    }
-
-    .cta p {
-      max-width: 680px;
-      margin: 0 auto 28px;
-      color: rgba(255,255,255,0.76);
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 13px;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      background: #031d18;
-      color: white;
-      padding: 55px 0 25px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      gap: 50px;
-      padding-bottom: 35px;
-    }
-
-    footer h3 {
-      font-family: Georgia, serif;
-      color: var(--gold-light);
-      margin-bottom: 14px;
-    }
-
-    footer p,
-    footer a {
-      color: rgba(255,255,255,0.66);
-      font-size: 13px;
-    }
-
-    footer a:hover {
-      color: var(--gold-light);
-    }
-
-    .footer-links {
-      list-style: none;
-    }
-
-    .footer-links li {
-      margin-bottom: 8px;
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.09);
-      padding-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    /* =========================
-       ANIMATIONS
-    ========================= */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(25px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 1050px) {
-      .nav-links {
-        gap: 12px;
-      }
-
-      .nav-links a {
-        font-size: 12px;
-      }
-
-      .metrics-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .channel-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .approach-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (max-width: 850px) {
-      .nav {
-        min-height: 70px;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        left: 4%;
-        right: 4%;
-        top: 78px;
-        background: var(--green-dark);
-        border: 1px solid rgba(214,173,85,0.15);
-        border-radius: 16px;
-        padding: 18px;
-        flex-direction: column;
-        align-items: stretch;
-        box-shadow: var(--shadow);
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .nav-links a {
-        display: block;
-        padding: 10px;
-        font-size: 14px;
-      }
-
-      .hero-grid,
-      .split,
-      .profile-card {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 65px;
-      }
-
-      .hero-photo img {
-        margin: auto;
-      }
-
-      .experience-badge {
-        left: 10%;
-      }
-
-      .expertise-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .platform-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      section {
-        padding: 65px 0;
-      }
-
-      .container {
-        width: 90%;
-      }
-
-      .hero h1 {
-        font-size: 48px;
-      }
-
-      .hero h2 {
-        font-size: 21px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
-      .hero-buttons,
-      .cta-buttons {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .metrics-grid,
-      .expertise-grid,
-      .projects-grid,
-      .channel-grid,
-      .approach-grid,
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .metric-number {
-        font-size: 38px;
-      }
-
-      .channel-grid {
-        gap: 12px;
-      }
-
-      .channel-card {
-        min-height: 130px;
-      }
-
-      .platform-card {
-        min-height: 300px;
-      }
-
-      .profile-card {
-        padding: 22px;
-      }
-
-      .profile-card h2 {
-        font-size: 32px;
-      }
-
-      .footer-grid {
-        gap: 30px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GUNKOWII SABA | E-commerce & Digital Marketing Expert</title>
+
+<meta name="description" content="GUNKOWII SABA — E-commerce & Digital Marketing Expert specializing in Shopify, Etsy, SEO, CRO, paid advertising, email marketing, web development and practical growth.">
+
+<meta name="keywords" content="Gunkowii Saba, Shopify expert, Etsy expert, e-commerce expert, SEO, CRO, digital marketing, Google Ads, Meta Ads, email marketing, web development">
+
+<style>
+:root{
+    --green:#063d2e;
+    --green-dark:#03271e;
+    --green-light:#0b5a43;
+    --gold:#c9a227;
+    --gold-light:#e3c65a;
+    --cream:#f8f3e7;
+    --white:#ffffff;
+    --text:#24342e;
+    --muted:#6b7771;
+    --border:rgba(201,162,39,.28);
+    --shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    line-height:1.7;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+h1,h2,h3,h4{
+    font-family:Georgia,"Times New Roman",serif;
+}
+
+.container{
+    width:min(1180px,92%);
+    margin:auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(3,39,30,.97);
+    border-bottom:1px solid rgba(201,162,39,.25);
+    backdrop-filter:blur(12px);
+}
+
+.navbar{
+    min-height:78px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+}
+
+.logo img{
+    width:175px;
+    max-height:58px;
+    object-fit:contain;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.nav-links a{
+    color:#fff;
+    font-size:13px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:var(--gold-light);
+}
+
+.menu-btn{
+    display:none;
+    color:#fff;
+    font-size:28px;
+    cursor:pointer;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    background:
+        radial-gradient(circle at 85% 15%,rgba(201,162,39,.15),transparent 28%),
+        linear-gradient(135deg,var(--green-dark),var(--green));
+    color:#fff;
+    padding:90px 0 75px;
+    overflow:hidden;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.08fr .92fr;
+    align-items:center;
+    gap:70px;
+}
+
+.kicker{
+    display:inline-block;
+    color:var(--gold-light);
+    border:1px solid rgba(227,198,90,.45);
+    padding:8px 15px;
+    border-radius:50px;
+    font-size:12px;
+    letter-spacing:1.5px;
+    font-weight:700;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(45px,7vw,78px);
+    line-height:1;
+    margin-bottom:15px;
+}
+
+.hero h2{
+    color:var(--gold-light);
+    font-size:clamp(20px,3vw,32px);
+    letter-spacing:1px;
+    line-height:1.25;
+    margin-bottom:25px;
+}
+
+.hero p{
+    max-width:650px;
+    color:#dce8e2;
+    font-size:17px;
+    margin-bottom:32px;
+}
+
+.hero-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:13px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:13px 22px;
+    border-radius:5px;
+    font-size:14px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:var(--gold);
+    color:#10291f;
+}
+
+.btn-primary:hover{
+    background:var(--gold-light);
+    transform:translateY(-2px);
+}
+
+.btn-outline{
+    border:1px solid rgba(255,255,255,.45);
+    color:#fff;
+}
+
+.btn-outline:hover{
+    border-color:var(--gold);
+    color:var(--gold-light);
+}
+
+/* =========================
+   HERO PROFILE FRAME
+========================= */
+
+.hero-photo-wrap{
+    position:relative;
+    width:min(430px,100%);
+    margin:auto;
+    padding:14px;
+}
+
+.hero-photo-wrap::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border:1px solid var(--gold);
+    transform:translate(14px,14px);
+    border-radius:18px;
+    opacity:.75;
+    z-index:0;
+}
+
+.hero-photo-wrap::after{
+    content:"";
+    position:absolute;
+    width:90px;
+    height:90px;
+    right:-2px;
+    bottom:-2px;
+    border-right:3px solid var(--gold-light);
+    border-bottom:3px solid var(--gold-light);
+    border-radius:0 0 18px 0;
+    z-index:3;
+}
+
+.hero-photo-frame{
+    position:relative;
+    z-index:2;
+    padding:7px;
+    border:2px solid rgba(227,198,90,.9);
+    border-radius:18px;
+    background:linear-gradient(145deg,#f4df83,#a88316,#ead477);
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        0 0 0 8px rgba(201,162,39,.08);
+}
+
+.hero-photo-frame img{
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    object-position:center;
+    border-radius:11px;
+}
+
+.experience-badge{
+    position:absolute;
+    left:-20px;
+    bottom:35px;
+    z-index:5;
+    background:#fff;
+    color:var(--green);
+    padding:14px 18px;
+    border-left:4px solid var(--gold);
+    border-radius:7px;
+    box-shadow:var(--shadow);
+    font-size:13px;
+    font-weight:700;
+}
+
+/* =========================
+   METRICS
+========================= */
+
+.metrics{
+    background:#fff;
+    padding:28px 0;
+    border-bottom:1px solid #e5dfd1;
+}
+
+.metrics-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.metric{
+    text-align:center;
+    padding:12px;
+}
+
+.metric-number{
+    color:var(--green);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:38px;
+    font-weight:700;
+    line-height:1.1;
+}
+
+.metric-label{
+    margin-top:7px;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:600;
+}
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+
+section{
+    padding:85px 0;
+}
+
+.section-heading{
+    text-align:center;
+    max-width:760px;
+    margin:0 auto 48px;
+}
+
+.section-heading .eyebrow{
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.section-heading h2{
+    color:var(--green);
+    font-size:clamp(30px,4vw,46px);
+    line-height:1.2;
+    margin-bottom:15px;
+}
+
+.section-heading p{
+    color:var(--muted);
+}
+
+/* =========================
+   ECOSYSTEM LOGOS
+========================= */
+
+.logo-ecosystem{
+    margin-bottom:48px;
+}
+
+.ecosystem-label{
+    text-align:center;
+    color:var(--green);
+    font-size:11px;
+    letter-spacing:2px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.ecosystem-logos{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+}
+
+.ecosystem-logo{
+    min-width:105px;
+    padding:13px 17px;
+    background:#fff;
+    border:1px solid #e2dac7;
+    border-radius:8px;
+    text-align:center;
+    font-size:12px;
+    font-weight:800;
+    color:var(--green);
+    box-shadow:0 8px 22px rgba(0,0,0,.05);
+    transition:.3s;
+}
+
+.ecosystem-logo:hover{
+    transform:translateY(-4px);
+    border-color:var(--gold);
+    box-shadow:0 12px 28px rgba(0,0,0,.1);
+}
+
+.ecosystem-logo span:first-child{
+    color:var(--gold);
+    display:block;
+    font-size:18px;
+    font-family:Georgia,"Times New Roman",serif;
+}
+
+/* =========================
+   EXPERTISE
+========================= */
+
+.expertise{
+    background:var(--cream);
+}
+
+.expertise-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.expertise-card{
+    background:#fff;
+    border:1px solid #e7dfcf;
+    border-radius:12px;
+    padding:28px;
+    transition:.35s;
+}
+
+.expertise-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(201,162,39,.6);
+    box-shadow:var(--shadow);
+}
+
+.card-icon{
+    width:50px;
+    height:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    background:var(--green);
+    color:var(--gold-light);
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+.expertise-card h3{
+    color:var(--green);
+    margin-bottom:10px;
+    font-size:21px;
+}
+
+.expertise-card p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* =========================
+   PLATFORMS
+========================= */
+
+.platforms{
+    background:var(--green-dark);
+    color:#fff;
+}
+
+.platforms .section-heading h2{
+    color:#fff;
+}
+
+.platforms .section-heading p{
+    color:#c9d8d2;
+}
+
+.platform-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.platform-card{
+    position:relative;
+    min-height:330px;
+    overflow:hidden;
+    border-radius:15px;
+    border:1px solid rgba(227,198,90,.3);
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:flex-end;
+}
+
+.platform-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(transparent 20%,rgba(3,39,30,.94));
+}
+
+.platform-card.etsy{
+    background:
+        radial-gradient(circle at 30% 25%,rgba(227,198,90,.22),transparent 30%),
+        linear-gradient(135deg,#0c5a43,#03271e);
+}
+
+.platform-content{
+    position:relative;
+    z-index:2;
+    padding:30px;
+}
+
+.platform-mark{
+    display:inline-flex;
+    width:58px;
+    height:58px;
+    align-items:center;
+    justify-content:center;
+    border:2px solid var(--gold-light);
+    border-radius:12px;
+    color:var(--gold-light);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.platform-content h3{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.platform-content p{
+    color:#d4e0da;
+    font-size:14px;
+}
+
+/* =========================
+   MARKETING CHANNELS
+========================= */
+
+.channel-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+}
+
+.channel-card{
+    background:#fff;
+    border:1px solid #e5ddce;
+    border-radius:10px;
+    padding:22px 14px;
+    text-align:center;
+    transition:.3s;
+}
+
+.channel-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--gold);
+}
+
+.channel-icon{
+    margin:auto auto 12px;
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    background:var(--green);
+    color:var(--gold-light);
+    font-weight:800;
+    font-size:14px;
+}
+
+.channel-card h4{
+    color:var(--green);
+    font-size:15px;
+}
+
+.channel-card p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+/* =========================
+   PROJECTS
+========================= */
+
+.projects{
+    background:#fff;
+}
+
+.project-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.project-card{
+    background:var(--cream);
+    border:1px solid #e5ddce;
+    border-radius:13px;
+    overflow:hidden;
+    transition:.35s;
+}
+
+.project-card:hover{
+    transform:translateY(-5px);
+    box-shadow:var(--shadow);
+}
+
+.project-image{
+    height:270px;
+    overflow:hidden;
+    background:#ddd;
+}
+
+.project-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.project-card:hover .project-image img{
+    transform:scale(1.04);
+}
+
+.project-content{
+    padding:25px;
+}
+
+.project-tag{
+    color:var(--gold);
+    text-transform:uppercase;
+    font-size:10px;
+    letter-spacing:1.5px;
+    font-weight:800;
+}
+
+.project-content h3{
+    color:var(--green);
+    font-size:24px;
+    margin:7px 0;
+}
+
+.project-content p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.project-link{
+    display:inline-block;
+    margin-top:15px;
+    color:var(--green);
+    font-size:13px;
+    font-weight:800;
+}
+
+.project-link:hover{
+    color:var(--gold);
+}
+
+/* =========================
+   MANBAUL GALLERY
+========================= */
+
+.project-gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    height:270px;
+    overflow:hidden;
+}
+
+.project-gallery img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* =========================
+   PROCESS
+========================= */
+
+.process{
+    background:var(--cream);
+}
+
+.process-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:14px;
+}
+
+.process-card{
+    position:relative;
+    background:#fff;
+    border:1px solid #e5ddce;
+    padding:25px 18px;
+    border-radius:10px;
+}
+
+.process-number{
+    color:var(--gold);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.process-card h3{
+    color:var(--green);
+    margin:8px 0;
+    font-size:19px;
+}
+
+.process-card p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================
+   TEAM
+========================= */
+
+.team{
+    background:var(--green);
+    color:#fff;
+}
+
+.team-grid{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:65px;
+    align-items:center;
+}
+
+.team-photo-frame{
+    position:relative;
+    padding:10px;
+    border:2px solid var(--gold);
+    border-radius:16px;
+    background:rgba(201,162,39,.08);
+}
+
+.team-photo-frame::after{
+    content:"";
+    position:absolute;
+    inset:14px;
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:10px;
+    pointer-events:none;
+}
+
+.team-photo-frame img{
+    width:100%;
+    border-radius:10px;
+    aspect-ratio:4/5;
+    object-fit:cover;
+}
+
+.team .section-heading{
+    text-align:left;
+    margin:0 0 30px;
+}
+
+.team .section-heading h2{
+    color:#fff;
+}
+
+.team .section-heading p{
+    color:#d2dfd9;
+}
+
+.team-list{
+    list-style:none;
+}
+
+.team-list li{
+    position:relative;
+    padding-left:25px;
+    margin:11px 0;
+    color:#dbe6e1;
+    font-size:14px;
+}
+
+.team-list li::before{
+    content:"✓";
+    position:absolute;
+    left:0;
+    color:var(--gold-light);
+    font-weight:800;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile{
+    background:#fff;
+}
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.profile-photo-outer{
+    position:relative;
+    padding:16px;
+}
+
+.profile-photo-outer::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border:1px solid var(--gold);
+    border-radius:18px;
+    transform:translate(14px,14px);
+    z-index:0;
+}
+
+.profile-photo-outer::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:75px;
+    height:75px;
+    border-top:3px solid var(--green);
+    border-left:3px solid var(--green);
+    border-radius:15px 0 0 0;
+    z-index:3;
+}
+
+.profile-photo-frame{
+    position:relative;
+    z-index:2;
+    padding:8px;
+    background:#fff;
+    border:2px solid var(--gold);
+    border-radius:17px;
+    box-shadow:0 20px 45px rgba(0,0,0,.15);
+}
+
+.profile-photo-frame img{
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.profile-content .eyebrow{
+    color:var(--gold);
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:2px;
+    font-weight:800;
+}
+
+.profile-content h2{
+    color:var(--green);
+    font-size:clamp(30px,4vw,46px);
+    line-height:1.2;
+    margin:12px 0 20px;
+}
+
+.profile-content p{
+    color:var(--muted);
+    margin-bottom:18px;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+    background:
+        radial-gradient(circle at 15% 20%,rgba(227,198,90,.12),transparent 25%),
+        var(--green-dark);
+    color:#fff;
+    text-align:center;
+}
+
+.cta h2{
+    font-size:clamp(30px,5vw,48px);
+    margin-bottom:15px;
+}
+
+.cta p{
+    max-width:650px;
+    margin:0 auto 28px;
+    color:#cedbd5;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#021b15;
+    color:#c8d6d0;
+    padding:55px 0 25px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:45px;
+}
+
+.footer-brand img{
+    width:170px;
+    margin-bottom:15px;
+}
+
+.footer-brand p{
+    max-width:390px;
+    font-size:13px;
+}
+
+footer h3{
+    color:#fff;
+    margin-bottom:15px;
+    font-size:18px;
+}
+
+.footer-links{
+    list-style:none;
+}
+
+.footer-links li{
+    margin:7px 0;
+}
+
+.footer-links a{
+    font-size:13px;
+}
+
+.footer-links a:hover{
+    color:var(--gold-light);
+}
+
+.footer-bottom{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.1);
+    text-align:center;
+    font-size:12px;
+}
+
+/* =========================
+   REVEAL ANIMATION
+========================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(25px);
+    transition:opacity .7s ease,transform .7s ease;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
+
+    .nav-links{
+        gap:13px;
+    }
+
+    .nav-links a{
+        font-size:11px;
+    }
+
+    .channel-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .process-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:850px){
+
+    .navbar{
+        min-height:70px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .nav-links{
+        position:absolute;
+        top:70px;
+        left:0;
+        right:0;
+        background:var(--green-dark);
+        padding:20px;
+        display:none;
+        flex-direction:column;
+        align-items:flex-start;
+        border-top:1px solid rgba(201,162,39,.25);
+    }
+
+    .nav-links.show{
+        display:flex;
+    }
+
+    .nav-links a{
+        font-size:14px;
+        width:100%;
+        padding:8px 0;
+    }
+
+    .hero{
+        padding:65px 0;
+    }
+
+    .hero-grid,
+    .team-grid,
+    .profile-grid{
+        grid-template-columns:1fr;
+        gap:45px;
+    }
+
+    .hero-copy{
+        text-align:center;
+    }
+
+    .hero p{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .hero-photo-wrap{
+        max-width:400px;
+    }
+
+    .metrics-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .expertise-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .channel-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .team .section-heading{
+        text-align:center;
+    }
+
+    .team-photo-frame{
+        max-width:430px;
+        margin:auto;
+    }
+}
+
+@media(max-width:600px){
+
+    section{
+        padding:65px 0;
+    }
+
+    .container{
+        width:90%;
+    }
+
+    .logo img{
+        width:145px;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .hero h2{
+        font-size:20px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .experience-badge{
+        left:-5px;
+        bottom:25px;
+        font-size:11px;
+        padding:11px 13px;
+    }
+
+    .metrics-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .metric-number{
+        font-size:30px;
+    }
+
+    .expertise-grid,
+    .platform-grid,
+    .project-grid{
+        grid-template-columns:1fr;
+    }
+
+    .channel-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .process-grid{
+        grid-template-columns:1fr;
+    }
+
+    .ecosystem-logo{
+        min-width:90px;
+        padding:11px 10px;
+    }
+
+    .project-image,
+    .project-gallery{
+        height:220px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================= -->
+<!-- =========================
+     HEADER
+========================= -->
 
-  <header>
-    <div class="container nav">
+<header>
+<div class="container navbar">
 
-      <a href="index.html" class="logo" aria-label="GUNKOWII SABA Home">
+    <a href="index.html" class="logo">
         <img src="gunkowii-saba-logo.png" alt="GUNKOWII SABA">
-      </a>
+    </a>
 
-      <button class="menu-btn" id="menuBtn" aria-label="Open navigation">
-        ☰
-      </button>
+    <div class="menu-btn" id="menuBtn">☰</div>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-        <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="process.html">Process</a></li>
-        <li><a href="audit.html">Free Audit</a></li>
-        <li><a href="contact.html" class="nav-cta">Contact</a></li>
-      </ul>
+    <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="process.html">Process</a>
+        <a href="audit.html">Free Audit</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+</div>
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+<div class="container hero-grid">
+
+    <div class="hero-copy reveal">
+
+        <span class="kicker">
+            REAL STORES • REAL PROJECTS • PRACTICAL GROWTH
+        </span>
+
+        <h1>GUNKOWII SABA</h1>
+
+        <h2>
+            E-COMMERCE & DIGITAL MARKETING EXPERT
+        </h2>
+
+        <p>
+            I help e-commerce businesses improve visibility, customer experience
+            and conversions through Shopify, Etsy, SEO, CRO, paid advertising,
+            email marketing and practical digital strategy.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a class="btn btn-primary"
+               href="contact.html">
+                Work With Me
+            </a>
+
+            <a class="btn btn-outline"
+               href="portfolio.html">
+                Explore My Work
+            </a>
+
+            <a class="btn btn-outline"
+               href="audit.html">
+                Get a Free Audit
+            </a>
+
+        </div>
 
     </div>
-  </header>
 
 
-  <!-- =========================
-       HERO
-  ========================= -->
+    <div class="hero-photo-wrap reveal">
 
-  <main>
-
-    <section class="hero">
-      <div class="container hero-grid">
-
-        <div class="hero-content reveal">
-
-          <div class="hero-kicker">
-            Real Stores • Real Projects • Practical Growth
-          </div>
-
-          <h1>GUNKOWII SABA</h1>
-
-          <h2>
-            E-COMMERCE & DIGITAL MARKETING EXPERT
-          </h2>
-
-          <p>
-            I help businesses improve their online stores, attract the right
-            customers and build stronger digital experiences through Shopify,
-            Etsy, SEO, CRO, paid advertising, email marketing and web development.
-          </p>
-
-          <div class="hero-buttons">
-            <a href="contact.html" class="btn btn-gold">
-              Work With Me →
-            </a>
-
-            <a href="portfolio.html" class="btn btn-outline">
-              Explore My Work
-            </a>
-
-            <a href="audit.html" class="btn btn-outline">
-              Get a Free Audit
-            </a>
-          </div>
-
-        </div>
-
-        <div class="hero-photo reveal">
-
-          <img
-            src="Screenshot_2026-09-04-12-50-03-770_com.openai.chatgpt-edit.jpg"
-            alt="GUNKOWII SABA - E-commerce and Digital Marketing Expert"
-          >
-
-          <div class="experience-badge">
-            <strong>6 Years Practical Experience</strong>
-            <span>
-              E-commerce • Marketing • Web Development
-            </span>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- =========================
-         ANIMATED METRICS
-    ========================= -->
-
-    <section class="metrics">
-
-      <div class="container">
-
-        <div class="metrics-grid">
-
-          <div class="metric reveal">
-            <div
-              class="metric-number"
-              data-target="6"
-              data-suffix="+"
-            >0+</div>
-
-            <div class="metric-label">
-              Years Practical Experience
-            </div>
-          </div>
-
-          <div class="metric reveal">
-            <div
-              class="metric-number"
-              data-target="60"
-              data-range="60–75%"
-            >0–75%</div>
-
-            <div class="metric-label">
-              Typical Team Project Contribution
-            </div>
-          </div>
-
-          <div class="metric reveal">
-            <div
-              class="metric-number"
-              data-target="2"
-              data-suffix=""
-            >0</div>
-
-            <div class="metric-label">
-              Core E-commerce Platforms
-            </div>
-          </div>
-
-          <div class="metric reveal">
-            <div
-              class="metric-number"
-              data-target="8"
-              data-suffix=""
-            >0</div>
-
-            <div class="metric-label">
-              Growth Channels & Capabilities
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         EXPERTISE
-    ========================= -->
-
-    <section>
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div class="section-kicker">
-            What I Do
-          </div>
-
-          <h2>
-            Built Around Growth, Not Just Design
-          </h2>
-
-          <p>
-            A strong online business needs more than a good-looking website.
-            It needs visibility, trust, usability, conversion and retention.
-          </p>
-
-        </div>
-
-        <div class="expertise-grid">
-
-          <article class="expertise-card reveal">
-            <div class="expertise-icon">S</div>
-            <h3>Shopify & E-commerce</h3>
-            <p>
-              Store optimization, product pages, navigation, merchandising,
-              UX and conversion-focused improvements.
-            </p>
-          </article>
-
-          <article class="expertise-card reveal">
-            <div class="expertise-icon">E</div>
-            <h3>Etsy Growth</h3>
-            <p>
-              Etsy listing optimization, search visibility, product
-              presentation, customer experience and marketplace strategy.
-            </p>
-          </article>
-
-          <article class="expertise-card reveal">
-            <div class="expertise-icon">SEO</div>
-            <h3>SEO & Visibility</h3>
-            <p>
-              Search optimization designed to improve discoverability,
-              relevance and qualified organic traffic.
-            </p>
-          </article>
-
-          <article class="expertise-card reveal">
-            <div class="expertise-icon">CRO</div>
-            <h3>Conversion Optimization</h3>
-            <p>
-              Removing friction from the customer journey and improving the
-              path from visitor to buyer.
-            </p>
-          </article>
-
-          <article class="expertise-card reveal">
-            <div class="expertise-icon">AD</div>
-            <h3>Digital Marketing</h3>
-            <p>
-              Google, Meta, Instagram, TikTok, Pinterest and other channels
-              used to reach and retarget relevant customers.
-            </p>
-          </article>
-
-          <article class="expertise-card reveal">
-            <div class="expertise-icon">EM</div>
-            <h3>Email & Web</h3>
-            <p>
-              Email marketing, retention, landing pages, websites and
-              practical web development solutions.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SHOPIFY + ETSY
-    ========================= -->
-
-    <section class="platform-section">
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div class="section-kicker">
-            E-commerce Platforms
-          </div>
-
-          <h2>
-            Shopify + Etsy
-          </h2>
-
-          <p>
-            Two major e-commerce environments I work with to help businesses
-            improve visibility, customer experience and commercial performance.
-          </p>
-
-        </div>
-
-        <div class="platform-grid">
-
-          <!-- SHOPIFY -->
-
-          <article class="platform-card reveal">
-
-            <div
-              class="platform-card-bg"
-              style="background-image: url('assets/projects/teeology/teeology-home.jpg');"
-            ></div>
-
-            <div class="platform-overlay"></div>
-
-            <div class="platform-content">
-
-              <div class="platform-logo">
-                S
-              </div>
-
-              <h3>Shopify</h3>
-
-              <p>
-                Real Shopify store work covering store structure, product
-                presentation, UX, CRO, SEO and customer journey improvements.
-              </p>
-
-              <span class="platform-tag">
-                Real Project Experience
-              </span>
-
-            </div>
-
-          </article>
-
-
-          <!-- ETSY -->
-
-          <article class="platform-card reveal">
-
-            <div
-              class="platform-card-bg"
-              style="background:
-              radial-gradient(circle at 20% 20%, rgba(214,173,85,0.45), transparent 30%),
-              linear-gradient(135deg, #0b4d3c, #062f27);"
-            ></div>
-
-            <div class="platform-overlay"></div>
-
-            <div class="platform-content">
-
-              <div class="platform-logo">
-                E
-              </div>
-
-              <h3>Etsy</h3>
-
-              <p>
-                Etsy-focused marketplace expertise covering listings,
-                product presentation, search visibility and customer-focused
-                optimization.
-              </p>
-
-              <span class="platform-tag">
-                Marketplace Expertise
-              </span>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         MARKETING CHANNELS
-    ========================= -->
-
-    <section class="channel-section">
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div class="section-kicker">
-            Growth Ecosystem
-          </div>
-
-          <h2>
-            The Channels Behind the Strategy
-          </h2>
-
-          <p>
-            Store growth does not depend on one channel. The right combination
-            of acquisition, visibility, conversion and retention creates a
-            stronger customer journey.
-          </p>
-
-        </div>
-
-
-        <div class="channel-grid">
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">G</div>
-            <h3>Google Ads</h3>
-            <p>Paid Search</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">GS</div>
-            <h3>Google Shopping</h3>
-            <p>Product Visibility</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">M</div>
-            <h3>Meta Ads</h3>
-            <p>Facebook & Instagram</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">IG</div>
-            <h3>Instagram</h3>
-            <p>Social Growth</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">TT</div>
-            <h3>TikTok</h3>
-            <p>Discovery & Content</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">P</div>
-            <h3>Pinterest</h3>
-            <p>Visual Discovery</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">@</div>
-            <h3>Email Marketing</h3>
-            <p>Retention & Revenue</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">SEO</div>
-            <h3>SEO</h3>
-            <p>Organic Visibility</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">CRO</div>
-            <h3>CRO</h3>
-            <p>Conversion Growth</p>
-          </article>
-
-          <article class="channel-card reveal">
-            <div class="channel-logo">UX</div>
-            <h3>UX</h3>
-            <p>Customer Experience</p>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         REAL PROJECTS
-    ========================= -->
-
-    <section>
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div class="section-kicker">
-            Selected Work
-          </div>
-
-          <h2>
-            Real Stores. Real Projects.
-          </h2>
-
-          <p>
-            A selection of e-commerce and web projects showing practical
-            experience across Shopify, digital commerce and web development.
-          </p>
-
-        </div>
-
-
-        <div class="projects-grid">
-
-          <!-- TEEOLOGY -->
-
-          <article class="project-card reveal">
-
-            <div class="project-image">
-              <img
-                src="assets/projects/teeology/teeology-home.jpg"
-                alt="Teeology Clothing Shopify store"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="project-body">
-
-              <span class="project-type">
-                Shopify • Team Project
-              </span>
-
-              <h3>Teeology Clothing</h3>
-
-              <p>
-                Shopify store experience involving store presentation,
-                product structure and customer journey optimization.
-              </p>
-
-              <div class="project-meta">
-                Typical contribution: 60–75%
-              </div>
-
-              <a
-                href="https://teeologyclothing.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-                Visit Store →
-              </a>
-
-            </div>
-
-          </article>
-
-
-          <!-- BEEYOUTI -->
-
-          <article class="project-card reveal">
-
-            <div class="project-image">
-              <img
-                src="assets/projects/beeyouti/beeyouti-home.jpg"
-                alt="BeeYouti Shopify store"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="project-body">
-
-              <span class="project-type">
-                Shopify • Team Project
-              </span>
-
-              <h3>BeeYouti</h3>
-
-              <p>
-                Beauty and wellness e-commerce project focused on product
-                presentation, trust elements and customer experience.
-              </p>
-
-              <div class="project-meta">
-                Typical contribution: 60–75%
-              </div>
-
-              <a
-                href="https://beeyouti.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-                Visit Store →
-              </a>
-
-            </div>
-
-          </article>
-
-
-          <!-- IRON THERAPY -->
-
-          <article class="project-card reveal">
-
-            <div class="project-image">
-              <img
-                src="assets/projects/iron-therapy/iron-therapy-home.jpg"
-                alt="Iron Therapy Fitness Shopify store"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="project-body">
-
-              <span class="project-type">
-                Shopify • Team Project
-              </span>
-
-              <h3>Iron Therapy Fitness</h3>
-
-              <p>
-                Fitness e-commerce project covering product discovery,
-                collections, customer trust and digital presentation.
-              </p>
-
-              <div class="project-meta">
-                Typical contribution: 60–75%
-              </div>
-
-              <a
-                href="https://irontherapyfitness.net/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-                Visit Store →
-              </a>
-
-            </div>
-
-          </article>
-
-
-          <!-- LOOK FOR IT HERE -->
-
-          <article class="project-card reveal">
-
-            <div class="project-image">
-              <img
-                src="assets/projects/look-for-it-here/look-for-it-here-home.jpg"
-                alt="Look For It Here e-commerce store"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="project-body">
-
-              <span class="project-type">
-                Shopify • Team Project
-              </span>
-
-              <h3>Look For It Here</h3>
-
-              <p>
-                Large e-commerce catalog project focused on product discovery,
-                collections, navigation and shopping experience.
-              </p>
-
-              <div class="project-meta">
-                Typical contribution: 60–75%
-              </div>
-
-              <a
-                href="https://www.lookforithere.com.ar/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-                Visit Store →
-              </a>
-
-            </div>
-
-          </article>
-
-
-          <!-- AESTEVI -->
-
-          <article class="project-card reveal">
-
-            <div class="project-image">
-              <img
-                src="assets/projects/aestevi/aestevi-home.jpg"
-                alt="Aestevi e-commerce store"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="project-body">
-
-              <span class="project-type">
-                Shopify • Audit & Analysis
-              </span>
-
-              <h3>Aestevi</h3>
-
-              <p>
-                E-commerce analysis focused on identifying opportunities
-                across UX, trust, product presentation and conversion.
-              </p>
-
-              <div class="project-meta">
-                Store audit & growth analysis
-              </div>
-
-              <a
-                href="https://aestevi.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-                Visit Store →
-              </a>
-
-            </div>
-
-          </article>
-
-
-          <!-- MANBAUL ANWAR -->
-
-          <article class="project-card reveal">
-
-            <div class="mini-gallery">
-
-              <img
-                src="assets/projects/manbaul-anwar/manbaul-anwar-login.jpg"
-                alt="Manbaul Anwar management system login"
-                loading="lazy"
-              >
-
-              <img
-                src="assets/projects/manbaul-anwar/manbaul-anwar-news.jpg"
-                alt="Manbaul Anwar management system news module"
-                loading="lazy"
-              >
-
-              <img
-                src="assets/projects/manbaul-anwar/manbaul-anwar-dashboard.jpg"
-                alt="Manbaul Anwar management system dashboard"
-                loading="lazy"
-              >
-
-            </div>
-
-            <div class="project-body">
-
-              <span class="project-type">
-                Web & App Development
-              </span>
-
-              <h3>MANBAUL ANWAR Arabic School Management System</h3>
-
-              <p>
-                A school management platform designed around administration,
-                academic management, communication and digital school operations.
-              </p>
-
-              <div class="project-meta">
-                Web application project
-              </div>
-
-              <a
-                href="https://github.com/gunkowii248656-alt"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-                View GitHub Profile →
-              </a>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         APPROACH
-    ========================= -->
-
-    <section class="approach-section">
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div class="section-kicker">
-            My Approach
-          </div>
-
-          <h2>
-            From Problem to Practical Growth
-          </h2>
-
-          <p>
-            I do not start by changing everything. I start by understanding
-            what is already there, finding the highest-impact opportunities,
-            then improving them systematically.
-          </p>
-
-        </div>
-
-
-        <div class="approach-grid">
-
-          <article class="approach-card reveal">
-            <div class="approach-number">01</div>
-            <h3>Discover</h3>
-            <p>
-              Understand the business, audience, products and goals.
-            </p>
-          </article>
-
-          <article class="approach-card reveal">
-            <div class="approach-number">02</div>
-            <h3>Audit</h3>
-            <p>
-              Identify problems affecting visibility, UX and conversion.
-            </p>
-          </article>
-
-          <article class="approach-card reveal">
-            <div class="approach-number">03</div>
-            <h3>Strategize</h3>
-            <p>
-              Prioritize the improvements with the strongest potential.
-            </p>
-          </article>
-
-          <article class="approach-card reveal">
-            <div class="approach-number">04</div>
-            <h3>Implement</h3>
-            <p>
-              Put the recommended improvements into practical execution.
-            </p>
-          </article>
-
-          <article class="approach-card reveal">
-            <div class="approach-number">05</div>
-            <h3>Optimize</h3>
-            <p>
-              Monitor, test and continue improving based on results.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         TEAM
-    ========================= -->
-
-    <section class="dark-section">
-
-      <div class="container split">
-
-        <div class="split-image reveal">
-
-          <img
-            src="Screenshot_2026-09-04-12-53-39-223_com.openai.chatgpt-edit.jpg"
-            alt="GUNKOWII SABA working on an e-commerce project"
-            loading="lazy"
-          >
-
-        </div>
-
-        <div class="reveal">
-
-          <div class="section-kicker">
-            The Team Behind the Work
-          </div>
-
-          <h2>
-            Strong Work Can Come From Strong Collaboration.
-          </h2>
-
-          <p>
-            Some projects are handled directly by me, while others involve
-            collaboration with experienced team members. The goal remains the
-            same: practical execution, clear communication and work that
-            genuinely helps the business.
-          </p>
-
-          <ul class="check-list">
-
-            <li>
-              Practical e-commerce experience
-            </li>
-
-            <li>
-              Shopify & Etsy capabilities
-            </li>
-
-            <li>
-              Marketing, SEO & CRO knowledge
-            </li>
-
-            <li>
-              Web & application development
-            </li>
-
-            <li>
-              Transparent collaborative execution
-            </li>
-
-          </ul>
-
-          <a href="about.html" class="btn btn-gold">
-            Learn More About Me →
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         PROFESSIONAL PROFILE
-    ========================= -->
-
-    <section class="profile-section">
-
-      <div class="container">
-
-        <div class="profile-card reveal">
-
-          <div>
+        <div class="hero-photo-frame">
 
             <img
-              src="Screenshot_2026-09-04-12-55-24-480_com.openai.chatgpt-edit.jpg"
-              alt="GUNKOWII SABA professional profile"
-              loading="lazy"
+                src="Screenshot_2026-09-04-12-50-03-770_com.openai.chatgpt-edit.jpg"
+                alt="Gunkowii SABA - E-commerce and Digital Marketing Expert"
             >
 
-          </div>
+        </div>
 
-          <div>
+        <div class="experience-badge">
+            6 Years Practical Experience
+        </div>
 
-            <div class="section-kicker">
-              Professional Profile
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     METRICS
+========================= -->
+
+<section class="metrics">
+<div class="container metrics-grid">
+
+    <div class="metric reveal">
+        <div
+            class="metric-number"
+            data-counter-start="0"
+            data-counter="6"
+            data-suffix="+"
+        >0+</div>
+        <div class="metric-label">
+            Years Practical Experience
+        </div>
+    </div>
+
+    <div class="metric reveal">
+        <div
+            class="metric-number"
+            data-counter-start="60"
+            data-counter="75"
+            data-range="true"
+        >60–60%</div>
+        <div class="metric-label">
+            Typical Team Project Contribution
+        </div>
+    </div>
+
+    <div class="metric reveal">
+        <div
+            class="metric-number"
+            data-counter-start="0"
+            data-counter="2"
+        >0</div>
+        <div class="metric-label">
+            Core E-commerce Platforms
+        </div>
+    </div>
+
+    <div class="metric reveal">
+        <div
+            class="metric-number"
+            data-counter-start="0"
+            data-counter="8"
+        >0</div>
+        <div class="metric-label">
+            Core Growth Channels
+        </div>
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     EXPERTISE
+========================= -->
+
+<section class="expertise">
+<div class="container">
+
+    <!-- LOGOS DIRECTLY ABOVE THE SECTION -->
+    <div class="logo-ecosystem reveal">
+
+        <div class="ecosystem-label">
+            E-COMMERCE & DIGITAL GROWTH ECOSYSTEM
+        </div>
+
+        <div class="ecosystem-logos">
+
+            <div class="ecosystem-logo">
+                <span>S</span>
+                SHOPIFY
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>E</span>
+                ETSY
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>G</span>
+                GOOGLE
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>ADS</span>
+                PAID ADS
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>M</span>
+                META
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>IG</span>
+                INSTAGRAM
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>TT</span>
+                TIKTOK
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>P</span>
+                PINTEREST
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>@</span>
+                EMAIL
+            </div>
+
+            <div class="ecosystem-logo">
+                <span>SEO</span>
+                SEARCH
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="section-heading reveal">
+
+        <div class="eyebrow">
+            What I Do
+        </div>
+
+        <h2>
+            Built Around Growth, Not Just Design
+        </h2>
+
+        <p>
+            A store can look beautiful and still fail to generate sales.
+            My approach combines storefront experience, visibility,
+            marketing and conversion strategy.
+        </p>
+
+    </div>
+
+
+    <div class="expertise-grid">
+
+        <div class="expertise-card reveal">
+            <div class="card-icon">S</div>
+            <h3>Shopify & E-commerce</h3>
+            <p>
+                Store setup, optimization, product presentation,
+                navigation, UX and conversion-focused improvements.
+            </p>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="card-icon">E</div>
+            <h3>Etsy Growth</h3>
+            <p>
+                Etsy listing optimization, search visibility,
+                product positioning and conversion improvements.
+            </p>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="card-icon">SEO</div>
+            <h3>SEO & Visibility</h3>
+            <p>
+                Practical SEO improvements designed to help products,
+                stores and pages become easier to discover.
+            </p>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="card-icon">CRO</div>
+            <h3>Conversion Optimization</h3>
+            <p>
+                Identify friction points and improve the path from
+                visitor interest to completed purchase.
+            </p>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="card-icon">ADS</div>
+            <h3>Digital Marketing</h3>
+            <p>
+                Google, Meta, Instagram, TikTok, Pinterest and
+                other acquisition strategies matched to the business.
+            </p>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="card-icon">@</div>
+            <h3>Email & Web</h3>
+            <p>
+                Email marketing, retention, landing pages,
+                web development and digital customer experiences.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     SHOPIFY + ETSY
+========================= -->
+
+<section class="platforms">
+<div class="container">
+
+    <div class="section-heading reveal">
+
+        <div class="eyebrow">
+            Core Platforms
+        </div>
+
+        <h2>
+            Shopify + Etsy
+        </h2>
+
+        <p>
+            Two major e-commerce ecosystems where store presentation,
+            product visibility and conversion strategy work together.
+        </p>
+
+    </div>
+
+
+    <div class="platform-grid">
+
+        <div
+            class="platform-card reveal"
+            style="background-image:url('assets/projects/teeology/teeology-home.jpg');"
+        >
+
+            <div class="platform-content">
+
+                <div class="platform-mark">S</div>
+
+                <h3>Shopify</h3>
+
+                <p>
+                    Store optimization, product pages, UX, SEO,
+                    CRO, merchandising and growth strategy.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="platform-card etsy reveal">
+
+            <div class="platform-content">
+
+                <div class="platform-mark">E</div>
+
+                <h3>Etsy</h3>
+
+                <p>
+                    Listing optimization, search visibility,
+                    product positioning and conversion-focused strategy.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     MARKETING CHANNELS
+========================= -->
+
+<section>
+<div class="container">
+
+    <div class="section-heading reveal">
+
+        <div class="eyebrow">
+            Growth Channels
+        </div>
+
+        <h2>
+            From Traffic to Conversion
+        </h2>
+
+        <p>
+            The objective is not simply to bring more visitors.
+            It is to attract the right visitors and give them a clear
+            reason to take action.
+        </p>
+
+    </div>
+
+
+    <div class="channel-grid">
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">G</div>
+            <h4>Google Ads</h4>
+            <p>Paid Search</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">GS</div>
+            <h4>Google Shopping</h4>
+            <p>Product Discovery</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">M</div>
+            <h4>Meta Ads</h4>
+            <p>Paid Social</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">IG</div>
+            <h4>Instagram</h4>
+            <p>Social Commerce</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">TT</div>
+            <h4>TikTok</h4>
+            <p>Discovery</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">P</div>
+            <h4>Pinterest</h4>
+            <p>Visual Search</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">@</div>
+            <h4>Email Marketing</h4>
+            <p>Retention</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">SEO</div>
+            <h4>SEO</h4>
+            <p>Organic Growth</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">CRO</div>
+            <h4>CRO</h4>
+            <p>Conversions</p>
+        </div>
+
+        <div class="channel-card reveal">
+            <div class="channel-icon">UX</div>
+            <h4>UX</h4>
+            <p>User Experience</p>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     REAL PROJECTS
+========================= -->
+
+<section class="projects">
+<div class="container">
+
+    <div class="section-heading reveal">
+
+        <div class="eyebrow">
+            Selected Work
+        </div>
+
+        <h2>
+            Real Stores. Real Projects.
+        </h2>
+
+        <p>
+            A selection of live e-commerce and digital projects,
+            including collaborative team work and web application development.
+        </p>
+
+    </div>
+
+
+    <div class="project-grid">
+
+
+        <!-- TEEOLOGY -->
+
+        <article class="project-card reveal">
+
+            <div class="project-image">
+                <img
+                    src="assets/projects/teeology/teeology-home.jpg"
+                    alt="Teeology Clothing Shopify store"
+                >
+            </div>
+
+            <div class="project-content">
+
+                <div class="project-tag">
+                    Shopify • Team Project
+                </div>
+
+                <h3>Teeology Clothing</h3>
+
+                <p>
+                    Shopify e-commerce work covering storefront
+                    presentation, product experience and practical growth improvements.
+                </p>
+
+                <a
+                    class="project-link"
+                    href="https://teeologyclothing.com/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    View Live Store →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- BEEYOUTI -->
+
+        <article class="project-card reveal">
+
+            <div class="project-image">
+                <img
+                    src="assets/projects/beeyouti/beeyouti-home.jpg"
+                    alt="BeeYouti Shopify store"
+                >
+            </div>
+
+            <div class="project-content">
+
+                <div class="project-tag">
+                    Shopify • Team Project
+                </div>
+
+                <h3>BeeYouti</h3>
+
+                <p>
+                    Beauty and wellness e-commerce work focused on
+                    product presentation, customer experience and conversion.
+                </p>
+
+                <a
+                    class="project-link"
+                    href="https://beeyouti.com/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    View Live Store →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- IRON THERAPY -->
+
+        <article class="project-card reveal">
+
+            <div class="project-image">
+                <img
+                    src="assets/projects/iron-therapy/iron-therapy-home.jpg"
+                    alt="Iron Therapy Fitness Shopify store"
+                >
+            </div>
+
+            <div class="project-content">
+
+                <div class="project-tag">
+                    Shopify • Team Project
+                </div>
+
+                <h3>Iron Therapy Fitness</h3>
+
+                <p>
+                    Fitness e-commerce project involving storefront,
+                    collections, product experience and customer journey.
+                </p>
+
+                <a
+                    class="project-link"
+                    href="https://irontherapyfitness.net/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    View Live Store →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- LOOK FOR IT HERE -->
+
+        <article class="project-card reveal">
+
+            <div class="project-image">
+                <img
+                    src="assets/projects/look-for-it-here/look-for-it-here-home.jpg"
+                    alt="Look For It Here Shopify store"
+                >
+            </div>
+
+            <div class="project-content">
+
+                <div class="project-tag">
+                    Shopify • Team Project
+                </div>
+
+                <h3>Look For It Here</h3>
+
+                <p>
+                    E-commerce work involving product merchandising,
+                    collections, storefront experience and conversion considerations.
+                </p>
+
+                <a
+                    class="project-link"
+                    href="https://www.lookforithere.com.ar/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    View Live Store →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- AESTEVI -->
+
+        <article class="project-card reveal">
+
+            <div class="project-image">
+                <img
+                    src="assets/projects/aestevi/aestevi-home.jpg"
+                    alt="Aestevi Shopify store"
+                >
+            </div>
+
+            <div class="project-content">
+
+                <div class="project-tag">
+                    Shopify • Audit & Analysis
+                </div>
+
+                <h3>Aestevi</h3>
+
+                <p>
+                    Shopify store analysis focused on customer experience,
+                    visibility, product presentation and conversion opportunities.
+                </p>
+
+                <a
+                    class="project-link"
+                    href="https://aestevi.com/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    View Live Store →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- MANBAUL ANWAR -->
+
+        <article class="project-card reveal">
+
+            <div class="project-gallery">
+
+                <img
+                    src="assets/projects/manbaul-anwar/manbaul-anwar-login.jpg"
+                    alt="Manbaul Anwar login screen"
+                >
+
+                <img
+                    src="assets/projects/manbaul-anwar/manbaul-anwar-news.jpg"
+                    alt="Manbaul Anwar news screen"
+                >
+
+                <img
+                    src="assets/projects/manbaul-anwar/manbaul-anwar-dashboard.jpg"
+                    alt="Manbaul Anwar dashboard"
+                >
+
+            </div>
+
+            <div class="project-content">
+
+                <div class="project-tag">
+                    Web & App Development
+                </div>
+
+                <h3>
+                    MANBAUL ANWAR ARABIC SCHOOL MANAGEMENT SYSTEM
+                </h3>
+
+                <p>
+                    A school management and digital learning system
+                    covering administration, academic operations and
+                    digital school workflows.
+                </p>
+
+                <a
+                    class="project-link"
+                    href="https://github.com/gunkowii248656-alt"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    View Development Work →
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     PROCESS
+========================= -->
+
+<section class="process">
+<div class="container">
+
+    <div class="section-heading reveal">
+
+        <div class="eyebrow">
+            My Approach
+        </div>
+
+        <h2>
+            A Practical Growth Process
+        </h2>
+
+        <p>
+            Every project starts with understanding the business,
+            identifying the real problems and then prioritizing the
+            changes most likely to make a commercial difference.
+        </p>
+
+    </div>
+
+
+    <div class="process-grid">
+
+        <div class="process-card reveal">
+            <div class="process-number">01</div>
+            <h3>Discover</h3>
+            <p>
+                Understand the store, products, customers and business goals.
+            </p>
+        </div>
+
+        <div class="process-card reveal">
+            <div class="process-number">02</div>
+            <h3>Audit</h3>
+            <p>
+                Identify technical, UX, SEO and conversion problems.
+            </p>
+        </div>
+
+        <div class="process-card reveal">
+            <div class="process-number">03</div>
+            <h3>Strategize</h3>
+            <p>
+                Prioritize opportunities based on impact and practicality.
+            </p>
+        </div>
+
+        <div class="process-card reveal">
+            <div class="process-number">04</div>
+            <h3>Implement</h3>
+            <p>
+                Turn the strategy into real store and marketing improvements.
+            </p>
+        </div>
+
+        <div class="process-card reveal">
+            <div class="process-number">05</div>
+            <h3>Optimize</h3>
+            <p>
+                Monitor performance and continuously improve what matters.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     TEAM
+========================= -->
+
+<section class="team">
+<div class="container team-grid">
+
+    <div class="team-photo-frame reveal">
+
+        <img
+            src="Screenshot_2026-09-04-12-53-39-223_com.openai.chatgpt-edit.jpg"
+            alt="Gunkowii SABA working in a professional environment"
+        >
+
+    </div>
+
+
+    <div class="reveal">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                Collaboration
             </div>
 
             <h2>
-              Practical Experience. Business-Focused Execution.
+                The Team Behind the Work
             </h2>
 
             <p>
-              My work sits at the intersection of e-commerce, digital
-              marketing and technology.
+                Strong e-commerce work often involves collaboration.
+                I work within a practical team environment where strategy,
+                implementation and specialist skills come together.
             </p>
 
-            <p>
-              Whether the goal is improving a Shopify store, strengthening
-              an Etsy presence, increasing organic visibility, improving
-              conversion or building a web solution, I focus on identifying
-              what matters most and turning it into practical action.
-            </p>
-
-            <a href="contact.html" class="btn btn-gold">
-              Let's Discuss Your Project →
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CTA
-    ========================= -->
-
-    <section class="cta">
-
-      <div class="container">
-
-        <div class="reveal">
-
-          <div class="section-kicker">
-            Ready to Improve Your Store?
-          </div>
-
-          <h2>
-            Let's Find Your Biggest Growth Opportunity.
-          </h2>
-
-          <p>
-            If you already have a store or online business, I can help you
-            identify where customers may be getting stuck and what should be
-            improved first.
-          </p>
-
-          <div class="cta-buttons">
-
-            <a
-              href="https://wa.me/message/V26H2754ROXUB1"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-gold"
-            >
-              Message Gunkowii Elite Pro
-            </a>
-
-            <a href="audit.html" class="btn btn-outline">
-              Request a Free Audit
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       FOOTER
-  ========================= -->
-
-  <footer>
-
-    <div class="container">
-
-      <div class="footer-grid">
-
-        <div>
-
-          <h3>GUNKOWII SABA</h3>
-
-          <p>
-            E-commerce & Digital Marketing Expert specializing in Shopify,
-            Etsy, SEO, CRO, paid advertising, email marketing and web
-            development.
-          </p>
-
         </div>
 
 
-        <div>
+        <ul class="team-list">
 
-          <h3>Explore</h3>
+            <li>Practical e-commerce experience</li>
 
-          <ul class="footer-links">
+            <li>Shopify & Etsy expertise</li>
 
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="reviews.html">Reviews</a></li>
-            <li><a href="pricing.html">Pricing</a></li>
-            <li><a href="process.html">Process</a></li>
-            <li><a href="audit.html">Free Audit</a></li>
+            <li>Marketing, SEO & CRO execution</li>
 
-          </ul>
+            <li>Web & app development</li>
 
-        </div>
+            <li>Transparent collaborative execution</li>
 
-
-        <div>
-
-          <h3>Connect</h3>
-
-          <ul class="footer-links">
-
-            <li>
-              <a
-                href="https://wa.me/message/V26H2754ROXUB1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="https://instagram.com/gunkowii.saba"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Instagram
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="https://twitter.com/agunko01"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                X / Twitter
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="https://www.fiverr.com/smith_stephiene"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Fiverr
-              </a>
-            </li>
-
-            <li>
-              <a href="contact.html">
-                Contact
-              </a>
-            </li>
-
-          </ul>
-
-        </div>
-
-      </div>
-
-
-      <div class="footer-bottom">
-
-        <p>
-          © <span id="year"></span> GUNKOWII SABA. All rights reserved.
-        </p>
-
-        <p>
-          Real Stores • Real Projects • Practical Work
-        </p>
-
-      </div>
+        </ul>
 
     </div>
 
-  </footer>
+</div>
+</section>
 
 
-  <!-- =========================
-       JAVASCRIPT
-  ========================= -->
+<!-- =========================
+     PROFESSIONAL PROFILE
+========================= -->
 
-  <script>
+<section class="profile">
+<div class="container profile-grid">
 
-    /* =========================
-       MOBILE MENU
-    ========================= */
+    <div class="profile-photo-outer reveal">
 
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
+        <div class="profile-photo-frame">
 
-    menuBtn.addEventListener("click", function () {
-      navLinks.classList.toggle("active");
+            <img
+                src="Screenshot_2026-09-04-12-55-24-480_com.openai.chatgpt-edit.jpg"
+                alt="Gunkowii SABA professional profile"
+            >
 
-      if (navLinks.classList.contains("active")) {
-        menuBtn.textContent = "✕";
-      } else {
-        menuBtn.textContent = "☰";
-      }
+        </div>
+
+    </div>
+
+
+    <div class="profile-content reveal">
+
+        <div class="eyebrow">
+            Professional Profile
+        </div>
+
+        <h2>
+            Practical Experience. Business-Focused Execution.
+        </h2>
+
+        <p>
+            My focus is not simply making a website look good.
+            The goal is to understand how the store works as a business
+            and identify the improvements that can help it perform better.
+        </p>
+
+        <p>
+            From Shopify and Etsy to SEO, CRO, paid advertising,
+            email marketing and web development, I approach each project
+            from the perspective of the customer and the business owner.
+        </p>
+
+        <a
+            class="btn btn-primary"
+            href="about.html"
+        >
+            Learn More About Me
+        </a>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta">
+<div class="container reveal">
+
+    <h2>
+        Ready to Improve Your Store?
+    </h2>
+
+    <p>
+        If you want a clearer understanding of what is holding your
+        store back, let’s start with the numbers, customer journey
+        and actual opportunities.
+    </p>
+
+    <div class="hero-buttons" style="justify-content:center;">
+
+        <a
+            class="btn btn-primary"
+            href="https://wa.me/message/V26H2754ROXUB1"
+            target="_blank"
+            rel="noopener"
+        >
+            Message Gunkowii Elite Pro
+        </a>
+
+        <a
+            class="btn btn-outline"
+            href="audit.html"
+        >
+            Get a Free Audit
+        </a>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="container">
+
+    <div class="footer-grid">
+
+        <div class="footer-brand">
+
+            <img
+                src="gunkowii-saba-logo.png"
+                alt="GUNKOWII SABA"
+            >
+
+            <p>
+                E-commerce & Digital Marketing Expert specializing
+                in Shopify, Etsy, SEO, CRO, paid advertising,
+                email marketing and web development.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Explore</h3>
+
+            <ul class="footer-links">
+
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="process.html">Process</a></li>
+                <li><a href="audit.html">Free Audit</a></li>
+
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h3>Connect</h3>
+
+            <ul class="footer-links">
+
+                <li>
+                    <a
+                        href="https://wa.me/message/V26H2754ROXUB1"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        WhatsApp
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://instagram.com/gunkowii.saba"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Instagram
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://twitter.com/agunko01"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        X / Twitter
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://www.fiverr.com/smith_stephiene"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Fiverr
+                    </a>
+                </li>
+
+                <li>
+                    <a href="contact.html">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © <span id="year"></span> GUNKOWII SABA.
+        All rights reserved.
+
+    </div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+if(menuBtn){
+
+    menuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
     });
 
+}
 
-    /* Close mobile menu after clicking a link */
+document.querySelectorAll(".nav-links a").forEach(link => {
 
-    document.querySelectorAll(".nav-links a").forEach(function(link) {
-      link.addEventListener("click", function() {
-        navLinks.classList.remove("active");
-        menuBtn.textContent = "☰";
-      });
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
     });
 
+});
 
-    /* =========================
-       REVEAL ANIMATION
-    ========================= */
 
-    const revealElements = document.querySelectorAll(".reveal");
+/* =========================
+   REVEAL ANIMATION
+========================= */
 
-    const revealObserver = new IntersectionObserver(
-      function(entries, observer) {
+const revealObserver = new IntersectionObserver(
 
-        entries.forEach(function(entry) {
+    entries => {
 
-          if (entry.isIntersecting) {
+        entries.forEach(entry => {
 
-            entry.target.classList.add("visible");
+            if(entry.isIntersecting){
 
-            observer.unobserve(entry.target);
+                entry.target.classList.add("active");
 
-          }
+                revealObserver.unobserve(entry.target);
+
+            }
 
         });
 
-      },
-      {
-        threshold: 0.12
-      }
-    );
+    },
 
-    revealElements.forEach(function(element) {
-      revealObserver.observe(element);
+    {
+        threshold:.12
+    }
+
+);
+
+document.querySelectorAll(".reveal").forEach(element => {
+
+    revealObserver.observe(element);
+
+});
+
+
+/* =========================
+   ANIMATED COUNTERS
+========================= */
+
+const counterObserver = new IntersectionObserver(
+
+    entries => {
+
+        entries.forEach(entry => {
+
+            if(!entry.isIntersecting) return;
+
+            const element = entry.target;
+
+            const start =
+                Number(element.dataset.counterStart || 0);
+
+            const target =
+                Number(element.dataset.counter || 0);
+
+            const suffix =
+                element.dataset.suffix || "";
+
+            const isRange =
+                element.dataset.range === "true";
+
+            const duration = 1700;
+
+            const startTime = performance.now();
+
+
+            function animate(currentTime){
+
+                const elapsed =
+                    currentTime - startTime;
+
+                const progress =
+                    Math.min(elapsed / duration, 1);
+
+                /* Smooth ease-out */
+
+                const eased =
+                    1 - Math.pow(1 - progress, 3);
+
+                const value =
+                    Math.floor(
+                        start + ((target - start) * eased)
+                    );
+
+
+                if(isRange){
+
+                    element.textContent =
+                        start + "–" + value + "%";
+
+                }else{
+
+                    element.textContent =
+                        value + suffix;
+
+                }
+
+
+                if(progress < 1){
+
+                    requestAnimationFrame(animate);
+
+                }else{
+
+                    if(isRange){
+
+                        element.textContent =
+                            start + "–" + target + "%";
+
+                    }else{
+
+                        element.textContent =
+                            target + suffix;
+
+                    }
+
+                }
+
+            }
+
+
+            requestAnimationFrame(animate);
+
+            counterObserver.unobserve(element);
+
+        });
+
+    },
+
+    {
+        threshold:.7
+    }
+
+);
+
+
+document
+    .querySelectorAll(".metric-number")
+    .forEach(element => {
+
+        counterObserver.observe(element);
+
     });
 
 
-    /* =========================
-       WORKING ANIMATED COUNTERS
-       ========================= */
+/* =========================
+   YEAR
+========================= */
 
-    const metricNumbers = document.querySelectorAll(".metric-number");
+document.getElementById("year").textContent =
+    new Date().getFullYear();
 
-    function animateCounter(element) {
-
-      if (element.dataset.counted === "true") {
-        return;
-      }
-
-      element.dataset.counted = "true";
-
-      const target = Number(element.dataset.target);
-      const suffix = element.dataset.suffix || "";
-      const range = element.dataset.range || "";
-
-      const duration = 1600;
-      const startTime = performance.now();
-
-      function updateCounter(currentTime) {
-
-        const elapsed = currentTime - startTime;
-
-        const progress = Math.min(elapsed / duration, 1);
-
-        /*
-          Ease-out animation:
-          starts quickly and slows down naturally.
-        */
-        const easedProgress =
-          1 - Math.pow(1 - progress, 3);
-
-        const currentValue =
-          Math.floor(target * easedProgress);
-
-        if (range) {
-
-          /*
-            Special handling for the
-            60–75% contribution metric.
-          */
-          const startValue = 60;
-          const endValue = 75;
-
-          const currentRange =
-            Math.floor(
-              startValue +
-              (endValue - startValue) * easedProgress
-            );
-
-          element.textContent =
-            currentRange + "%";
-
-        } else {
-
-          element.textContent =
-            currentValue + suffix;
-
-        }
-
-        if (progress < 1) {
-
-          requestAnimationFrame(updateCounter);
-
-        } else {
-
-          if (range) {
-            element.textContent = "60–75%";
-          } else {
-            element.textContent = target + suffix;
-          }
-
-        }
-
-      }
-
-      requestAnimationFrame(updateCounter);
-    }
-
-
-    /*
-      Observe the metric section separately.
-
-      This is the important part that fixes the
-      stagnant numbers. The counters begin only
-      when the statistics section enters the screen.
-    */
-
-    const metricsSection =
-      document.querySelector(".metrics");
-
-    const counterObserver =
-      new IntersectionObserver(
-        function(entries, observer) {
-
-          entries.forEach(function(entry) {
-
-            if (entry.isIntersecting) {
-
-              metricNumbers.forEach(function(number) {
-                animateCounter(number);
-              });
-
-              observer.unobserve(entry.target);
-            }
-
-          });
-
-        },
-        {
-          threshold: 0.25
-        }
-      );
-
-    if (metricsSection) {
-      counterObserver.observe(metricsSection);
-    }
-
-
-    /* =========================
-       CURRENT YEAR
-    ========================= */
-
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-
-  </script>
+</script>
 
 </body>
 </html>
