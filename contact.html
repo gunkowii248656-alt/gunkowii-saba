@@ -391,7 +391,6 @@
             cursor: pointer;
             padding: 15px;
             border-radius: 8px;
-            background: #173d2c;
             color: white;
             font: inherit;
             font-weight: 800;
@@ -399,7 +398,38 @@
         }
 
         .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           FORM SUBMISSION OPTIONS
+        ========================= */
+
+        .form-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 5px;
+        }
+
+        .form-actions .submit-btn {
+            min-height: 52px;
+        }
+
+        .whatsapp-submit {
+            background: #176b3a;
+        }
+
+        .whatsapp-submit:hover {
+            background: #218c4d;
+        }
+
+        .email-submit {
             background: #b88a2b;
+        }
+
+        .email-submit:hover {
+            background: #9b7423;
         }
 
         .form-note {
@@ -729,6 +759,10 @@
                 padding: 20px;
             }
 
+            .form-actions {
+                grid-template-columns: 1fr;
+            }
+
         }
 
     </style>
@@ -966,7 +1000,9 @@
         </div>
 
 
-        <!-- FORM -->
+        <!-- =================================================
+             SINGLE CONTACT FORM
+        ================================================== -->
 
         <div class="form-box" id="contact-form">
 
@@ -975,12 +1011,17 @@
             </h3>
 
             <p>
-                Complete the form below. Your information will be used
-                to prepare a message for direct contact.
+                Complete the form below once, then choose whether
+                you would like to continue through WhatsApp or
+                send your inquiry by email.
             </p>
 
 
-            <form id="projectForm">
+            <form
+                id="projectForm"
+                action="https://formspree.io/f/mbgjdgng"
+                method="POST"
+            >
 
                 <div class="form-grid">
 
@@ -995,6 +1036,7 @@
                             id="name"
                             name="name"
                             placeholder="Your name"
+                            autocomplete="name"
                             required>
 
                     </div>
@@ -1011,6 +1053,7 @@
                             id="email"
                             name="email"
                             placeholder="you@example.com"
+                            autocomplete="email"
                             required>
 
                     </div>
@@ -1020,13 +1063,17 @@
 
                         <label for="website">
                             Store / Website
+                            <span style="font-weight:400;color:#78817c;">
+                                (Optional)
+                            </span>
                         </label>
 
                         <input
                             type="url"
                             id="website"
                             name="website"
-                            placeholder="https://yourstore.com">
+                            placeholder="https://yourstore.com"
+                            autocomplete="url">
 
                     </div>
 
@@ -1046,43 +1093,43 @@
                                 Select a service
                             </option>
 
-                            <option>
+                            <option value="Shopify / E-commerce">
                                 Shopify / E-commerce
                             </option>
 
-                            <option>
+                            <option value="Etsy Growth & Optimization">
                                 Etsy Growth & Optimization
                             </option>
 
-                            <option>
+                            <option value="SEO & Search Visibility">
                                 SEO & Search Visibility
                             </option>
 
-                            <option>
+                            <option value="Conversion Rate Optimization">
                                 Conversion Rate Optimization
                             </option>
 
-                            <option>
+                            <option value="Digital Marketing">
                                 Digital Marketing
                             </option>
 
-                            <option>
+                            <option value="Email Marketing">
                                 Email Marketing
                             </option>
 
-                            <option>
+                            <option value="Web Development">
                                 Web Development
                             </option>
 
-                            <option>
+                            <option value="Web / Application Development">
                                 Web / Application Development
                             </option>
 
-                            <option>
+                            <option value="Free E-commerce Audit">
                                 Free E-commerce Audit
                             </option>
 
-                            <option>
+                            <option value="Other / Collaboration">
                                 Other / Collaboration
                             </option>
 
@@ -1108,15 +1155,49 @@
                 </div>
 
 
-                <button
-                    type="submit"
-                    class="submit-btn">
-                    Continue to WhatsApp
-                </button>
+                <!-- Formspree email subject -->
+
+                <input
+                    type="hidden"
+                    name="_subject"
+                    value="New Project Inquiry - GUNKOWII SABA">
+
+
+                <!-- =================================================
+                     TWO SUBMISSION BUTTONS
+                ================================================== -->
+
+                <div class="form-actions">
+
+                    <!-- WhatsApp -->
+                    <button
+                        type="button"
+                        id="whatsappSubmit"
+                        class="submit-btn whatsapp-submit">
+
+                        🟢 Continue to WhatsApp
+
+                    </button>
+
+
+                    <!-- Formspree / Email -->
+                    <button
+                        type="submit"
+                        id="emailSubmit"
+                        class="submit-btn email-submit">
+
+                        📧 Send by Email
+
+                    </button>
+
+                </div>
+
 
                 <div class="form-note">
-                    Your message will open in WhatsApp so we can continue
-                    the conversation directly.
+
+                    Complete the form once and choose your preferred
+                    contact method above.
+
                 </div>
 
             </form>
@@ -1591,34 +1672,71 @@
 
 
 <!-- =====================================================
-     WHATSAPP FORM FUNCTION
+     WHATSAPP FUNCTION
 ===================================================== -->
 
 <script>
 
-    document
-        .getElementById("projectForm")
-        .addEventListener("submit", function(event) {
+document.addEventListener("DOMContentLoaded", function () {
 
-            event.preventDefault();
+    const form = document.getElementById("projectForm");
 
-            const name =
-                document.getElementById("name").value.trim();
-
-            const email =
-                document.getElementById("email").value.trim();
-
-            const website =
-                document.getElementById("website").value.trim();
-
-            const service =
-                document.getElementById("service").value;
-
-            const message =
-                document.getElementById("message").value.trim();
+    const whatsappButton =
+        document.getElementById("whatsappSubmit");
 
 
-            const whatsappMessage =
+    /*
+     * Safety check:
+     * If the form or WhatsApp button is missing,
+     * stop the script without producing an error.
+     */
+
+    if (!form || !whatsappButton) {
+        return;
+    }
+
+
+    whatsappButton.addEventListener("click", function () {
+
+
+        /*
+         * Validate required fields.
+         */
+
+        if (!form.checkValidity()) {
+
+            form.reportValidity();
+
+            return;
+
+        }
+
+
+        /*
+         * Collect form information.
+         */
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const website =
+            document.getElementById("website").value.trim();
+
+        const service =
+            document.getElementById("service").value;
+
+        const message =
+            document.getElementById("message").value.trim();
+
+
+        /*
+         * Prepare the WhatsApp message.
+         */
+
+        const whatsappMessage =
 `Hello Gunkowii,
 
 My name is ${name}.
@@ -1635,18 +1753,55 @@ ${message}
 I would like to discuss how you can help me with this project.`;
 
 
-            const whatsappURL =
-                "https://wa.me/message/V26H2754ROXUB1?text="
-                + encodeURIComponent(whatsappMessage);
+        /*
+         * Copy the message so the buyer can paste it
+         * directly into the WhatsApp conversation.
+         */
 
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
+
+            navigator.clipboard
+                .writeText(whatsappMessage)
+                .then(function () {
+
+                    window.open(
+                        "https://wa.me/message/V26H2754ROXUB1",
+                        "_blank",
+                        "noopener"
+                    );
+
+                })
+                .catch(function () {
+
+                    window.open(
+                        "https://wa.me/message/V26H2754ROXUB1",
+                        "_blank",
+                        "noopener"
+                    );
+
+                });
+
+        } else {
+
+            /*
+             * Fallback for browsers where clipboard
+             * access is unavailable.
+             */
 
             window.open(
-                whatsappURL,
+                "https://wa.me/message/V26H2754ROXUB1",
                 "_blank",
                 "noopener"
             );
 
-        });
+        }
+
+    });
+
+});
 
 </script>
 
