@@ -410,6 +410,106 @@
         }
 
         /* =========================
+           SOCIAL & PROFESSIONAL
+        ========================= */
+
+        .social-section {
+            background: #f8f5ed;
+        }
+
+        .social-heading {
+            max-width: 760px;
+            margin: 0 auto 45px;
+            text-align: center;
+        }
+
+        .social-heading .eyebrow {
+            color: #9b7423;
+        }
+
+        .social-heading h2 {
+            font-family: Georgia, serif;
+            font-size: clamp(35px, 5vw, 50px);
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .social-heading p {
+            color: #657069;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 24px;
+            background: white;
+            border: 1px solid #ded9cd;
+            border-radius: 15px;
+            transition: .25s ease;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            border-color: #c59a3b;
+            box-shadow: 0 15px 35px rgba(23,61,44,.09);
+        }
+
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #173d2c;
+            color: #d7b866;
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .social-card strong {
+            display: block;
+            font-family: Georgia, serif;
+            font-size: 19px;
+            margin-bottom: 3px;
+        }
+
+        .social-card span {
+            color: #69736d;
+            font-size: 13px;
+        }
+
+        .portfolio-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .portfolio-link {
+            padding: 13px 20px;
+            border-radius: 8px;
+            background: #173d2c;
+            color: white;
+            font-weight: 800;
+            transition: .25s ease;
+        }
+
+        .portfolio-link:hover {
+            background: #b88a2b;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
            SERVICES
         ========================= */
 
@@ -558,6 +658,10 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -607,6 +711,7 @@
 
             .form-grid,
             .service-grid,
+            .social-grid,
             .footer-grid {
                 grid-template-columns: 1fr;
             }
@@ -618,6 +723,10 @@
             .form-box,
             .info-card {
                 padding: 25px;
+            }
+
+            .social-card {
+                padding: 20px;
             }
 
         }
@@ -1020,6 +1129,162 @@
 
 
 <!-- =====================================================
+     SOCIAL & PROFESSIONAL CONNECTIONS
+===================================================== -->
+
+<section class="social-section">
+
+    <div class="container">
+
+        <div class="social-heading">
+
+            <div class="eyebrow">
+                CONNECT WITH ME
+            </div>
+
+            <h2>
+                Find GUNKOWII SABA Online.
+            </h2>
+
+            <p>
+                Prefer another platform? Connect with me through the
+                channel that works best for you. Follow my work,
+                explore my professional presence, or start a conversation.
+            </p>
+
+        </div>
+
+
+        <div class="social-grid">
+
+            <a href="https://www.instagram.com/gunkowii.saba/"
+               target="_blank"
+               rel="noopener"
+               class="social-card">
+
+                <div class="social-icon">
+                    IG
+                </div>
+
+                <div>
+                    <strong>Instagram</strong>
+                    <span>@gunkowii.saba</span>
+                </div>
+
+            </a>
+
+
+            <a href="https://www.tiktok.com/@gunkowii.saba"
+               target="_blank"
+               rel="noopener"
+               class="social-card">
+
+                <div class="social-icon">
+                    TT
+                </div>
+
+                <div>
+                    <strong>TikTok</strong>
+                    <span>@gunkowii.saba</span>
+                </div>
+
+            </a>
+
+
+            <a href="https://www.pinterest.com/gunkowiisaba/"
+               target="_blank"
+               rel="noopener"
+               class="social-card">
+
+                <div class="social-icon">
+                    P
+                </div>
+
+                <div>
+                    <strong>Pinterest</strong>
+                    <span>@gunkowiisaba</span>
+                </div>
+
+            </a>
+
+
+            <a href="https://t.me/gunkowiisaba"
+               target="_blank"
+               rel="noopener"
+               class="social-card">
+
+                <div class="social-icon">
+                    TG
+                </div>
+
+                <div>
+                    <strong>Telegram</strong>
+                    <span>@gunkowiisaba</span>
+                </div>
+
+            </a>
+
+
+            <a href="https://x.com/gunkowiisaba"
+               target="_blank"
+               rel="noopener"
+               class="social-card">
+
+                <div class="social-icon">
+                    X
+                </div>
+
+                <div>
+                    <strong>X (Twitter)</strong>
+                    <span>@gunkowiisaba</span>
+                </div>
+
+            </a>
+
+
+            <a href="https://github.com/gunkowii248656-alt"
+               target="_blank"
+               rel="noopener"
+               class="social-card">
+
+                <div class="social-icon">
+                    GH
+                </div>
+
+                <div>
+                    <strong>GitHub</strong>
+                    <span>@gunkowii248656-alt</span>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <div class="portfolio-links">
+
+            <a href="https://gunkowiisaba.netlify.app/"
+               target="_blank"
+               rel="noopener"
+               class="portfolio-link">
+                Visit My Portfolio →
+            </a>
+
+            <a href="https://gunkowii248656-alt.github.io/gunkowii-saba/"
+               target="_blank"
+               rel="noopener"
+               class="portfolio-link">
+                GitHub Pages Portfolio →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
      SERVICES
 ===================================================== -->
 
@@ -1281,6 +1546,30 @@
                        target="_blank"
                        rel="noopener">
                         WhatsApp
+                    </a>
+
+                    <a href="https://www.instagram.com/gunkowii.saba/"
+                       target="_blank"
+                       rel="noopener">
+                        Instagram
+                    </a>
+
+                    <a href="https://www.tiktok.com/@gunkowii.saba"
+                       target="_blank"
+                       rel="noopener">
+                        TikTok
+                    </a>
+
+                    <a href="https://t.me/gunkowiisaba"
+                       target="_blank"
+                       rel="noopener">
+                        Telegram
+                    </a>
+
+                    <a href="https://x.com/gunkowiisaba"
+                       target="_blank"
+                       rel="noopener">
+                        X (Twitter)
                     </a>
 
                 </div>
