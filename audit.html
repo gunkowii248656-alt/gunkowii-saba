@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Free E-commerce Audit | GUNKOWII SABA</title>
+
+    <meta name="description"
+          content="Get a practical free e-commerce audit from GUNKOWII SABA. Identify Shopify, Etsy, SEO, CRO, UX, product page, marketing and customer journey opportunities.">
+
+    <meta name="keywords"
+          content="free ecommerce audit, Shopify audit, Etsy audit, CRO audit, ecommerce SEO audit, Shopify optimization, ecommerce expert">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8f5ed;
+            color: #17251e;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: min(1150px, 92%);
+            margin: auto;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(248, 245, 237, 0.96);
+            border-bottom: 1px solid rgba(23, 37, 30, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            letter-spacing: .04em;
+        }
+
+        .brand img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .brand span {
+            font-size: 15px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-size: 13px;
+            font-weight: 700;
+            transition: .25s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #b88a2b;
+        }
+
+        .nav-cta {
+            padding: 10px 16px;
+            border-radius: 30px;
+            background: #173d2c;
+            color: #fff;
+        }
+
+        .nav-cta:hover {
+            background: #b88a2b;
+            color: #fff;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            padding: 105px 0 85px;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(184,138,43,.16), transparent 30%),
+                linear-gradient(135deg, #173d2c, #10291e);
+            color: white;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #d7b866;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(44px, 7vw, 78px);
+            line-height: 1.02;
+            margin-bottom: 20px;
+        }
+
+        .hero h2 {
+            font-size: clamp(20px, 3vw, 30px);
+            color: #e8d7a6;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 690px;
+            font-size: 18px;
+            color: rgba(255,255,255,.82);
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 22px;
+            border-radius: 8px;
+            font-weight: 800;
+            transition: .25s ease;
+        }
+
+        .btn-gold {
+            background: #c59a3b;
+            color: #fff;
+        }
+
+        .btn-gold:hover {
+            background: #d5ad58;
+            transform: translateY(-2px);
+        }
+
+        .btn-light {
+            border: 1px solid rgba(255,255,255,.3);
+            color: white;
+        }
+
+        .btn-light:hover {
+            background: rgba(255,255,255,.1);
+        }
+
+        .audit-card {
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 25px 70px rgba(0,0,0,.22);
+        }
+
+        .audit-card-top {
+            font-size: 12px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #d7b866;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .audit-card h3 {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            margin-bottom: 16px;
+        }
+
+        .audit-card ul {
+            list-style: none;
+        }
+
+        .audit-card li {
+            padding: 11px 0;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+            color: rgba(255,255,255,.82);
+        }
+
+        .audit-card li:last-child {
+            border-bottom: 0;
+        }
+
+        .audit-card li::before {
+            content: "✓";
+            color: #d7b866;
+            font-weight: 900;
+            margin-right: 10px;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        section {
+            padding: 90px 0;
+        }
+
+        .section-heading {
+            max-width: 760px;
+            margin-bottom: 50px;
+        }
+
+        .section-heading .eyebrow {
+            color: #9b7423;
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            font-family: Georgia, serif;
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .section-heading p {
+            color: #5b655f;
+            font-size: 17px;
+        }
+
+        /* =========================
+           CHECK GRID
+        ========================= */
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .check-card {
+            background: white;
+            border: 1px solid #e4dfd2;
+            border-radius: 16px;
+            padding: 28px;
+            transition: .25s ease;
+        }
+
+        .check-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 45px rgba(23,61,44,.09);
+        }
+
+        .number {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #173d2c;
+            color: #d7b866;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .check-card h3 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .check-card p {
+            color: #68716c;
+            font-size: 15px;
+        }
+
+        /* =========================
+           PROBLEMS
+        ========================= */
+
+        .problem-section {
+            background: #173d2c;
+            color: white;
+        }
+
+        .problem-section .section-heading p {
+            color: rgba(255,255,255,.7);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .problem {
+            padding: 22px;
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: 12px;
+            background: rgba(255,255,255,.05);
+        }
+
+        .problem strong {
+            display: block;
+            margin-bottom: 6px;
+            color: #e2c77d;
+        }
+
+        .problem span {
+            color: rgba(255,255,255,.7);
+            font-size: 14px;
+        }
+
+        /* =========================
+           RECEIVE
+        ========================= */
+
+        .receive-grid {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .receive-box {
+            background: #173d2c;
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+        }
+
+        .receive-box h3 {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .receive-box ul {
+            list-style: none;
+        }
+
+        .receive-box li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,.12);
+        }
+
+        .receive-box li:last-child {
+            border-bottom: none;
+        }
+
+        .receive-box li::before {
+            content: "→";
+            color: #d7b866;
+            margin-right: 10px;
+            font-weight: 900;
+        }
+
+        .receive-text h2 {
+            font-family: Georgia, serif;
+            font-size: 45px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .receive-text p {
+            color: #616b65;
+            margin-bottom: 18px;
+        }
+
+        /* =========================
+           PROCESS
+        ========================= */
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .process-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e4dfd2;
+            padding: 25px;
+        }
+
+        .process-card .step {
+            color: #a57b25;
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: .1em;
+            margin-bottom: 15px;
+        }
+
+        .process-card h3 {
+            font-family: Georgia, serif;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .process-card p {
+            color: #68716c;
+            font-size: 14px;
+        }
+
+        /* =========================
+           AFTER AUDIT
+        ========================= */
+
+        .after {
+            background: #eee9dc;
+        }
+
+        .after-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .after-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+        }
+
+        .after-card h3 {
+            font-family: Georgia, serif;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .after-card p {
+            color: #68716c;
+            font-size: 15px;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+            background:
+                radial-gradient(circle at center, rgba(197,154,59,.14), transparent 45%),
+                #10291e;
+            color: white;
+        }
+
+        .cta h2 {
+            font-family: Georgia, serif;
+            font-size: clamp(38px, 6vw, 58px);
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+
+        .cta p {
+            max-width: 680px;
+            margin: 0 auto 30px;
+            color: rgba(255,255,255,.72);
+            font-size: 17px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #0b1d15;
+            color: rgba(255,255,255,.7);
+            padding: 55px 0 25px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr .8fr;
+            gap: 40px;
+            padding-bottom: 35px;
+        }
+
+        footer h3 {
+            color: white;
+            margin-bottom: 14px;
+            font-family: Georgia, serif;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #d7b866;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,.1);
+            padding-top: 20px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .hero-grid,
+            .receive-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .check-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .after-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .nav {
+                padding: 12px 0;
+                align-items: flex-start;
+            }
+
+            .brand span {
+                display: none;
+            }
+
+            nav {
+                justify-content: flex-end;
+                max-width: 75%;
+            }
+
+            nav a {
+                font-size: 11px;
+            }
+
+            .nav-cta {
+                padding: 8px 12px;
+            }
+
+            .hero {
+                padding: 75px 0;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .check-grid,
+            .problem-grid,
+            .process-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-buttons,
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="container nav">
+
+        <a href="index.html" class="brand">
+
+            <img src="gunkowii-saba-logo.png"
+                 alt="GUNKOWII SABA">
+
+            <span>GUNKOWII SABA</span>
+
+        </a>
+
+        <nav>
+
+            <a href="index.html">Home</a>
+
+            <a href="about.html">About</a>
+
+            <a href="services.html">Services</a>
+
+            <a href="portfolio.html">Portfolio</a>
+
+            <a href="reviews.html">Reviews</a>
+
+            <a href="pricing.html">Pricing</a>
+
+            <a href="process.html">Process</a>
+
+            <a href="audit.html" class="active">Free Audit</a>
+
+            <a href="contact.html" class="nav-cta">Contact</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="container hero-grid">
+
+        <div>
+
+            <div class="eyebrow">
+                FREE E-COMMERCE AUDIT
+            </div>
+
+            <h1>
+                Find What Is Holding Your Store Back.
+            </h1>
+
+            <h2>
+                Before Spending More on Traffic.
+            </h2>
+
+            <p>
+                I review your e-commerce experience from the customer's
+                point of view and identify practical opportunities across
+                Shopify, Etsy, SEO, CRO, product presentation, UX,
+                marketing and retention.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="contact.html"
+                   class="btn btn-gold">
+                    Request My Free Audit
+                </a>
+
+                <a href="#what-i-check"
+                   class="btn btn-light">
+                    See What I Check
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="audit-card">
+
+            <div class="audit-card-top">
+                Audit Focus
+            </div>
+
+            <h3>
+                A Store Is More Than Its Design.
+            </h3>
+
+            <ul>
+
+                <li>Store structure & navigation</li>
+
+                <li>Product & collection presentation</li>
+
+                <li>Mobile user experience</li>
+
+                <li>SEO & search visibility</li>
+
+                <li>Conversion opportunities</li>
+
+                <li>Trust & customer objections</li>
+
+                <li>Marketing & retention opportunities</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHAT I CHECK
+===================================================== -->
+
+<section id="what-i-check">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                WHAT I CHECK
+            </div>
+
+            <h2>
+                I Look at the Complete Customer Journey.
+            </h2>
+
+            <p>
+                A visitor has to find your store, understand what you
+                sell, trust the business, understand the product and
+                feel confident enough to take the next step.
+            </p>
+
+        </div>
+
+
+        <div class="check-grid">
+
+            <div class="check-card">
+
+                <div class="number">01</div>
+
+                <h3>Store Structure</h3>
+
+                <p>
+                    Navigation, menus, collections, categories and
+                    overall organization.
+                </p>
+
+            </div>
+
+
+            <div class="check-card">
+
+                <div class="number">02</div>
+
+                <h3>Product Pages</h3>
+
+                <p>
+                    Product information, images, messaging, calls to
+                    action and purchase confidence.
+                </p>
+
+            </div>
+
+
+            <div class="check-card">
+
+                <div class="number">03</div>
+
+                <h3>Customer Experience</h3>
+
+                <p>
+                    How easily a visitor can move from landing on the
+                    store toward making a decision.
+                </p>
+
+            </div>
+
+
+            <div class="check-card">
+
+                <div class="number">04</div>
+
+                <h3>SEO</h3>
+
+                <p>
+                    Search visibility opportunities across products,
+                    collections, content and internal structure.
+                </p>
+
+            </div>
+
+
+            <div class="check-card">
+
+                <div class="number">05</div>
+
+                <h3>Conversion</h3>
+
+                <p>
+                    Friction, unclear messaging, weak calls to action,
+                    trust gaps and missed conversion opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="check-card">
+
+                <div class="number">06</div>
+
+                <h3>Growth Opportunities</h3>
+
+                <p>
+                    Opportunities involving acquisition, email,
+                    retargeting, social, paid traffic and retention.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROBLEMS
+===================================================== -->
+
+<section class="problem-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                PROBLEMS I LOOK FOR
+            </div>
+
+            <h2>
+                Small Friction Can Create Bigger Business Problems.
+            </h2>
+
+            <p>
+                The goal isn't to criticize your store. The goal is to
+                identify what can be improved and explain why it matters.
+            </p>
+
+        </div>
+
+
+        <div class="problem-grid">
+
+            <div class="problem">
+
+                <strong>
+                    Unclear Store Structure
+                </strong>
+
+                <span>
+                    Customers struggle to understand where to go or
+                    how products are organized.
+                </span>
+
+            </div>
+
+
+            <div class="problem">
+
+                <strong>
+                    Weak Product Presentation
+                </strong>
+
+                <span>
+                    Product information may not answer the questions
+                    customers need answered before buying.
+                </span>
+
+            </div>
+
+
+            <div class="problem">
+
+                <strong>
+                    Trust Gaps
+                </strong>
+
+                <span>
+                    Important reassurance such as policies, contact
+                    information or credibility signals may be difficult
+                    to find.
+                </span>
+
+            </div>
+
+
+            <div class="problem">
+
+                <strong>
+                    Mobile Friction
+                </strong>
+
+                <span>
+                    A store can look acceptable on desktop while still
+                    creating problems for mobile shoppers.
+                </span>
+
+            </div>
+
+
+            <div class="problem">
+
+                <strong>
+                    SEO Opportunities
+                </strong>
+
+                <span>
+                    Products, collections, content and internal linking
+                    may not be working together effectively.
+                </span>
+
+            </div>
+
+
+            <div class="problem">
+
+                <strong>
+                    Conversion Barriers
+                </strong>
+
+                <span>
+                    Visitors may arrive but encounter uncertainty before
+                    taking the next step.
+                </span>
+
+            </div>
+
+
+            <div class="problem">
+
+                <strong>
+                    Marketing Disconnect
+                </strong>
+
+                <span>
+                    Paid or organic traffic can become less effective
+                    when the store experience is not ready for it.
+                </span>
+
+            </div>
+
+
+            <div class="problem">
+
+                <strong>
+                    Retention Gaps
+                </strong>
+
+                <span>
+                    Existing visitors and customers may not have clear
+                    opportunities to return and engage again.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHAT YOU RECEIVE
+===================================================== -->
+
+<section>
+
+    <div class="container receive-grid">
+
+        <div class="receive-box">
+
+            <h3>
+                Your Audit Can Highlight:
+            </h3>
+
+            <ul>
+
+                <li>Priority issues</li>
+
+                <li>Conversion opportunities</li>
+
+                <li>SEO opportunities</li>
+
+                <li>UX improvements</li>
+
+                <li>Product-page improvements</li>
+
+                <li>Trust and credibility gaps</li>
+
+                <li>Growth opportunities</li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="receive-text">
+
+            <div class="eyebrow">
+                WHAT YOU RECEIVE
+            </div>
+
+            <h2>
+                Not Just Problems. Practical Direction.
+            </h2>
+
+            <p>
+                A useful audit should help you understand what deserves
+                attention first.
+            </p>
+
+            <p>
+                I focus on identifying the areas that can have the most
+                meaningful impact on the customer journey and the
+                commercial objectives of the store.
+            </p>
+
+            <p>
+                The audit is designed to give you a clearer picture of
+                where your store stands and what should be considered
+                next.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                HOW THE AUDIT WORKS
+            </div>
+
+            <h2>
+                Simple Process. Clear Priorities.
+            </h2>
+
+            <p>
+                I keep the audit practical so you can understand the
+                findings even if you are not an e-commerce specialist.
+            </p>
+
+        </div>
+
+
+        <div class="process-grid">
+
+            <div class="process-card">
+
+                <div class="step">
+                    STEP 01
+                </div>
+
+                <h3>
+                    Send Your Store
+                </h3>
+
+                <p>
+                    Share your Shopify, Etsy or e-commerce store
+                    details through the contact page.
+                </p>
+
+            </div>
+
+
+            <div class="process-card">
+
+                <div class="step">
+                    STEP 02
+                </div>
+
+                <h3>
+                    I Review It
+                </h3>
+
+                <p>
+                    I examine the visible customer experience,
+                    structure, content, SEO and conversion opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="process-card">
+
+                <div class="step">
+                    STEP 03
+                </div>
+
+                <h3>
+                    I Identify Priorities
+                </h3>
+
+                <p>
+                    I separate important opportunities from issues that
+                    can wait until later.
+                </p>
+
+            </div>
+
+
+            <div class="process-card">
+
+                <div class="step">
+                    STEP 04
+                </div>
+
+                <h3>
+                    We Discuss Next Steps
+                </h3>
+
+                <p>
+                    If you want help implementing the recommendations,
+                    we can discuss the right approach for your business.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AFTER AUDIT
+===================================================== -->
+
+<section class="after">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                AFTER THE AUDIT
+            </div>
+
+            <h2>
+                Turn Findings Into a Growth Plan.
+            </h2>
+
+            <p>
+                An audit is the starting point. Once the priorities are
+                clear, improvements can be planned around your actual
+                business objectives.
+            </p>
+
+        </div>
+
+
+        <div class="after-grid">
+
+            <div class="after-card">
+
+                <h3>
+                    Store Optimization
+                </h3>
+
+                <p>
+                    Improve navigation, product presentation, UX,
+                    trust elements and conversion paths.
+                </p>
+
+            </div>
+
+
+            <div class="after-card">
+
+                <h3>
+                    SEO & Visibility
+                </h3>
+
+                <p>
+                    Strengthen product, collection, content and
+                    technical SEO opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="after-card">
+
+                <h3>
+                    Marketing & Retention
+                </h3>
+
+                <p>
+                    Build stronger connections between acquisition,
+                    conversion, email, retargeting and customer retention.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <h2>
+            Ready to See What Your Store Could Improve?
+        </h2>
+
+        <p>
+            Send me your store and I'll take a practical look at the
+            areas that deserve attention first.
+        </p>
+
+        <div class="cta-buttons">
+
+            <a href="contact.html"
+               class="btn btn-gold">
+                Request My Free Audit
+            </a>
+
+            <a href="https://wa.me/message/V26H2754ROXUB1"
+               target="_blank"
+               rel="noopener"
+               class="btn btn-light">
+                Message Gunkowii Elite Pro
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>
+                    GUNKOWII SABA
+                </h3>
+
+                <p>
+                    E-commerce & Digital Marketing Expert helping
+                    businesses improve their Shopify, Etsy and digital
+                    growth systems through practical strategy,
+                    optimization and technology.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Explore
+                </h3>
+
+                <div class="footer-links">
+
+                    <a href="about.html">About</a>
+
+                    <a href="services.html">Services</a>
+
+                    <a href="portfolio.html">Portfolio</a>
+
+                    <a href="reviews.html">Reviews</a>
+
+                    <a href="pricing.html">Pricing</a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Work With Me
+                </h3>
+
+                <div class="footer-links">
+
+                    <a href="process.html">Process</a>
+
+                    <a href="audit.html">Free Audit</a>
+
+                    <a href="contact.html">Contact</a>
+
+                    <a href="https://wa.me/message/V26H2754ROXUB1"
+                       target="_blank"
+                       rel="noopener">
+                        WhatsApp
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 GUNKOWII SABA • E-COMMERCE • DIGITAL • TECHNOLOGY
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>
