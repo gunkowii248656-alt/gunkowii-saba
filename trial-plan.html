@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Trial Plan | GUNKOWII SABA</title>
+
+  <meta
+    name="description"
+    content="Learn how the GUNKOWII SABA Trial Plan works, including what can be tested, benefits, limitations, suitability and the next steps after a trial engagement."
+  >
+
+  <style>
+    :root {
+      --green: #0f3d2e;
+      --green-dark: #08291f;
+      --green-light: #175b44;
+      --gold: #c9a227;
+      --gold-light: #e1c45a;
+      --cream: #f7f1e3;
+      --white: #ffffff;
+      --text: #26352f;
+      --muted: #68756f;
+      --border: rgba(15, 61, 46, 0.12);
+      --shadow: 0 18px 45px rgba(8, 41, 31, 0.10);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 41, 31, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-container {
+      width: min(1180px, 92%);
+      margin: auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      color: var(--white);
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--gold-light);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    nav a {
+      color: rgba(255,255,255,0.88);
+      font-size: 0.82rem;
+      transition: 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold-light);
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(8,41,31,0.98), rgba(15,61,46,0.93));
+      color: var(--white);
+      padding: 90px 0 85px;
+    }
+
+    .hero-container {
+      width: min(1180px, 92%);
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 65px;
+    }
+
+    .eyebrow {
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--gold-light);
+    }
+
+    .hero h2 {
+      font-size: 1rem;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: rgba(255,255,255,0.82);
+      font-size: 1.02rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 21px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--green-dark);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-image {
+      width: 100%;
+      min-height: 470px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.28);
+    }
+
+    .image-label {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      background: rgba(8,41,31,0.9);
+      color: var(--white);
+      border-left: 3px solid var(--gold);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 85px 0;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 45px;
+    }
+
+    .section-heading .number {
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .section-heading h2 {
+      color: var(--green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    /* INTRO */
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .content-card,
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .content-card h3,
+    .info-card h3 {
+      color: var(--green);
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+
+    .content-card p,
+    .info-card p {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .highlight-box {
+      background: var(--green);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .highlight-box h3 {
+      color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+
+    .highlight-box p {
+      color: rgba(255,255,255,0.82);
+    }
+
+    /* STEPS */
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 27px;
+      display: flex;
+      gap: 18px;
+      box-shadow: 0 10px 30px rgba(8,41,31,0.06);
+    }
+
+    .step-number {
+      min-width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--gold-light);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      color: var(--green);
+      margin-bottom: 7px;
+      font-size: 1.05rem;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* TEST AREAS */
+
+    .test-area {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    .test-area .section-heading h2 {
+      color: var(--white);
+    }
+
+    .test-area .section-heading p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .test-card {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.045);
+      border-radius: var(--radius);
+      padding: 25px;
+    }
+
+    .test-card span {
+      color: var(--gold-light);
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .test-card h3 {
+      margin: 12px 0 8px;
+      font-size: 1rem;
+    }
+
+    .test-card p {
+      color: rgba(255,255,255,0.68);
+      font-size: 0.9rem;
+    }
+
+    /* BENEFITS */
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .benefit {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(8,41,31,0.06);
+    }
+
+    .benefit-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--cream);
+      color: var(--green);
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .benefit h3 {
+      color: var(--green);
+      font-size: 1.05rem;
+      margin-bottom: 9px;
+    }
+
+    .benefit p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* PROS / CONS */
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .pros,
+    .cons {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .pros {
+      border-top: 4px solid var(--green);
+    }
+
+    .cons {
+      border-top: 4px solid var(--gold);
+    }
+
+    .pros h3,
+    .cons h3 {
+      color: var(--green);
+      margin-bottom: 20px;
+      font-size: 1.25rem;
+    }
+
+    .pros ul,
+    .cons ul {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+
+    .pros li,
+    .cons li {
+      position: relative;
+      padding-left: 27px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .pros li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .cons li::before {
+      content: "!";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    /* WHO */
+
+    .who-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .who-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 32px;
+    }
+
+    .who-card h3 {
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+
+    .who-card ul {
+      list-style: none;
+      display: grid;
+      gap: 11px;
+    }
+
+    .who-card li {
+      color: var(--muted);
+      padding-left: 22px;
+      position: relative;
+      font-size: 0.92rem;
+    }
+
+    .who-card li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    /* LIMITS */
+
+    .limits {
+      background: #efe7d6;
+    }
+
+    .limits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .limit-item {
+      background: var(--white);
+      padding: 25px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .limit-item h3 {
+      color: var(--green);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .limit-item p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* NEXT STEP */
+
+    .next-step-box {
+      background: var(--green);
+      border-radius: 24px;
+      padding: 42px;
+      color: var(--white);
+    }
+
+    .next-step-box h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .next-step-box p {
+      color: rgba(255,255,255,0.76);
+      max-width: 800px;
+      margin-bottom: 25px;
+    }
+
+    .next-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .next-item {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .next-item strong {
+      display: block;
+      color: var(--gold-light);
+      margin-bottom: 5px;
+    }
+
+    .next-item span {
+      color: rgba(255,255,255,0.66);
+      font-size: 0.83rem;
+    }
+
+    /* CTA */
+
+    .cta {
+      background: var(--cream);
+      padding-top: 30px;
+    }
+
+    .cta-box {
+      background:
+        linear-gradient(135deg, var(--green-dark), var(--green));
+      border-radius: 25px;
+      padding: 55px;
+      color: var(--white);
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(8,41,31,0.18);
+    }
+
+    .cta-box h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      color: rgba(255,255,255,0.76);
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 45px 0 25px;
+    }
+
+    .footer-grid {
+      width: min(1100px, 92%);
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      gap: 35px;
+      padding-bottom: 30px;
+    }
+
+    footer h3 {
+      color: var(--white);
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    footer p,
+    footer a {
+      font-size: 0.85rem;
+    }
+
+    footer a:hover {
+      color: var(--gold-light);
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 7px;
+    }
+
+    .copyright {
+      width: min(1100px, 92%);
+      margin: auto;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 20px;
+      font-size: 0.76rem;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 950px) {
+      nav {
+        gap: 11px;
+      }
+
+      nav a {
+        font-size: 0.75rem;
+      }
+
+      .hero-container,
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        min-height: 420px;
+      }
+
+      .test-grid,
+      .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav-container {
+        min-height: auto;
+        padding: 18px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding: 65px 0;
+      }
+
+      .hero-image {
+        min-height: 360px;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .steps,
+      .test-grid,
+      .benefits-grid,
+      .pros-cons,
+      .who-grid,
+      .limits-grid,
+      .next-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 38px 22px;
+      }
+
+      .next-step-box {
+        padding: 30px 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+
+      <a href="index.html" class="logo">
+        GUNKOWII <span>SABA</span>
+      </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="pricing.html">Plans</a>
+        <a href="process.html">Process</a>
+        <a href="audit.html">Audit</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-container">
+
+      <div>
+
+        <div class="eyebrow">
+          Low-Risk Starting Point
+        </div>
+
+        <h1>
+          Trial Plan:
+          <span>Test Before You Commit</span>
+        </h1>
+
+        <h2>
+          A practical way to evaluate the working relationship
+        </h2>
+
+        <p>
+          The Trial Plan gives a business the opportunity to start with a
+          clearly defined, limited-scope engagement before moving into a
+          larger long-term project or another working arrangement.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="contact.html" class="btn btn-primary">
+            Discuss a Trial
+          </a>
+
+          <a href="pricing.html" class="btn btn-outline">
+            Compare All Plans
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-image-wrap">
+
+        <img
+          src="Screenshot_2026-09-04-12-53-39-223_com.openai.chatgpt-edit.jpg"
+          alt="GUNKOWII SABA - E-commerce and Digital Marketing Expert"
+          class="hero-image"
+        >
+
+        <div class="image-label">
+          GUNKOWII SABA • E-COMMERCE & DIGITAL
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WHAT IT MEANS -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          01 • UNDERSTAND THE MODEL
+        </div>
+
+        <h2>
+          What Is the Trial Plan?
+        </h2>
+
+        <p>
+          The Trial Plan is a limited engagement designed to allow both sides
+          to evaluate the quality of the work, communication, process and
+          working relationship before committing to a broader arrangement.
+        </p>
+
+      </div>
+
+
+      <div class="intro-grid">
+
+        <div class="content-card">
+
+          <h3>
+            Start small. Evaluate properly.
+          </h3>
+
+          <p>
+            Not every business wants to commit immediately to a large project.
+            A trial can provide a practical starting point where a specific
+            problem, task or opportunity is selected for focused attention.
+          </p>
+
+          <p>
+            The trial should have a clearly defined scope, timeframe,
+            deliverables and expectations. Once the trial is completed, both
+            sides can review the work and decide whether continuing makes
+            sense.
+          </p>
+
+          <p>
+            This makes the Trial Plan particularly useful when the main
+            question is not simply "Can this work?" but also "Are we a good
+            fit to work together?"
+          </p>
+
+        </div>
+
+
+        <div class="highlight-box">
+
+          <h3>
+            What the trial is not
+          </h3>
+
+          <p>
+            A trial is not a guarantee of sales, rankings, advertising
+            performance or immediate revenue growth.
+          </p>
+
+          <p>
+            Its primary purpose is to test a defined piece of work and evaluate
+            the professional working relationship under real project
+            conditions.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          02 • THE TRIAL PROCESS
+        </div>
+
+        <h2>
+          How the Trial Plan Works
+        </h2>
+
+        <p>
+          The goal is to keep the first engagement focused enough to evaluate
+          properly without creating unnecessary complexity.
+        </p>
+
+      </div>
+
+
+      <div class="steps">
+
+        <div class="step">
+
+          <div class="step-number">
+            01
+          </div>
+
+          <div>
+
+            <h3>
+              Identify the Objective
+            </h3>
+
+            <p>
+              We identify one specific area that needs attention and determine
+              what the trial should accomplish.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            02
+          </div>
+
+          <div>
+
+            <h3>
+              Define the Scope
+            </h3>
+
+            <p>
+              We agree on what is included, what is not included, the expected
+              deliverables and the trial timeframe.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            03
+          </div>
+
+          <div>
+
+            <h3>
+              Begin the Work
+            </h3>
+
+            <p>
+              The agreed task or improvement is carried out using the same
+              practical approach applied to larger projects.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            04
+          </div>
+
+          <div>
+
+            <h3>
+              Review the Work
+            </h3>
+
+            <p>
+              We review the completed work, observations, improvements,
+              challenges and any available performance indicators.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            05
+          </div>
+
+          <div>
+
+            <h3>
+              Evaluate the Relationship
+            </h3>
+
+            <p>
+              Both sides consider communication, responsiveness, quality,
+              process and whether expectations were properly met.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            06
+          </div>
+
+          <div>
+
+            <h3>
+              Decide What Comes Next
+            </h3>
+
+            <p>
+              Continue, expand, change the engagement model or conclude the
+              trial. There is no assumption that continuation is automatic.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WHAT CAN BE TESTED -->
+  <section class="test-area">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          03 • POSSIBLE TRIAL AREAS
+        </div>
+
+        <h2>
+          What Can Be Tested?
+        </h2>
+
+        <p>
+          The exact trial scope depends on the business, its current situation
+          and the objective agreed before starting.
+        </p>
+
+      </div>
+
+
+      <div class="test-grid">
+
+        <div class="test-card">
+
+          <span>01</span>
+
+          <h3>
+            Shopify Optimization
+          </h3>
+
+          <p>
+            Test improvements to a specific store area such as product pages,
+            navigation, collections or customer experience.
+          </p>
+
+        </div>
+
+
+        <div class="test-card">
+
+          <span>02</span>
+
+          <h3>
+            Etsy Optimization
+          </h3>
+
+          <p>
+            Test improvements to selected listings, product presentation,
+            search visibility or marketplace positioning.
+          </p>
+
+        </div>
+
+
+        <div class="test-card">
+
+          <span>03</span>
+
+          <h3>
+            CRO
+          </h3>
+
+          <p>
+            Examine a specific conversion barrier and implement focused
+            improvements to the customer journey.
+          </p>
+
+        </div>
+
+
+        <div class="test-card">
+
+          <span>04</span>
+
+          <h3>
+            SEO
+          </h3>
+
+          <p>
+            Work on selected product, collection, content or on-page SEO
+            opportunities.
+          </p>
+
+        </div>
+
+
+        <div class="test-card">
+
+          <span>05</span>
+
+          <h3>
+            Marketing
+          </h3>
+
+          <p>
+            Evaluate a defined marketing activity or campaign strategy where
+            the project is suitable for a controlled test.
+          </p>
+
+        </div>
+
+
+        <div class="test-card">
+
+          <span>06</span>
+
+          <h3>
+            Email & Retention
+          </h3>
+
+          <p>
+            Test a focused email, re-engagement or customer-retention
+            opportunity.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BENEFITS -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          04 • BENEFITS
+        </div>
+
+        <h2>
+          Why Consider a Trial?
+        </h2>
+
+        <p>
+          A well-designed trial reduces uncertainty by allowing both sides to
+          work together before deciding on a larger engagement.
+        </p>
+
+      </div>
+
+
+      <div class="benefits-grid">
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            01
+          </div>
+
+          <h3>
+            Lower Commitment
+          </h3>
+
+          <p>
+            A limited engagement can be easier to consider than immediately
+            committing to a large project.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            02
+          </div>
+
+          <h3>
+            Test the Working Style
+          </h3>
+
+          <p>
+            The business gets to experience communication, process,
+            responsiveness and delivery firsthand.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            03
+          </div>
+
+          <h3>
+            Evaluate Quality
+          </h3>
+
+          <p>
+            The business can evaluate the quality of actual work rather than
+            relying only on promises or portfolio descriptions.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            04
+          </div>
+
+          <h3>
+            Focused Objective
+          </h3>
+
+          <p>
+            A smaller scope makes it easier to concentrate on one meaningful
+            problem or opportunity.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            05
+          </div>
+
+          <h3>
+            Better Decision Making
+          </h3>
+
+          <p>
+            The results of the trial can provide additional information before
+            deciding whether to expand the relationship.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            06
+          </div>
+
+          <h3>
+            Flexible Next Step
+          </h3>
+
+          <p>
+            After the trial, the business can choose the arrangement that best
+            fits its objectives and budget.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ADVANTAGES / LIMITATIONS -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          05 • MAKE AN INFORMED DECISION
+        </div>
+
+        <h2>
+          Advantages & Limitations
+        </h2>
+
+        <p>
+          A trial is useful because it reduces uncertainty, but it also has
+          limits that should be understood before starting.
+        </p>
+
+      </div>
+
+
+      <div class="pros-cons">
+
+        <div class="pros">
+
+          <h3>
+            Advantages
+          </h3>
+
+          <ul>
+
+            <li>
+              Lower level of commitment compared with a large project.
+            </li>
+
+            <li>
+              Allows the client to evaluate actual work.
+            </li>
+
+            <li>
+              Creates an opportunity to test communication and collaboration.
+            </li>
+
+            <li>
+              Provides a practical basis for deciding whether to continue.
+            </li>
+
+            <li>
+              Makes it easier to start with one clearly defined priority.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="cons">
+
+          <h3>
+            Disadvantages & Limitations
+          </h3>
+
+          <ul>
+
+            <li>
+              A short trial may not be long enough to demonstrate every
+              potential business outcome.
+            </li>
+
+            <li>
+              Some SEO and marketing activities require more time before their
+              full impact can reasonably be evaluated.
+            </li>
+
+            <li>
+              A limited scope cannot address every issue in a store.
+            </li>
+
+            <li>
+              Results may be influenced by factors outside the trial scope.
+            </li>
+
+            <li>
+              A successful trial does not automatically mean every larger
+              project will produce the same outcome.
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WHO SHOULD CONSIDER -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          06 • IS IT RIGHT FOR YOU?
+        </div>
+
+        <h2>
+          Who Should Consider the Trial Plan?
+        </h2>
+
+        <p>
+          The Trial Plan is particularly useful for businesses that want to
+          experience the working relationship before making a larger commitment.
+        </p>
+
+      </div>
+
+
+      <div class="who-grid">
+
+        <div class="who-card">
+
+          <h3>
+            Good Fit
+          </h3>
+
+          <ul>
+
+            <li>
+              Businesses that have never worked with me before.
+            </li>
+
+            <li>
+              Owners who want to evaluate the quality of the work first.
+            </li>
+
+            <li>
+              Stores with one clear problem or opportunity to address.
+            </li>
+
+            <li>
+              Businesses that prefer a smaller first engagement.
+            </li>
+
+            <li>
+              Owners who want to test communication and collaboration.
+            </li>
+
+            <li>
+              Businesses considering a larger future project.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="who-card">
+
+          <h3>
+            May Not Be the Best Fit
+          </h3>
+
+          <ul>
+
+            <li>
+              Businesses expecting a complete store transformation from a
+              limited trial.
+            </li>
+
+            <li>
+              Projects where meaningful evaluation requires a much longer
+              timeframe.
+            </li>
+
+            <li>
+              Businesses expecting guaranteed sales from a small engagement.
+            </li>
+
+            <li>
+              Owners who are not prepared to define a clear objective.
+            </li>
+
+            <li>
+              Businesses that need a full long-term strategy immediately.
+            </li>
+
+            <li>
+              Projects where the required work cannot reasonably be divided
+              into a limited scope.
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- LIMITS -->
+  <section class="limits">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          07 • SET THE RIGHT EXPECTATIONS
+        </div>
+
+        <h2>
+          What Should You Expect From a Trial?
+        </h2>
+
+        <p>
+          The strongest trial is specific, measurable where possible and
+          realistic about what can be achieved within the agreed scope.
+        </p>
+
+      </div>
+
+
+      <div class="limits-grid">
+
+        <div class="limit-item">
+
+          <h3>
+            A Defined Scope
+          </h3>
+
+          <p>
+            You should know exactly what work is being performed before the
+            trial begins.
+          </p>
+
+        </div>
+
+
+        <div class="limit-item">
+
+          <h3>
+            Clear Deliverables
+          </h3>
+
+          <p>
+            The expected output should be understood by both sides rather than
+            being left open-ended.
+          </p>
+
+        </div>
+
+
+        <div class="limit-item">
+
+          <h3>
+            Realistic Evaluation
+          </h3>
+
+          <p>
+            Some improvements can be evaluated immediately while others require
+            additional time or performance data.
+          </p>
+
+        </div>
+
+
+        <div class="limit-item">
+
+          <h3>
+            Honest Feedback
+          </h3>
+
+          <p>
+            Both sides should be able to discuss what worked, what did not and
+            what should change.
+          </p>
+
+        </div>
+
+
+        <div class="limit-item">
+
+          <h3>
+            No Forced Continuation
+          </h3>
+
+          <p>
+            The trial is an evaluation stage. Continuing into a larger project
+            should be a mutual decision.
+          </p>
+
+        </div>
+
+
+        <div class="limit-item">
+
+          <h3>
+            A Clear Next Step
+          </h3>
+
+          <p>
+            If both sides want to continue, the next engagement can be
+            structured around the lessons learned from the trial.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- AFTER TRIAL -->
+  <section>
+
+    <div class="container">
+
+      <div class="next-step-box">
+
+        <h2>
+          What Happens After the Trial?
+        </h2>
+
+        <p>
+          Once the trial is complete, we review the work and decide what makes
+          the most sense for the business. There is no need to force the next
+          stage into the same structure.
+        </p>
+
+
+        <div class="next-grid">
+
+          <div class="next-item">
+
+            <strong>
+              Continue
+            </strong>
+
+            <span>
+              Continue with a broader project if the relationship and results
+              justify it.
+            </span>
+
+          </div>
+
+
+          <div class="next-item">
+
+            <strong>
+              Change Plan
+            </strong>
+
+            <span>
+              Move into the Expert, Commission or Reward structure where
+              appropriate.
+            </span>
+
+          </div>
+
+
+          <div class="next-item">
+
+            <strong>
+              Conclude
+            </strong>
+
+            <span>
+              Finish the trial if the business does not require additional work.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta">
+
+    <div class="container">
+
+      <div class="cta-box">
+
+        <h2>
+          Want to Start With a Trial?
+        </h2>
+
+        <p>
+          Tell me what your store needs, what you want to test and what you
+          would like to evaluate. We can define a practical trial scope before
+          deciding whether a larger engagement makes sense.
+        </p>
+
+        <div class="cta-buttons">
+
+          <a href="contact.html" class="btn btn-primary">
+            Discuss a Trial
+          </a>
+
+          <a href="audit.html" class="btn btn-outline">
+            Get a Free Audit
+          </a>
+
+          <a href="pricing.html" class="btn btn-outline">
+            View All Plans
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-grid">
+
+      <div>
+
+        <h3>
+          GUNKOWII SABA
+        </h3>
+
+        <p>
+          E-commerce & Digital Marketing Expert focused on Shopify, Etsy, SEO,
+          CRO, digital marketing, email marketing and web development.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Explore
+        </h3>
+
+        <div class="footer-links">
+
+          <a href="services.html">
+            Services
+          </a>
+
+          <a href="portfolio.html">
+            Portfolio
+          </a>
+
+          <a href="pricing.html">
+            Plans
+          </a>
+
+          <a href="process.html">
+            Process
+          </a>
+
+          <a href="audit.html">
+            Free Audit
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Connect
+        </h3>
+
+        <div class="footer-links">
+
+          <a href="contact.html">
+            Contact
+          </a>
+
+          <a href="https://wa.me/message/V26H2754ROXUB1">
+            WhatsApp
+          </a>
+
+          <a href="https://github.com/gunkowii248656-alt">
+            GitHub
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="copyright">
+      © 2026 GUNKOWII SABA • E-COMMERCE • DIGITAL • TECHNOLOGY
+    </div>
+
+  </footer>
+
+</body>
+</html>
