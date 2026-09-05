@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pricing & Working Plans | GUNKOWII SABA</title>
+
+  <meta name="description" content="Flexible e-commerce and digital growth plans from GUNKOWII SABA, including Expert, Commission-Based, Trial and Reward arrangements.">
+  <meta name="keywords" content="Shopify expert pricing, Etsy expert, e-commerce consultant, CRO, SEO, digital marketing, email marketing, Shopify optimization">
+
+  <style>
+    :root{
+      --green:#063f35;
+      --green-dark:#032d27;
+      --green-light:#0b594a;
+      --gold:#c9a44a;
+      --gold-light:#e1c56d;
+      --cream:#f7f1e3;
+      --white:#ffffff;
+      --text:#24312d;
+      --muted:#687570;
+      --border:#e6dfcf;
+      --soft:#fbf8f0;
+      --shadow:0 18px 45px rgba(0,0,0,.08);
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--cream);
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:min(1180px,92%);
+      margin:auto;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(3,45,39,.97);
+      border-bottom:1px solid rgba(225,197,109,.25);
+    }
+
+    .nav{
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:25px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      color:#fff;
+      letter-spacing:.4px;
+    }
+
+    .logo img{
+      width:46px;
+      height:46px;
+      object-fit:contain;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:#f7f1e3;
+      font-size:14px;
+      transition:.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:var(--gold-light);
+    }
+
+    .hero{
+      padding:105px 0 80px;
+      background:
+        linear-gradient(rgba(3,45,39,.93),rgba(3,45,39,.93)),
+        radial-gradient(circle at top right,#0b594a,transparent 45%);
+      color:#fff;
+      text-align:center;
+    }
+
+    .kicker{
+      color:var(--gold-light);
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-family:Georgia,serif;
+      font-size:clamp(42px,7vw,76px);
+      line-height:1.05;
+      margin-bottom:20px;
+    }
+
+    .hero h2{
+      font-size:clamp(20px,3vw,32px);
+      color:var(--gold-light);
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      max-width:760px;
+      margin:auto;
+      color:#e7eee9;
+      font-size:18px;
+    }
+
+    .section{
+      padding:85px 0;
+    }
+
+    .section-heading{
+      text-align:center;
+      max-width:800px;
+      margin:0 auto 50px;
+    }
+
+    .section-heading span{
+      display:block;
+      color:var(--green-light);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      font-size:13px;
+      margin-bottom:10px;
+    }
+
+    .section-heading h2{
+      font-family:Georgia,serif;
+      color:var(--green);
+      font-size:clamp(32px,5vw,50px);
+      margin-bottom:15px;
+    }
+
+    .section-heading p{
+      color:var(--muted);
+    }
+
+    .pricing-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:28px;
+    }
+
+    .plan{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:35px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transition:.3s ease;
+    }
+
+    .plan:hover{
+      transform:translateY(-6px);
+      border-color:var(--gold);
+    }
+
+    .plan.featured{
+      border:2px solid var(--gold);
+    }
+
+    .plan.featured::before{
+      content:"MOST FLEXIBLE";
+      position:absolute;
+      top:0;
+      right:0;
+      background:var(--gold);
+      color:var(--green-dark);
+      padding:8px 16px;
+      border-bottom-left-radius:14px;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+
+    .plan-link{
+      display:block;
+    }
+
+    .plan-number{
+      color:var(--gold);
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:2px;
+      margin-bottom:12px;
+    }
+
+    .plan h3{
+      color:var(--green);
+      font-family:Georgia,serif;
+      font-size:30px;
+      margin-bottom:8px;
+    }
+
+    .plan-subtitle{
+      color:var(--green-light);
+      font-weight:700;
+      margin-bottom:18px;
+    }
+
+    .plan p{
+      color:var(--muted);
+      margin-bottom:22px;
+    }
+
+    .plan ul{
+      list-style:none;
+      margin-bottom:28px;
+    }
+
+    .plan li{
+      padding:9px 0;
+      border-bottom:1px solid #eee9dc;
+      color:#3e4b46;
+    }
+
+    .plan li::before{
+      content:"✓";
+      color:var(--gold);
+      font-weight:900;
+      margin-right:10px;
+    }
+
+    .plan-note{
+      background:var(--soft);
+      padding:15px 18px;
+      border-radius:12px;
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:25px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 22px;
+      border-radius:999px;
+      font-weight:800;
+      transition:.25s ease;
+    }
+
+    .btn-primary{
+      background:var(--green);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--green-light);
+      transform:translateY(-2px);
+    }
+
+    .btn-gold{
+      background:var(--gold);
+      color:var(--green-dark);
+    }
+
+    .btn-gold:hover{
+      background:var(--gold-light);
+      transform:translateY(-2px);
+    }
+
+    .how-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+    }
+
+    .how-card{
+      background:#fff;
+      padding:28px 22px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      text-align:center;
+      transition:.3s ease;
+    }
+
+    .how-card:hover{
+      transform:translateY(-5px);
+      border-color:var(--gold);
+    }
+
+    .how-card a{
+      display:block;
+    }
+
+    .how-number{
+      width:44px;
+      height:44px;
+      margin:0 auto 15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:var(--green);
+      color:var(--gold-light);
+      font-weight:900;
+    }
+
+    .how-card h3{
+      color:var(--green);
+      margin-bottom:8px;
+    }
+
+    .how-card p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .comparison{
+      background:var(--green);
+      color:#fff;
+    }
+
+    .comparison .section-heading h2{
+      color:#fff;
+    }
+
+    .comparison .section-heading span{
+      color:var(--gold-light);
+    }
+
+    .comparison .section-heading p{
+      color:#d9e6e1;
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+      background:#fff;
+      border-radius:18px;
+      box-shadow:var(--shadow);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:720px;
+      color:var(--text);
+    }
+
+    th,td{
+      padding:18px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+    }
+
+    th{
+      background:var(--soft);
+      color:var(--green);
+      font-weight:900;
+    }
+
+    tr:last-child td{
+      border-bottom:none;
+    }
+
+    .yes{
+      color:var(--green-light);
+      font-weight:800;
+    }
+
+    .cta{
+      padding:90px 0;
+      text-align:center;
+      background:
+        linear-gradient(rgba(247,241,227,.95),rgba(247,241,227,.95)),
+        radial-gradient(circle at center,var(--gold-light),transparent 45%);
+    }
+
+    .cta-box{
+      max-width:850px;
+      margin:auto;
+    }
+
+    .cta h2{
+      font-family:Georgia,serif;
+      color:var(--green);
+      font-size:clamp(34px,5vw,52px);
+      margin-bottom:16px;
+    }
+
+    .cta p{
+      color:var(--muted);
+      margin-bottom:28px;
+    }
+
+    .cta-buttons{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    footer{
+      background:var(--green-dark);
+      color:#dce8e3;
+      padding:45px 0 25px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      gap:40px;
+      margin-bottom:35px;
+    }
+
+    footer h3{
+      color:#fff;
+      margin-bottom:14px;
+    }
+
+    footer p{
+      color:#b9cbc5;
+      font-size:14px;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      font-size:14px;
+    }
+
+    .footer-links a:hover{
+      color:var(--gold-light);
+    }
+
+    .copyright{
+      border-top:1px solid rgba(255,255,255,.1);
+      padding-top:20px;
+      text-align:center;
+      color:#9fb3ac;
+      font-size:13px;
+    }
+
+    @media(max-width:900px){
+
+      .nav{
+        flex-direction:column;
+        padding:15px 0;
+      }
+
+      .nav-links{
+        gap:12px;
+      }
+
+      .pricing-grid{
+        grid-template-columns:1fr;
+      }
+
+      .how-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:600px){
+
+      .hero{
+        padding:75px 0 60px;
+      }
+
+      .section{
+        padding:65px 0;
+      }
+
+      .how-grid{
+        grid-template-columns:1fr;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .plan{
+        padding:27px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="container nav">
+
+    <a href="index.html" class="logo">
+      <img src="gunkowii-saba-logo.png" alt="GUNKOWII SABA Logo">
+      <span>GUNKOWII SABA</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="pricing.html" class="active">Pricing</a>
+      <a href="process.html">Process</a>
+      <a href="audit.html">Free Audit</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="kicker">
+      Flexible Ways to Work Together
+    </div>
+
+    <h1>Plans Built Around the Work.</h1>
+
+    <h2>Not Every Business Needs the Same Deal.</h2>
+
+    <p>
+      Whether you need an experienced specialist, want to start small,
+      prefer performance-based compensation, or want to build an incentive
+      around results, there is a working structure that can fit the project.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- PRICING PLANS -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>Working Plans</span>
+
+      <h2>
+        <a href="services.html">
+          Practical Digital Solutions
+        </a>
+      </h2>
+
+      <p>
+        The right working arrangement starts with understanding the actual
+        business problem. Explore the services first, then choose the
+        structure that makes the most sense for the project.
+      </p>
+
+    </div>
+
+
+    <div class="pricing-grid">
+
+
+      <!-- EXPERT PLAN -->
+
+      <article class="plan featured">
+
+        <a href="contact.html" class="plan-link">
+
+          <div class="plan-number">01 — EXPERT PLAN</div>
+
+          <h3>Professional Work</h3>
+
+          <div class="plan-subtitle">
+            Pay for expertise and execution.
+          </div>
+
+          <p>
+            This is the straightforward option. You have a specific
+            e-commerce, Shopify, Etsy, marketing, SEO, CRO or website problem
+            and want an experienced specialist to handle the agreed work.
+          </p>
+
+          <ul>
+            <li>Shopify & e-commerce optimization</li>
+            <li>Etsy store improvement</li>
+            <li>SEO and search visibility</li>
+            <li>CRO and customer journey analysis</li>
+            <li>Product and collection optimization</li>
+            <li>Digital marketing support</li>
+            <li>Email marketing and retention</li>
+            <li>Website management and development</li>
+          </ul>
+
+          <div class="plan-note">
+            <strong>How payment works:</strong>
+            A custom fee is agreed according to the project scope,
+            responsibilities and timeline.
+          </div>
+
+        </a>
+
+        <a href="contact.html" class="btn btn-primary">
+          Discuss My Project
+        </a>
+
+      </article>
+
+
+      <!-- COMMISSION PLAN -->
+
+      <article class="plan">
+
+        <a href="contact.html" class="plan-link">
+
+          <div class="plan-number">02 — COMMISSION-BASED PLAN</div>
+
+          <h3>Performance Partnership</h3>
+
+          <div class="plan-subtitle">
+            Compensation connected to agreed results.
+          </div>
+
+          <p>
+            This structure can work when both sides want the relationship to
+            have a stronger performance component. Responsibilities, tracking
+            methods and commission arrangements are agreed before work starts.
+          </p>
+
+          <ul>
+            <li>Defined project responsibilities</li>
+            <li>Agreed performance measurement</li>
+            <li>Order or revenue tracking where appropriate</li>
+            <li>Store optimization</li>
+            <li>Marketing and acquisition support</li>
+            <li>CRO improvements</li>
+            <li>Ongoing performance review</li>
+            <li>Clear reporting expectations</li>
+          </ul>
+
+          <div class="plan-note">
+            <strong>Important:</strong>
+            Results depend on traffic, pricing, products, market demand and
+            business operations. No specific sales outcome is guaranteed.
+          </div>
+
+        </a>
+
+        <a href="contact.html" class="btn btn-primary">
+          Discuss a Partnership
+        </a>
+
+      </article>
+
+
+      <!-- TRIAL PLAN -->
+
+      <article class="plan">
+
+        <a href="contact.html" class="plan-link">
+
+          <div class="plan-number">03 — TRIAL PLAN</div>
+
+          <h3>Start Small</h3>
+
+          <div class="plan-subtitle">
+            Test the working relationship before going bigger.
+          </div>
+
+          <p>
+            If you are not ready to commit to a larger project, we can begin
+            with a clearly defined smaller task. This gives both sides an
+            opportunity to evaluate communication, quality and working style.
+          </p>
+
+          <ul>
+            <li>Small defined scope</li>
+            <li>Clear deliverables</li>
+            <li>Limited timeline</li>
+            <li>Store or website review</li>
+            <li>Specific optimization task</li>
+            <li>SEO or CRO improvement</li>
+            <li>Product-page work</li>
+            <li>Next-step recommendation</li>
+          </ul>
+
+          <div class="plan-note">
+            <strong>Best for:</strong>
+            Businesses that want to see how the collaboration works before
+            moving into a larger engagement.
+          </div>
+
+        </a>
+
+        <a href="contact.html" class="btn btn-primary">
+          Start a Trial
+        </a>
+
+      </article>
+
+
+      <!-- REWARD PLAN -->
+
+      <article class="plan">
+
+        <a href="contact.html" class="plan-link">
+
+          <div class="plan-number">04 — REWARD PLAN</div>
+
+          <h3>Incentive Arrangement</h3>
+
+          <div class="plan-subtitle">
+            Reward stronger performance against agreed objectives.
+          </div>
+
+          <p>
+            This arrangement can be added to a broader working relationship
+            when the client wants incentives tied to specific milestones,
+            improvements or agreed performance objectives.
+          </p>
+
+          <ul>
+            <li>Defined objectives</li>
+            <li>Agreed performance indicators</li>
+            <li>Milestone-based incentives</li>
+            <li>Store growth initiatives</li>
+            <li>Marketing improvements</li>
+            <li>CRO objectives</li>
+            <li>Customer retention initiatives</li>
+            <li>Performance review</li>
+          </ul>
+
+          <div class="plan-note">
+            <strong>How it works:</strong>
+            The reward structure is agreed in advance so both sides know what
+            qualifies as successful performance.
+          </div>
+
+        </a>
+
+        <a href="contact.html" class="btn btn-primary">
+          Discuss the Structure
+        </a>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- STOREFRONT TO GROWTH -->
+
+<section class="section" style="background:#fff;">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>From Strategy to Execution</span>
+
+      <h2>
+        <a href="process.html">
+          From Storefront to Growth
+        </a>
+      </h2>
+
+      <p>
+        A strong digital business is more than a good-looking storefront.
+        The work connects customer experience, trust, visibility,
+        conversion and retention.
+      </p>
+
+    </div>
+
+
+    <div class="how-grid">
+
+      <div class="how-card">
+
+        <a href="services.html">
+
+          <div class="how-number">01</div>
+
+          <h3>Storefront</h3>
+
+          <p>
+            Shopify, Etsy, product pages, collections, navigation and
+            customer experience.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="how-card">
+
+        <a href="services.html">
+
+          <div class="how-number">02</div>
+
+          <h3>Visibility</h3>
+
+          <p>
+            SEO, Google, social platforms and acquisition channels help
+            customers discover the business.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="how-card">
+
+        <a href="services.html">
+
+          <div class="how-number">03</div>
+
+          <h3>Conversion</h3>
+
+          <p>
+            CRO, trust signals, product presentation and customer journey
+            improvements reduce unnecessary friction.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="how-card">
+
+        <a href="services.html">
+
+          <div class="how-number">04</div>
+
+          <h3>Retention</h3>
+
+          <p>
+            Email marketing, re-engagement and customer relationships help
+            businesses build longer-term value.
+          </p>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SIMPLE EXPLANATION -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>Simple Explanation</span>
+
+      <h2>How These Plans Differ</h2>
+
+      <p>
+        If you are new to working with an e-commerce specialist,
+        here is the simple version.
+      </p>
+
+    </div>
+
+
+    <div class="how-grid">
+
+      <div class="how-card">
+        <a href="contact.html">
+          <div class="how-number">01</div>
+          <h3>Expert</h3>
+          <p>
+            You pay for agreed professional work and deliverables.
+          </p>
+        </a>
+      </div>
+
+      <div class="how-card">
+        <a href="contact.html">
+          <div class="how-number">02</div>
+          <h3>Commission</h3>
+          <p>
+            Compensation is connected to an agreed performance or order
+            structure.
+          </p>
+        </a>
+      </div>
+
+      <div class="how-card">
+        <a href="contact.html">
+          <div class="how-number">03</div>
+          <h3>Trial</h3>
+          <p>
+            You begin with a smaller project before deciding whether to
+            continue.
+          </p>
+        </a>
+      </div>
+
+      <div class="how-card">
+        <a href="contact.html">
+          <div class="how-number">04</div>
+          <h3>Reward</h3>
+          <p>
+            Additional incentives are connected to agreed objectives or
+            milestones.
+          </p>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- COMPARISON -->
+
+<section class="section comparison">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>Quick Comparison</span>
+
+      <h2>Which Plan Fits You?</h2>
+
+      <p>
+        The final arrangement is always discussed and agreed before work
+        begins.
+      </p>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>What You Need</th>
+            <th>Recommended Plan</th>
+            <th>Why</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>You already know what work you need.</td>
+            <td class="yes">Expert Plan</td>
+            <td>Clear scope and professional execution.</td>
+          </tr>
+
+          <tr>
+            <td>You want compensation linked to performance.</td>
+            <td class="yes">Commission-Based</td>
+            <td>Creates a performance-focused arrangement.</td>
+          </tr>
+
+          <tr>
+            <td>You want to test the relationship first.</td>
+            <td class="yes">Trial Plan</td>
+            <td>Lower commitment before expanding the project.</td>
+          </tr>
+
+          <tr>
+            <td>You want incentives around specific objectives.</td>
+            <td class="yes">Reward Plan</td>
+            <td>Connects agreed milestones with incentives.</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHAT WE CAN WORK ON -->
+
+<section class="section" style="background:#fff;">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <span>What We Can Work On</span>
+
+      <h2>
+        <a href="services.html">
+          Digital Growth Services
+        </a>
+      </h2>
+
+      <p>
+        The deal structure is only one part of the conversation.
+        The more important question is what your business actually needs.
+      </p>
+
+    </div>
+
+
+    <div class="how-grid">
+
+      <div class="how-card">
+
+        <a href="services.html">
+
+          <div class="how-number">01</div>
+
+          <h3>Shopify</h3>
+
+          <p>
+            Store structure, product pages, navigation, UX and conversion.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="how-card">
+
+        <a href="services.html">
+
+          <div class="how-number">02</div>
+
+          <h3>Etsy</h3>
+
+          <p>
+            Listings, product presentation, search visibility and shop
+            optimization.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="how-card">
+
+        <a href="services.html">
+
+          <div class="how-number">03</div>
+
+          <h3>Marketing</h3>
+
+          <p>
+            Google, Meta, Instagram, TikTok, Shopping, retargeting and
+            acquisition.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <div class="how-card">
+
+        <a href="services.html">
+
+          <div class="how-number">04</div>
+
+          <h3>Retention</h3>
+
+          <p>
+            Email marketing, customer journeys, re-engagement and retention.
+          </p>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+  <div class="container">
+
+    <div class="cta-box">
+
+      <h2>Let's Start With the Business Problem.</h2>
+
+      <p>
+        Tell me what you are trying to improve, where the store is currently
+        struggling, and what you want to achieve. We can then determine the
+        most practical working structure for the project.
+      </p>
+
+      <div class="cta-buttons">
+
+        <a href="https://wa.me/message/V26H2754ROXUB1"
+           class="btn btn-gold"
+           target="_blank">
+          Message Gunkowii Elite Pro
+        </a>
+
+        <a href="contact.html"
+           class="btn btn-primary">
+          Contact Me
+        </a>
+
+        <a href="audit.html"
+           class="btn btn-primary">
+          Get a Free Audit
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+
+        <h3>
+          <a href="index.html">GUNKOWII SABA</a>
+        </h3>
+
+        <p>
+          E-commerce & Digital Marketing Expert focused on Shopify,
+          Etsy, SEO, CRO, digital marketing, email marketing and
+          web development.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>Explore</h3>
+
+        <div class="footer-links">
+
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="pricing.html">Pricing</a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <h3>Work With Me</h3>
+
+        <div class="footer-links">
+
+          <a href="process.html">Process</a>
+          <a href="audit.html">Free Audit</a>
+          <a href="contact.html">Contact</a>
+
+          <a href="https://wa.me/message/V26H2754ROXUB1"
+             target="_blank">
+            WhatsApp
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+      © 2026 GUNKOWII SABA.
+      E-COMMERCE • DIGITAL • TECHNOLOGY
+
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+</html>
