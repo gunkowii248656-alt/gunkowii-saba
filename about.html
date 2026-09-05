@@ -1,1 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>About | GUNKOWII SABA</title>
+
+  <meta name="description"
+    content="Learn about GUNKOWII SABA, an E-commerce & Digital Solutions Specialist focused on Shopify, Etsy, SEO, CRO, digital marketing, web development and practical digital growth.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f2e8;
+      color: #173c32;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #103b30;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      width: 150px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 18px;
+    }
+
+    nav a {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #d4af37;
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        linear-gradient(rgba(16, 59, 48, 0.91), rgba(16, 59, 48, 0.91)),
+        url("Screenshot_2026-09-04-12-53-39-223_com.openai.chatgpt-edit.jpg")
+        center/cover;
+
+      color: #fff;
+      padding: 100px 22px;
+    }
+
+    .hero-inner {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(44px, 7vw, 76px);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: #e9eee9;
+      font-size: 18px;
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 85px 22px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .heading {
+      max-width: 760px;
+      margin-bottom: 45px;
+    }
+
+    .heading span {
+      color: #a58217;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .heading h2 {
+      font-family: Georgia, serif;
+      color: #103b30;
+      font-size: clamp(34px, 5vw, 52px);
+      line-height: 1.15;
+      margin: 10px 0 15px;
+    }
+
+    .heading p {
+      color: #52665f;
+      font-size: 17px;
+    }
+
+    /* ABOUT INTRO */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .about-photo {
+      position: relative;
+    }
+
+    .about-photo img {
+      width: 100%;
+      max-height: 600px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 20px 50px rgba(16, 59, 48, 0.15);
+    }
+
+    .photo-label {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: #103b30;
+      color: #fff;
+      padding: 12px 17px;
+      border-left: 4px solid #d4af37;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .about-text h2 {
+      font-family: Georgia, serif;
+      font-size: 42px;
+      color: #103b30;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      color: #52665f;
+      margin-bottom: 17px;
+    }
+
+    /* EXPERIENCE */
+
+    .experience {
+      background: #eee8dc;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .experience-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      border-top: 4px solid #d4af37;
+    }
+
+    .experience-number {
+      font-family: Georgia, serif;
+      color: #103b30;
+      font-size: 42px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .experience-card h3 {
+      color: #103b30;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .experience-card p {
+      color: #52665f;
+      font-size: 14px;
+    }
+
+    /* EXPERTISE */
+
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .expertise-card {
+      background: #fff;
+      border: 1px solid #e1d7c4;
+      padding: 27px;
+      border-radius: 8px;
+    }
+
+    .expertise-card h3 {
+      font-family: Georgia, serif;
+      color: #103b30;
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .expertise-card p {
+      color: #52665f;
+      margin-bottom: 12px;
+    }
+
+    .expertise-list {
+      list-style: none;
+    }
+
+    .expertise-list li {
+      padding: 4px 0;
+      color: #52665f;
+      font-size: 14px;
+    }
+
+    .expertise-list li::before {
+      content: "✓";
+      color: #a58217;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    /* PHILOSOPHY */
+
+    .philosophy {
+      background: #103b30;
+      color: #fff;
+    }
+
+    .philosophy .heading h2 {
+      color: #fff;
+    }
+
+    .philosophy .heading p {
+      color: #d9e3dd;
+    }
+
+    .journey {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .journey-card {
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 27px;
+      border-radius: 8px;
+    }
+
+    .journey-card span {
+      color: #d4af37;
+      font-weight: bold;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .journey-card h3 {
+      color: #fff;
+      font-family: Georgia, serif;
+      font-size: 23px;
+      margin: 8px 0;
+    }
+
+    .journey-card p {
+      color: #d5dfda;
+      font-size: 14px;
+    }
+
+    /* TEAM */
+
+    .team-section {
+      background: #f7f2e8;
+    }
+
+    .team-box {
+      max-width: 850px;
+      background: #fff;
+      padding: 40px;
+      border-radius: 9px;
+      border-left: 5px solid #d4af37;
+      box-shadow: 0 10px 35px rgba(16, 59, 48, 0.07);
+    }
+
+    .team-box h3 {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      color: #103b30;
+      margin-bottom: 15px;
+    }
+
+    .team-box p {
+      color: #52665f;
+      margin-bottom: 15px;
+    }
+
+    .team-list {
+      list-style: none;
+    }
+
+    .team-list li {
+      padding: 5px 0;
+      color: #52665f;
+    }
+
+    .team-list li::before {
+      content: "◆";
+      color: #a58217;
+      font-size: 9px;
+      margin-right: 9px;
+    }
+
+    /* WHY ME */
+
+    .why {
+      background: #eee8dc;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .why-image img {
+      width: 100%;
+      border-radius: 9px;
+      max-height: 560px;
+      object-fit: cover;
+    }
+
+    .questions {
+      margin-top: 20px;
+    }
+
+    .question {
+      padding: 14px 0;
+      border-bottom: 1px solid #d7cebe;
+      color: #52665f;
+      font-weight: 600;
+    }
+
+    .question::before {
+      content: "→";
+      color: #a58217;
+      margin-right: 10px;
+    }
+
+    /* CTA */
+
+    .cta {
+      text-align: center;
+      padding: 90px 22px;
+    }
+
+    .cta-box {
+      max-width: 850px;
+      margin: auto;
+      background: #103b30;
+      color: #fff;
+      padding: 60px 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
+
+    .cta-box h2 {
+      font-family: Georgia, serif;
+      color: #d4af37;
+      font-size: clamp(34px, 5vw, 50px);
+      margin-bottom: 15px;
+    }
+
+    .cta-box p {
+      color: #dce5e0;
+      max-width: 650px;
+      margin: 0 auto 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 5px;
+      font-weight: bold;
+      background: #d4af37;
+      color: #103b30;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0b2c24;
+      color: #cbd8d2;
+      padding: 45px 22px;
+      text-align: center;
+    }
+
+    footer .brand {
+      color: #d4af37;
+      font-family: Georgia, serif;
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    footer p {
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+
+      .about-grid,
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-grid,
+      .journey {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .nav-container {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+        gap: 10px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 75px 20px;
+      }
+
+      section {
+        padding: 65px 18px;
+      }
+
+      .experience-grid,
+      .expertise-grid,
+      .journey {
+        grid-template-columns: 1fr;
+      }
+
+      .about-text h2 {
+        font-size: 34px;
+      }
+
+      .team-box {
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="nav-container">
+
+      <a href="index.html">
+        <img
+          src="gunkowii-saba-logo.png"
+          alt="GUNKOWII SABA"
+          class="logo">
+      </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="process.html">Process</a>
+        <a href="audit.html">Audit</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-inner">
+
+      <div class="eyebrow">
+        About GUNKOWII SABA
+      </div>
+
+      <h1>
+        Strategy, Growth & Technology.
+      </h1>
+
+      <p>
+        I help businesses improve how they present, market,
+        and grow their products and services online through
+        e-commerce strategy, digital marketing, optimization,
+        and practical technology.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT ME -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="about-grid">
+
+        <div class="about-photo">
+
+          <img
+            src="Screenshot_2026-09-04-12-53-39-223_com.openai.chatgpt-edit.jpg"
+            alt="GUNKOWII SABA working in a professional environment">
+
+          <div class="photo-label">
+            E-commerce & Digital Solutions Specialist
+          </div>
+
+        </div>
+
+
+        <div class="about-text">
+
+          <div class="heading">
+
+            <span>Who I Am</span>
+
+            <h2>
+              I Look Beyond the Storefront.
+            </h2>
+
+          </div>
+
+          <p>
+            I'm Gunkowii Saba, an E-commerce & Digital Solutions
+            Specialist with a focus on helping businesses improve
+            how they present, market, and grow their products and
+            services online.
+          </p>
+
+          <p>
+            My experience includes individual projects,
+            collaborative projects, and team-based e-commerce work.
+            On collaborative projects, I typically contribute a
+            substantial portion of the relevant work, with my
+            involvement generally ranging from 60–75% depending on
+            the project scope and responsibilities.
+          </p>
+
+          <p>
+            I approach every project with a focus on practical
+            improvements, clear strategy, and measurable business
+            objectives.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- EXPERIENCE -->
+
+  <section class="experience">
+
+    <div class="container">
+
+      <div class="heading">
+
+        <span>Experience & Focus</span>
+
+        <h2>
+          Practical Work Across Digital Growth
+        </h2>
+
+        <p>
+          My work combines several disciplines that influence how
+          a digital business attracts visitors, builds trust,
+          converts customers, and retains them.
+        </p>
+
+      </div>
+
+
+      <div class="experience-grid">
+
+        <div class="experience-card">
+
+          <div class="experience-number">6+</div>
+
+          <h3>Years Practical Experience</h3>
+
+          <p>
+            Experience across e-commerce, digital marketing,
+            website management, and digital solutions.
+          </p>
+
+        </div>
+
+
+        <div class="experience-card">
+
+          <div class="experience-number">60–75%</div>
+
+          <h3>Typical Team Contribution</h3>
+
+          <p>
+            Substantial contribution to relevant project work
+            depending on the scope and responsibilities.
+          </p>
+
+        </div>
+
+
+        <div class="experience-card">
+
+          <div class="experience-number">2</div>
+
+          <h3>Core E-commerce Platforms</h3>
+
+          <p>
+            Shopify and Etsy, alongside broader e-commerce
+            strategy and optimization.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- EXPERTISE -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="heading">
+
+        <span>Core Expertise</span>
+
+        <h2>
+          More Than One Digital Discipline
+        </h2>
+
+        <p>
+          E-commerce growth often requires several connected
+          disciplines rather than one isolated service.
+        </p>
+
+      </div>
+
+
+      <div class="expertise-grid">
+
+
+        <div class="expertise-card">
+
+          <h3>E-commerce & Shopify</h3>
+
+          <p>
+            Improving the structure, presentation, usability,
+            and conversion potential of online stores.
+          </p>
+
+          <ul class="expertise-list">
+            <li>Shopify optimization</li>
+            <li>Store structure</li>
+            <li>Product pages</li>
+            <li>Collections</li>
+            <li>Mobile UX</li>
+            <li>Customer journey</li>
+          </ul>
+
+        </div>
+
+
+        <div class="expertise-card">
+
+          <h3>Etsy Growth</h3>
+
+          <p>
+            Improving marketplace presentation and opportunities
+            for product discovery and conversion.
+          </p>
+
+          <ul class="expertise-list">
+            <li>Listing optimization</li>
+            <li>Product presentation</li>
+            <li>Search visibility</li>
+            <li>Keyword targeting</li>
+            <li>Conversion thinking</li>
+          </ul>
+
+        </div>
+
+
+        <div class="expertise-card">
+
+          <h3>SEO & CRO</h3>
+
+          <p>
+            Making digital experiences easier to discover,
+            understand, trust, and act on.
+          </p>
+
+          <ul class="expertise-list">
+            <li>On-page SEO</li>
+            <li>Product SEO</li>
+            <li>Conversion analysis</li>
+            <li>Trust signals</li>
+            <li>Customer journey friction</li>
+          </ul>
+
+        </div>
+
+
+        <div class="expertise-card">
+
+          <h3>Digital Marketing</h3>
+
+          <p>
+            Supporting customer acquisition and retention across
+            multiple digital channels.
+          </p>
+
+          <ul class="expertise-list">
+            <li>Google Ads</li>
+            <li>Google Shopping</li>
+            <li>Meta Ads</li>
+            <li>Instagram</li>
+            <li>TikTok</li>
+            <li>Email Marketing</li>
+          </ul>
+
+        </div>
+
+
+        <div class="expertise-card">
+
+          <h3>Web Development</h3>
+
+          <p>
+            Building responsive websites and digital experiences
+            using modern web technologies.
+          </p>
+
+          <ul class="expertise-list">
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>JavaScript</li>
+            <li>Responsive design</li>
+            <li>Business websites</li>
+            <li>Landing pages</li>
+          </ul>
+
+        </div>
+
+
+        <div class="expertise-card">
+
+          <h3>Web & Application Development</h3>
+
+          <p>
+            Creating practical digital systems where a traditional
+            website is not enough.
+          </p>
+
+          <ul class="expertise-list">
+            <li>Flutter</li>
+            <li>Dart</li>
+            <li>Firebase</li>
+            <li>Firestore</li>
+            <li>Role-based systems</li>
+            <li>Web applications</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PHILOSOPHY -->
+
+  <section class="philosophy">
+
+    <div class="container">
+
+      <div class="heading">
+
+        <span>My E-commerce Philosophy</span>
+
+        <h2>
+          I Don't Treat an Online Store as Simply a Website.
+        </h2>
+
+        <p>
+          A strong e-commerce experience connects several stages
+          of the customer journey.
+        </p>
+
+      </div>
+
+
+      <div class="journey">
+
+        <div class="journey-card">
+          <span>01</span>
+          <h3>Traffic</h3>
+          <p>
+            Customers need a reason and a path to discover the business.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <span>02</span>
+          <h3>User Experience</h3>
+          <p>
+            The experience should be clear, useful, fast, and easy to navigate.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <span>03</span>
+          <h3>Trust</h3>
+          <p>
+            Customers need confidence before they are ready to buy.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <span>04</span>
+          <h3>Product Presentation</h3>
+          <p>
+            Products need to communicate their value clearly.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <span>05</span>
+          <h3>Conversion</h3>
+          <p>
+            The journey should remove unnecessary friction before purchase.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <span>06</span>
+          <h3>Retention</h3>
+          <p>
+            The relationship should continue beyond the first purchase.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TEAM -->
+
+  <section class="team-section">
+
+    <div class="container">
+
+      <div class="heading">
+
+        <span>Working With Teams</span>
+
+        <h2>
+          Strong Projects Are Often Collaborative.
+        </h2>
+
+      </div>
+
+
+      <div class="team-box">
+
+        <h3>
+          The Team Behind the Work
+        </h3>
+
+        <p>
+          Digital projects often require multiple specialists
+          working toward the same objective.
+        </p>
+
+        <p>
+          I am comfortable working both independently and within
+          collaborative teams, taking responsibility for substantial
+          parts of a project while coordinating with other contributors
+          where required.
+        </p>
+
+        <ul class="team-list">
+
+          <li>E-commerce analysis</li>
+          <li>Shopify optimization</li>
+          <li>SEO and CRO</li>
+          <li>Product and collection improvements</li>
+          <li>Digital marketing</li>
+          <li>Email marketing</li>
+          <li>Website management</li>
+          <li>Web development</li>
+          <li>Research and strategy</li>
+          <li>Optimization recommendations</li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WHY WORK WITH ME -->
+
+  <section class="why">
+
+    <div class="container">
+
+      <div class="why-grid">
+
+        <div class="why-image">
+
+          <img
+            src="Screenshot_2026-09-04-12-55-24-480_com.openai.chatgpt-edit.jpg"
+            alt="GUNKOWII SABA professional workspace">
+
+        </div>
+
+
+        <div>
+
+          <div class="heading">
+
+            <span>Why Work With Me?</span>
+
+            <h2>
+              Strategy, Marketing, Conversion & Technology.
+            </h2>
+
+            <p>
+              I combine e-commerce strategy, marketing,
+              conversion thinking, and technical development
+              rather than treating them as completely separate
+              disciplines.
+            </p>
+
+          </div>
+
+
+          <div class="questions">
+
+            <div class="question">
+              How will customers find the business?
+            </div>
+
+            <div class="question">
+              What will make them trust it?
+            </div>
+
+            <div class="question">
+              What will make the experience easier to use?
+            </div>
+
+            <div class="question">
+              What can reduce friction before purchase?
+            </div>
+
+            <div class="question">
+              What can encourage customers to return?
+            </div>
+
+            <div class="question">
+              What technology can help the business operate and grow?
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <div class="container">
+
+      <div class="cta-box">
+
+        <h2>
+          Let's Build Something That Works.
+        </h2>
+
+        <p>
+          If you have an e-commerce store, digital project,
+          website, or growth challenge, let's discuss the
+          opportunity and identify what should be improved first.
+        </p>
+
+        <a
+          href="https://wa.me/message/V26H2754ROXUB1"
+          target="_blank"
+          rel="noopener"
+          class="btn">
+          Message Gunkowii Elite Pro →
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="brand">
+      GUNKOWII SABA
+    </div>
+
+    <p>
+      E-COMMERCE • DIGITAL • TECHNOLOGY
+    </p>
+
+    <p style="margin-top: 10px;">
+      © 2026 GUNKOWII SABA. All rights reserved.
+    </p>
+
+  </footer>
+
+</body>
+</html>
