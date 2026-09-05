@@ -6,7 +6,7 @@
 
   <title>Expert Plan | GUNKOWII SABA</title>
 
-  <meta name="description" content="Learn how the Expert Plan works, its benefits, considerations, and whether it is the right e-commerce growth option for your business.">
+  <meta name="description" content="Learn how the Expert Plan works, its benefits, advantages, considerations, and whether professional e-commerce support is right for your business.">
 
   <style>
     * {
@@ -64,16 +64,18 @@
     }
 
     .hero {
-      background:
-        linear-gradient(rgba(18,60,45,.94), rgba(18,60,45,.94));
+      background: #123c2d;
       color: #fff;
       padding: 90px 6%;
-      text-align: center;
     }
 
     .hero-inner {
-      max-width: 900px;
+      max-width: 1150px;
       margin: auto;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 55px;
     }
 
     .eyebrow {
@@ -93,10 +95,36 @@
     }
 
     .hero p {
-      max-width: 760px;
-      margin: auto;
+      max-width: 780px;
       color: #f1ead9;
       font-size: 18px;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 22px;
+      display: block;
+      border: 4px solid rgba(216,180,90,.7);
+      box-shadow: 0 20px 45px rgba(0,0,0,.28);
+    }
+
+    .image-label {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      background: rgba(18,60,45,.94);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .section {
@@ -187,7 +215,7 @@
 
     .steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
     }
 
@@ -210,6 +238,11 @@
       font-family: Georgia, serif;
     }
 
+    .step p {
+      color: #59635d;
+      font-size: 15px;
+    }
+
     .comparison {
       overflow-x: auto;
     }
@@ -220,7 +253,7 @@
       background: #fff;
       border-radius: 15px;
       overflow: hidden;
-      min-width: 650px;
+      min-width: 700px;
     }
 
     th,
@@ -300,6 +333,27 @@
       color: #d8b45a;
     }
 
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero p {
+        margin: auto;
+      }
+
+      .hero-image {
+        max-width: 600px;
+        width: 100%;
+        margin: auto;
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 800px) {
       .nav {
         flex-direction: column;
@@ -321,6 +375,10 @@
       .hero {
         padding: 70px 6%;
       }
+
+      .hero-image img {
+        max-height: 430px;
+      }
     }
   </style>
 </head>
@@ -336,6 +394,7 @@
       <a href="about.html">About</a>
       <a href="services.html">Services</a>
       <a href="portfolio.html">Portfolio</a>
+      <a href="reviews.html">Reviews</a>
       <a href="pricing.html">Plans</a>
       <a href="process.html">Process</a>
       <a href="audit.html">Audit</a>
@@ -345,20 +404,42 @@
 </header>
 
 <section class="hero">
+
   <div class="hero-inner">
-    <div class="eyebrow">Plan 01 • Professional Service</div>
 
-    <h1>Expert Plan</h1>
+    <div>
+      <div class="eyebrow">
+        Plan 01 • Professional Service
+      </div>
 
-    <p>
-      A professional engagement model for businesses that want experienced
-      e-commerce, Shopify, Etsy, SEO, CRO, marketing, or digital solutions
-      delivered around an agreed scope of work.
-    </p>
+      <h1>Expert Plan</h1>
+
+      <p>
+        A professional engagement model for businesses that want experienced
+        e-commerce, Shopify, Etsy, SEO, CRO, marketing, or digital solutions
+        delivered around an agreed scope of work.
+      </p>
+    </div>
+
+    <div class="hero-image">
+
+      <img
+        src="Screenshot_2026-09-04-12-53-39-223_com.openai.chatgpt-edit.jpg"
+        alt="Gunkowii SABA working in a professional office environment"
+      >
+
+      <div class="image-label">
+        GUNKOWII SABA • E-COMMERCE & DIGITAL
+      </div>
+
+    </div>
+
   </div>
+
 </section>
 
 <section class="section">
+
   <div class="section-title">
     <h2>What Is the Expert Plan?</h2>
   </div>
@@ -370,28 +451,38 @@
   </p>
 
   <div class="highlight">
+
     <h2>The Simple Idea</h2>
+
     <p>
       You are paying for expertise, strategy, execution, and professional
       delivery rather than making your compensation dependent on future
       sales or uncertain performance.
     </p>
+
   </div>
+
 </section>
 
 <section class="section">
+
   <div class="section-title">
+
     <h2>How It Works</h2>
+
     <p>
       The process is designed to make the scope clear before serious work begins.
     </p>
+
   </div>
 
   <div class="steps">
 
     <div class="step">
       <div class="number">01</div>
+
       <h3>Discuss</h3>
+
       <p>
         We discuss your business, current situation, goals, problems,
         and the type of help you need.
@@ -400,7 +491,9 @@
 
     <div class="step">
       <div class="number">02</div>
+
       <h3>Define</h3>
+
       <p>
         We identify the work required and establish the scope,
         priorities, deliverables, timeline, and commercial terms.
@@ -409,17 +502,32 @@
 
     <div class="step">
       <div class="number">03</div>
+
       <h3>Execute</h3>
+
       <p>
         I work on the agreed areas and provide the agreed professional
         deliverables.
       </p>
     </div>
 
+    <div class="step">
+      <div class="number">04</div>
+
+      <h3>Review</h3>
+
+      <p>
+        We review the completed work, discuss the outcome, and identify
+        any sensible next steps where required.
+      </p>
+    </div>
+
   </div>
+
 </section>
 
 <section class="section">
+
   <div class="section-title">
     <h2>What Can the Expert Plan Cover?</h2>
   </div>
@@ -427,7 +535,9 @@
   <div class="grid">
 
     <div class="card">
+
       <h3>🛒 E-commerce & Shopify</h3>
+
       <ul>
         <li>Shopify store optimization</li>
         <li>Store structure and navigation</li>
@@ -435,10 +545,13 @@
         <li>Mobile UX improvements</li>
         <li>Conversion-focused optimization</li>
       </ul>
+
     </div>
 
     <div class="card">
+
       <h3>🛍️ Etsy Growth</h3>
+
       <ul>
         <li>Listing optimization</li>
         <li>Product presentation</li>
@@ -446,10 +559,13 @@
         <li>Shop structure</li>
         <li>Conversion improvements</li>
       </ul>
+
     </div>
 
     <div class="card">
+
       <h3>🔎 SEO</h3>
+
       <ul>
         <li>On-page SEO</li>
         <li>Product SEO</li>
@@ -457,10 +573,13 @@
         <li>Keyword targeting</li>
         <li>Search visibility improvements</li>
       </ul>
+
     </div>
 
     <div class="card">
+
       <h3>📈 CRO</h3>
+
       <ul>
         <li>Homepage analysis</li>
         <li>Product-page analysis</li>
@@ -468,10 +587,13 @@
         <li>Customer journey</li>
         <li>Conversion friction</li>
       </ul>
+
     </div>
 
     <div class="card">
+
       <h3>📣 Digital Marketing</h3>
+
       <ul>
         <li>Google Ads</li>
         <li>Google Shopping</li>
@@ -479,10 +601,13 @@
         <li>Instagram</li>
         <li>TikTok and retargeting</li>
       </ul>
+
     </div>
 
     <div class="card">
+
       <h3>💻 Web & Digital Solutions</h3>
+
       <ul>
         <li>Business websites</li>
         <li>Landing pages</li>
@@ -490,12 +615,15 @@
         <li>Web applications</li>
         <li>Technical digital solutions</li>
       </ul>
+
     </div>
 
   </div>
+
 </section>
 
 <section class="section">
+
   <div class="section-title">
     <h2>Benefits of the Expert Plan</h2>
   </div>
@@ -503,49 +631,65 @@
   <div class="grid">
 
     <div class="card">
+
       <h3>Clear Scope</h3>
+
       <p>
         You know what you are paying for and what work is expected before
         the project begins.
       </p>
+
     </div>
 
     <div class="card">
+
       <h3>Professional Expertise</h3>
+
       <p>
         You are bringing in specialized knowledge instead of trying to
         solve every e-commerce problem alone.
       </p>
+
     </div>
 
     <div class="card">
+
       <h3>Focused Execution</h3>
+
       <p>
         The engagement can concentrate on the areas that matter most to
         your current business objectives.
       </p>
+
     </div>
 
     <div class="card">
+
       <h3>Predictable Structure</h3>
+
       <p>
         Because the commercial arrangement is agreed in advance,
         the project can be planned more clearly.
       </p>
+
     </div>
 
   </div>
+
 </section>
 
 <section class="section">
+
   <div class="section-title">
-    <h2>Advantages & Disadvantages</h2>
+    <h2>Advantages & Considerations</h2>
   </div>
 
   <div class="grid">
 
     <div class="card">
+
       <h3>Advantages</h3>
+
       <ul>
         <li>Clear professional arrangement</li>
         <li>Defined scope of work</li>
@@ -554,10 +698,13 @@
         <li>Works well for businesses with a clear budget</li>
         <li>Does not depend entirely on future sales</li>
       </ul>
+
     </div>
 
     <div class="card">
+
       <h3>Things to Consider</h3>
+
       <ul>
         <li>Requires an agreed professional investment</li>
         <li>Results can depend on factors outside the project</li>
@@ -565,100 +712,169 @@
         <li>Large projects may require more time and investment</li>
         <li>Scope should be clearly defined before work begins</li>
       </ul>
+
     </div>
 
   </div>
+
 </section>
 
 <section class="section">
+
   <div class="section-title">
+
     <h2>Who Should Consider This Plan?</h2>
+
   </div>
 
   <div class="grid">
 
     <div class="card">
+
       <h3>Established Stores</h3>
+
       <p>
         Businesses that already have a store but need professional
         optimization, strategy, or technical improvements.
       </p>
+
     </div>
 
     <div class="card">
+
       <h3>New Businesses</h3>
+
       <p>
         Businesses that want to establish a stronger digital foundation
         before investing heavily in traffic and marketing.
       </p>
+
     </div>
 
     <div class="card">
+
       <h3>Busy Business Owners</h3>
+
       <p>
         Owners who understand what needs to be improved but do not have
         the time or expertise to execute everything themselves.
       </p>
+
     </div>
 
     <div class="card">
+
       <h3>Businesses With Specific Problems</h3>
+
       <p>
         Businesses looking for help with a defined area such as Shopify,
         Etsy, SEO, CRO, marketing, or website development.
       </p>
+
     </div>
 
   </div>
+
 </section>
 
 <section class="section">
+
   <div class="section-title">
+
     <h2>What You Should Consider First</h2>
+
+    <p>
+      A good professional engagement begins with clarity about the
+      business problem and the expected work.
+    </p>
+
   </div>
 
   <div class="comparison">
 
     <table>
+
       <thead>
+
         <tr>
           <th>Consideration</th>
           <th>Why It Matters</th>
         </tr>
+
       </thead>
 
       <tbody>
+
         <tr>
           <td>Your objective</td>
-          <td>We need to know what the project is actually trying to improve.</td>
+          <td>
+            We need to know what the project is actually trying to improve.
+          </td>
         </tr>
 
         <tr>
           <td>Project scope</td>
-          <td>A clear scope prevents confusion about what is included.</td>
+          <td>
+            A clear scope prevents confusion about what is included.
+          </td>
         </tr>
 
         <tr>
           <td>Available budget</td>
-          <td>The investment should match the size and complexity of the work.</td>
+          <td>
+            The investment should match the size and complexity of the work.
+          </td>
         </tr>
 
         <tr>
           <td>Timeline</td>
-          <td>Some improvements require more time than others.</td>
+          <td>
+            Some improvements require more time than others.
+          </td>
         </tr>
 
         <tr>
           <td>Business readiness</td>
-          <td>Strong optimization cannot compensate for poor products, pricing, fulfillment, or weak market demand.</td>
+          <td>
+            Strong optimization cannot compensate for poor products,
+            pricing, fulfillment, or weak market demand.
+          </td>
         </tr>
+
       </tbody>
+
     </table>
 
   </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+
+    <h2>Why Choose the Expert Model?</h2>
+
+  </div>
+
+  <p class="intro">
+
+    The Expert Plan is designed for businesses that want to treat digital
+    improvement as a professional service rather than simply experimenting
+    with random changes.
+
+    <br><br>
+
+    The focus is on understanding the problem, defining the right work,
+    executing it properly, and creating a stronger foundation for the
+    business to continue growing.
+
+  </p>
+
 </section>
 
 <section class="cta">
+
   <h2>Think the Expert Plan Fits Your Business?</h2>
 
   <p>
@@ -668,6 +884,7 @@
   </p>
 
   <div class="buttons">
+
     <a href="contact.html" class="btn btn-primary">
       Discuss Your Project
     </a>
@@ -675,10 +892,13 @@
     <a href="pricing.html" class="btn btn-secondary">
       Compare All Plans
     </a>
+
   </div>
+
 </section>
 
 <footer>
+
   <p>
     <strong>GUNKOWII SABA</strong><br>
     E-COMMERCE • DIGITAL • TECHNOLOGY
@@ -687,6 +907,7 @@
   <p style="margin-top:10px;">
     © 2026 GUNKOWII SABA. All rights reserved.
   </p>
+
 </footer>
 
 </body>
