@@ -1,1 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Services | GUNKOWII SABA | E-commerce & Digital Solutions</title>
+
+  <meta name="description" content="Explore GUNKOWII SABA's e-commerce, Shopify, Etsy, SEO, CRO, digital marketing, email marketing, web development and digital growth services.">
+
+  <meta name="keywords" content="Gunkowii Saba, Shopify expert, Etsy specialist, e-commerce expert, SEO, CRO, digital marketing, email marketing, web development, e-commerce optimization">
+
+  <meta name="author" content="GUNKOWII SABA">
+
+  <style>
+    :root {
+      --emerald: #064e3b;
+      --deep-green: #022c22;
+      --forest: #0b3d2e;
+      --gold: #c9a227;
+      --light-gold: #e5c76b;
+      --cream: #f7f1df;
+      --ivory: #fffdf5;
+      --dark: #071c16;
+      --text: #24352f;
+      --muted: #68756f;
+      --border: rgba(201, 162, 39, 0.28);
+      --shadow: 0 18px 45px rgba(2, 44, 34, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--ivory);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(2, 44, 34, 0.97);
+      border-bottom: 1px solid rgba(229, 199, 107, 0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.7px;
+      white-space: nowrap;
+    }
+
+    .logo img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .logo span {
+      font-size: 15px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      color: #f7f1df;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--light-gold);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(201, 162, 39, 0.14), transparent 30%),
+        linear-gradient(135deg, var(--deep-green), var(--emerald));
+      color: white;
+      padding: 110px 0 100px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(229, 199, 107, 0.18);
+      border-radius: 50%;
+      right: -130px;
+      top: -150px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border: 1px solid rgba(229, 199, 107, 0.12);
+      border-radius: 50%;
+      left: -120px;
+      bottom: -130px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--light-gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1.03;
+      margin-bottom: 22px;
+      color: white;
+    }
+
+    .hero h1 span {
+      color: var(--light-gold);
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: rgba(255,255,255,0.84);
+      font-size: 18px;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: 800;
+      transition: 0.3s ease;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--deep-green);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      background: var(--light-gold);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(229,199,107,0.55);
+      color: white;
+    }
+
+    .btn-outline:hover {
+      background: rgba(229,199,107,0.1);
+      transform: translateY(-3px);
+    }
+
+    /* =========================
+       SECTION BASICS
+    ========================== */
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 48px;
+    }
+
+    .section-heading .eyebrow {
+      color: var(--emerald);
+    }
+
+    .section-heading h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--deep-green);
+      font-size: clamp(34px, 5vw, 52px);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    /* =========================
+       SERVICE GRID
+    ========================== */
+
+    .services-section {
+      background: var(--ivory);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      position: relative;
+      background: white;
+      border: 1px solid rgba(6, 78, 59, 0.1);
+      border-radius: 18px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: 0.35s ease;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(var(--gold), var(--emerald));
+    }
+
+    .service-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--border);
+      box-shadow: 0 25px 55px rgba(2, 44, 34, 0.16);
+    }
+
+    .service-number {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .service-card h3 {
+      color: var(--deep-green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      margin-bottom: 14px;
+    }
+
+    .service-card > p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .service-list {
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+
+    .service-list li {
+      position: relative;
+      padding-left: 22px;
+      color: #405049;
+      font-size: 14px;
+    }
+
+    .service-list li::before {
+      content: "◆";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      color: var(--gold);
+      font-size: 9px;
+    }
+
+    /* =========================
+       PLATFORMS
+    ========================== */
+
+    .platform-section {
+      background: var(--cream);
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .platform-card {
+      background: var(--deep-green);
+      color: white;
+      border-radius: 20px;
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+      min-height: 330px;
+      box-shadow: var(--shadow);
+    }
+
+    .platform-card::after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border: 1px solid rgba(229,199,107,0.18);
+      border-radius: 50%;
+      right: -70px;
+      bottom: -80px;
+    }
+
+    .platform-label {
+      color: var(--light-gold);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .platform-card h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 36px;
+      margin-bottom: 14px;
+    }
+
+    .platform-card p {
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 22px;
+    }
+
+    .platform-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .platform-tags span {
+      border: 1px solid rgba(229,199,107,0.3);
+      color: var(--cream);
+      padding: 7px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       GROWTH SYSTEM
+    ========================== */
+
+    .growth-section {
+      background: white;
+    }
+
+    .growth-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .growth-copy h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 52px);
+      color: var(--deep-green);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .growth-copy p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .journey {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 9px;
+      margin-top: 26px;
+    }
+
+    .journey span {
+      background: var(--cream);
+      color: var(--deep-green);
+      border: 1px solid var(--border);
+      padding: 10px 13px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .journey b {
+      color: var(--gold);
+    }
+
+    .growth-box {
+      background:
+        linear-gradient(145deg, rgba(6,78,59,0.98), rgba(2,44,34,1));
+      border-radius: 22px;
+      padding: 34px;
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .growth-box h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 29px;
+      color: var(--light-gold);
+      margin-bottom: 24px;
+    }
+
+    .growth-step {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 15px;
+      padding: 17px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .growth-step:last-child {
+      border-bottom: 0;
+    }
+
+    .growth-step-number {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(229,199,107,0.5);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--light-gold);
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .growth-step h4 {
+      margin-bottom: 3px;
+      font-size: 15px;
+    }
+
+    .growth-step p {
+      color: rgba(255,255,255,0.65);
+      font-size: 13px;
+    }
+
+    /* =========================
+       CHANNELS
+    ========================== */
+
+    .channels-section {
+      background: var(--cream);
+    }
+
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .channel {
+      background: white;
+      border-radius: 14px;
+      padding: 24px 18px;
+      text-align: center;
+      border: 1px solid rgba(6,78,59,0.08);
+      transition: 0.3s ease;
+    }
+
+    .channel:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold);
+      box-shadow: var(--shadow);
+    }
+
+    .channel strong {
+      display: block;
+      color: var(--deep-green);
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .channel span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================
+       AUDIT CTA
+    ========================== */
+
+    .audit-section {
+      background: var(--deep-green);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .audit-section::before {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border: 1px solid rgba(229,199,107,0.12);
+      border-radius: 50%;
+      right: -180px;
+      top: -200px;
+    }
+
+    .audit-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .audit-content .eyebrow {
+      color: var(--light-gold);
+    }
+
+    .audit-content h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 55px);
+      line-height: 1.12;
+      margin-bottom: 18px;
+    }
+
+    .audit-content p {
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 28px;
+      font-size: 17px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      background: #011b15;
+      color: white;
+      padding: 55px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 35px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-brand h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--light-gold);
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand p {
+      color: rgba(255,255,255,0.62);
+      max-width: 430px;
+      font-size: 14px;
+    }
+
+    .footer-column h4 {
+      color: var(--light-gold);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      margin-bottom: 8px;
+      transition: 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: var(--light-gold);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 22px;
+      color: rgba(255,255,255,0.45);
+      font-size: 12px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 900px) {
+      nav {
+        gap: 12px;
+      }
+
+      .services-grid,
+      .platform-grid,
+      .growth-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .channels-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .nav {
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px 15px;
+      }
+
+      nav a {
+        font-size: 11px;
+      }
+
+      .hero {
+        padding: 75px 0;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .service-card,
+      .platform-card,
+      .growth-box {
+        padding: 26px;
+      }
+
+      .channels-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .channel {
+        padding: 20px 10px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+    <div class="container nav">
+
+      <a href="index.html" class="logo">
+        <img src="gunkowii-saba-logo.png" alt="GUNKOWII SABA logo">
+        <span>GUNKOWII SABA</span>
+      </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html" class="active">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="process.html">Process</a>
+        <a href="audit.html">Audit</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="hero-content">
+
+        <span class="eyebrow">E-Commerce • Shopify • Etsy • Digital Growth</span>
+
+        <h1>
+          Services Built Around
+          <span>Real Business Growth.</span>
+        </h1>
+
+        <p>
+          I help businesses build, improve, market, and grow their digital presence through e-commerce optimization, Shopify, Etsy, SEO, conversion rate optimization, digital marketing, email marketing, and web development.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="audit.html">Get a Free Audit</a>
+          <a class="btn btn-outline" href="contact.html">Work With Me</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       SERVICES
+  ========================== -->
+
+  <section class="services-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span class="eyebrow">What I Do</span>
+
+        <h2>
+          Practical Digital Solutions,
+          From Storefront to Growth.
+        </h2>
+
+        <p>
+          My services combine e-commerce strategy, user experience, search visibility, conversion thinking, marketing, and technology so that every part of the digital customer journey works toward a clear business objective.
+        </p>
+
+      </div>
+
+
+      <div class="services-grid">
+
+
+        <!-- 01 -->
+
+        <article class="service-card">
+
+          <div class="service-number">01 / E-COMMERCE</div>
+
+          <h3>E-commerce & Shopify</h3>
+
+          <p>
+            I help improve the structure, presentation, usability, and conversion potential of online stores.
+          </p>
+
+          <ul class="service-list">
+            <li>Shopify store optimization</li>
+            <li>Store structure and navigation</li>
+            <li>Product page optimization</li>
+            <li>Product presentation</li>
+            <li>Collection organization</li>
+            <li>Mobile UX</li>
+            <li>Conversion-focused improvements</li>
+            <li>Trust and credibility elements</li>
+            <li>Customer journey optimization</li>
+            <li>E-commerce strategy</li>
+            <li>Store audits and recommendations</li>
+          </ul>
+
+        </article>
+
+
+        <!-- 02 -->
+
+        <article class="service-card">
+
+          <div class="service-number">02 / MARKETPLACE</div>
+
+          <h3>Etsy Growth & Optimization</h3>
+
+          <p>
+            I help Etsy sellers improve their shop structure, product presentation, discoverability, and conversion potential.
+          </p>
+
+          <ul class="service-list">
+            <li>Etsy shop optimization</li>
+            <li>Listing optimization</li>
+            <li>Etsy SEO opportunities</li>
+            <li>Product title optimization</li>
+            <li>Product presentation</li>
+            <li>Shop organization</li>
+            <li>Customer experience</li>
+            <li>Conversion-focused improvements</li>
+            <li>Product visibility strategy</li>
+            <li>Growth recommendations</li>
+          </ul>
+
+        </article>
+
+
+        <!-- 03 -->
+
+        <article class="service-card">
+
+          <div class="service-number">03 / VISIBILITY</div>
+
+          <h3>SEO & Organic Growth</h3>
+
+          <p>
+            I help businesses identify opportunities to improve search visibility and establish a stronger foundation for organic growth.
+          </p>
+
+          <ul class="service-list">
+            <li>On-page SEO</li>
+            <li>Product SEO</li>
+            <li>Collection SEO</li>
+            <li>Keyword targeting</li>
+            <li>Meta titles and descriptions</li>
+            <li>Internal linking</li>
+            <li>Image optimization</li>
+            <li>Search-friendly content</li>
+            <li>Technical SEO review</li>
+            <li>E-commerce SEO structure</li>
+          </ul>
+
+        </article>
+
+
+        <!-- 04 -->
+
+        <article class="service-card">
+
+          <div class="service-number">04 / CONVERSION</div>
+
+          <h3>Conversion Rate Optimization</h3>
+
+          <p>
+            Traffic is only one part of e-commerce growth. I analyze what happens after visitors arrive and identify opportunities to reduce friction and improve conversion.
+          </p>
+
+          <ul class="service-list">
+            <li>Homepage structure</li>
+            <li>Product pages</li>
+            <li>Navigation</li>
+            <li>Calls to action</li>
+            <li>Trust signals</li>
+            <li>Product information</li>
+            <li>Customer objections</li>
+            <li>Mobile experience</li>
+            <li>Merchandising</li>
+            <li>Customer journey friction</li>
+          </ul>
+
+        </article>
+
+
+        <!-- 05 -->
+
+        <article class="service-card">
+
+          <div class="service-number">05 / ACQUISITION</div>
+
+          <h3>Digital Marketing</h3>
+
+          <p>
+            I contribute to customer acquisition and digital growth strategies across multiple channels, connecting traffic generation with the store experience.
+          </p>
+
+          <ul class="service-list">
+            <li>Google Ads</li>
+            <li>Google Shopping</li>
+            <li>Meta Ads</li>
+            <li>Instagram marketing</li>
+            <li>TikTok marketing</li>
+            <li>Pinterest opportunities</li>
+            <li>Retargeting</li>
+            <li>Content-driven acquisition</li>
+            <li>Campaign strategy</li>
+            <li>Traffic-to-conversion strategy</li>
+          </ul>
+
+        </article>
+
+
+        <!-- 06 -->
+
+        <article class="service-card">
+
+          <div class="service-number">06 / RETENTION</div>
+
+          <h3>Email Marketing & Automation</h3>
+
+          <p>
+            I use email marketing to support customer acquisition, retention, re-engagement, and long-term customer relationships.
+          </p>
+
+          <ul class="service-list">
+            <li>Campaign planning</li>
+            <li>Promotional campaigns</li>
+            <li>Welcome sequences</li>
+            <li>Abandoned-cart strategies</li>
+            <li>Customer retention</li>
+            <li>Re-engagement</li>
+            <li>Email automation</li>
+            <li>Customer lifecycle communication</li>
+          </ul>
+
+        </article>
+
+
+        <!-- 07 -->
+
+        <article class="service-card">
+
+          <div class="service-number">07 / WEB</div>
+
+          <h3>Web Development</h3>
+
+          <p>
+            I build and maintain responsive digital experiences designed around usability, clarity, performance, and business objectives.
+          </p>
+
+          <ul class="service-list">
+            <li>Responsive websites</li>
+            <li>Landing pages</li>
+            <li>Business websites</li>
+            <li>Portfolio websites</li>
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>JavaScript</li>
+            <li>Website management</li>
+          </ul>
+
+        </article>
+
+
+        <!-- 08 -->
+
+        <article class="service-card">
+
+          <div class="service-number">08 / APPLICATIONS</div>
+
+          <h3>Web & Application Development</h3>
+
+          <p>
+            I also work on digital systems and application projects where a traditional website is not enough.
+          </p>
+
+          <ul class="service-list">
+            <li>Flutter</li>
+            <li>Dart</li>
+            <li>Firebase</li>
+            <li>Firestore</li>
+            <li>Role-based systems</li>
+            <li>Web applications</li>
+            <li>Application interfaces</li>
+            <li>Digital management systems</li>
+          </ul>
+
+        </article>
+
+
+        <!-- 09 -->
+
+        <article class="service-card">
+
+          <div class="service-number">09 / STRATEGY</div>
+
+          <h3>Store Audit & Growth Strategy</h3>
+
+          <p>
+            I review the available store or website information to identify practical opportunities and prioritize the improvements that matter most.
+          </p>
+
+          <ul class="service-list">
+            <li>Store audit</li>
+            <li>CRO analysis</li>
+            <li>SEO analysis</li>
+            <li>Product presentation review</li>
+            <li>Customer experience analysis</li>
+            <li>Navigation review</li>
+            <li>Trust analysis</li>
+            <li>Conversion barriers</li>
+            <li>Optimization recommendations</li>
+            <li>Growth priorities</li>
+          </ul>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       SHOPIFY + ETSY
+  ========================== -->
+
+  <section class="platform-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span class="eyebrow">Core Platforms</span>
+
+        <h2>
+          Shopify and Etsy Are Built Into the Strategy.
+        </h2>
+
+        <p>
+          Two different platforms, but the same objective: create a better customer experience and build a stronger path from discovery to purchase.
+        </p>
+
+      </div>
+
+
+      <div class="platform-grid">
+
+        <article class="platform-card">
+
+          <div class="platform-label">01 / Shopify</div>
+
+          <h3>Shopify E-commerce</h3>
+
+          <p>
+            Store structure, product presentation, UX, SEO, CRO, merchandising, trust elements, and growth-focused optimization.
+          </p>
+
+          <div class="platform-tags">
+            <span>Store Optimization</span>
+            <span>SEO</span>
+            <span>CRO</span>
+            <span>UX</span>
+            <span>Product Pages</span>
+            <span>Merchandising</span>
+          </div>
+
+        </article>
+
+
+        <article class="platform-card">
+
+          <div class="platform-label">02 / Etsy</div>
+
+          <h3>Etsy Growth</h3>
+
+          <p>
+            Listing optimization, product presentation, Etsy SEO, shop organization, customer experience, and conversion-focused improvements.
+          </p>
+
+          <div class="platform-tags">
+            <span>Listing SEO</span>
+            <span>Product Titles</span>
+            <span>Shop Optimization</span>
+            <span>Visibility</span>
+            <span>CRO</span>
+            <span>Growth</span>
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       GROWTH APPROACH
+  ========================== -->
+
+  <section class="growth-section">
+
+    <div class="container">
+
+      <div class="growth-layout">
+
+        <div class="growth-copy">
+
+          <span class="eyebrow">My Approach</span>
+
+          <h2>
+            I Don't Treat an Online Store as Just a Website.
+          </h2>
+
+          <p>
+            A strong e-commerce experience connects traffic, user experience, trust, product presentation, conversion, and retention.
+          </p>
+
+          <p>
+            I look at the complete customer journey rather than focusing on one isolated element. This helps identify what should be improved first and why.
+          </p>
+
+          <div class="journey">
+            <span>Traffic</span>
+            <b>→</b>
+            <span>UX</span>
+            <b>→</b>
+            <span>Trust</span>
+            <b>→</b>
+            <span>Product</span>
+            <b>→</b>
+            <span>Conversion</span>
+            <b>→</b>
+            <span>Retention</span>
+          </div>
+
+        </div>
+
+
+        <div class="growth-box">
+
+          <h3>From Analysis to Growth</h3>
+
+
+          <div class="growth-step">
+            <div class="growth-step-number">01</div>
+            <div>
+              <h4>Understand</h4>
+              <p>Consider the business, products, customers, positioning, and commercial objectives.</p>
+            </div>
+          </div>
+
+
+          <div class="growth-step">
+            <div class="growth-step-number">02</div>
+            <div>
+              <h4>Analyze</h4>
+              <p>Identify usability issues, SEO opportunities, conversion barriers, content gaps, and friction.</p>
+            </div>
+          </div>
+
+
+          <div class="growth-step">
+            <div class="growth-step-number">03</div>
+            <div>
+              <h4>Prioritize</h4>
+              <p>Focus first on opportunities with the strongest potential impact for the project.</p>
+            </div>
+          </div>
+
+
+          <div class="growth-step">
+            <div class="growth-step-number">04</div>
+            <div>
+              <h4>Optimize</h4>
+              <p>Improve navigation, product presentation, messaging, SEO, trust, UX, and conversion paths.</p>
+            </div>
+          </div>
+
+
+          <div class="growth-step">
+            <div class="growth-step-number">05</div>
+            <div>
+              <h4>Measure</h4>
+              <p>Use relevant metrics and business objectives where performance data is available.</p>
+            </div>
+          </div>
+
+
+          <div class="growth-step">
+            <div class="growth-step-number">06</div>
+            <div>
+              <h4>Grow</h4>
+              <p>Build or scale acquisition and retention strategies on a stronger foundation.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       MARKETING CHANNELS
+  ========================== -->
+
+  <section class="channels-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span class="eyebrow">Growth Channels</span>
+
+        <h2>
+          The Channels Behind the Strategy.
+        </h2>
+
+        <p>
+          Growth does not come from one channel alone. The strongest strategy connects discovery, traffic, conversion, and retention.
+        </p>
+
+      </div>
+
+
+      <div class="channels-grid">
+
+        <div class="channel">
+          <strong>Google Ads</strong>
+          <span>Paid search acquisition</span>
+        </div>
+
+        <div class="channel">
+          <strong>Google Shopping</strong>
+          <span>Product discovery</span>
+        </div>
+
+        <div class="channel">
+          <strong>Meta Ads</strong>
+          <span>Paid social growth</span>
+        </div>
+
+        <div class="channel">
+          <strong>Instagram</strong>
+          <span>Social discovery</span>
+        </div>
+
+        <div class="channel">
+          <strong>TikTok</strong>
+          <span>Content-led discovery</span>
+        </div>
+
+        <div class="channel">
+          <strong>Pinterest</strong>
+          <span>Visual discovery</span>
+        </div>
+
+        <div class="channel">
+          <strong>SEO</strong>
+          <span>Organic visibility</span>
+        </div>
+
+        <div class="channel">
+          <strong>Email</strong>
+          <span>Retention & lifecycle</span>
+        </div>
+
+        <div class="channel">
+          <strong>Retargeting</strong>
+          <span>Re-engagement</span>
+        </div>
+
+        <div class="channel">
+          <strong>CRO</strong>
+          <span>Conversion improvement</span>
+        </div>
+
+        <div class="channel">
+          <strong>UX</strong>
+          <span>Customer experience</span>
+        </div>
+
+        <div class="channel">
+          <strong>Content</strong>
+          <span>Organic acquisition</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CTA
+  ========================== -->
+
+  <section class="audit-section">
+
+    <div class="container">
+
+      <div class="audit-content">
+
+        <span class="eyebrow">Start With What Matters</span>
+
+        <h2>
+          Not Sure What Your Store Needs First?
+        </h2>
+
+        <p>
+          Instead of guessing, start with a practical store audit. I'll help identify the key opportunities, explain why they matter, and show you what should be prioritized first.
+        </p>
+
+        <div class="hero-actions">
+
+          <a class="btn btn-gold" href="audit.html">
+            Get a Free Audit
+          </a>
+
+          <a class="btn btn-outline" href="https://wa.me/message/V26H2754ROXUB1" target="_blank" rel="noopener">
+            Message Gunkowii Elite Pro
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+
+          <h3>GUNKOWII SABA</h3>
+
+          <p>
+            E-commerce & Digital Solutions Specialist focused on Shopify, Etsy, SEO, CRO, digital marketing, email marketing, web development, and practical digital growth.
+          </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>Explore</h4>
+
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="reviews.html">Reviews</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>Work With Me</h4>
+
+          <a href="pricing.html">Pricing</a>
+          <a href="process.html">Process</a>
+          <a href="audit.html">Free Audit</a>
+          <a href="contact.html">Contact</a>
+          <a href="https://wa.me/message/V26H2754ROXUB1" target="_blank" rel="noopener">
+            WhatsApp
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © 2026 GUNKOWII SABA. All rights reserved.
+        </span>
+
+        <span>
+          E-COMMERCE • DIGITAL • TECHNOLOGY
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
