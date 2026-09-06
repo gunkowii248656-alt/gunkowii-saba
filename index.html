@@ -962,6 +962,189 @@ footer h3{
     transform:translateY(0);
 }
 
+/* =====================================================
+   GUNKOWII SABA — LIVE ACTIVITY POPUP
+===================================================== */
+
+.gunkowii-live-popup{
+    position:fixed;
+    left:24px;
+    bottom:24px;
+
+    width:350px;
+    max-width:calc(100vw - 32px);
+
+    background:#fffdf8;
+    color:var(--text);
+
+    border:1px solid var(--gold);
+    border-radius:16px;
+
+    padding:18px;
+
+    z-index:99999;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.20);
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:
+        translateY(25px)
+        scale(.96);
+
+    transition:
+        opacity .4s ease,
+        transform .4s ease,
+        visibility .4s ease;
+}
+
+.gunkowii-live-popup.show{
+    opacity:1;
+    visibility:visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.gunkowii-live-top{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    margin-bottom:13px;
+
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.8px;
+
+    color:var(--green);
+}
+
+.gunkowii-live-status{
+    width:8px;
+    height:8px;
+
+    background:var(--gold);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 0 4px rgba(201,162,39,.15);
+
+    animation:gunkowiiLivePulse 1.6s infinite;
+}
+
+.gunkowii-live-content{
+    display:flex;
+    align-items:flex-start;
+    gap:13px;
+}
+
+.gunkowii-live-icon{
+    width:43px;
+    height:43px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--green);
+    color:var(--gold-light);
+
+    border-radius:12px;
+
+    font-size:19px;
+}
+
+.gunkowii-live-text{
+    flex:1;
+}
+
+.gunkowii-live-label{
+    color:var(--green);
+
+    font-size:15px;
+    font-weight:800;
+
+    margin-bottom:4px;
+}
+
+.gunkowii-live-message{
+    color:var(--muted);
+
+    font-size:13px;
+    line-height:1.55;
+
+    margin:0 0 8px;
+}
+
+.gunkowii-live-link{
+    display:inline-block;
+
+    color:#927116;
+
+    font-size:12px;
+    font-weight:800;
+
+    border-bottom:1px solid var(--gold);
+
+    transition:.3s ease;
+}
+
+.gunkowii-live-link:hover{
+    color:var(--green);
+}
+
+.gunkowii-live-close{
+    position:absolute;
+
+    top:8px;
+    right:10px;
+
+    width:25px;
+    height:25px;
+
+    border:none;
+    background:transparent;
+
+    color:#6d7771;
+
+    font-size:21px;
+    line-height:1;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+}
+
+.gunkowii-live-close:hover{
+    color:var(--green);
+}
+
+@keyframes gunkowiiLivePulse{
+
+    0%{
+        box-shadow:
+            0 0 0 0 rgba(201,162,39,.45);
+    }
+
+    70%{
+        box-shadow:
+            0 0 0 7px rgba(201,162,39,0);
+    }
+
+    100%{
+        box-shadow:
+            0 0 0 0 rgba(201,162,39,0);
+    }
+
+}
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -1137,6 +1320,30 @@ footer h3{
         grid-template-columns:1fr;
         gap:30px;
     }
+
+    /* LIVE POPUP MOBILE */
+
+    .gunkowii-live-popup{
+        left:16px;
+        right:16px;
+        bottom:16px;
+
+        width:auto;
+        max-width:none;
+
+        padding:16px;
+    }
+
+    .gunkowii-live-icon{
+        width:39px;
+        height:39px;
+
+        font-size:17px;
+    }
+
+    .gunkowii-live-message{
+        font-size:12.5px;
+    }
 }
 </style>
 </head>
@@ -1157,6 +1364,7 @@ footer h3{
     <div class="menu-btn" id="menuBtn">☰</div>
 
     <nav class="nav-links" id="navLinks">
+
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
@@ -1166,6 +1374,7 @@ footer h3{
         <a href="process.html">Process</a>
         <a href="audit.html">Free Audit</a>
         <a href="contact.html">Contact</a>
+
     </nav>
 
 </div>
@@ -1248,49 +1457,64 @@ footer h3{
 <div class="container metrics-grid">
 
     <div class="metric reveal">
+
         <div
             class="metric-number"
             data-counter-start="0"
             data-counter="6"
             data-suffix="+"
         >0+</div>
+
         <div class="metric-label">
             Years Practical Experience
         </div>
+
     </div>
 
+
     <div class="metric reveal">
+
         <div
             class="metric-number"
             data-counter-start="60"
             data-counter="75"
             data-range="true"
         >60–60%</div>
+
         <div class="metric-label">
             Typical Team Project Contribution
         </div>
+
     </div>
 
+
     <div class="metric reveal">
+
         <div
             class="metric-number"
             data-counter-start="0"
             data-counter="2"
         >0</div>
+
         <div class="metric-label">
             Core E-commerce Platforms
         </div>
+
     </div>
 
+
     <div class="metric reveal">
+
         <div
             class="metric-number"
             data-counter-start="0"
             data-counter="8"
         >0</div>
+
         <div class="metric-label">
             Core Growth Channels
         </div>
+
     </div>
 
 </div>
@@ -1304,7 +1528,6 @@ footer h3{
 <section class="expertise">
 <div class="container">
 
-    <!-- LOGOS DIRECTLY ABOVE THE SECTION -->
     <div class="logo-ecosystem reveal">
 
         <div class="ecosystem-label">
@@ -1389,57 +1612,86 @@ footer h3{
     <div class="expertise-grid">
 
         <div class="expertise-card reveal">
+
             <div class="card-icon">S</div>
+
             <h3>Shopify & E-commerce</h3>
+
             <p>
                 Store setup, optimization, product presentation,
                 navigation, UX and conversion-focused improvements.
             </p>
+
         </div>
 
+
         <div class="expertise-card reveal">
+
             <div class="card-icon">E</div>
+
             <h3>Etsy Growth</h3>
+
             <p>
                 Etsy listing optimization, search visibility,
                 product positioning and conversion improvements.
             </p>
+
         </div>
 
+
         <div class="expertise-card reveal">
+
             <div class="card-icon">SEO</div>
+
             <h3>SEO & Visibility</h3>
+
             <p>
                 Practical SEO improvements designed to help products,
                 stores and pages become easier to discover.
             </p>
+
         </div>
 
+
         <div class="expertise-card reveal">
+
             <div class="card-icon">CRO</div>
+
             <h3>Conversion Optimization</h3>
+
             <p>
                 Identify friction points and improve the path from
                 visitor interest to completed purchase.
             </p>
+
         </div>
 
+
         <div class="expertise-card reveal">
+
             <div class="card-icon">ADS</div>
+
             <h3>Digital Marketing</h3>
+
             <p>
                 Google, Meta, Instagram, TikTok, Pinterest and
                 other acquisition strategies matched to the business.
             </p>
+
         </div>
 
+
         <div class="expertise-card reveal">
+
             <div class="card-icon">@</div>
+
             <h3>Email & Web</h3>
+
             <p>
                 Email marketing, retention, landing pages,
                 web development and digital customer experiences.
             </p>
+
         </div>
 
     </div>
@@ -1646,10 +1898,12 @@ footer h3{
         <article class="project-card reveal">
 
             <div class="project-image">
+
                 <img
                     src="assets/projects/teeology/teeology-home.jpg"
                     alt="Teeology Clothing Shopify store"
                 >
+
             </div>
 
             <div class="project-content">
@@ -1684,10 +1938,12 @@ footer h3{
         <article class="project-card reveal">
 
             <div class="project-image">
+
                 <img
                     src="assets/projects/beeyouti/beeyouti-home.jpg"
                     alt="BeeYouti Shopify store"
                 >
+
             </div>
 
             <div class="project-content">
@@ -1722,10 +1978,12 @@ footer h3{
         <article class="project-card reveal">
 
             <div class="project-image">
+
                 <img
                     src="assets/projects/iron-therapy/iron-therapy-home.jpg"
                     alt="Iron Therapy Fitness Shopify store"
                 >
+
             </div>
 
             <div class="project-content">
@@ -1760,10 +2018,12 @@ footer h3{
         <article class="project-card reveal">
 
             <div class="project-image">
+
                 <img
                     src="assets/projects/look-for-it-here/look-for-it-here-home.jpg"
                     alt="Look For It Here Shopify store"
                 >
+
             </div>
 
             <div class="project-content">
@@ -1798,10 +2058,12 @@ footer h3{
         <article class="project-card reveal">
 
             <div class="project-image">
+
                 <img
                     src="assets/projects/aestevi/aestevi-home.jpg"
                     alt="Aestevi Shopify store"
                 >
+
             </div>
 
             <div class="project-content">
@@ -2234,6 +2496,18 @@ footer h3{
 </footer>
 
 
+<!-- =====================================================
+     MAIN.JS
+     Live Activity Popup + Other Shared Functions
+===================================================== -->
+
+<script src="main.js"></script>
+
+
+<!-- =========================
+     EXISTING INDEX FUNCTIONS
+========================= -->
+
 <script>
 
 /* =========================
@@ -2333,8 +2607,6 @@ const counterObserver = new IntersectionObserver(
 
                 const progress =
                     Math.min(elapsed / duration, 1);
-
-                /* Smooth ease-out */
 
                 const eased =
                     1 - Math.pow(1 - progress, 3);
