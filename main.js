@@ -1,6 +1,6 @@
 /* =========================================================
    GUNKOWII SABA — PORTFOLIO GLOBAL JAVASCRIPT
-   Final AI / Popup / Contact Handoff System
+   FINAL AI / POPUP / CONTACT HANDOFF SYSTEM
    ========================================================= */
 
 (() => {
@@ -31,7 +31,9 @@
       handoff: "gunkowii_ai_handoff",
       launcher: "gunkowii_ai_launcher_position",
       panel: "gunkowii_ai_panel_position"
-    }
+    },
+
+    MAX_MESSAGES: 100
   };
 
   /* =========================================================
@@ -92,7 +94,7 @@
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch {
-      // Storage may be unavailable in private browsing.
+      // Ignore storage errors.
     }
   }
 
@@ -117,10 +119,6 @@
     return Math.min(Math.max(value, min), max);
   }
 
-  function isMobile() {
-    return window.innerWidth <= 768;
-  }
-
   /* =========================================================
      AI CONVERSATION STORAGE
      ========================================================= */
@@ -134,19 +132,20 @@
     aiConversation = [];
   }
 
-  // Prevent unlimited localStorage growth.
-  // Keeps enough history for a meaningful consultation.
   function trimConversation() {
-    const MAX_MESSAGES = 40;
-
-    if (aiConversation.length > MAX_MESSAGES) {
-      aiConversation = aiConversation.slice(-MAX_MESSAGES);
+    if (aiConversation.length > CONFIG.MAX_MESSAGES) {
+      aiConversation = aiConversation.slice(
+        -CONFIG.MAX_MESSAGES
+      );
     }
   }
 
   function saveConversation() {
     trimConversation();
-    saveStorage(CONFIG.STORAGE.conversation, aiConversation);
+    saveStorage(
+      CONFIG.STORAGE.conversation,
+      aiConversation
+    );
   }
 
   function clearConversation() {
@@ -155,12 +154,13 @@
   }
 
   function getFirstBuyerMessage() {
-    const firstBuyerMessage = aiConversation.find(
-      item =>
-        item &&
-        item.role === "user" &&
-        String(item.content || "").trim()
-    );
+    const firstBuyerMessage =
+      aiConversation.find(
+        item =>
+          item &&
+          item.role === "user" &&
+          String(item.content || "").trim()
+      );
 
     return firstBuyerMessage
       ? String(firstBuyerMessage.content).trim()
@@ -174,24 +174,13 @@
   function repairMalformedMarkdownLinks(text) {
     let result = String(text || "");
 
-    /*
-      Repairs patterns such as:
-
-      [Free Audit]([https://example.com](https://example.com))
-
-      into:
-
-      [Free Audit](https://example.com)
-    */
-
     result = result.replace(
       /\[([^\]]+)\]\(\s*\[\s*(https?:\/\/[^\]\s]+)\s*\]\(\s*(https?:\/\/[^)\s]+)\s*\)\s*\)/gi,
       "[$1]($3)"
     );
 
-    // Another common malformed pattern.
     result = result.replace(
-      /\[([^\]]+)\]\(\s*(https?:\/\/[^\s)]+)\s*\]\s*\)/gi,
+      /\[([^\]]+)\]\(\s*(https?:\/\/[^\s)\]]+)\s*\]\s*\)/gi,
       "[$1]($2)"
     );
 
@@ -201,12 +190,19 @@
   function formatAIResponse(rawText) {
     if (!rawText) return "";
 
-    let text = decodeHTMLEntities(String(rawText));
+    let text = decodeHTMLEntities(
+      String(rawText)
+    );
 
-    // Remove dangerous/irrelevant HTML.
     text = text
-      .replace(/<script[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(
+        /<script[\s\S]*?<\/script>/gi,
+        ""
+      )
+      .replace(
+        /<style[\s\S]*?<\/style>/gi,
+        ""
+      )
       .replace(/<[^>]+>/g, "");
 
     text = repairMalformedMarkdownLinks(text);
@@ -227,16 +223,31 @@
       let output = escapeHTML(value);
 
       /*
-        Markdown links.
+        Protect markdown links first.
+        This prevents the raw URL formatter from
+        corrupting the generated anchor.
       */
+
+      const protectedLinks = [];
+
       output = output.replace(
         /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/gi,
-        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+        (_, label, url) => {
+          const token =
+            `___GUNKOWII_LINK_${protectedLinks.length}___`;
+
+          protectedLinks.push(
+            `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`
+          );
+
+          return token;
+        }
       );
 
       /*
         Bold.
       */
+
       output = output.replace(
         /\*\*([^*]+)\*\*/g,
         "<strong>$1</strong>"
@@ -245,6 +256,7 @@
       /*
         Italic.
       */
+
       output = output.replace(
         /(^|[\s])\*([^*]+)\*(?=$|[\s])/g,
         "$1<em>$2</em>"
@@ -252,14 +264,28 @@
 
       /*
         Raw URLs.
-        Avoid replacing URLs already inside href attributes.
       */
+
       output = output.replace(
         /(^|[\s>])(https?:\/\/[^\s<]+)/gi,
         (match, prefix, url) => {
-          const cleanURL = url.replace(/[),.;!?]+$/g, "");
+          const cleanURL =
+            url.replace(/[),.;!?]+$/g, "");
 
           return `${prefix}<a href="${cleanURL}" target="_blank" rel="noopener noreferrer">${cleanURL}</a>`;
+        }
+      );
+
+      /*
+        Restore protected markdown links.
+      */
+
+      protectedLinks.forEach(
+        (link, index) => {
+          output = output.replace(
+            `___GUNKOWII_LINK_${index}___`,
+            link
+          );
         }
       );
 
@@ -271,40 +297,48 @@
 
       if (!line) {
         closeList();
-        html.push("<div class='ai-space'></div>");
+        html.push(
+          "<div class='ai-space'></div>"
+        );
         return;
       }
 
-      /*
-        Headings.
-      */
       if (/^###\s+/.test(line)) {
         closeList();
+
         html.push(
-          `<h4>${formatInline(line.replace(/^###\s+/, ""))}</h4>`
+          `<h4>${formatInline(
+            line.replace(/^###\s+/, "")
+          )}</h4>`
         );
+
         return;
       }
 
       if (/^##\s+/.test(line)) {
         closeList();
+
         html.push(
-          `<h3>${formatInline(line.replace(/^##\s+/, ""))}</h3>`
+          `<h3>${formatInline(
+            line.replace(/^##\s+/, "")
+          )}</h3>`
         );
+
         return;
       }
 
       if (/^#\s+/.test(line)) {
         closeList();
+
         html.push(
-          `<h3>${formatInline(line.replace(/^#\s+/, ""))}</h3>`
+          `<h3>${formatInline(
+            line.replace(/^#\s+/, "")
+          )}</h3>`
         );
+
         return;
       }
 
-      /*
-        Bullets.
-      */
       if (/^[-*•]\s+/.test(line)) {
         if (!inList) {
           html.push("<ul>");
@@ -320,9 +354,6 @@
         return;
       }
 
-      /*
-        Numbered list.
-      */
       if (/^\d+\.\s+/.test(line)) {
         if (!inList) {
           html.push("<ul>");
@@ -340,7 +371,9 @@
 
       closeList();
 
-      html.push(`<p>${formatInline(line)}</p>`);
+      html.push(
+        `<p>${formatInline(line)}</p>`
+      );
     });
 
     closeList();
@@ -355,10 +388,14 @@
   function injectAIStyles() {
     if ($("#gunkowii-ai-styles")) return;
 
-    const style = document.createElement("style");
-    style.id = "gunkowii-ai-styles";
+    const style =
+      document.createElement("style");
+
+    style.id =
+      "gunkowii-ai-styles";
 
     style.textContent = `
+
       /* =====================================================
          AI LAUNCHER
          ===================================================== */
@@ -366,38 +403,43 @@
       #gunkowii-ai-launcher {
         position: fixed;
         z-index: 10001;
-        width: 74px;
-        min-height: 98px;
+
+        width: 76px;
+        min-height: 102px;
+
         padding: 7px 6px 8px;
+
         box-sizing: border-box;
 
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
         gap: 6px;
 
-        border: 1px solid rgba(212,175,55,.65);
+        border: 1px solid rgba(212,175,55,.68);
         border-radius: 18px;
 
         background:
           linear-gradient(
             145deg,
-            rgba(7,49,39,.98),
-            rgba(3,28,23,.98)
+            rgba(7,49,39,.99),
+            rgba(3,28,23,.99)
           );
 
         box-shadow:
-          0 12px 30px rgba(0,0,0,.25),
+          0 14px 34px rgba(0,0,0,.27),
           0 0 0 1px rgba(255,255,255,.04) inset;
 
         cursor: grab;
         user-select: none;
+
         touch-action: none;
 
         transition:
-          left .45s cubic-bezier(.22,1.3,.36,1),
-          right .45s cubic-bezier(.22,1.3,.36,1),
+          left .48s cubic-bezier(.22,1.35,.36,1),
+          right .48s cubic-bezier(.22,1.35,.36,1),
           top .18s ease,
           box-shadow .2s ease,
           transform .2s ease;
@@ -405,57 +447,77 @@
 
       #gunkowii-ai-launcher.dragging {
         cursor: grabbing;
-        transform: scale(1.03);
+
+        transform:
+          scale(1.03);
+
         box-shadow:
-          0 18px 40px rgba(0,0,0,.3),
-          0 0 0 1px rgba(212,175,55,.35) inset;
+          0 20px 44px rgba(0,0,0,.32),
+          0 0 0 1px rgba(212,175,55,.4) inset;
       }
 
       #gunkowii-ai-launcher.gunkowii-ai-snap {
         transition:
-          left .48s cubic-bezier(.22,1.35,.36,1),
-          right .48s cubic-bezier(.22,1.35,.36,1),
+          left .5s cubic-bezier(.22,1.35,.36,1),
+          right .5s cubic-bezier(.22,1.35,.36,1),
           top .18s ease,
           transform .25s ease;
       }
 
       #gunkowii-ai-launcher img {
-        width: 48px;
-        height: 48px;
+        width: 49px;
+        height: 49px;
+
         object-fit: cover;
+
         border-radius: 50%;
 
-        border: 2px solid rgba(212,175,55,.9);
+        border:
+          2px solid rgba(212,175,55,.92);
 
         box-shadow:
-          0 4px 14px rgba(0,0,0,.25);
+          0 5px 15px rgba(0,0,0,.28);
 
         pointer-events: none;
+
         display: block;
       }
 
-      #gunkowii-ai-launcher .ai-launcher-label {
+      #gunkowii-ai-launcher
+      .ai-launcher-label {
         width: 100%;
+
         color: #f7efd9;
+
         font-size: 9px;
         line-height: 1.15;
-        font-weight: 700;
-        letter-spacing: .2px;
+
+        font-weight: 800;
+
+        letter-spacing: .15px;
+
         text-align: center;
+
         pointer-events: none;
       }
 
-      #gunkowii-ai-launcher .ai-launcher-status {
+      #gunkowii-ai-launcher
+      .ai-launcher-status {
         position: absolute;
+
         top: 8px;
         right: 8px;
 
         width: 8px;
         height: 8px;
+
         border-radius: 50%;
 
         background: #5fd28b;
-        box-shadow: 0 0 0 3px rgba(95,210,139,.13);
+
+        box-shadow:
+          0 0 0 3px rgba(95,210,139,.13);
+
         pointer-events: none;
       }
 
@@ -465,50 +527,64 @@
 
       #gunkowii-ai-panel {
         position: fixed;
+
         z-index: 10000;
 
         right: 18px;
-        bottom: 96px;
+        bottom: 94px;
 
-        width: min(390px, calc(100vw - 24px));
-        height: min(610px, calc(100vh - 130px));
+        width:
+          min(470px, calc(100vw - 24px));
+
+        height:
+          min(760px, calc(100vh - 86px));
+
+        min-height: 560px;
 
         display: none;
         flex-direction: column;
 
         overflow: hidden;
 
-        border: 1px solid rgba(212,175,55,.5);
+        border:
+          1px solid rgba(212,175,55,.52);
+
         border-radius: 22px;
 
         background:
           linear-gradient(
             145deg,
-            rgba(7,49,39,.99),
-            rgba(3,28,23,.99)
+            rgba(7,49,39,.995),
+            rgba(3,28,23,.995)
           );
 
         color: #f8f3e7;
 
         box-shadow:
-          0 25px 70px rgba(0,0,0,.38),
+          0 28px 78px rgba(0,0,0,.42),
           0 0 0 1px rgba(255,255,255,.04) inset;
       }
 
       #gunkowii-ai-panel.open {
         display: flex;
-        animation: gunkowiiAIIn .28s ease;
+
+        animation:
+          gunkowiiAIIn .28s ease;
       }
 
       @keyframes gunkowiiAIIn {
         from {
           opacity: 0;
-          transform: translateY(12px) scale(.98);
+          transform:
+            translateY(12px)
+            scale(.98);
         }
 
         to {
           opacity: 1;
-          transform: translateY(0) scale(1);
+          transform:
+            translateY(0)
+            scale(1);
         }
       }
 
@@ -517,25 +593,31 @@
          ===================================================== */
 
       .gunkowii-ai-header {
-        flex: 0 0 auto;
+        flex:
+          0 0 auto;
 
         display: flex;
         align-items: center;
+
         gap: 10px;
 
-        padding: 12px 12px 11px;
+        padding:
+          12px 12px 11px;
 
         background:
           linear-gradient(
             180deg,
-            rgba(255,255,255,.055),
+            rgba(255,255,255,.06),
             rgba(255,255,255,.015)
           );
 
-        border-bottom: 1px solid rgba(212,175,55,.18);
+        border-bottom:
+          1px solid rgba(212,175,55,.18);
 
         cursor: grab;
+
         user-select: none;
+
         touch-action: none;
       }
 
@@ -544,59 +626,81 @@
       }
 
       .gunkowii-ai-avatar {
-        width: 40px;
-        height: 40px;
-        flex: 0 0 40px;
+        width: 42px;
+        height: 42px;
+
+        flex:
+          0 0 42px;
 
         border-radius: 50%;
+
         object-fit: cover;
 
-        border: 1.5px solid rgba(212,175,55,.85);
+        border:
+          1.5px solid rgba(212,175,55,.88);
+
         pointer-events: none;
       }
 
       .gunkowii-ai-title-area {
         flex: 1;
         min-width: 0;
+
         pointer-events: none;
       }
 
       .gunkowii-ai-title {
-        font-size: 14px;
+        font-size: 15px;
+
         line-height: 1.2;
+
         font-weight: 800;
+
         color: #fff8e8;
       }
 
       .gunkowii-ai-status {
         display: flex;
+
         align-items: center;
+
         gap: 5px;
 
         margin-top: 3px;
 
         font-size: 9px;
-        color: rgba(255,255,255,.66);
+
+        color:
+          rgba(255,255,255,.66);
       }
 
       .gunkowii-ai-status-dot {
         width: 6px;
         height: 6px;
+
         border-radius: 50%;
+
         background: #5fd28b;
       }
 
       .gunkowii-ai-actions {
         display: flex;
+
         align-items: center;
+
         gap: 5px;
-        flex: 0 0 auto;
+
+        flex:
+          0 0 auto;
       }
 
       .gunkowii-ai-action {
-        border: 1px solid rgba(212,175,55,.25);
+        border:
+          1px solid rgba(212,175,55,.25);
 
-        background: rgba(255,255,255,.055);
+        background:
+          rgba(255,255,255,.055);
+
         color: #f8f3e7;
 
         border-radius: 9px;
@@ -604,22 +708,29 @@
         min-width: 34px;
         height: 31px;
 
-        padding: 0 8px;
+        padding:
+          0 8px;
 
         font-size: 11px;
+
         font-weight: 700;
 
         cursor: pointer;
       }
 
       .gunkowii-ai-action:hover {
-        background: rgba(212,175,55,.14);
-        border-color: rgba(212,175,55,.5);
+        background:
+          rgba(212,175,55,.14);
+
+        border-color:
+          rgba(212,175,55,.5);
       }
 
       .gunkowii-ai-action.close {
         font-size: 18px;
+
         line-height: 1;
+
         padding: 0;
       }
 
@@ -628,20 +739,29 @@
          ===================================================== */
 
       .gunkowii-ai-messages {
-        flex: 1 1 auto;
+        flex:
+          1 1 auto;
+
+        min-height: 0;
 
         overflow-y: auto;
+
         overscroll-behavior: contain;
 
-        padding: 15px 13px 12px;
+        padding:
+          16px 15px 18px;
 
         scrollbar-width: thin;
-        scrollbar-color: rgba(212,175,55,.4) transparent;
+
+        scrollbar-color:
+          rgba(212,175,55,.4)
+          transparent;
       }
 
       .gunkowii-ai-message {
         display: flex;
-        margin-bottom: 11px;
+
+        margin-bottom: 12px;
       }
 
       .gunkowii-ai-message.user {
@@ -653,23 +773,30 @@
       }
 
       .gunkowii-ai-bubble {
-        max-width: 88%;
+        max-width: 90%;
 
-        padding: 10px 12px;
+        padding:
+          11px 13px;
 
-        border-radius: 14px;
+        border-radius: 15px;
 
-        font-size: 12px;
-        line-height: 1.55;
+        font-size: 13px;
+
+        line-height: 1.58;
 
         overflow-wrap: anywhere;
       }
 
       .gunkowii-ai-message.assistant
       .gunkowii-ai-bubble {
-        background: rgba(255,255,255,.075);
-        border: 1px solid rgba(255,255,255,.075);
-        color: #f7f1e3;
+        background:
+          rgba(255,255,255,.075);
+
+        border:
+          1px solid rgba(255,255,255,.075);
+
+        color:
+          #f7f1e3;
 
         border-bottom-left-radius: 5px;
       }
@@ -679,17 +806,20 @@
         background:
           linear-gradient(
             135deg,
-            rgba(212,175,55,.92),
-            rgba(184,145,30,.92)
+            rgba(212,175,55,.96),
+            rgba(184,145,30,.96)
           );
 
         color: #172019;
+
         border-bottom-right-radius: 5px;
+
         font-weight: 600;
       }
 
       .gunkowii-ai-bubble p {
-        margin: 0 0 7px;
+        margin:
+          0 0 8px;
       }
 
       .gunkowii-ai-bubble p:last-child {
@@ -698,40 +828,49 @@
 
       .gunkowii-ai-bubble h3,
       .gunkowii-ai-bubble h4 {
-        margin: 5px 0 7px;
-        color: #fff6d9;
+        margin:
+          6px 0 8px;
+
+        color:
+          #fff6d9;
       }
 
       .gunkowii-ai-bubble h3 {
-        font-size: 13px;
+        font-size: 14px;
       }
 
       .gunkowii-ai-bubble h4 {
-        font-size: 12px;
+        font-size: 13px;
       }
 
       .gunkowii-ai-bubble ul {
-        margin: 5px 0 8px;
-        padding-left: 18px;
+        margin:
+          6px 0 9px;
+
+        padding-left: 19px;
       }
 
       .gunkowii-ai-bubble li {
-        margin-bottom: 4px;
+        margin-bottom: 5px;
       }
 
       .gunkowii-ai-bubble a {
-        color: #e5c45b;
+        color:
+          #e5c45b;
+
         font-weight: 700;
+
         text-decoration: underline;
       }
 
       .gunkowii-ai-message.user
       .gunkowii-ai-bubble a {
-        color: #102b20;
+        color:
+          #102b20;
       }
 
       .ai-space {
-        height: 3px;
+        height: 4px;
       }
 
       /* =====================================================
@@ -740,16 +879,23 @@
 
       .gunkowii-ai-typing {
         display: none;
+
         align-items: center;
+
         gap: 4px;
 
-        padding: 9px 12px;
-        margin-bottom: 9px;
+        padding:
+          9px 12px;
+
+        margin:
+          0 15px 9px;
 
         width: fit-content;
 
         border-radius: 13px;
-        background: rgba(255,255,255,.07);
+
+        background:
+          rgba(255,255,255,.07);
       }
 
       .gunkowii-ai-typing.show {
@@ -759,28 +905,42 @@
       .gunkowii-ai-typing span {
         width: 5px;
         height: 5px;
+
         border-radius: 50%;
-        background: #d4af37;
 
-        animation: gunkowiiTyping 1.1s infinite ease-in-out;
+        background:
+          #d4af37;
+
+        animation:
+          gunkowiiTyping
+          1.1s infinite
+          ease-in-out;
       }
 
-      .gunkowii-ai-typing span:nth-child(2) {
-        animation-delay: .15s;
+      .gunkowii-ai-typing
+      span:nth-child(2) {
+        animation-delay:
+          .15s;
       }
 
-      .gunkowii-ai-typing span:nth-child(3) {
-        animation-delay: .3s;
+      .gunkowii-ai-typing
+      span:nth-child(3) {
+        animation-delay:
+          .3s;
       }
 
       @keyframes gunkowiiTyping {
         0%, 60%, 100% {
-          transform: translateY(0);
+          transform:
+            translateY(0);
+
           opacity: .45;
         }
 
         30% {
-          transform: translateY(-3px);
+          transform:
+            translateY(-3px);
+
           opacity: 1;
         }
       }
@@ -792,19 +952,26 @@
       .gunkowii-ai-handoff {
         display: none;
 
-        margin: 0 13px 10px;
-        padding: 11px;
+        flex:
+          0 0 auto;
+
+        margin:
+          0 14px 10px;
+
+        padding:
+          11px;
 
         border-radius: 14px;
 
         background:
           linear-gradient(
             135deg,
-            rgba(212,175,55,.13),
+            rgba(212,175,55,.14),
             rgba(255,255,255,.04)
           );
 
-        border: 1px solid rgba(212,175,55,.3);
+        border:
+          1px solid rgba(212,175,55,.3);
       }
 
       .gunkowii-ai-handoff.show {
@@ -813,32 +980,59 @@
 
       .gunkowii-ai-handoff-title {
         font-size: 12px;
+
         font-weight: 800;
-        color: #f6d76d;
+
+        color:
+          #f6d76d;
+
         margin-bottom: 4px;
       }
 
       .gunkowii-ai-handoff-text {
         font-size: 10px;
+
         line-height: 1.45;
-        color: rgba(255,255,255,.72);
+
+        color:
+          rgba(255,255,255,.72);
+
         margin-bottom: 9px;
       }
 
       .gunkowii-ai-handoff-button {
         width: 100%;
+
         border: 0;
+
         border-radius: 10px;
 
-        padding: 9px 10px;
+        padding:
+          10px 11px;
 
-        background: #d4af37;
-        color: #14241d;
+        background:
+          linear-gradient(
+            135deg,
+            #d4af37,
+            #e1c35c
+          );
 
-        font-size: 11px;
-        font-weight: 800;
+        color:
+          #14241d;
+
+        font-size: 12px;
+
+        font-weight: 900;
 
         cursor: pointer;
+
+        box-shadow:
+          0 5px 16px rgba(0,0,0,.14);
+      }
+
+      .gunkowii-ai-handoff-button:hover {
+        filter:
+          brightness(1.06);
       }
 
       /* =====================================================
@@ -846,65 +1040,86 @@
          ===================================================== */
 
       .gunkowii-ai-input-area {
-        flex: 0 0 auto;
+        flex:
+          0 0 auto;
 
-        padding: 10px;
+        padding:
+          11px;
 
-        border-top: 1px solid rgba(212,175,55,.15);
+        border-top:
+          1px solid rgba(212,175,55,.15);
 
-        background: rgba(0,0,0,.08);
+        background:
+          rgba(0,0,0,.1);
       }
 
       .gunkowii-ai-input-wrap {
         display: flex;
+
         align-items: flex-end;
+
         gap: 7px;
       }
 
       #gunkowii-ai-input {
         flex: 1;
 
-        min-height: 40px;
-        max-height: 105px;
+        min-height: 42px;
+        max-height: 120px;
 
         resize: none;
 
-        padding: 10px 11px;
+        padding:
+          11px 12px;
 
-        border: 1px solid rgba(255,255,255,.12);
+        border:
+          1px solid rgba(255,255,255,.12);
+
         border-radius: 11px;
 
-        background: rgba(255,255,255,.065);
+        background:
+          rgba(255,255,255,.065);
+
         color: #fff;
 
         outline: none;
 
         font-family: inherit;
-        font-size: 12px;
-        line-height: 1.4;
+
+        font-size: 13px;
+
+        line-height: 1.45;
       }
 
       #gunkowii-ai-input::placeholder {
-        color: rgba(255,255,255,.42);
+        color:
+          rgba(255,255,255,.42);
       }
 
       #gunkowii-ai-input:focus {
-        border-color: rgba(212,175,55,.55);
+        border-color:
+          rgba(212,175,55,.55);
       }
 
       #gunkowii-ai-send {
-        flex: 0 0 auto;
+        flex:
+          0 0 auto;
 
-        width: 42px;
-        height: 40px;
+        width: 44px;
+        height: 42px;
 
         border: 0;
+
         border-radius: 11px;
 
-        background: #d4af37;
-        color: #14241d;
+        background:
+          #d4af37;
 
-        font-size: 17px;
+        color:
+          #14241d;
+
+        font-size: 18px;
+
         font-weight: 900;
 
         cursor: pointer;
@@ -912,17 +1127,24 @@
 
       #gunkowii-ai-send:disabled {
         opacity: .5;
-        cursor: not-allowed;
+
+        cursor:
+          not-allowed;
       }
 
       .gunkowii-ai-note {
         margin-top: 6px;
-        padding: 0 2px;
+
+        padding:
+          0 2px;
 
         font-size: 8px;
+
         line-height: 1.35;
 
-        color: rgba(255,255,255,.36);
+        color:
+          rgba(255,255,255,.36);
+
         text-align: center;
       }
 
@@ -932,76 +1154,103 @@
 
       #gunkowii-live-popup {
         position: fixed;
+
         z-index: 9990;
 
-        left: 14px;
-        bottom: 15px;
+        left: 18px;
+        bottom: 18px;
 
-        width: min(350px, calc(100vw - 28px));
-        min-height: 88px;
+        width:
+          min(470px, calc(100vw - 36px));
+
+        min-height: 124px;
 
         display: none;
-        align-items: center;
-        gap: 11px;
 
-        padding: 9px;
+        align-items: center;
+
+        gap: 14px;
+
+        padding:
+          12px 13px;
 
         box-sizing: border-box;
 
-        border-radius: 16px;
+        border-radius: 18px;
 
         background:
           linear-gradient(
             145deg,
-            rgba(7,49,39,.98),
-            rgba(3,28,23,.98)
+            rgba(7,49,39,.995),
+            rgba(3,28,23,.995)
           );
 
-        border: 1px solid rgba(212,175,55,.42);
+        border:
+          1px solid rgba(212,175,55,.5);
 
         box-shadow:
-          0 18px 45px rgba(0,0,0,.3);
+          0 22px 58px rgba(0,0,0,.38),
+          0 0 0 1px rgba(255,255,255,.03) inset;
 
         color: #fff;
 
-        animation: gunkowiiPopupIn .45s ease;
+        cursor: pointer;
+
+        animation:
+          gunkowiiPopupIn
+          .45s ease;
       }
 
       #gunkowii-live-popup.hide {
-        animation: gunkowiiPopupOut .35s ease forwards;
+        animation:
+          gunkowiiPopupOut
+          .35s ease
+          forwards;
       }
 
       @keyframes gunkowiiPopupIn {
         from {
           opacity: 0;
-          transform: translateX(-18px) translateY(8px);
+
+          transform:
+            translateX(-24px)
+            translateY(12px);
         }
 
         to {
           opacity: 1;
-          transform: translateX(0) translateY(0);
+
+          transform:
+            translateX(0)
+            translateY(0);
         }
       }
 
       @keyframes gunkowiiPopupOut {
         from {
           opacity: 1;
-          transform: translateX(0);
+
+          transform:
+            translateX(0);
         }
 
         to {
           opacity: 0;
-          transform: translateX(-18px);
+
+          transform:
+            translateX(-24px);
         }
       }
 
       .gunkowii-popup-image {
-        width: 72px;
-        height: 68px;
+        width: 98px;
+        height: 98px;
 
-        flex: 0 0 72px;
+        flex:
+          0 0 98px;
 
-        border-radius: 11px;
+        border-radius: 14px;
+
         overflow: hidden;
 
         background:
@@ -1011,9 +1260,11 @@
             rgba(255,255,255,.05)
           );
 
-        border: 1px solid rgba(212,175,55,.25);
+        border:
+          1px solid rgba(212,175,55,.28);
 
         display: flex;
+
         align-items: center;
         justify-content: center;
       }
@@ -1021,59 +1272,92 @@
       .gunkowii-popup-image img {
         width: 100%;
         height: 100%;
+
         object-fit: cover;
+
         display: block;
       }
 
       .gunkowii-popup-placeholder {
-        color: #d4af37;
-        font-size: 21px;
+        color:
+          #d4af37;
+
+        font-size: 28px;
+
         font-weight: 900;
       }
 
       .gunkowii-popup-content {
         min-width: 0;
+
         flex: 1;
+
+        padding-right: 18px;
       }
 
       .gunkowii-popup-title {
-        font-size: 12px;
-        font-weight: 800;
-        color: #f6d76d;
-        margin-bottom: 4px;
+        font-size: 15px;
+
+        line-height: 1.25;
+
+        font-weight: 900;
+
+        color:
+          #f6d76d;
+
+        margin-bottom: 6px;
       }
 
       .gunkowii-popup-text {
-        font-size: 10px;
-        line-height: 1.4;
-        color: rgba(255,255,255,.75);
+        font-size: 12px;
+
+        line-height: 1.5;
+
+        color:
+          rgba(255,255,255,.78);
       }
 
       .gunkowii-popup-close {
         position: absolute;
 
-        top: 7px;
-        right: 8px;
+        top: 8px;
+        right: 9px;
 
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
 
         border: 0;
+
         border-radius: 50%;
 
-        background: rgba(255,255,255,.07);
-        color: rgba(255,255,255,.7);
+        background:
+          rgba(255,255,255,.08);
 
-        font-size: 14px;
-        line-height: 20px;
+        color:
+          rgba(255,255,255,.78);
+
+        font-size: 16px;
+
+        line-height: 24px;
 
         cursor: pointer;
       }
 
+      .gunkowii-popup-close:hover {
+        background:
+          rgba(255,255,255,.16);
+      }
+
+      /* =====================================================
+         MOBILE
+         ===================================================== */
+
       @media (max-width: 768px) {
+
         #gunkowii-ai-launcher {
           width: 68px;
-          min-height: 91px;
+          min-height: 92px;
+
           border-radius: 16px;
         }
 
@@ -1083,25 +1367,103 @@
         }
 
         #gunkowii-ai-panel {
-          right: 10px;
-          bottom: 88px;
+          right: 8px;
+          bottom: 84px;
 
-          width: calc(100vw - 20px);
-          height: min(590px, calc(100vh - 110px));
+          width:
+            calc(100vw - 16px);
+
+          height:
+            min(720px, calc(100vh - 94px));
+
+          min-height:
+            500px;
 
           border-radius: 18px;
         }
 
+        .gunkowii-ai-bubble {
+          max-width: 93%;
+
+          font-size: 12.5px;
+        }
+
         #gunkowii-live-popup {
-          bottom: 12px;
           left: 10px;
-          width: calc(100vw - 20px);
+          bottom: 10px;
+
+          width:
+            calc(100vw - 20px);
+
+          min-height: 96px;
+
+          padding: 9px 10px;
+
+          gap: 10px;
+
+          border-radius: 16px;
         }
 
         .gunkowii-popup-image {
-          width: 65px;
-          height: 61px;
-          flex-basis: 65px;
+          width: 72px;
+          height: 72px;
+
+          flex-basis: 72px;
+
+          border-radius: 11px;
+        }
+
+        .gunkowii-popup-title {
+          font-size: 12px;
+        }
+
+        .gunkowii-popup-text {
+          font-size: 10px;
+        }
+      }
+
+      @media (max-width: 430px) {
+
+        #gunkowii-ai-panel {
+          bottom: 78px;
+
+          height:
+            calc(100vh - 88px);
+
+          min-height:
+            480px;
+        }
+
+        .gunkowii-ai-header {
+          padding:
+            10px;
+        }
+
+        .gunkowii-ai-avatar {
+          width: 38px;
+          height: 38px;
+          flex-basis: 38px;
+        }
+
+        .gunkowii-ai-title {
+          font-size: 13px;
+        }
+
+        .gunkowii-ai-action {
+          min-width: 31px;
+          height: 29px;
+
+          padding:
+            0 6px;
+
+          font-size: 10px;
+        }
+
+        .gunkowii-popup-image {
+          width: 64px;
+          height: 64px;
+
+          flex-basis: 64px;
         }
       }
     `;
@@ -1110,21 +1472,29 @@
   }
 
   /* =========================================================
-     AI LAUNCHER
+     AI ELEMENT REFERENCES
      ========================================================= */
 
   let aiLauncher = null;
   let aiPanel = null;
 
+  /* =========================================================
+     LAUNCHER POSITION
+     ========================================================= */
+
   function getLauncherSide() {
-    const saved = loadStorage(
-      CONFIG.STORAGE.launcher,
-      null
-    );
+    const saved =
+      loadStorage(
+        CONFIG.STORAGE.launcher,
+        null
+      );
 
     if (
       saved &&
-      (saved.side === "left" || saved.side === "right")
+      (
+        saved.side === "left" ||
+        saved.side === "right"
+      )
     ) {
       return saved.side;
     }
@@ -1133,79 +1503,102 @@
   }
 
   function getLauncherTop() {
-    const saved = loadStorage(
-      CONFIG.STORAGE.launcher,
-      null
-    );
+    const saved =
+      loadStorage(
+        CONFIG.STORAGE.launcher,
+        null
+      );
 
-    if (saved && Number.isFinite(saved.top)) {
+    if (
+      saved &&
+      Number.isFinite(saved.top)
+    ) {
       return saved.top;
     }
 
     return Math.max(
       100,
-      Math.round(window.innerHeight * 0.48)
+      Math.round(
+        window.innerHeight * .46
+      )
     );
   }
 
-  function applyLauncherPosition(side, top, instant = false) {
+  function applyLauncherPosition(
+    side,
+    top,
+    instant = false
+  ) {
     if (!aiLauncher) return;
 
     const launcherWidth =
-      aiLauncher.offsetWidth || 74;
+      aiLauncher.offsetWidth || 76;
 
     const launcherHeight =
-      aiLauncher.offsetHeight || 98;
+      aiLauncher.offsetHeight || 102;
 
-    const safeTop = clamp(
-      top,
-      12,
-      Math.max(
+    const safeTop =
+      clamp(
+        Number(top) || 100,
         12,
-        window.innerHeight - launcherHeight - 12
-      )
-    );
+        Math.max(
+          12,
+          window.innerHeight -
+            launcherHeight -
+            12
+        )
+      );
 
     aiLauncher.classList.toggle(
       "gunkowii-ai-snap",
       !instant
     );
 
-    aiLauncher.style.top = `${safeTop}px`;
+    aiLauncher.style.top =
+      `${safeTop}px`;
 
     if (side === "left") {
-      aiLauncher.style.left = "8px";
-      aiLauncher.style.right = "auto";
+      aiLauncher.style.left =
+        "8px";
+
+      aiLauncher.style.right =
+        "auto";
     } else {
-      aiLauncher.style.right = "8px";
-      aiLauncher.style.left = "auto";
+      aiLauncher.style.right =
+        "8px";
+
+      aiLauncher.style.left =
+        "auto";
     }
 
-    saveStorage(CONFIG.STORAGE.launcher, {
-      side,
-      top: safeTop
-    });
+    saveStorage(
+      CONFIG.STORAGE.launcher,
+      {
+        side,
+        top: safeTop
+      }
+    );
   }
 
   function migrateOldLauncherPosition() {
-    const saved = loadStorage(
-      CONFIG.STORAGE.launcher,
-      null
-    );
+    const saved =
+      loadStorage(
+        CONFIG.STORAGE.launcher,
+        null
+      );
 
     if (!saved) return;
 
-    /*
-      Older versions stored left/top.
-      Convert that position into side/top.
-    */
     if (
       typeof saved.left === "number" &&
       typeof saved.top === "number"
     ) {
       const side =
         saved.left +
-          (aiLauncher?.offsetWidth || 74) / 2 <
+          (
+            aiLauncher?.offsetWidth ||
+            76
+          ) / 2 <
         window.innerWidth / 2
           ? "left"
           : "right";
@@ -1218,14 +1611,28 @@
     }
   }
 
+  /* =========================================================
+     AI LAUNCHER
+     ========================================================= */
+
   function setupAILauncher() {
-    if ($("#gunkowii-ai-launcher")) {
-      aiLauncher = $("#gunkowii-ai-launcher");
+    const existing =
+      $("#gunkowii-ai-launcher");
+
+    if (existing) {
+      aiLauncher = existing;
+
+      setupLauncherPointerControls();
+
       return;
     }
 
-    aiLauncher = document.createElement("div");
-    aiLauncher.id = "gunkowii-ai-launcher";
+    aiLauncher =
+      document.createElement("div");
+
+    aiLauncher.id =
+      "gunkowii-ai-launcher";
+
     aiLauncher.setAttribute(
       "aria-label",
       "Ask GUNKOWII AI"
@@ -1245,20 +1652,22 @@
       </div>
     `;
 
-    document.body.appendChild(aiLauncher);
-
-    /*
-      Always keep launcher attached to a side.
-    */
-    const saved = loadStorage(
-      CONFIG.STORAGE.launcher,
-      null
+    document.body.appendChild(
+      aiLauncher
     );
+
+    const saved =
+      loadStorage(
+        CONFIG.STORAGE.launcher,
+        null
+      );
 
     if (
       saved &&
-      (saved.side === "left" ||
-        saved.side === "right")
+      (
+        saved.side === "left" ||
+        saved.side === "right"
+      )
     ) {
       applyLauncherPosition(
         saved.side,
@@ -1270,7 +1679,9 @@
         "right",
         Math.max(
           100,
-          Math.round(window.innerHeight * 0.46)
+          Math.round(
+            window.innerHeight * .46
+          )
         ),
         true
       );
@@ -1284,14 +1695,27 @@
   function setupLauncherPointerControls() {
     if (!aiLauncher) return;
 
+    if (
+      aiLauncher.dataset.pointerReady ===
+      "true"
+    ) {
+      return;
+    }
+
+    aiLauncher.dataset.pointerReady =
+      "true";
+
     let startX = 0;
     let startY = 0;
+
     let startTop = 0;
+    let startLeft = 0;
 
     let dragging = false;
+
     let activePointerId = null;
 
-    const DRAG_THRESHOLD = 6;
+    const DRAG_THRESHOLD = 7;
 
     aiLauncher.addEventListener(
       "pointerdown",
@@ -1303,18 +1727,33 @@
           return;
         }
 
-        activePointerId = event.pointerId;
+        activePointerId =
+          event.pointerId;
 
-        startX = event.clientX;
-        startY = event.clientY;
+        const rect =
+          aiLauncher.getBoundingClientRect();
+
+        startX =
+          event.clientX;
+
+        startY =
+          event.clientY;
+
         startTop =
-          aiLauncher.getBoundingClientRect().top;
+          rect.top;
+
+        startLeft =
+          rect.left;
 
         dragging = false;
 
-        aiLauncher.setPointerCapture?.(
-          event.pointerId
-        );
+        try {
+          aiLauncher.setPointerCapture(
+            event.pointerId
+          );
+        } catch {
+          // Ignore.
+        }
       },
       { passive: true }
     );
@@ -1323,97 +1762,110 @@
       "pointermove",
       event => {
         if (
-          activePointerId !== event.pointerId
+          activePointerId !==
+          event.pointerId
         ) {
           return;
         }
 
-        const dx = event.clientX - startX;
-        const dy = event.clientY - startY;
+        const dx =
+          event.clientX -
+          startX;
+
+        const dy =
+          event.clientY -
+          startY;
 
         if (
           !dragging &&
-          Math.sqrt(dx * dx + dy * dy) >
+          Math.hypot(dx, dy) >
             DRAG_THRESHOLD
         ) {
           dragging = true;
-          aiLauncher.classList.add("dragging");
+
+          aiLauncher.classList.add(
+            "dragging"
+          );
         }
 
         if (!dragging) return;
 
+        const width =
+          aiLauncher.offsetWidth ||
+          76;
+
         const height =
-          aiLauncher.offsetHeight || 98;
+          aiLauncher.offsetHeight ||
+          102;
 
-        const newTop = clamp(
-          startTop + dy,
-          10,
-          window.innerHeight - height - 10
-        );
+        const newLeft =
+          clamp(
+            startLeft + dx,
+            5,
+            Math.max(
+              5,
+              window.innerWidth -
+                width -
+                5
+            )
+          );
 
-        /*
-          While dragging, allow temporary free horizontal
-          movement. On release it snaps back to the side.
-        */
-        aiLauncher.style.right = "auto";
-
-        const currentLeft =
-          aiLauncher.getBoundingClientRect().left;
-
-        const newLeft = clamp(
-          currentLeft + dx,
-          5,
-          window.innerWidth -
-            aiLauncher.offsetWidth -
-            5
-        );
+        const newTop =
+          clamp(
+            startTop + dy,
+            10,
+            Math.max(
+              10,
+              window.innerHeight -
+                height -
+                10
+            )
+          );
 
         aiLauncher.style.left =
           `${newLeft}px`;
 
+        aiLauncher.style.right =
+          "auto";
+
         aiLauncher.style.top =
           `${newTop}px`;
-
-        startX = event.clientX;
-        startY = event.clientY;
-        startTop = newTop;
       },
       { passive: true }
     );
 
-    aiLauncher.addEventListener(
-      "pointerup",
+    const finishPointer =
       event => {
         if (
-          activePointerId !== event.pointerId
+          activePointerId !==
+          event.pointerId
         ) {
           return;
         }
 
         activePointerId = null;
 
-        aiLauncher.releasePointerCapture?.(
-          event.pointerId
-        );
+        try {
+          aiLauncher.releasePointerCapture(
+            event.pointerId
+          );
+        } catch {
+          // Ignore.
+        }
 
         aiLauncher.classList.remove(
           "dragging"
         );
 
         if (!dragging) {
-          /*
-            TAP = OPEN.
-            This is deliberately handled through pointerup
-            instead of relying only on click, which fixes
-            mobile tap problems caused by drag handlers.
-          */
           openAIPanel();
         } else {
           const rect =
             aiLauncher.getBoundingClientRect();
 
           const side =
-            rect.left + rect.width / 2 <
+            rect.left +
+              rect.width / 2 <
             window.innerWidth / 2
               ? "left"
               : "right";
@@ -1425,41 +1877,17 @@
         }
 
         dragging = false;
-      },
+      };
+
+    aiLauncher.addEventListener(
+      "pointerup",
+      finishPointer,
       { passive: true }
     );
 
     aiLauncher.addEventListener(
       "pointercancel",
-      event => {
-        if (
-          activePointerId !== event.pointerId
-        ) {
-          return;
-        }
-
-        activePointerId = null;
-
-        aiLauncher.classList.remove(
-          "dragging"
-        );
-
-        const rect =
-          aiLauncher.getBoundingClientRect();
-
-        const side =
-          rect.left + rect.width / 2 <
-          window.innerWidth / 2
-            ? "left"
-            : "right";
-
-        applyLauncherPosition(
-          side,
-          rect.top
-        );
-
-        dragging = false;
-      },
+      finishPointer,
       { passive: true }
     );
   }
@@ -1469,13 +1897,26 @@
      ========================================================= */
 
   function setupAIPanel() {
-    if ($("#gunkowii-ai-panel")) {
-      aiPanel = $("#gunkowii-ai-panel");
+    const existing =
+      $("#gunkowii-ai-panel");
+
+    if (existing) {
+      aiPanel = existing;
+
+      setupAIPanelControls();
+      setupPanelDragging();
+
+      renderStoredConversation();
+
       return;
     }
 
-    aiPanel = document.createElement("section");
-    aiPanel.id = "gunkowii-ai-panel";
+    aiPanel =
+      document.createElement("section");
+
+    aiPanel.id =
+      "gunkowii-ai-panel";
+
     aiPanel.setAttribute(
       "aria-label",
       "GUNKOWII AI Consultant"
@@ -1492,6 +1933,7 @@
         >
 
         <div class="gunkowii-ai-title-area">
+
           <div class="gunkowii-ai-title">
             GUNKOWII AI
           </div>
@@ -1500,6 +1942,7 @@
             <span class="gunkowii-ai-status-dot"></span>
             E-commerce consultant
           </div>
+
         </div>
 
         <div class="gunkowii-ai-actions">
@@ -1565,29 +2008,37 @@
         </div>
 
         <div class="gunkowii-ai-note">
-          Ask about Shopify, Etsy, SEO, CRO, marketing,
-          product pages, traffic, sales or your customer journey.
+          Shopify • Etsy • SEO • CRO • Marketing • Product Pages • Traffic • Sales
         </div>
 
       </div>
     `;
 
-    document.body.appendChild(aiPanel);
+    document.body.appendChild(
+      aiPanel
+    );
 
     restorePanelPosition();
-    renderStoredConversation();
 
     setupAIPanelControls();
+
     setupPanelDragging();
+
+    renderStoredConversation();
   }
+
+  /* =========================================================
+     PANEL POSITION
+     ========================================================= */
 
   function restorePanelPosition() {
     if (!aiPanel) return;
 
-    const saved = loadStorage(
-      CONFIG.STORAGE.panel,
-      null
-    );
+    const saved =
+      loadStorage(
+        CONFIG.STORAGE.panel,
+        null
+      );
 
     if (
       saved &&
@@ -1597,26 +2048,53 @@
       requestAnimationFrame(() => {
         const panelWidth =
           aiPanel.offsetWidth ||
-          Math.min(390, window.innerWidth - 24);
+          Math.min(
+            470,
+            window.innerWidth - 24
+          );
 
         const panelHeight =
           aiPanel.offsetHeight ||
-          Math.min(610, window.innerHeight - 130);
+          Math.min(
+            760,
+            window.innerHeight - 86
+          );
 
         const maxLeft =
-          Math.max(10, window.innerWidth - panelWidth - 10);
+          Math.max(
+            8,
+            window.innerWidth -
+              panelWidth -
+              8
+          );
 
         const maxTop =
-          Math.max(10, window.innerHeight - panelHeight - 10);
+          Math.max(
+            8,
+            window.innerHeight -
+              panelHeight -
+              8
+          );
 
         aiPanel.style.left =
-          `${clamp(saved.left, 10, maxLeft)}px`;
+          `${clamp(
+            saved.left,
+            8,
+            maxLeft
+          )}px`;
 
         aiPanel.style.top =
-          `${clamp(saved.top, 10, maxTop)}px`;
+          `${clamp(
+            saved.top,
+            8,
+            maxTop
+          )}px`;
 
-        aiPanel.style.right = "auto";
-        aiPanel.style.bottom = "auto";
+        aiPanel.style.right =
+          "auto";
+
+        aiPanel.style.bottom =
+          "auto";
       });
     }
   }
@@ -1627,35 +2105,49 @@
     const rect =
       aiPanel.getBoundingClientRect();
 
-    saveStorage(CONFIG.STORAGE.panel, {
-      left: rect.left,
-      top: rect.top
-    });
+    saveStorage(
+      CONFIG.STORAGE.panel,
+      {
+        left: rect.left,
+        top: rect.top
+      }
+    );
   }
 
+  /* =========================================================
+     PANEL DRAGGING
+     ========================================================= */
+
   function setupPanelDragging() {
-    const header = $(
-      ".gunkowii-ai-header",
-      aiPanel
-    );
+    if (!aiPanel) return;
+
+    const header =
+      $(".gunkowii-ai-header", aiPanel);
 
     if (!header) return;
+
+    if (
+      header.dataset.dragReady ===
+      "true"
+    ) {
+      return;
+    }
+
+    header.dataset.dragReady =
+      "true";
 
     let dragging = false;
     let pointerId = null;
 
     let startX = 0;
     let startY = 0;
+
     let startLeft = 0;
     let startTop = 0;
 
     header.addEventListener(
       "pointerdown",
       event => {
-        /*
-          Buttons must remain clickable and must not start
-          panel dragging.
-        */
         if (
           event.target.closest(
             "button, input, textarea, a"
@@ -1675,19 +2167,33 @@
           aiPanel.getBoundingClientRect();
 
         dragging = true;
-        pointerId = event.pointerId;
 
-        startX = event.clientX;
-        startY = event.clientY;
+        pointerId =
+          event.pointerId;
 
-        startLeft = rect.left;
-        startTop = rect.top;
+        startX =
+          event.clientX;
 
-        header.classList.add("dragging");
+        startY =
+          event.clientY;
 
-        header.setPointerCapture?.(
-          event.pointerId
+        startLeft =
+          rect.left;
+
+        startTop =
+          rect.top;
+
+        header.classList.add(
+          "dragging"
         );
+
+        try {
+          header.setPointerCapture(
+            event.pointerId
+          );
+        } catch {
+          // Ignore.
+        }
 
         event.preventDefault();
       }
@@ -1698,7 +2204,8 @@
       event => {
         if (
           !dragging ||
-          event.pointerId !== pointerId
+          event.pointerId !==
+            pointerId
         ) {
           return;
         }
@@ -1709,29 +2216,37 @@
         const panelHeight =
           aiPanel.offsetHeight;
 
-        const left = clamp(
-          startLeft +
-            (event.clientX - startX),
-          8,
-          Math.max(
+        const left =
+          clamp(
+            startLeft +
+              (
+                event.clientX -
+                startX
+              ),
             8,
-            window.innerWidth -
-              panelWidth -
-              8
-          )
-        );
+            Math.max(
+              8,
+              window.innerWidth -
+                panelWidth -
+                8
+            )
+          );
 
-        const top = clamp(
-          startTop +
-            (event.clientY - startY),
-          8,
-          Math.max(
+        const top =
+          clamp(
+            startTop +
+              (
+                event.clientY -
+                startY
+              ),
             8,
-            window.innerHeight -
-              panelHeight -
-              8
-          )
-        );
+            Math.max(
+              8,
+              window.innerHeight -
+                panelHeight -
+                8
+            )
+          );
 
         aiPanel.style.left =
           `${left}px`;
@@ -1739,34 +2254,42 @@
         aiPanel.style.top =
           `${top}px`;
 
-        aiPanel.style.right = "auto";
-        aiPanel.style.bottom = "auto";
+        aiPanel.style.right =
+          "auto";
+
+        aiPanel.style.bottom =
+          "auto";
       }
     );
 
-    const finishDrag = event => {
-      if (
-        !dragging ||
-        event.pointerId !== pointerId
-      ) {
-        return;
-      }
+    const finishDrag =
+      event => {
+        if (
+          !dragging ||
+          event.pointerId !==
+            pointerId
+        ) {
+          return;
+        }
 
-      dragging = false;
-      pointerId = null;
+        dragging = false;
 
-      header.classList.remove("dragging");
+        pointerId = null;
 
-      try {
-        header.releasePointerCapture(
-          event.pointerId
+        header.classList.remove(
+          "dragging"
         );
-      } catch {
-        // Ignore.
-      }
 
-      savePanelPosition();
-    };
+        try {
+          header.releasePointerCapture(
+            event.pointerId
+          );
+        } catch {
+          // Ignore.
+        }
+
+        savePanelPosition();
+      };
 
     header.addEventListener(
       "pointerup",
@@ -1779,35 +2302,47 @@
     );
   }
 
+  /* =========================================================
+     AI PANEL CONTROLS
+     ========================================================= */
+
   function setupAIPanelControls() {
-    const input = $(
-      "#gunkowii-ai-input",
-      aiPanel
-    );
+    if (!aiPanel) return;
 
-    const sendButton = $(
-      "#gunkowii-ai-send",
-      aiPanel
-    );
+    const input =
+      $("#gunkowii-ai-input", aiPanel);
 
-    const newChatButton = $(
-      "#gunkowii-ai-new-chat",
-      aiPanel
-    );
+    const sendButton =
+      $("#gunkowii-ai-send", aiPanel);
 
-    const closeButton = $(
-      "#gunkowii-ai-close",
-      aiPanel
-    );
+    const newChatButton =
+      $("#gunkowii-ai-new-chat", aiPanel);
 
-    if (sendButton) {
+    const closeButton =
+      $("#gunkowii-ai-close", aiPanel);
+
+    if (
+      sendButton &&
+      sendButton.dataset.ready !==
+        "true"
+    ) {
+      sendButton.dataset.ready =
+        "true";
+
       sendButton.addEventListener(
         "click",
         () => sendAIMessage()
       );
     }
 
-    if (input) {
+    if (
+      input &&
+      input.dataset.ready !==
+        "true"
+    ) {
+      input.dataset.ready =
+        "true";
+
       input.addEventListener(
         "keydown",
         event => {
@@ -1816,6 +2351,7 @@
             !event.shiftKey
           ) {
             event.preventDefault();
+
             sendAIMessage();
           }
         }
@@ -1824,65 +2360,83 @@
       input.addEventListener(
         "input",
         () => {
-          input.style.height = "auto";
+          input.style.height =
+            "auto";
 
           input.style.height =
             `${Math.min(
               input.scrollHeight,
-              105
+              120
             )}px`;
         }
       );
     }
 
-    if (newChatButton) {
-      /*
-        Stop header drag from receiving this interaction.
-      */
+    if (
+      newChatButton &&
+      newChatButton.dataset.ready !==
+        "true"
+    ) {
+      newChatButton.dataset.ready =
+        "true";
+
       [
         "pointerdown",
         "mousedown",
         "touchstart"
-      ].forEach(eventName => {
-        newChatButton.addEventListener(
-          eventName,
-          event => {
-            event.stopPropagation();
-          },
-          { passive: true }
-        );
-      });
+      ].forEach(
+        eventName => {
+          newChatButton.addEventListener(
+            eventName,
+            event => {
+              event.stopPropagation();
+            },
+            { passive: true }
+          );
+        }
+      );
 
       newChatButton.addEventListener(
         "click",
         event => {
           event.preventDefault();
           event.stopPropagation();
+
           startNewAIChat();
         }
       );
     }
 
-    if (closeButton) {
+    if (
+      closeButton &&
+      closeButton.dataset.ready !==
+        "true"
+    ) {
+      closeButton.dataset.ready =
+        "true";
+
       [
         "pointerdown",
         "mousedown",
         "touchstart"
-      ].forEach(eventName => {
-        closeButton.addEventListener(
-          eventName,
-          event => {
-            event.stopPropagation();
-          },
-          { passive: true }
-        );
-      });
+      ].forEach(
+        eventName => {
+          closeButton.addEventListener(
+            eventName,
+            event => {
+              event.stopPropagation();
+            },
+            { passive: true }
+          );
+        }
+      );
 
       closeButton.addEventListener(
         "click",
         event => {
           event.preventDefault();
           event.stopPropagation();
+
           closeAIPanel();
         }
       );
@@ -1890,19 +2444,40 @@
   }
 
   /* =========================================================
-     AI PANEL OPEN / CLOSE
+     AI OPEN / CLOSE
      ========================================================= */
 
   function openAIPanel() {
-    if (!aiPanel) setupAIPanel();
+    if (!aiPanel) {
+      setupAIPanel();
+    }
 
-    aiPanel.classList.add("open");
+    if (!aiPanel) return;
+
+    aiPanel.classList.add(
+      "open"
+    );
+
+    /*
+      GUARANTEED GREETING:
+      If this is a fresh conversation and there are
+      no rendered messages, show the greeting immediately.
+    */
+
+    const messages =
+      $("#gunkowii-ai-messages", aiPanel);
+
+    if (
+      aiConversation.length === 0 &&
+      messages &&
+      messages.children.length === 0
+    ) {
+      showInitialGreeting();
+    }
 
     requestAnimationFrame(() => {
-      const input = $(
-        "#gunkowii-ai-input",
-        aiPanel
-      );
+      const input =
+        $("#gunkowii-ai-input", aiPanel);
 
       if (input) {
         input.focus();
@@ -1915,27 +2490,30 @@
   function closeAIPanel() {
     if (!aiPanel) return;
 
-    aiPanel.classList.remove("open");
+    aiPanel.classList.remove(
+      "open"
+    );
   }
+
+  /* =========================================================
+     NEW AI CHAT
+     ========================================================= */
 
   function startNewAIChat() {
     clearConversation();
-    removeStorage(CONFIG.STORAGE.handoff);
 
-    const messages = $(
-      "#gunkowii-ai-messages",
-      aiPanel
+    removeStorage(
+      CONFIG.STORAGE.handoff
     );
 
-    const handoff = $(
-      "#gunkowii-ai-handoff",
-      aiPanel
-    );
+    const messages =
+      $("#gunkowii-ai-messages", aiPanel);
 
-    const input = $(
-      "#gunkowii-ai-input",
-      aiPanel
-    );
+    const handoff =
+      $("#gunkowii-ai-handoff", aiPanel);
+
+    const input =
+      $("#gunkowii-ai-input", aiPanel);
 
     if (messages) {
       messages.innerHTML = "";
@@ -1943,44 +2521,52 @@
 
     if (handoff) {
       handoff.innerHTML = "";
-      handoff.classList.remove("show");
+
+      handoff.classList.remove(
+        "show"
+      );
     }
 
     showInitialGreeting();
 
     if (input) {
       input.value = "";
-      input.style.height = "auto";
 
-      requestAnimationFrame(() => {
-        input.focus();
-      });
+      input.style.height =
+        "auto";
+
+      requestAnimationFrame(
+        () => {
+          input.focus();
+        }
+      );
     }
 
     scrollAIMessagesToBottom();
   }
 
   /* =========================================================
-     AI GREETING
+     GREETING
      ========================================================= */
 
   function showInitialGreeting() {
     if (!aiPanel) return;
 
-    const messages = $(
-      "#gunkowii-ai-messages",
-      aiPanel
-    );
+    const messages =
+      $("#gunkowii-ai-messages", aiPanel);
 
     if (!messages) return;
 
-    if (aiConversation.length > 0) {
+    if (
+      aiConversation.length > 0
+    ) {
       renderStoredConversation();
+
       return;
     }
 
     const greeting =
-      "Hi, I'm GUNKOWII AI. I can help you understand what may be limiting your store's growth and guide you toward the right next step. Tell me what you're currently struggling with.";
+      "Hi 👋 I'm GUNKOWII AI. What are you currently trying to improve — more traffic, more sales, or both?";
 
     renderMessage(
       "assistant",
@@ -1989,17 +2575,15 @@
   }
 
   /* =========================================================
-     AI MESSAGE RENDERING
+     MESSAGE RENDERING
      ========================================================= */
 
   function renderMessage(
     role,
     content
   ) {
-    const messages = $(
-      "#gunkowii-ai-messages",
-      aiPanel
-    );
+    const messages =
+      $("#gunkowii-ai-messages", aiPanel);
 
     if (!messages) return;
 
@@ -2015,16 +2599,25 @@
     bubble.className =
       "gunkowii-ai-bubble";
 
-    if (role === "assistant") {
+    if (
+      role === "assistant"
+    ) {
       bubble.innerHTML =
-        formatAIResponse(content);
+        formatAIResponse(
+          content
+        );
     } else {
       bubble.textContent =
         String(content || "");
     }
 
-    wrapper.appendChild(bubble);
-    messages.appendChild(wrapper);
+    wrapper.appendChild(
+      bubble
+    );
+
+    messages.appendChild(
+      wrapper
+    );
 
     scrollAIMessagesToBottom();
   }
@@ -2032,43 +2625,68 @@
   function renderStoredConversation() {
     if (!aiPanel) return;
 
-    const messages = $(
-      "#gunkowii-ai-messages",
-      aiPanel
-    );
+    const messages =
+      $("#gunkowii-ai-messages", aiPanel);
 
     if (!messages) return;
 
     messages.innerHTML = "";
 
-    if (!aiConversation.length) {
+    if (
+      aiConversation.length === 0
+    ) {
       showInitialGreeting();
+
       return;
     }
 
-    aiConversation.forEach(item => {
-      if (
-        !item ||
-        !item.role ||
-        !item.content
-      ) {
-        return;
-      }
+    aiConversation.forEach(
+      item => {
+        if (
+          !item ||
+          !item.role ||
+          !item.content
+        ) {
+          return;
+        }
 
-      renderMessage(
-        item.role,
-        item.content
-      );
-    });
+        renderMessage(
+          item.role,
+          item.content
+        );
+      }
+    );
+
+    /*
+      If an existing conversation exists,
+      show the continuation CTA.
+    */
+
+    if (
+      aiConversation.some(
+        item =>
+          item &&
+          item.role === "user"
+      )
+    ) {
+      const handoff =
+        getHandoff();
+
+      if (handoff) {
+        showHandoffNotice(
+          handoff
+        );
+      } else {
+        showContinuationCTA();
+      }
+    }
 
     scrollAIMessagesToBottom();
   }
 
   function scrollAIMessagesToBottom() {
-    const messages = $(
-      "#gunkowii-ai-messages",
-      aiPanel
-    );
+    const messages =
+      $("#gunkowii-ai-messages", aiPanel);
 
     if (!messages) return;
 
@@ -2079,10 +2697,8 @@
   }
 
   function setAITyping(show) {
-    const typing = $(
-      "#gunkowii-ai-typing",
-      aiPanel
-    );
+    const typing =
+      $("#gunkowii-ai-typing", aiPanel);
 
     if (!typing) return;
 
@@ -2103,15 +2719,11 @@
   async function sendAIMessage() {
     if (aiBusy) return;
 
-    const input = $(
-      "#gunkowii-ai-input",
-      aiPanel
-    );
+    const input =
+      $("#gunkowii-ai-input", aiPanel);
 
-    const sendButton = $(
-      "#gunkowii-ai-send",
-      aiPanel
-    );
+    const sendButton =
+      $("#gunkowii-ai-send", aiPanel);
 
     if (!input) return;
 
@@ -2123,19 +2735,20 @@
     aiBusy = true;
 
     if (sendButton) {
-      sendButton.disabled = true;
+      sendButton.disabled =
+        true;
     }
 
     input.value = "";
-    input.style.height = "auto";
 
-    /*
-      Store buyer message first.
-    */
+    input.style.height =
+      "auto";
+
     aiConversation.push({
       role: "user",
       content: question,
-      timestamp: new Date().toISOString()
+      timestamp:
+        new Date().toISOString()
     });
 
     saveConversation();
@@ -2144,6 +2757,13 @@
       "user",
       question
     );
+
+    /*
+      Make the single continuation CTA available
+      as soon as the buyer has started communicating.
+    */
+
+    showContinuationCTA();
 
     setAITyping(true);
 
@@ -2160,15 +2780,22 @@
             },
 
             body: JSON.stringify({
-              message: question,
+              message:
+                question,
 
               conversation:
-                aiConversation.map(item => ({
-                  role: item.role,
-                  content: item.content
-                })),
+                aiConversation.map(
+                  item => ({
+                    role:
+                      item.role,
 
-              page: getPageName(),
+                    content:
+                      item.content
+                  })
+                ),
+
+              page:
+                getPageName(),
 
               source:
                 window.location.href
@@ -2202,7 +2829,8 @@
       aiConversation.push({
         role: "assistant",
         content: answer,
-        timestamp: new Date().toISOString()
+        timestamp:
+          new Date().toISOString()
       });
 
       saveConversation();
@@ -2215,19 +2843,33 @@
       );
 
       /*
-        Only create a handoff when the Worker explicitly
-        indicates that consultation is ready.
+        Keep the one clear continuation CTA.
       */
+
+      showContinuationCTA();
+
+      /*
+        If the Worker provides structured handoff data,
+        save it silently.
+      */
+
       if (
+        data.handoff ||
         data.readyForHandoff === true ||
-        data.consultationReady === true ||
-        data.handoff
+        data.consultationReady === true
       ) {
         const handoff =
-          createHandoffData(data);
+          createHandoffData(
+            data
+          );
 
-        saveHandoff(handoff);
-        showHandoffNotice(handoff);
+        saveHandoff(
+          handoff
+        );
+
+        showHandoffNotice(
+          handoff
+        );
       }
     } catch (error) {
       console.error(
@@ -2237,23 +2879,30 @@
 
       setAITyping(false);
 
-      const errorMessage =
-        "I couldn't connect to the consultation service right now. Please try again in a moment, or continue through the contact page.";
-
       renderMessage(
         "assistant",
-        errorMessage
+        "I couldn't connect to the consultation service right now. Please try again in a moment."
       );
+
+      /*
+        Keep the continuation path available
+        even if the Worker temporarily fails.
+      */
+
+      showContinuationCTA();
     } finally {
       aiBusy = false;
 
       if (sendButton) {
-        sendButton.disabled = false;
+        sendButton.disabled =
+          false;
       }
 
-      requestAnimationFrame(() => {
-        input.focus();
-      });
+      requestAnimationFrame(
+        () => {
+          input.focus();
+        }
+      );
     }
   }
 
@@ -2261,15 +2910,22 @@
      HANDOFF DATA
      ========================================================= */
 
-  function normalizeHandoffObject(value) {
+  function normalizeHandoffObject(
+    value
+  ) {
     if (!value) return null;
 
-    if (typeof value === "object") {
+    if (
+      typeof value === "object"
+    ) {
       return value;
     }
 
     const parsed =
-      safeJSONParse(value, null);
+      safeJSONParse(
+        value,
+        null
+      );
 
     return parsed || value;
   }
@@ -2278,24 +2934,35 @@
     summary,
     ...keys
   ) {
-    if (!summary || typeof summary !== "object") {
+    if (
+      !summary ||
+      typeof summary !== "object"
+    ) {
       return "";
     }
 
     for (const key of keys) {
       if (
-        summary[key] !== undefined &&
-        summary[key] !== null &&
-        String(summary[key]).trim()
+        summary[key] !==
+          undefined &&
+        summary[key] !==
+          null &&
+        String(
+          summary[key]
+        ).trim()
       ) {
-        return String(summary[key]).trim();
+        return String(
+          summary[key]
+        ).trim();
       }
     }
 
     return "";
   }
 
-  function createHandoffData(data = {}) {
+  function createHandoffData(
+    data = {}
+  ) {
     const rawSummary =
       normalizeHandoffObject(
         data.leadSummary ||
@@ -2306,7 +2973,8 @@
 
     const summary =
       rawSummary &&
-      typeof rawSummary === "object"
+      typeof rawSummary ===
+        "object"
         ? rawSummary
         : {};
 
@@ -2317,7 +2985,8 @@
       );
 
     const storeAnalysis =
-      typeof rawStoreAnalysis === "object"
+      typeof rawStoreAnalysis ===
+        "object"
         ? rawStoreAnalysis
         : rawStoreAnalysis || "";
 
@@ -2385,7 +3054,7 @@
         "nextStep",
         "recommended_next_step"
       ) ||
-      "Continue the consultation with GUNKOWII SABA.";
+      "Continue with GUNKOWII SABA.";
 
     const goal =
       data.goal ||
@@ -2443,21 +3112,25 @@
       leadSummary:
         summary,
 
-      /*
-        IMPORTANT:
-        The full AI conversation is intentionally retained
-        here so the WhatsApp handoff can carry it.
-      */
       conversation:
-        aiConversation.map(item => ({
-          role: item.role,
-          content: item.content,
-          timestamp: item.timestamp
-        }))
+        aiConversation.map(
+          item => ({
+            role:
+              item.role,
+
+            content:
+              item.content,
+
+            timestamp:
+              item.timestamp
+          })
+        )
     };
   }
 
-  function saveHandoff(handoff) {
+  function saveHandoff(
+    handoff
+  ) {
     saveStorage(
       CONFIG.STORAGE.handoff,
       handoff
@@ -2472,15 +3145,202 @@
   }
 
   /* =========================================================
+     SINGLE CONTINUATION CTA
+     ========================================================= */
+
+  function showContinuationCTA() {
+    if (!aiPanel) return;
+
+    const box =
+      $("#gunkowii-ai-handoff", aiPanel);
+
+    if (!box) return;
+
+    box.innerHTML = `
+      <div class="gunkowii-ai-handoff-title">
+        Continue with GUNKOWII
+      </div>
+
+      <div class="gunkowii-ai-handoff-text">
+        When you're ready, continue to the project form and we'll take the next step from there.
+      </div>
+
+      <button
+        type="button"
+        class="gunkowii-ai-handoff-button"
+        id="gunkowii-ai-handoff-button"
+      >
+        Continue with GUNKOWII →
+      </button>
+    `;
+
+    box.classList.add(
+      "show"
+    );
+
+    const button =
+      $("#gunkowii-ai-handoff-button", box);
+
+    if (
+      button &&
+      button.dataset.ready !==
+        "true"
+    ) {
+      button.dataset.ready =
+        "true";
+
+      button.addEventListener(
+        "click",
+        event => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          continueWithGunkowii();
+        }
+      );
+    }
+
+    scrollAIMessagesToBottom();
+  }
+
+  function showHandoffNotice(
+    handoff
+  ) {
+    if (!handoff) {
+      showContinuationCTA();
+      return;
+    }
+
+    const box =
+      $("#gunkowii-ai-handoff", aiPanel);
+
+    if (!box) return;
+
+    box.innerHTML = `
+      <div class="gunkowii-ai-handoff-title">
+        Ready to continue
+      </div>
+
+      <div class="gunkowii-ai-handoff-text">
+        I've got the context from this consultation. Continue with GUNKOWII and we'll take the next step together.
+      </div>
+
+      <button
+        type="button"
+        class="gunkowii-ai-handoff-button"
+        id="gunkowii-ai-handoff-button"
+      >
+        Continue with GUNKOWII →
+      </button>
+    `;
+
+    box.classList.add(
+      "show"
+    );
+
+    const button =
+      $("#gunkowii-ai-handoff-button", box);
+
+    if (
+      button &&
+      button.dataset.ready !==
+        "true"
+    ) {
+      button.dataset.ready =
+        "true";
+
+      button.addEventListener(
+        "click",
+        event => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          continueWithGunkowii();
+        }
+      );
+    }
+
+    scrollAIMessagesToBottom();
+  }
+
+  function continueWithGunkowii() {
+    let handoff =
+      getHandoff();
+
+    /*
+      If the Worker has not supplied structured
+      handoff information yet, create it locally
+      from the conversation.
+    */
+
+    if (!handoff) {
+      handoff =
+        createHandoffData({});
+
+      saveHandoff(
+        handoff
+      );
+    }
+
+    /*
+      Save the latest conversation again before leaving.
+    */
+
+    saveConversation();
+
+    /*
+      Make sure the complete current conversation
+      is included in the handoff.
+    */
+
+    handoff.conversation =
+      aiConversation.map(
+        item => ({
+          role:
+            item.role,
+
+          content:
+            item.content,
+
+          timestamp:
+            item.timestamp
+        })
+      );
+
+    handoff.firstBuyerMessage =
+      getFirstBuyerMessage();
+
+    handoff.sourcePage =
+      window.location.href;
+
+    saveHandoff(
+      handoff
+    );
+
+    window.location.href =
+      CONFIG.CONTACT_URL;
+  }
+
+  /* =========================================================
      HUMAN-READABLE AI SUMMARY
      ========================================================= */
 
-  function humanLabel(value) {
+  function humanLabel(
+    value
+  ) {
     return String(value || "")
-      .replace(/([a-z])([A-Z])/g, "$1 $2")
-      .replace(/[_-]+/g, " ")
-      .replace(/\b\w/g, char =>
-        char.toUpperCase()
+      .replace(
+        /([a-z])([A-Z])/g,
+        "$1 $2"
+      )
+      .replace(
+        /[_-]+/g,
+        " "
+      )
+      .replace(
+        /\b\w/g,
+        char =>
+          char.toUpperCase()
       );
   }
 
@@ -2491,29 +3351,43 @@
       return "Not available yet.";
     }
 
-    if (typeof analysis === "string") {
-      return analysis.trim() ||
-        "Not available yet.";
+    if (
+      typeof analysis ===
+      "string"
+    ) {
+      return (
+        analysis.trim() ||
+        "Not available yet."
+      );
     }
 
-    if (typeof analysis !== "object") {
-      return String(analysis);
+    if (
+      typeof analysis !==
+      "object"
+    ) {
+      return String(
+        analysis
+      );
     }
 
     const lines = [];
 
-    Object.entries(analysis)
-      .forEach(([key, value]) => {
+    Object.entries(
+      analysis
+    ).forEach(
+      ([key, value]) => {
         if (
           value === null ||
           value === undefined ||
-          String(value).trim() === ""
+          String(value).trim() ===
+            ""
         ) {
           return;
         }
 
         if (
-          typeof value === "object"
+          typeof value ===
+          "object"
         ) {
           value =
             JSON.stringify(
@@ -2526,7 +3400,8 @@
         lines.push(
           `${humanLabel(key)}: ${value}`
         );
-      });
+      }
+    );
 
     return lines.length
       ? lines.join("\n")
@@ -2536,16 +3411,23 @@
   function buildHumanReadableHandoffSummary(
     handoff
   ) {
-    if (!handoff) {
-      return "";
-    }
+    if (!handoff) return "";
 
     const lines = [
       "AI CONSULTATION",
       "================",
-      `Platform: ${handoff.platform || "Not provided"}`,
-      `Store / Website: ${handoff.store || "Not provided"}`,
-      `Main problem: ${handoff.mainProblem || "Not provided"}`
+      `Platform: ${
+        handoff.platform ||
+        "Not provided"
+      }`,
+      `Store / Website: ${
+        handoff.store ||
+        "Not provided"
+      }`,
+      `Main problem: ${
+        handoff.mainProblem ||
+        "Not provided"
+      }`
     ];
 
     if (handoff.goal) {
@@ -2582,66 +3464,12 @@
       "RECOMMENDED NEXT STEP",
       "=====================",
       handoff.recommendedNextStep ||
-        "Continue the consultation with GUNKOWII SABA."
+        "Continue with GUNKOWII SABA."
     );
 
-    return lines.join("\n");
-  }
-
-  /* =========================================================
-     AI HANDOFF NOTICE
-     ========================================================= */
-
-  function showHandoffNotice(
-    handoff
-  ) {
-    const box = $(
-      "#gunkowii-ai-handoff",
-      aiPanel
+    return lines.join(
+      "\n"
     );
-
-    if (!box) return;
-
-    box.innerHTML = `
-      <div class="gunkowii-ai-handoff-title">
-        Ready to continue
-      </div>
-
-      <div class="gunkowii-ai-handoff-text">
-        Continue with GUNKOWII SABA to discuss the next step.
-      </div>
-
-      <button
-        type="button"
-        class="gunkowii-ai-handoff-button"
-        id="gunkowii-ai-handoff-button"
-      >
-        Continue with GUNKOWII SABA →
-      </button>
-    `;
-
-    box.classList.add("show");
-
-    const button = $(
-      "#gunkowii-ai-handoff-button",
-      box
-    );
-
-    if (button) {
-      button.addEventListener(
-        "click",
-        () => {
-          prepareContactFormFromAI(
-            handoff
-          );
-
-          window.location.href =
-            CONFIG.CONTACT_URL;
-        }
-      );
-    }
-
-    scrollAIMessagesToBottom();
   }
 
   /* =========================================================
@@ -2652,10 +3480,13 @@
     form,
     names
   ) {
+    if (!form) return null;
+
     for (const name of names) {
-      const field = form.querySelector(
-        `[name="${CSS.escape(name)}"]`
-      );
+      const field =
+        form.querySelector(
+          `[name="${CSS.escape(name)}"]`
+        );
 
       if (field) {
         return field;
@@ -2670,10 +3501,15 @@
     names
   ) {
     const field =
-      findFormField(form, names);
+      findFormField(
+        form,
+        names
+      );
 
     return field
-      ? String(field.value || "").trim()
+      ? String(
+          field.value || ""
+        ).trim()
       : "";
   }
 
@@ -2696,15 +3532,21 @@
     if (!cleanValue) return;
 
     const field =
-      findFormField(form, names);
+      findFormField(
+        form,
+        names
+      );
 
     if (!field) return;
 
     if (
       overwrite ||
-      !String(field.value || "").trim()
+      !String(
+        field.value || ""
+      ).trim()
     ) {
-      field.value = cleanValue;
+      field.value =
+        cleanValue;
 
       field.dispatchEvent(
         new Event(
@@ -2738,12 +3580,19 @@
 
     if (!field) {
       field =
-        document.createElement("input");
+        document.createElement(
+          "input"
+        );
 
-      field.type = "hidden";
-      field.name = name;
+      field.type =
+        "hidden";
 
-      form.appendChild(field);
+      field.name =
+        name;
+
+      form.appendChild(
+        field
+      );
     }
 
     field.value =
@@ -2752,7 +3601,9 @@
     return field;
   }
 
-  function removeOldAIFields(form) {
+  function removeOldAIFields(
+    form
+  ) {
     const oldNames = [
       "ai_handoff",
       "ai_lead_summary",
@@ -2763,24 +3614,31 @@
       "AI Conversation",
       "AI Lead Summary",
       "AI Store Analysis",
+      "AI Recommended Service",
+      "AI Consultation Summary",
+      "AI Handoff Status",
+      "AI Platform",
+      "AI Store / Website",
       "AI Recommended Service"
     ];
 
-    oldNames.forEach(name => {
-      $$(
-        `[name="${CSS.escape(name)}"]`,
-        form
-      ).forEach(field => {
-        /*
-          Never remove visible fields.
-        */
-        if (
-          field.type === "hidden"
-        ) {
-          field.remove();
-        }
-      });
-    });
+    oldNames.forEach(
+      name => {
+        $$(
+          `[name="${CSS.escape(name)}"]`,
+          form
+        ).forEach(
+          field => {
+            if (
+              field.type ===
+              "hidden"
+            ) {
+              field.remove();
+            }
+          }
+        );
+      }
+    );
   }
 
   /* =========================================================
@@ -2793,21 +3651,49 @@
     if (!handoff) return;
 
     const form =
-      document.querySelector(
-        "form"
-      );
+      getContactForm();
 
     if (!form) return;
 
     /*
-      IMPORTANT:
-      AI details only fill empty fields.
-      Existing buyer input is respected.
+      AI information only fills empty fields.
     */
 
     setFieldValue(
       form,
-      ["store", "website", "url"],
+      [
+        "name",
+        "full_name"
+      ],
+      handoff.name,
+      false
+    );
+
+    setFieldValue(
+      form,
+      ["email"],
+      handoff.email,
+      false
+    );
+
+    setFieldValue(
+      form,
+      [
+        "phone",
+        "telephone",
+        "phone_number"
+      ],
+      handoff.phone,
+      false
+    );
+
+    setFieldValue(
+      form,
+      [
+        "store",
+        "website",
+        "url"
+      ],
       handoff.store,
       false
     );
@@ -2819,16 +3705,14 @@
       false
     );
 
-    /*
-      If the visible project/message field is empty,
-      provide a useful starting point.
-
-      If the buyer already wrote something, it stays untouched.
-    */
     const messageField =
       findFormField(
         form,
-        ["message", "project", "details"]
+        [
+          "message",
+          "project",
+          "details"
+        ]
       );
 
     if (
@@ -2868,11 +3752,6 @@
       }
     }
 
-    /*
-      IMPORTANT:
-      No AI transcript is placed into a visible form field.
-      The transcript is silently stored for WhatsApp.
-    */
     populateHiddenAIFields(
       form,
       handoff
@@ -2883,27 +3762,25 @@
     form,
     handoff
   ) {
-    if (!form || !handoff) return;
+    if (!form || !handoff) {
+      return;
+    }
 
-    removeOldAIFields(form);
+    removeOldAIFields(
+      form
+    );
 
     const summary =
       buildHumanReadableHandoffSummary(
         handoff
       );
 
-    /*
-      Clean subject for Gmail/Formspree.
-    */
     ensureHiddenField(
       form,
       "_subject",
-      `GUNKOWII SABA — New AI Consultation Lead`
+      "GUNKOWII SABA — New AI Consultation Lead"
     );
 
-    /*
-      Human-readable information for Gmail.
-    */
     ensureHiddenField(
       form,
       "AI Consultation Summary",
@@ -2919,13 +3796,15 @@
     ensureHiddenField(
       form,
       "AI Platform",
-      handoff.platform || "Not provided"
+      handoff.platform ||
+        "Not provided"
     );
 
     ensureHiddenField(
       form,
       "AI Store / Website",
-      handoff.store || "Not provided"
+      handoff.store ||
+        "Not provided"
     );
 
     ensureHiddenField(
@@ -2934,16 +3813,10 @@
       handoff.recommendedService ||
         "To be determined"
     );
-
-    /*
-      Do NOT create an AI Conversation hidden field.
-      This prevents the Gmail notification from becoming
-      an unreadable transcript/JSON dump.
-    */
   }
 
   /* =========================================================
-     DETECT CONTACT FORM
+     CONTACT FORM DETECTION
      ========================================================= */
 
   function getContactForm() {
@@ -2954,34 +3827,35 @@
       return null;
     }
 
-    /*
-      Prefer Formspree form.
-    */
     const formspreeForm =
-      forms.find(form =>
-        String(
-          form.getAttribute("action") || ""
-        ).includes("formspree.io")
+      forms.find(
+        form =>
+          String(
+            form.getAttribute(
+              "action"
+            ) || ""
+          ).includes(
+            "formspree.io"
+          )
       );
 
     if (formspreeForm) {
       return formspreeForm;
     }
 
-    /*
-      Otherwise use a form containing the
-      expected contact fields.
-    */
-    return forms.find(form =>
-      findFormField(
-        form,
-        ["email"]
-      )
-    ) || null;
+    return (
+      forms.find(
+        form =>
+          findFormField(
+            form,
+            ["email"]
+          )
+      ) || null
+    );
   }
 
   /* =========================================================
-     CONTACT FORM HANDOFF
+     CONTACT HANDOFF
      ========================================================= */
 
   function setupContactHandoff() {
@@ -2999,12 +3873,6 @@
       );
     }
 
-    /*
-      If the contact page is opened after an AI handoff,
-      automatically use the AI data.
-
-      The form remains editable.
-    */
     setupEmailSubmission(
       form
     );
@@ -3021,9 +3889,6 @@
   function setupEmailSubmission(
     form
   ) {
-    /*
-      Prevent duplicate event attachment.
-    */
     if (
       form.dataset.gunkowiiEmailReady ===
       "true"
@@ -3031,16 +3896,11 @@
       return;
     }
 
-    form.dataset.gunkowiiEmailReady =
-      "true";
-
-    /*
-      Only intercept actual Formspree forms.
-      This avoids breaking unrelated forms.
-    */
     const action =
       String(
-        form.getAttribute("action") || ""
+        form.getAttribute(
+          "action"
+        ) || ""
       );
 
     if (
@@ -3050,6 +3910,9 @@
     ) {
       return;
     }
+
+    form.dataset.gunkowiiEmailReady =
+      "true";
 
     form.addEventListener(
       "submit",
@@ -3062,15 +3925,10 @@
           );
 
         if (submitButton) {
-          submitButton.disabled = true;
+          submitButton.disabled =
+            true;
         }
 
-        const formData =
-          new FormData(form);
-
-        /*
-          Make sure latest handoff data is present.
-        */
         const handoff =
           getHandoff();
 
@@ -3079,69 +3937,20 @@
             form,
             handoff
           );
-
-          /*
-            Recreate FormData because hidden fields
-            may have been added after the first snapshot.
-          */
-          const updatedFormData =
-            new FormData(form);
-
-          try {
-            const response =
-              await fetch(
-                action,
-                {
-                  method: "POST",
-                  body:
-                    updatedFormData,
-                  headers: {
-                    Accept:
-                      "application/json"
-                  }
-                }
-              );
-
-            if (!response.ok) {
-              throw new Error(
-                "Form submission failed."
-              );
-            }
-
-            handleSuccessfulContactSubmission(
-              form
-            );
-          } catch (error) {
-            console.error(
-              "Formspree submission error:",
-              error
-            );
-
-            if (submitButton) {
-              submitButton.disabled =
-                false;
-            }
-
-            showFormStatus(
-              form,
-              "Your message could not be sent. Please check your connection and try again."
-            );
-          }
-
-          return;
         }
 
-        /*
-          Normal form submission when there is
-          no AI handoff.
-        */
         try {
           const response =
             await fetch(
               action,
               {
                 method: "POST",
-                body: formData,
+
+                body:
+                  new FormData(
+                    form
+                  ),
+
                 headers: {
                   Accept:
                     "application/json"
@@ -3186,11 +3995,13 @@
       "Your message has been sent successfully."
     );
 
-    /*
-      Prepare the form for the next customer.
-    */
-    resetContactFormForNextCustomer(
-      form
+    setTimeout(
+      () => {
+        resetContactFormForNextCustomer(
+          form
+        );
+      },
+      700
     );
   }
 
@@ -3205,7 +4016,9 @@
 
     if (!status) {
       status =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       status.className =
         "gunkowii-form-status";
@@ -3221,7 +4034,9 @@
         line-height:1.4;
       `;
 
-      form.appendChild(status);
+      form.appendChild(
+        status
+      );
     }
 
     status.textContent =
@@ -3235,30 +4050,32 @@
   function resetContactFormForNextCustomer(
     form
   ) {
-    /*
-      Clear all customer-entered fields.
-    */
     const fields =
       $$(
         "input:not([type='hidden']), textarea, select",
         form
       );
 
-    fields.forEach(field => {
-      if (
-        field.type === "checkbox" ||
-        field.type === "radio"
-      ) {
-        field.checked = false;
-      } else {
-        field.value = "";
+    fields.forEach(
+      field => {
+        if (
+          field.type ===
+            "checkbox" ||
+          field.type ===
+            "radio"
+        ) {
+          field.checked =
+            false;
+        } else {
+          field.value =
+            "";
+        }
       }
-    });
+    );
 
-    /*
-      Remove all AI hidden data.
-    */
-    removeOldAIFields(form);
+    removeOldAIFields(
+      form
+    );
 
     [
       "_subject",
@@ -3267,38 +4084,165 @@
       "AI Platform",
       "AI Store / Website",
       "AI Recommended Service"
-    ].forEach(name => {
-      $$(
-        `[name="${CSS.escape(name)}"]`,
-        form
-      ).forEach(field => {
-        if (
-          field.type === "hidden"
-        ) {
-          field.remove();
-        }
-      });
-    });
+    ].forEach(
+      name => {
+        $$(
+          `[name="${CSS.escape(name)}"]`,
+          form
+        ).forEach(
+          field => {
+            if (
+              field.type ===
+              "hidden"
+            ) {
+              field.remove();
+            }
+          }
+        );
+      }
+    );
 
-    /*
-      The AI handoff is consumed by the form.
-      Remove it so the next customer starts clean.
-    */
     removeStorage(
       CONFIG.STORAGE.handoff
     );
 
-    /*
-      Re-enable submit button.
-    */
     const submitButton =
       form.querySelector(
         'button[type="submit"], input[type="submit"]'
       );
 
     if (submitButton) {
-      submitButton.disabled = false;
+      submitButton.disabled =
+        false;
     }
+  }
+
+  /* =========================================================
+     COLLECT ALL BUYER FORM INFORMATION
+     ========================================================= */
+
+  function collectBuyerFields(
+    form
+  ) {
+    const result = {};
+
+    if (!form) {
+      return result;
+    }
+
+    const fields =
+      $$(
+        "input, textarea, select",
+        form
+      );
+
+    fields.forEach(
+      field => {
+        const name =
+          String(
+            field.name || ""
+          ).trim();
+
+        if (!name) return;
+
+        if (
+          field.type ===
+            "hidden" ||
+          field.type ===
+            "submit" ||
+          field.type ===
+            "button" ||
+          field.type ===
+            "reset" ||
+          field.type ===
+            "file"
+        ) {
+          return;
+        }
+
+        if (
+          field.type ===
+            "checkbox" ||
+          field.type ===
+            "radio"
+        ) {
+          if (!field.checked) {
+            return;
+          }
+        }
+
+        let value =
+          String(
+            field.value || ""
+          ).trim();
+
+        if (!value) return;
+
+        /*
+          For selects, prefer the visible option label.
+        */
+
+        if (
+          field.tagName
+            .toLowerCase() ===
+          "select"
+        ) {
+          const option =
+            field.options[
+              field.selectedIndex
+            ];
+
+          if (option) {
+            value =
+              String(
+                option.textContent ||
+                  option.value ||
+                  ""
+              ).trim();
+          }
+        }
+
+        if (
+          result[name]
+        ) {
+          result[name] +=
+            `, ${value}`;
+        } else {
+          result[name] =
+            value;
+        }
+      }
+    );
+
+    return result;
+  }
+
+  function buildBuyerSummary(
+    buyerFields
+  ) {
+    const lines = [];
+
+    Object.entries(
+      buyerFields || {}
+    ).forEach(
+      ([key, value]) => {
+        if (
+          value === undefined ||
+          value === null ||
+          !String(value).trim()
+        ) {
+          return;
+        }
+
+        lines.push(
+          `${humanLabel(key)}: ${value}`
+        );
+      }
+    );
+
+    return lines.length
+      ? lines.join("\n")
+      : "No additional buyer information provided.";
   }
 
   /* =========================================================
@@ -3308,11 +4252,6 @@
   function setupWhatsAppHandoff(
     form
   ) {
-    /*
-      Find the existing WhatsApp button.
-      Supports several IDs/classes so the contact
-      page does not need unnecessary redesign.
-    */
     const button =
       form.querySelector(
         "#whatsapp-button, #continue-whatsapp, .whatsapp-button, [data-whatsapp]"
@@ -3354,26 +4293,47 @@
 
     let valid = true;
 
-    requiredFields.forEach(field => {
+    for (
+      const field of
+      requiredFields
+    ) {
       if (
+        field.type ===
+          "checkbox" ||
+        field.type ===
+          "radio"
+      ) {
+        if (!field.checked) {
+          valid = false;
+
+          field.focus();
+
+          break;
+        }
+      } else if (
         !String(
           field.value || ""
         ).trim()
       ) {
         valid = false;
+
         field.focus();
+
+        break;
       }
-    });
+    }
 
     return valid;
   }
 
-  function handleWhatsAppHandoff(
+  async function handleWhatsAppHandoff(
     form,
     button
   ) {
     if (
-      !validateContactForm(form)
+      !validateContactForm(
+        form
+      )
     ) {
       showFormStatus(
         form,
@@ -3384,102 +4344,98 @@
     }
 
     if (button) {
-      button.disabled = true;
+      button.disabled =
+        true;
     }
 
-    /*
-      Get latest AI handoff.
-    */
     const handoff =
       getHandoff();
 
     /*
-      Collect EVERY visible buyer field.
+      Collect every visible buyer field.
     */
+
+    const buyerFields =
+      collectBuyerFields(
+        form
+      );
+
     const buyer = {
+      ...buyerFields,
+
       name:
-        getFieldValue(
-          form,
-          ["name", "full_name"]
-        ),
+        buyerFields.name ||
+        buyerFields.full_name ||
+        "",
 
       email:
-        getFieldValue(
-          form,
-          ["email"]
-        ),
+        buyerFields.email ||
+        "",
 
       store:
-        getFieldValue(
-          form,
-          ["store", "website", "url"]
-        ),
+        buyerFields.store ||
+        buyerFields.website ||
+        buyerFields.url ||
+        "",
 
       service:
-        getFieldValue(
-          form,
-          ["service"]
-        ),
+        buyerFields.service ||
+        "",
 
       project:
-        getFieldValue(
-          form,
-          ["message", "project", "details"]
-        )
+        buyerFields.message ||
+        buyerFields.project ||
+        buyerFields.details ||
+        ""
     };
 
-    /*
-      Build the WhatsApp message.
-      The AI transcript is included SILENTLY.
-      The buyer does not need to be told about this.
-    */
     const message =
       buildWhatsAppMessage(
         buyer,
+        buyerFields,
         handoff
       );
 
     /*
-      Copy the complete message.
+      WAIT for clipboard operation before clearing
+      the form. This is important on mobile browsers.
     */
-    copyToClipboard(message);
 
-    /*
-      Open WhatsApp.
-    */
+    const copied =
+      await copyToClipboard(
+        message
+      );
+
     window.open(
       CONFIG.WHATSAPP_URL,
       "_blank",
       "noopener,noreferrer"
     );
 
-    /*
-      IMPORTANT:
-      Clear the contact form immediately after
-      preparing the WhatsApp handoff.
-
-      This makes the page ready for a new customer.
-    */
     resetContactFormForNextCustomer(
       form
     );
 
-    /*
-      Give a small local confirmation.
-      This does not expose AI transcript behavior.
-    */
-    showFormStatus(
-      form,
-      "Your information is ready in WhatsApp. Paste the prepared message into the chat and send it."
-    );
+    if (copied) {
+      showFormStatus(
+        form,
+        "Your information is ready in WhatsApp. Paste the prepared message into the chat and send it."
+      );
+    } else {
+      showFormStatus(
+        form,
+        "WhatsApp is open. If the message was not copied automatically, please return and try again."
+      );
+    }
   }
 
   /* =========================================================
-     WHATSAPP MESSAGE BUILDER
+     WHATSAPP MESSAGE
      ========================================================= */
 
   function buildWhatsAppMessage(
     buyer,
+    buyerFields,
     handoff
   ) {
     const lines = [];
@@ -3501,19 +4457,44 @@
     );
 
     lines.push(
-      `Name: ${buyer.name || "Not provided"}`,
-      `Email: ${buyer.email || "Not provided"}`,
-      `Store / Website: ${buyer.store || "Not provided"}`,
-      `Service: ${buyer.service || "Not provided"}`
+      buildBuyerSummary(
+        buyerFields
+      )
     );
 
-    lines.push(
-      "",
-      "PROJECT DETAILS",
-      "==============================",
-      buyer.project ||
-        "Not provided"
-    );
+    if (
+      buyer.name ||
+      buyer.email ||
+      buyer.store ||
+      buyer.service ||
+      buyer.project
+    ) {
+      lines.push(
+        "",
+        "KEY FORM DETAILS",
+        "------------------------------",
+        `Name: ${
+          buyer.name ||
+          "Not provided"
+        }`,
+        `Email: ${
+          buyer.email ||
+          "Not provided"
+        }`,
+        `Store / Website: ${
+          buyer.store ||
+          "Not provided"
+        }`,
+        `Service: ${
+          buyer.service ||
+          "Not provided"
+        }`,
+        "",
+        "Project Details:",
+        buyer.project ||
+          "Not provided"
+      );
+    }
 
     if (handoff) {
       lines.push(
@@ -3524,9 +4505,18 @@
       );
 
       lines.push(
-        `Platform: ${handoff.platform || "Not provided"}`,
-        `Store / Website identified by AI: ${handoff.store || "Not provided"}`,
-        `Main problem: ${handoff.mainProblem || "Not provided"}`
+        `Platform: ${
+          handoff.platform ||
+          "Not provided"
+        }`,
+        `Store / Website identified by AI: ${
+          handoff.store ||
+          "Not provided"
+        }`,
+        `Main problem: ${
+          handoff.mainProblem ||
+          "Not provided"
+        }`
       );
 
       if (handoff.goal) {
@@ -3569,13 +4559,13 @@
         "RECOMMENDED NEXT STEP",
         "------------------------------",
         handoff.recommendedNextStep ||
-          "Continue the consultation with GUNKOWII SABA."
+          "Continue with GUNKOWII SABA."
       );
 
       /*
         COMPLETE AI CONVERSATION.
-        This is intentionally included.
       */
+
       lines.push(
         "",
         "==============================",
@@ -3604,48 +4594,40 @@
               "",
               `${speaker}:`,
               String(
-                item.content || ""
-              ).trim()
-            );
-          }
-        );
-      } else {
-        lines.push(
-          "No AI conversation transcript was captured."
-        );
-      }
-    } else {
-      /*
-        Even without a formal handoff,
-        preserve the current AI conversation if available.
-      */
-      if (
-        aiConversation.length
-      ) {
-        lines.push(
-          "",
-          "==============================",
-          "AI CONVERSATION",
-          "=============================="
-        );
-
-        aiConversation.forEach(
-          item => {
-            const speaker =
-              item.role === "user"
-                ? "BUYER"
-                : "GUNKOWII AI";
-
-            lines.push(
-              "",
-              `${speaker}:`,
-              String(
-                item.content || ""
+                item.content ||
+                  ""
               ).trim()
             );
           }
         );
       }
+    } else if (
+      aiConversation.length
+    ) {
+      lines.push(
+        "",
+        "==============================",
+        "AI CONVERSATION",
+        "=============================="
+      );
+
+      aiConversation.forEach(
+        item => {
+          const speaker =
+            item.role === "user"
+              ? "BUYER"
+              : "GUNKOWII AI";
+
+          lines.push(
+            "",
+            `${speaker}:`,
+            String(
+              item.content ||
+                ""
+            ).trim()
+          );
+        }
+      );
     }
 
     lines.push(
@@ -3655,7 +4637,9 @@
       "=============================="
     );
 
-    return lines.join("\n");
+    return lines.join(
+      "\n"
+    );
   }
 
   function formatStoreAnalysisForWhatsApp(
@@ -3666,16 +4650,22 @@
     }
 
     if (
-      typeof analysis === "string"
+      typeof analysis ===
+      "string"
     ) {
-      return analysis.trim() ||
-        "Not available yet.";
+      return (
+        analysis.trim() ||
+        "Not available yet."
+      );
     }
 
     if (
-      typeof analysis !== "object"
+      typeof analysis !==
+      "object"
     ) {
-      return String(analysis);
+      return String(
+        analysis
+      );
     }
 
     const lines = [];
@@ -3687,13 +4677,15 @@
         if (
           value === null ||
           value === undefined ||
-          String(value).trim() === ""
+          String(value).trim() ===
+            ""
         ) {
           return;
         }
 
         if (
-          typeof value === "object"
+          typeof value ===
+          "object"
         ) {
           value =
             JSON.stringify(
@@ -3733,7 +4725,7 @@
         return true;
       }
     } catch {
-      // Fall through to legacy method.
+      // Fall through.
     }
 
     try {
@@ -3742,11 +4734,15 @@
           "textarea"
         );
 
-      textarea.value = text;
+      textarea.value =
+        text;
 
       textarea.style.position =
         "fixed";
-      textarea.style.opacity = "0";
+
+      textarea.style.opacity =
+        "0";
+
       textarea.style.pointerEvents =
         "none";
 
@@ -3755,15 +4751,17 @@
       );
 
       textarea.focus();
+
       textarea.select();
 
-      document.execCommand(
-        "copy"
-      );
+      const successful =
+        document.execCommand(
+          "copy"
+        );
 
       textarea.remove();
 
-      return true;
+      return successful;
     } catch {
       return false;
     }
@@ -3777,10 +4775,13 @@
     {
       title:
         "Client Feedback",
+
       text:
         "Real e-commerce project feedback and experience.",
+
       link:
         "reviews.html",
+
       image:
         null
     },
@@ -3788,10 +4789,13 @@
     {
       title:
         "Shopify Work",
+
       text:
         "Shopify optimization and e-commerce growth.",
+
       link:
         "services.html",
+
       image:
         "assets/projects/teeology/teeology-home.jpg"
     },
@@ -3799,10 +4803,13 @@
     {
       title:
         "Etsy Growth",
+
       text:
         "Etsy store optimization, visibility and conversion.",
+
       link:
         "services.html",
+
       image:
         "assets/projects/beeyouti/beeyouti-home.jpg"
     },
@@ -3810,10 +4817,13 @@
     {
       title:
         "CRO Insight",
+
       text:
         "Finding conversion barriers that can cost a store sales.",
+
       link:
         "audit.html",
+
       image:
         "assets/projects/iron-therapy/iron-therapy-home.jpg"
     },
@@ -3821,10 +4831,13 @@
     {
       title:
         "SEO Focus",
+
       text:
         "Improving search visibility and product discovery.",
+
       link:
         "services.html",
+
       image:
         "assets/projects/look-for-it-here/look-for-it-here-home.jpg"
     },
@@ -3832,10 +4845,13 @@
     {
       title:
         "Growth Strategy",
+
       text:
         "A complete approach from traffic to conversion and retention.",
+
       link:
         "process.html",
+
       image:
         null
     },
@@ -3843,10 +4859,13 @@
     {
       title:
         "Featured Project",
+
       text:
         "Explore the MANBAUL ANWAR digital management system.",
+
       link:
         "portfolio.html",
+
       image:
         "assets/projects/manbaul-anwar/manbaul-anwar-dashboard.jpg"
     },
@@ -3854,31 +4873,52 @@
     {
       title:
         "Available",
+
       text:
         "Open to professional e-commerce and digital projects.",
+
       link:
         "contact.html",
+
       image:
         null
     }
   ];
 
   let livePopup = null;
-  let liveActivityIndex = 0;
-  let livePopupTimer = null;
-  let livePopupRotateTimer = null;
+
+  let liveActivityIndex =
+    0;
+
+  let livePopupTimer =
+    null;
+
+  let livePopupRotateTimer =
+    null;
+
+  let livePopupHideTimer =
+    null;
+
+  let livePopupCurrentActivity =
+    null;
 
   function setupLiveActivityPopup() {
-    if (
-      $("#gunkowii-live-popup")
-    ) {
+    const existing =
+      $("#gunkowii-live-popup");
+
+    if (existing) {
       livePopup =
-        $("#gunkowii-live-popup");
+        existing;
+
+      setupLivePopupClick();
+
       return;
     }
 
     livePopup =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     livePopup.id =
       "gunkowii-live-popup";
@@ -3887,9 +4927,8 @@
       livePopup
     );
 
-    /*
-      Initial delay.
-    */
+    setupLivePopupClick();
+
     livePopupTimer =
       setTimeout(
         () => {
@@ -3898,16 +4937,18 @@
         4000
       );
 
-    /*
-      Rotate activity every 12 seconds.
-    */
     livePopupRotateTimer =
       setInterval(
         () => {
           if (
-            livePopup &&
+            !livePopup
+          ) {
+            return;
+          }
+
+          if (
             livePopup.style.display !==
-              "none"
+            "none"
           ) {
             hideLiveActivity(
               true
@@ -3925,6 +4966,41 @@
       );
   }
 
+  function setupLivePopupClick() {
+    if (!livePopup) return;
+
+    if (
+      livePopup.dataset.clickReady ===
+      "true"
+    ) {
+      return;
+    }
+
+    livePopup.dataset.clickReady =
+      "true";
+
+    livePopup.addEventListener(
+      "click",
+      event => {
+        if (
+          event.target.closest(
+            ".gunkowii-popup-close"
+          )
+        ) {
+          return;
+        }
+
+        if (
+          livePopupCurrentActivity &&
+          livePopupCurrentActivity.link
+        ) {
+          window.location.href =
+            livePopupCurrentActivity.link;
+        }
+      }
+    );
+  }
+
   function showLiveActivity() {
     if (!livePopup) return;
 
@@ -3936,11 +5012,16 @@
 
     liveActivityIndex++;
 
+    livePopupCurrentActivity =
+      activity;
+
     const imageHTML =
       activity.image
         ? `
           <img
-            src="${activity.image}"
+            src="${escapeHTML(
+              activity.image
+            )}"
             alt=""
             loading="lazy"
           >
@@ -3964,13 +5045,19 @@
       </div>
 
       <div class="gunkowii-popup-content">
+
         <div class="gunkowii-popup-title">
-          ${escapeHTML(activity.title)}
+          ${escapeHTML(
+            activity.title
+          )}
         </div>
 
         <div class="gunkowii-popup-text">
-          ${escapeHTML(activity.text)}
+          ${escapeHTML(
+            activity.text
+          )}
         </div>
+
       </div>
 
       <button
@@ -3988,7 +5075,11 @@
     if (close) {
       close.addEventListener(
         "click",
-        () => {
+        event => {
+          event.preventDefault();
+
+          event.stopPropagation();
+
           hideLiveActivity(
             false
           );
@@ -3996,39 +5087,29 @@
       );
     }
 
-    livePopup.addEventListener(
-      "click",
-      event => {
-        if (
-          event.target.closest(
-            ".gunkowii-popup-close"
-          )
-        ) {
-          return;
-        }
-
-        window.location.href =
-          activity.link;
-      }
+    clearTimeout(
+      livePopupHideTimer
     );
 
-    /*
-      Hide after 7 seconds.
-    */
-    setTimeout(
-      () => {
-        hideLiveActivity(
-          false
-        );
-      },
-      7000
-    );
+    livePopupHideTimer =
+      setTimeout(
+        () => {
+          hideLiveActivity(
+            false
+          );
+        },
+        7000
+      );
   }
 
   function hideLiveActivity(
-    rotating
+    rotating = false
   ) {
     if (!livePopup) return;
+
+    clearTimeout(
+      livePopupHideTimer
+    );
 
     livePopup.classList.add(
       "hide"
@@ -4036,9 +5117,12 @@
 
     setTimeout(
       () => {
-        if (livePopup) {
+        if (
+          livePopup
+        ) {
           livePopup.style.display =
             "none";
+
           livePopup.classList.remove(
             "hide"
           );
@@ -4049,10 +5133,11 @@
   }
 
   /* =========================================================
-     WINDOW RESIZE
+     RESIZE
      ========================================================= */
 
-  let resizeTimer = null;
+  let resizeTimer =
+    null;
 
   window.addEventListener(
     "resize",
@@ -4064,9 +5149,6 @@
       resizeTimer =
         setTimeout(
           () => {
-            /*
-              Keep launcher attached to its side.
-            */
             if (aiLauncher) {
               const saved =
                 loadStorage(
@@ -4085,7 +5167,10 @@
                   saved?.top
                 )
                   ? saved.top
-                  : 120;
+                  : Math.round(
+                      window.innerHeight *
+                        .46
+                    );
 
               applyLauncherPosition(
                 side,
@@ -4094,9 +5179,6 @@
               );
             }
 
-            /*
-              Keep AI panel inside viewport.
-            */
             if (
               aiPanel &&
               aiPanel.classList.contains(
@@ -4157,6 +5239,27 @@
   );
 
   /* =========================================================
+     CLEANUP
+     ========================================================= */
+
+  window.addEventListener(
+    "beforeunload",
+    () => {
+      clearTimeout(
+        livePopupTimer
+      );
+
+      clearTimeout(
+        livePopupHideTimer
+      );
+
+      clearInterval(
+        livePopupRotateTimer
+      );
+    }
+  );
+
+  /* =========================================================
      INITIALIZATION
      ========================================================= */
 
@@ -4168,27 +5271,18 @@
     setupAIPanel();
 
     /*
-      If this is the contact page, silently restore
-      any AI consultation information.
+      Contact handoff remains completely silent.
+      No AI transcript or summary is displayed to the buyer.
     */
+
     setupContactHandoff();
 
-    /*
-      Live activity popup.
-    */
     setupLiveActivityPopup();
 
     /*
-      If conversation exists, do not overwrite it.
-      Otherwise show greeting when AI is opened.
+      Fresh greeting is intentionally rendered only
+      when the AI panel opens.
     */
-    if (
-      aiConversation.length === 0
-    ) {
-      /*
-        Greeting is rendered when panel opens.
-      */
-    }
   }
 
   if (
@@ -4202,4 +5296,5 @@
   } else {
     initializeGunkowiiSystem();
   }
+
 })();
