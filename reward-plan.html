@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Reward Plan | GUNKOWII SABA</title>
+
+  <meta
+    name="description"
+    content="Learn how the GUNKOWII SABA Reward Plan works, including performance incentives, benefits, considerations, measurement and engagement structure."
+  >
+
+  <style>
+    :root {
+      --green: #0f3d2e;
+      --green-dark: #08291f;
+      --green-light: #175b44;
+      --gold: #c9a227;
+      --gold-light: #e1c45a;
+      --cream: #f7f1e3;
+      --white: #ffffff;
+      --text: #26352f;
+      --muted: #68756f;
+      --border: rgba(15, 61, 46, 0.12);
+      --shadow: 0 18px 45px rgba(8, 41, 31, 0.10);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 41, 31, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-container {
+      width: min(1180px, 92%);
+      margin: auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      color: var(--white);
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--gold-light);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    nav a {
+      color: rgba(255,255,255,0.88);
+      font-size: 0.82rem;
+      transition: 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold-light);
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(8,41,31,0.98), rgba(15,61,46,0.93));
+      color: var(--white);
+      padding: 90px 0 85px;
+    }
+
+    .hero-container {
+      width: min(1180px, 92%);
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 65px;
+    }
+
+    .eyebrow {
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--gold-light);
+    }
+
+    .hero h2 {
+      font-size: 1rem;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: rgba(255,255,255,0.82);
+      font-size: 1.02rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 21px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--green-dark);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-image {
+      width: 100%;
+      min-height: 470px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.28);
+    }
+
+    .image-label {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      background: rgba(8,41,31,0.9);
+      color: var(--white);
+      border-left: 3px solid var(--gold);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 85px 0;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 45px;
+    }
+
+    .section-heading .number {
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .section-heading h2 {
+      color: var(--green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    /* INTRO */
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .content-card,
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .content-card h3,
+    .info-card h3 {
+      color: var(--green);
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+
+    .content-card p,
+    .info-card p {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .highlight-box {
+      background: var(--green);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .highlight-box h3 {
+      color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+
+    .highlight-box p {
+      color: rgba(255,255,255,0.82);
+    }
+
+    /* PROCESS */
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 27px;
+      display: flex;
+      gap: 18px;
+      box-shadow: 0 10px 30px rgba(8,41,31,0.06);
+    }
+
+    .step-number {
+      min-width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--gold-light);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      color: var(--green);
+      margin-bottom: 7px;
+      font-size: 1.05rem;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* REWARD AREAS */
+
+    .reward-area {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    .reward-area .section-heading h2 {
+      color: var(--white);
+    }
+
+    .reward-area .section-heading p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .reward-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .reward-card {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.045);
+      border-radius: var(--radius);
+      padding: 25px;
+    }
+
+    .reward-card span {
+      color: var(--gold-light);
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .reward-card h3 {
+      margin: 12px 0 8px;
+      font-size: 1rem;
+    }
+
+    .reward-card p {
+      color: rgba(255,255,255,0.68);
+      font-size: 0.9rem;
+    }
+
+    /* BENEFITS */
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .benefit {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(8,41,31,0.06);
+    }
+
+    .benefit-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--cream);
+      color: var(--green);
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .benefit h3 {
+      color: var(--green);
+      font-size: 1.05rem;
+      margin-bottom: 9px;
+    }
+
+    .benefit p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* PROS / CONS */
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .pros,
+    .cons {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .pros {
+      border-top: 4px solid var(--green);
+    }
+
+    .cons {
+      border-top: 4px solid var(--gold);
+    }
+
+    .pros h3,
+    .cons h3 {
+      color: var(--green);
+      margin-bottom: 20px;
+      font-size: 1.25rem;
+    }
+
+    .pros ul,
+    .cons ul {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+
+    .pros li,
+    .cons li {
+      position: relative;
+      padding-left: 27px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .pros li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .cons li::before {
+      content: "!";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    /* WHO */
+
+    .who-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .who-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 32px;
+    }
+
+    .who-card h3 {
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+
+    .who-card ul {
+      list-style: none;
+      display: grid;
+      gap: 11px;
+    }
+
+    .who-card li {
+      color: var(--muted);
+      padding-left: 22px;
+      position: relative;
+      font-size: 0.92rem;
+    }
+
+    .who-card li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    /* AGREEMENT */
+
+    .agreement {
+      background: #efe7d6;
+    }
+
+    .agreement-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .agreement-item {
+      background: var(--white);
+      padding: 25px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .agreement-item h3 {
+      color: var(--green);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .agreement-item p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* MEASUREMENT */
+
+    .measurement-box {
+      background: var(--green);
+      border-radius: 24px;
+      padding: 42px;
+      color: var(--white);
+    }
+
+    .measurement-box h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .measurement-box p {
+      color: rgba(255,255,255,0.76);
+      max-width: 800px;
+      margin-bottom: 25px;
+    }
+
+    .metrics-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .metric {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--gold-light);
+      font-size: 1.05rem;
+      margin-bottom: 5px;
+    }
+
+    .metric span {
+      color: rgba(255,255,255,0.66);
+      font-size: 0.83rem;
+    }
+
+    /* CTA */
+
+    .cta {
+      background: var(--cream);
+      padding-top: 30px;
+    }
+
+    .cta-box {
+      background:
+        linear-gradient(135deg, var(--green-dark), var(--green));
+      border-radius: 25px;
+      padding: 55px;
+      color: var(--white);
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(8,41,31,0.18);
+    }
+
+    .cta-box h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      color: rgba(255,255,255,0.76);
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 45px 0 25px;
+    }
+
+    .footer-grid {
+      width: min(1100px, 92%);
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      gap: 35px;
+      padding-bottom: 30px;
+    }
+
+    footer h3 {
+      color: var(--white);
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    footer p,
+    footer a {
+      font-size: 0.85rem;
+    }
+
+    footer a:hover {
+      color: var(--gold-light);
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 7px;
+    }
+
+    .copyright {
+      width: min(1100px, 92%);
+      margin: auto;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 20px;
+      font-size: 0.76rem;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 950px) {
+      nav {
+        gap: 11px;
+      }
+
+      nav a {
+        font-size: 0.75rem;
+      }
+
+      .hero-container,
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        min-height: 420px;
+      }
+
+      .reward-grid,
+      .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav-container {
+        min-height: auto;
+        padding: 18px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding: 65px 0;
+      }
+
+      .hero-image {
+        min-height: 360px;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .steps,
+      .reward-grid,
+      .benefits-grid,
+      .pros-cons,
+      .who-grid,
+      .agreement-grid,
+      .metrics-list {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 38px 22px;
+      }
+
+      .measurement-box {
+        padding: 30px 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+
+      <a href="index.html" class="logo">
+        GUNKOWII <span>SABA</span>
+      </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="pricing.html">Plans</a>
+        <a href="process.html">Process</a>
+        <a href="audit.html">Audit</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-container">
+
+      <div>
+
+        <div class="eyebrow">
+          Performance & Incentive Arrangement
+        </div>
+
+        <h1>
+          Reward Plan:
+          <span>Performance That Gets Recognized</span>
+        </h1>
+
+        <h2>
+          An incentive-focused way to structure collaboration
+        </h2>
+
+        <p>
+          The Reward Plan is designed for situations where additional
+          compensation or incentives can be connected to agreed achievements,
+          milestones or commercial outcomes.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="contact.html" class="btn btn-primary">
+            Discuss the Reward Plan
+          </a>
+
+          <a href="pricing.html" class="btn btn-outline">
+            Compare All Plans
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-image-wrap">
+
+        <img
+          src="Screenshot_2026-09-04-12-53-39-223_com.openai.chatgpt-edit.jpg"
+          alt="GUNKOWII SABA - E-commerce and Digital Marketing Expert"
+          class="hero-image"
+        >
+
+        <div class="image-label">
+          GUNKOWII SABA • E-COMMERCE & DIGITAL
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WHAT IT MEANS -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          01 • UNDERSTAND THE MODEL
+        </div>
+
+        <h2>
+          What Is the Reward Plan?
+        </h2>
+
+        <p>
+          The Reward Plan creates an incentive structure where agreed
+          achievements can lead to an additional reward.
+        </p>
+
+      </div>
+
+
+      <div class="intro-grid">
+
+        <div class="content-card">
+
+          <h3>
+            Rewarding meaningful performance
+          </h3>
+
+          <p>
+            Businesses sometimes want to create additional incentives around
+            specific targets, milestones or outcomes.
+          </p>
+
+          <p>
+            Instead of treating every engagement as a standard fixed service,
+            the Reward Plan can introduce an agreed incentive for reaching a
+            defined objective.
+          </p>
+
+          <p>
+            The exact reward, target, timeframe and measurement method should be
+            discussed and agreed before the engagement begins.
+          </p>
+
+        </div>
+
+
+        <div class="highlight-box">
+
+          <h3>
+            Clear targets matter
+          </h3>
+
+          <p>
+            A reward should never depend on vague expectations. Both sides
+            should understand exactly what achievement qualifies for the
+            incentive.
+          </p>
+
+          <p>
+            Rewards are performance incentives, not guarantees of sales,
+            rankings, revenue or any other specific business result.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          02 • THE ENGAGEMENT
+        </div>
+
+        <h2>
+          How the Reward Plan Works
+        </h2>
+
+        <p>
+          A simple structure makes the incentive understandable and fair.
+        </p>
+
+      </div>
+
+
+      <div class="steps">
+
+        <div class="step">
+
+          <div class="step-number">
+            01
+          </div>
+
+          <div>
+
+            <h3>
+              Define the Objective
+            </h3>
+
+            <p>
+              We identify the business objective or achievement that the
+              reward will be connected to.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            02
+          </div>
+
+          <div>
+
+            <h3>
+              Set the Target
+            </h3>
+
+            <p>
+              The target, milestone or qualifying condition is clearly defined
+              before implementation begins.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            03
+          </div>
+
+          <div>
+
+            <h3>
+              Agree the Reward
+            </h3>
+
+            <p>
+              Both sides agree what the incentive will be if the defined
+              condition is achieved.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            04
+          </div>
+
+          <div>
+
+            <h3>
+              Implement the Work
+            </h3>
+
+            <p>
+              The agreed e-commerce, marketing, SEO, CRO or other project work
+              is carried out.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            05
+          </div>
+
+          <div>
+
+            <h3>
+              Measure Performance
+            </h3>
+
+            <p>
+              Performance is reviewed against the agreed target and
+              measurement method.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            06
+          </div>
+
+          <div>
+
+            <h3>
+              Apply the Reward
+            </h3>
+
+            <p>
+              Where the agreed qualifying condition is achieved, the reward is
+              applied according to the original agreement.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- POSSIBLE REWARD AREAS -->
+  <section class="reward-area">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          03 • POSSIBLE INCENTIVE AREAS
+        </div>
+
+        <h2>
+          What Can the Reward Be Connected To?
+        </h2>
+
+        <p>
+          The right target depends on the project and should be realistic,
+          measurable and relevant to the work being performed.
+        </p>
+
+      </div>
+
+
+      <div class="reward-grid">
+
+        <div class="reward-card">
+
+          <span>01</span>
+
+          <h3>
+            Project Milestones
+          </h3>
+
+          <p>
+            A reward can be connected to the successful completion of clearly
+            defined project stages or deliverables.
+          </p>
+
+        </div>
+
+
+        <div class="reward-card">
+
+          <span>02</span>
+
+          <h3>
+            Conversion Improvements
+          </h3>
+
+          <p>
+            Where sufficient data exists, incentives may be connected to agreed
+            conversion-related improvements.
+          </p>
+
+        </div>
+
+
+        <div class="reward-card">
+
+          <span>03</span>
+
+          <h3>
+            Sales Outcomes
+          </h3>
+
+          <p>
+            In suitable arrangements, an incentive may be connected to defined
+            sales or order milestones.
+          </p>
+
+        </div>
+
+
+        <div class="reward-card">
+
+          <span>04</span>
+
+          <h3>
+            Marketing Milestones
+          </h3>
+
+          <p>
+            Campaign or acquisition milestones can be considered when they can
+            be measured fairly.
+          </p>
+
+        </div>
+
+
+        <div class="reward-card">
+
+          <span>05</span>
+
+          <h3>
+            Growth Targets
+          </h3>
+
+          <p>
+            Specific growth objectives can form part of an incentive structure
+            where the measurement framework is appropriate.
+          </p>
+
+        </div>
+
+
+        <div class="reward-card">
+
+          <span>06</span>
+
+          <h3>
+            Strategic Achievements
+          </h3>
+
+          <p>
+            Other meaningful business or project achievements can be considered
+            where both sides agree on the criteria.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BENEFITS -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          04 • BENEFITS
+        </div>
+
+        <h2>
+          Why Consider a Reward Structure?
+        </h2>
+
+        <p>
+          Incentives can encourage focus around objectives that matter to the
+          business and the project.
+        </p>
+
+      </div>
+
+
+      <div class="benefits-grid">
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            01
+          </div>
+
+          <h3>
+            Encourages Performance
+          </h3>
+
+          <p>
+            A clearly defined incentive can create additional motivation around
+            an agreed objective.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            02
+          </div>
+
+          <h3>
+            Aligns Objectives
+          </h3>
+
+          <p>
+            The structure can connect professional effort with outcomes that
+            are important to the business.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            03
+          </div>
+
+          <h3>
+            Rewards Achievement
+          </h3>
+
+          <p>
+            When agreed conditions are achieved, the professional can receive
+            additional recognition or compensation.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            04
+          </div>
+
+          <h3>
+            Flexible Structure
+          </h3>
+
+          <p>
+            Incentives can be designed around the specific nature of a project
+            rather than forcing every engagement into one model.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            05
+          </div>
+
+          <h3>
+            Focused Priorities
+          </h3>
+
+          <p>
+            Clear targets help identify which outcomes deserve the greatest
+            attention during the engagement.
+          </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+          <div class="benefit-icon">
+            06
+          </div>
+
+          <h3>
+            Partnership Mindset
+          </h3>
+
+          <p>
+            A well-structured reward arrangement can encourage both sides to
+            focus on the same agreed objectives.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ADVANTAGES / DISADVANTAGES -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          05 • MAKE AN INFORMED DECISION
+        </div>
+
+        <h2>
+          Advantages & Disadvantages
+        </h2>
+
+        <p>
+          Reward structures can be powerful, but they need realistic targets
+          and clear rules.
+        </p>
+
+      </div>
+
+
+      <div class="pros-cons">
+
+        <div class="pros">
+
+          <h3>
+            Advantages
+          </h3>
+
+          <ul>
+
+            <li>
+              Creates additional motivation around agreed objectives.
+            </li>
+
+            <li>
+              Connects incentives to measurable achievements.
+            </li>
+
+            <li>
+              Can encourage a strong focus on commercial priorities.
+            </li>
+
+            <li>
+              Provides a way to recognize exceptional or additional
+              performance.
+            </li>
+
+            <li>
+              Can be adapted to different project structures.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="cons">
+
+          <h3>
+            Disadvantages & Risks
+          </h3>
+
+          <ul>
+
+            <li>
+              Poorly defined targets can create disagreement about whether a
+              reward has been earned.
+            </li>
+
+            <li>
+              Some business outcomes depend on factors outside the specialist's
+              control.
+            </li>
+
+            <li>
+              Attribution can become difficult when several people or channels
+              contribute to an outcome.
+            </li>
+
+            <li>
+              Incentives can encourage the wrong behavior if targets are not
+              carefully selected.
+            </li>
+
+            <li>
+              Performance data must be sufficiently reliable for fair
+              evaluation.
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WHO SHOULD CONSIDER -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          06 • IS IT RIGHT FOR YOU?
+        </div>
+
+        <h2>
+          Who Should Consider the Reward Plan?
+        </h2>
+
+        <p>
+          This model is most useful when the business has a clearly defined
+          objective and can reasonably measure the achievement.
+        </p>
+
+      </div>
+
+
+      <div class="who-grid">
+
+        <div class="who-card">
+
+          <h3>
+            Good Fit
+          </h3>
+
+          <ul>
+
+            <li>
+              Businesses with a clear commercial or project objective.
+            </li>
+
+            <li>
+              Owners who want additional performance incentives.
+            </li>
+
+            <li>
+              Projects where meaningful milestones can be measured.
+            </li>
+
+            <li>
+              Businesses with reliable performance information.
+            </li>
+
+            <li>
+              Owners who are comfortable agreeing clear targets in advance.
+            </li>
+
+            <li>
+              Projects where both sides want a performance-focused relationship.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="who-card">
+
+          <h3>
+            May Not Be the Best Fit
+          </h3>
+
+          <ul>
+
+            <li>
+              Businesses without a clearly measurable objective.
+            </li>
+
+            <li>
+              Projects where results depend almost entirely on external factors.
+            </li>
+
+            <li>
+              Businesses unable to provide reliable performance information.
+            </li>
+
+            <li>
+              Owners expecting guaranteed results simply because an incentive
+              exists.
+            </li>
+
+            <li>
+              Projects where multiple parties make attribution impossible.
+            </li>
+
+            <li>
+              Businesses that prefer a straightforward fixed-scope arrangement.
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- AGREEMENT -->
+  <section class="agreement">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          07 • BEFORE WE START
+        </div>
+
+        <h2>
+          What Must Be Agreed?
+        </h2>
+
+        <p>
+          The more precise the agreement, the easier it is to evaluate
+          performance fairly.
+        </p>
+
+      </div>
+
+
+      <div class="agreement-grid">
+
+        <div class="agreement-item">
+
+          <h3>
+            Target
+          </h3>
+
+          <p>
+            What specific achievement qualifies for the reward?
+          </p>
+
+        </div>
+
+
+        <div class="agreement-item">
+
+          <h3>
+            Measurement
+          </h3>
+
+          <p>
+            What data or metric will be used to determine whether the target
+            has been reached?
+          </p>
+
+        </div>
+
+
+        <div class="agreement-item">
+
+          <h3>
+            Timeframe
+          </h3>
+
+          <p>
+            When does the measurement period begin and end?
+          </p>
+
+        </div>
+
+
+        <div class="agreement-item">
+
+          <h3>
+            Reward
+          </h3>
+
+          <p>
+            What exactly will be provided if the agreed condition is achieved?
+          </p>
+
+        </div>
+
+
+        <div class="agreement-item">
+
+          <h3>
+            Attribution
+          </h3>
+
+          <p>
+            How will the parties determine which outcomes are connected to the
+            agreed work?
+          </p>
+
+        </div>
+
+
+        <div class="agreement-item">
+
+          <h3>
+            Responsibilities
+          </h3>
+
+          <p>
+            What responsibilities belong to the specialist and what remains
+            under the business's control?
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MEASUREMENT -->
+  <section>
+
+    <div class="container">
+
+      <div class="measurement-box">
+
+        <h2>
+          Measure the Right Things
+        </h2>
+
+        <p>
+          A reward should be connected to metrics that genuinely reflect the
+          agreed objective. Depending on the project, measurement may involve
+          several indicators.
+        </p>
+
+
+        <div class="metrics-list">
+
+          <div class="metric">
+            <strong>Orders</strong>
+            <span>
+              Relevant purchases within the agreed measurement framework.
+            </span>
+          </div>
+
+
+          <div class="metric">
+            <strong>Revenue</strong>
+            <span>
+              Commercial revenue associated with the agreed objective.
+            </span>
+          </div>
+
+
+          <div class="metric">
+            <strong>Conversion</strong>
+            <span>
+              Changes in the rate at which visitors complete desired actions.
+            </span>
+          </div>
+
+
+          <div class="metric">
+            <strong>Traffic</strong>
+            <span>
+              Relevant visitors generated through agreed acquisition activity.
+            </span>
+          </div>
+
+
+          <div class="metric">
+            <strong>Retention</strong>
+            <span>
+              Repeat purchases or customer engagement where appropriate.
+            </span>
+          </div>
+
+
+          <div class="metric">
+            <strong>Milestones</strong>
+            <span>
+              Clearly defined project or business achievements.
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BIGGER PICTURE -->
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="number">
+          08 • THE BIGGER PICTURE
+        </div>
+
+        <h2>
+          The Goal Is Better Alignment
+        </h2>
+
+        <p>
+          The Reward Plan is not simply about paying an additional amount. It
+          is about creating a clear relationship between effort, objectives and
+          recognized achievement.
+        </p>
+
+      </div>
+
+
+      <div class="content-card">
+
+        <h3>
+          From effort to measurable achievement
+        </h3>
+
+        <p>
+          Good e-commerce work involves many connected areas. Store structure,
+          product presentation, customer experience, SEO, marketing,
+          conversion and retention can all influence business performance.
+        </p>
+
+        <p>
+          A reward structure can help identify one or more specific outcomes
+          that deserve additional recognition.
+        </p>
+
+        <p>
+          <strong>
+            Objective → Strategy → Implementation → Measurement → Achievement →
+            Reward
+          </strong>
+        </p>
+
+        <p>
+          The important part is that the target is realistic, measurable and
+          agreed by both sides before the work begins.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta">
+
+    <div class="container">
+
+      <div class="cta-box">
+
+        <h2>
+          Want to Build a Reward-Based Arrangement?
+        </h2>
+
+        <p>
+          Tell me what you are trying to achieve and what type of performance
+          you want to recognize. We can discuss whether a reward structure
+          makes sense and define the target, measurement method and terms before
+          starting.
+        </p>
+
+
+        <div class="cta-buttons">
+
+          <a href="contact.html" class="btn btn-primary">
+            Discuss the Reward Plan
+          </a>
+
+          <a href="audit.html" class="btn btn-outline">
+            Get a Free Audit
+          </a>
+
+          <a href="pricing.html" class="btn btn-outline">
+            View All Plans
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-grid">
+
+      <div>
+
+        <h3>
+          GUNKOWII SABA
+        </h3>
+
+        <p>
+          E-commerce & Digital Marketing Expert focused on Shopify, Etsy, SEO,
+          CRO, digital marketing, email marketing and web development.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Explore
+        </h3>
+
+        <div class="footer-links">
+
+          <a href="services.html">
+            Services
+          </a>
+
+          <a href="portfolio.html">
+            Portfolio
+          </a>
+
+          <a href="pricing.html">
+            Plans
+          </a>
+
+          <a href="process.html">
+            Process
+          </a>
+
+          <a href="audit.html">
+            Free Audit
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Connect
+        </h3>
+
+        <div class="footer-links">
+
+          <a href="contact.html">
+            Contact
+          </a>
+
+          <a href="https://wa.me/message/V26H2754ROXUB1">
+            WhatsApp
+          </a>
+
+          <a href="https://github.com/gunkowii248656-alt">
+            GitHub
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="copyright">
+      © 2026 GUNKOWII SABA • E-COMMERCE • DIGITAL • TECHNOLOGY
+    </div>
+
+  </footer>
+
+</body>
+</html>
