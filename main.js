@@ -72,12 +72,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     LIVE POPUP STYLES
+     GUNKOWII AI — PROFILE IMAGE
+     ===================================================== */
+
+  const aiProfileImage =
+    "Screenshot_2026-09-04-12-55-24-480_com.openai.chatgpt-edit.jpg";
+
+
+  /* =====================================================
+     LIVE POPUP + AI STYLES
      ===================================================== */
 
   const popupStyles = document.createElement("style");
 
   popupStyles.textContent = `
+
+    /* =====================================================
+       LIVE ACTIVITY POPUP
+       ===================================================== */
 
     .gunkowii-live-popup {
       position: fixed;
@@ -210,29 +222,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    @media (max-width: 600px) {
-
-      .gunkowii-live-popup {
-        left: 16px;
-        right: 16px;
-        bottom: 16px;
-        width: auto;
-        max-width: none;
-        padding: 16px;
-      }
-
-      .gunkowii-live-icon {
-        width: 39px;
-        height: 39px;
-        font-size: 17px;
-      }
-
-      .gunkowii-live-message {
-        font-size: 12.5px;
-      }
-
-    }
-
 
     /* =====================================================
        GUNKOWII AI BUTTON
@@ -246,19 +235,20 @@ document.addEventListener("DOMContentLoaded", function () {
       width: 62px;
       height: 62px;
 
-      border: 1px solid #d4af37;
+      padding: 0;
+
+      border: 2px solid #d4af37;
       border-radius: 50%;
 
       background: #063d2e;
-      color: #e3c65a;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      font-size: 27px;
-
       cursor: pointer;
+
+      overflow: visible;
 
       z-index: 100000;
 
@@ -277,6 +267,16 @@ document.addEventListener("DOMContentLoaded", function () {
         0 18px 40px rgba(0,0,0,.28);
     }
 
+    .gunkowii-ai-button img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      border-radius: 50%;
+    }
 
     .gunkowii-ai-button::after {
       content: "";
@@ -286,10 +286,12 @@ document.addEventListener("DOMContentLoaded", function () {
       width: 10px;
       height: 10px;
 
-      right: 3px;
-      top: 3px;
+      right: 1px;
+      top: 1px;
 
       background: #d4af37;
+
+      border: 2px solid #fffdf8;
 
       border-radius: 50%;
 
@@ -298,7 +300,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       animation: gunkowiiAiPulse 1.8s infinite;
     }
-
 
     @keyframes gunkowiiAiPulse {
 
@@ -366,7 +367,6 @@ document.addEventListener("DOMContentLoaded", function () {
       flex-direction: column;
     }
 
-
     .gunkowii-ai-chat.open {
       opacity: 1;
       visibility: visible;
@@ -377,7 +377,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* AI HEADER */
+    /* =====================================================
+       AI HEADER
+       ===================================================== */
 
     .gunkowii-ai-header {
       background: #063d2e;
@@ -394,31 +396,42 @@ document.addEventListener("DOMContentLoaded", function () {
         1px solid rgba(212,175,55,.4);
     }
 
-
     .gunkowii-ai-brand {
       display: flex;
       align-items: center;
       gap: 11px;
     }
 
-
     .gunkowii-ai-avatar {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
 
-      border-radius: 12px;
+      flex-shrink: 0;
+
+      border-radius: 50%;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
       background: #d4af37;
-      color: #063d2e;
 
-      font-size: 21px;
-      font-weight: bold;
+      overflow: hidden;
+
+      border: 2px solid #e3c65a;
+
+      box-shadow:
+        0 3px 12px rgba(0,0,0,.22);
     }
 
+    .gunkowii-ai-avatar img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
+    }
 
     .gunkowii-ai-title {
       font-size: 15px;
@@ -426,7 +439,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       margin-bottom: 2px;
     }
-
 
     .gunkowii-ai-status {
       display: flex;
@@ -438,7 +450,6 @@ document.addEventListener("DOMContentLoaded", function () {
       font-size: 11px;
     }
 
-
     .gunkowii-ai-status-dot {
       width: 6px;
       height: 6px;
@@ -447,7 +458,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       border-radius: 50%;
     }
-
 
     .gunkowii-ai-close {
       width: 30px;
@@ -467,13 +477,14 @@ document.addEventListener("DOMContentLoaded", function () {
       transition: .2s ease;
     }
 
-
     .gunkowii-ai-close:hover {
       background: rgba(255,255,255,.1);
     }
 
 
-    /* AI MESSAGES */
+    /* =====================================================
+       AI MESSAGES
+       ===================================================== */
 
     .gunkowii-ai-messages {
       flex: 1;
@@ -484,7 +495,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       background: #f7f2e8;
     }
-
 
     .gunkowii-ai-message {
       max-width: 88%;
@@ -500,7 +510,6 @@ document.addEventListener("DOMContentLoaded", function () {
       line-height: 1.55;
     }
 
-
     .gunkowii-ai-message.bot {
       background: #fff;
 
@@ -511,7 +520,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       border-top-left-radius: 4px;
     }
-
 
     .gunkowii-ai-message.user {
       margin-left: auto;
@@ -524,7 +532,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* QUICK QUESTIONS */
+    /* =====================================================
+       QUICK QUESTIONS
+       ===================================================== */
 
     .gunkowii-ai-quick {
       padding: 10px 14px;
@@ -539,7 +549,6 @@ document.addEventListener("DOMContentLoaded", function () {
       border-top:
         1px solid #e7dece;
     }
-
 
     .gunkowii-ai-quick button {
       flex-shrink: 0;
@@ -564,7 +573,6 @@ document.addEventListener("DOMContentLoaded", function () {
       transition: .2s ease;
     }
 
-
     .gunkowii-ai-quick button:hover {
       background: #063d2e;
 
@@ -572,7 +580,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* AI INPUT */
+    /* =====================================================
+       AI INPUT
+       ===================================================== */
 
     .gunkowii-ai-input-area {
       display: flex;
@@ -586,7 +596,6 @@ document.addEventListener("DOMContentLoaded", function () {
       border-top:
         1px solid #e7dece;
     }
-
 
     .gunkowii-ai-input {
       flex: 1;
@@ -611,14 +620,12 @@ document.addEventListener("DOMContentLoaded", function () {
       outline: none;
     }
 
-
     .gunkowii-ai-input:focus {
       border-color: #c9a227;
 
       box-shadow:
         0 0 0 3px rgba(201,162,39,.10);
     }
-
 
     .gunkowii-ai-send {
       width: 44px;
@@ -643,11 +650,9 @@ document.addEventListener("DOMContentLoaded", function () {
       transition: .2s ease;
     }
 
-
     .gunkowii-ai-send:hover {
       background: #0b503e;
     }
-
 
     .gunkowii-ai-note {
       text-align: center;
@@ -663,7 +668,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
     @media (max-width: 600px) {
+
+      .gunkowii-live-popup {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        width: auto;
+        max-width: none;
+        padding: 16px;
+      }
+
+      .gunkowii-live-icon {
+        width: 39px;
+        height: 39px;
+        font-size: 17px;
+      }
+
+      .gunkowii-live-message {
+        font-size: 12.5px;
+      }
 
       .gunkowii-ai-button {
         right: 18px;
@@ -671,10 +699,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         width: 56px;
         height: 56px;
-
-        font-size: 24px;
       }
-
 
       .gunkowii-ai-chat {
         right: 16px;
@@ -898,8 +923,12 @@ document.addEventListener("DOMContentLoaded", function () {
     "Open GUNKOWII AI"
   );
 
-  aiButton.innerHTML =
-    "🤖";
+  aiButton.innerHTML = `
+    <img
+      src="${aiProfileImage}"
+      alt="GUNKOWII SABA"
+    >
+  `;
 
   document.body.appendChild(aiButton);
 
@@ -921,7 +950,10 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="gunkowii-ai-brand">
 
         <div class="gunkowii-ai-avatar">
-          ✦
+          <img
+            src="${aiProfileImage}"
+            alt="GUNKOWII SABA"
+          >
         </div>
 
         <div>
