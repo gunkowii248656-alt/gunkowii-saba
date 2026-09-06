@@ -237,6 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     .gunkowii-ai-button {
       position: fixed;
+
       right: 24px;
       bottom: 24px;
 
@@ -254,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
       align-items: center;
       justify-content: center;
 
-      cursor: pointer;
+      cursor: grab;
 
       overflow: visible;
 
@@ -266,6 +267,21 @@ document.addEventListener("DOMContentLoaded", function () {
       transition:
         transform .3s ease,
         box-shadow .3s ease;
+      
+      touch-action: none;
+
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .gunkowii-ai-button:active {
+      cursor: grabbing;
+    }
+
+    .gunkowii-ai-button.dragging {
+      cursor: grabbing;
+      transition: none;
+      transform: scale(1.03);
     }
 
     .gunkowii-ai-button:hover {
@@ -273,6 +289,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       box-shadow:
         0 18px 40px rgba(0,0,0,.28);
+    }
+
+    .gunkowii-ai-button.dragging:hover {
+      transform: scale(1.03);
     }
 
     .gunkowii-ai-button img {
@@ -284,6 +304,8 @@ document.addEventListener("DOMContentLoaded", function () {
       object-fit: cover;
 
       border-radius: 50%;
+
+      pointer-events: none;
     }
 
     .gunkowii-ai-button::after {
@@ -307,6 +329,8 @@ document.addEventListener("DOMContentLoaded", function () {
         0 0 0 4px rgba(212,175,55,.15);
 
       animation: gunkowiiAiPulse 1.8s infinite;
+
+      pointer-events: none;
     }
 
     @keyframes gunkowiiAiPulse {
@@ -384,6 +408,10 @@ document.addEventListener("DOMContentLoaded", function () {
         scale(1);
     }
 
+    .gunkowii-ai-chat.dragging {
+      transition: none;
+    }
+
 
     /* =====================================================
        AI HEADER
@@ -402,12 +430,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
       border-bottom:
         1px solid rgba(212,175,55,.4);
+
+      cursor: grab;
+
+      touch-action: none;
+
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .gunkowii-ai-header:active {
+      cursor: grabbing;
     }
 
     .gunkowii-ai-brand {
       display: flex;
       align-items: center;
       gap: 11px;
+
+      pointer-events: none;
     }
 
     .gunkowii-ai-avatar {
@@ -483,6 +524,11 @@ document.addEventListener("DOMContentLoaded", function () {
       border-radius: 6px;
 
       transition: .2s ease;
+
+      position: relative;
+      z-index: 2;
+
+      touch-action: manipulation;
     }
 
     .gunkowii-ai-close:hover {
@@ -543,6 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
       color: #927116;
       font-weight: 800;
       text-decoration: underline;
+      word-break: break-word;
     }
 
     .gunkowii-ai-message.user {
@@ -1155,30 +1202,296 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     OPEN / CLOSE AI
+     DRAGGABLE GUNKOWII AI BUTTON
      ===================================================== */
 
-  function openAI() {
+  const AI_POSITION_KEY =
+    "gunkowii_ai_button_position";
 
-    aiChat.classList.add("open");
 
-    setTimeout(function () {
-      aiInput.focus();
-    }, 250);
+  function keepInsideScreen(
+    x,
+    y,
+    element
+  ) {
+
+    const rect =
+      element.getBoundingClientRect();
+
+    const margin = 8;
+
+    const maxX =
+      window.innerWidth -
+      rect.width -
+      margin;
+
+    const maxY =
+      window.innerHeight -
+      rect.height -
+      margin;
+
+    return {
+      x: Math.max(
+        margin,
+        Math.min(x, maxX)
+      ),
+
+      y: Math.max(
+        margin,
+        Math.min(y, maxY)
+      )
+    };
 
   }
 
 
-  function closeAI() {
+  function saveAIPosition(
+    x,
+    y
+  ) {
 
-    aiChat.classList.remove("open");
+    try {
+
+      localStorage.setItem(
+        AI_POSITION_KEY,
+        JSON.stringify({
+          x: x,
+          y: y
+        })
+      );
+
+    } catch (error) {
+
+      console.warn(
+        "Unable to save GUNKOWII AI position.",
+        error
+      );
+
+    }
+
+  }
+
+
+  function loadAIPosition() {
+
+    try {
+
+      const saved =
+        localStorage.getItem(
+          AI_POSITION_KEY
+        );
+
+      if (!saved) {
+        return;
+      }
+
+      const position =
+        JSON.parse(saved);
+
+      if (
+        typeof position.x !== "number" ||
+        typeof position.y !== "number"
+      ) {
+        return;
+      }
+
+      const safe =
+        keepInsideScreen(
+          position.x,
+          position.y,
+          aiButton
+        );
+
+      aiButton.style.left =
+        safe.x + "px";
+
+      aiButton.style.top =
+        safe.y + "px";
+
+      aiButton.style.right =
+        "auto";
+
+      aiButton.style.bottom =
+        "auto";
+
+    } catch (error) {
+
+      console.warn(
+        "Unable to load GUNKOWII AI position.",
+        error
+      );
+
+    }
+
+  }
+
+
+  let aiButtonDragging = false;
+  let aiButtonMoved = false;
+  let aiButtonStartX = 0;
+  let aiButtonStartY = 0;
+  let aiButtonOriginX = 0;
+  let aiButtonOriginY = 0;
+
+
+  function startAIButtonDrag(
+    event
+  ) {
+
+    if (
+      event.type === "mousedown" &&
+      event.button !== 0
+    ) {
+      return;
+    }
+
+    const rect =
+      aiButton.getBoundingClientRect();
+
+    aiButtonDragging = true;
+    aiButtonMoved = false;
+
+    aiButtonStartX =
+      event.clientX;
+
+    aiButtonStartY =
+      event.clientY;
+
+    aiButtonOriginX =
+      rect.left;
+
+    aiButtonOriginY =
+      rect.top;
+
+    aiButton.classList.add(
+      "dragging"
+    );
+
+    if (
+      event.pointerId !== undefined
+    ) {
+
+      try {
+
+        aiButton.setPointerCapture(
+          event.pointerId
+        );
+
+      } catch (error) {}
+
+    }
+
+    event.preventDefault();
+
+  }
+
+
+  function moveAIButton(
+    event
+  ) {
+
+    if (!aiButtonDragging) {
+      return;
+    }
+
+    const deltaX =
+      event.clientX -
+      aiButtonStartX;
+
+    const deltaY =
+      event.clientY -
+      aiButtonStartY;
+
+    if (
+      Math.abs(deltaX) > 4 ||
+      Math.abs(deltaY) > 4
+    ) {
+      aiButtonMoved = true;
+    }
+
+    const position =
+      keepInsideScreen(
+        aiButtonOriginX + deltaX,
+        aiButtonOriginY + deltaY,
+        aiButton
+      );
+
+    aiButton.style.left =
+      position.x + "px";
+
+    aiButton.style.top =
+      position.y + "px";
+
+    aiButton.style.right =
+      "auto";
+
+    aiButton.style.bottom =
+      "auto";
+
+  }
+
+
+  function endAIButtonDrag() {
+
+    if (!aiButtonDragging) {
+      return;
+    }
+
+    aiButtonDragging = false;
+
+    aiButton.classList.remove(
+      "dragging"
+    );
+
+    const rect =
+      aiButton.getBoundingClientRect();
+
+    saveAIPosition(
+      rect.left,
+      rect.top
+    );
 
   }
 
 
   aiButton.addEventListener(
+    "pointerdown",
+    startAIButtonDrag
+  );
+
+  aiButton.addEventListener(
+    "pointermove",
+    moveAIButton
+  );
+
+  aiButton.addEventListener(
+    "pointerup",
+    endAIButtonDrag
+  );
+
+  aiButton.addEventListener(
+    "pointercancel",
+    endAIButtonDrag
+  );
+
+
+  /* =====================================================
+     PREVENT CLICK AFTER DRAG
+     ===================================================== */
+
+  aiButton.addEventListener(
     "click",
-    function () {
+    function (event) {
+
+      if (aiButtonMoved) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        aiButtonMoved = false;
+
+        return;
+      }
 
       if (
         aiChat.classList.contains("open")
@@ -1192,9 +1505,264 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
 
+  /* =====================================================
+     RESTORE SAVED AI BUTTON POSITION
+     ===================================================== */
+
+  setTimeout(
+    loadAIPosition,
+    50
+  );
+
+
+  /* =====================================================
+     KEEP AI BUTTON ON SCREEN AFTER RESIZE
+     ===================================================== */
+
+  window.addEventListener(
+    "resize",
+    function () {
+
+      const rect =
+        aiButton.getBoundingClientRect();
+
+      const safe =
+        keepInsideScreen(
+          rect.left,
+          rect.top,
+          aiButton
+        );
+
+      aiButton.style.left =
+        safe.x + "px";
+
+      aiButton.style.top =
+        safe.y + "px";
+
+      aiButton.style.right =
+        "auto";
+
+      aiButton.style.bottom =
+        "auto";
+
+      saveAIPosition(
+        safe.x,
+        safe.y
+      );
+
+    }
+  );
+
+
+  /* =====================================================
+     DRAGGABLE AI CHAT WINDOW
+     ===================================================== */
+
+  const aiHeader =
+    aiChat.querySelector(
+      ".gunkowii-ai-header"
+    );
+
+
+  let aiChatDragging = false;
+  let aiChatMoved = false;
+  let aiChatStartX = 0;
+  let aiChatStartY = 0;
+  let aiChatOriginX = 0;
+  let aiChatOriginY = 0;
+
+
+  function startAIChatDrag(
+    event
+  ) {
+
+    if (
+      event.target.closest(
+        ".gunkowii-ai-close"
+      )
+    ) {
+      return;
+    }
+
+    const rect =
+      aiChat.getBoundingClientRect();
+
+    aiChatDragging = true;
+    aiChatMoved = false;
+
+    aiChatStartX =
+      event.clientX;
+
+    aiChatStartY =
+      event.clientY;
+
+    aiChatOriginX =
+      rect.left;
+
+    aiChatOriginY =
+      rect.top;
+
+    aiChat.classList.add(
+      "dragging"
+    );
+
+    if (
+      event.pointerId !== undefined
+    ) {
+
+      try {
+
+        aiHeader.setPointerCapture(
+          event.pointerId
+        );
+
+      } catch (error) {}
+
+    }
+
+    event.preventDefault();
+
+  }
+
+
+  function moveAIChat(
+    event
+  ) {
+
+    if (!aiChatDragging) {
+      return;
+    }
+
+    const deltaX =
+      event.clientX -
+      aiChatStartX;
+
+    const deltaY =
+      event.clientY -
+      aiChatStartY;
+
+    if (
+      Math.abs(deltaX) > 4 ||
+      Math.abs(deltaY) > 4
+    ) {
+      aiChatMoved = true;
+    }
+
+    const rect =
+      aiChat.getBoundingClientRect();
+
+    const margin = 8;
+
+    const maxX =
+      window.innerWidth -
+      rect.width -
+      margin;
+
+    const maxY =
+      window.innerHeight -
+      rect.height -
+      margin;
+
+    const newX =
+      Math.max(
+        margin,
+        Math.min(
+          aiChatOriginX + deltaX,
+          maxX
+        )
+      );
+
+    const newY =
+      Math.max(
+        margin,
+        Math.min(
+          aiChatOriginY + deltaY,
+          maxY
+        )
+      );
+
+    aiChat.style.left =
+      newX + "px";
+
+    aiChat.style.top =
+      newY + "px";
+
+    aiChat.style.right =
+      "auto";
+
+    aiChat.style.bottom =
+      "auto";
+
+  }
+
+
+  function endAIChatDrag() {
+
+    if (!aiChatDragging) {
+      return;
+    }
+
+    aiChatDragging = false;
+
+    aiChat.classList.remove(
+      "dragging"
+    );
+
+  }
+
+
+  aiHeader.addEventListener(
+    "pointerdown",
+    startAIChatDrag
+  );
+
+  aiHeader.addEventListener(
+    "pointermove",
+    moveAIChat
+  );
+
+  aiHeader.addEventListener(
+    "pointerup",
+    endAIChatDrag
+  );
+
+  aiHeader.addEventListener(
+    "pointercancel",
+    endAIChatDrag
+  );
+
+
+  /* =====================================================
+     OPEN / CLOSE AI
+     ===================================================== */
+
+  function openAI() {
+
+    aiChat.classList.add("open");
+
+    setTimeout(function () {
+
+      aiInput.focus();
+
+    }, 250);
+
+  }
+
+
+  function closeAI() {
+
+    aiChat.classList.remove("open");
+
+  }
+
+
   aiClose.addEventListener(
     "click",
-    closeAI
+    function () {
+
+      closeAI();
+
+    }
   );
 
 
@@ -1205,30 +1773,95 @@ document.addEventListener("DOMContentLoaded", function () {
   function formatAIResponse(text) {
 
     if (!text) {
-      return "I'm sorry, I couldn't generate a response right now.";
+
+      return `
+        I'm sorry, I couldn't generate a response right now.
+      `;
+
     }
 
-    let safeText = String(text)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+    let safeText =
+      String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 
-    safeText = safeText.replace(
-      /(https?:\/\/[^\s<]+)/g,
-      '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
-    );
 
-    safeText = safeText.replace(
-      /\*\*(.*?)\*\*/g,
-      "<strong>$1</strong>"
-    );
+    /* -----------------------------------------------------
+       MARKDOWN LINKS
+       Convert [text](url) before bare URL detection.
+       This prevents broken nested links.
+       ----------------------------------------------------- */
 
-    safeText = safeText.replace(
-      /\n/g,
-      "<br>"
-    );
+    safeText =
+      safeText.replace(
+        /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+      );
+
+
+    /* -----------------------------------------------------
+       BARE URLS
+       ----------------------------------------------------- */
+
+    safeText =
+      safeText.replace(
+        /(^|[\s>])(https?:\/\/[^\s<]+)/g,
+        function (
+          match,
+          prefix,
+          url
+        ) {
+
+          let cleanUrl =
+            url.replace(
+              /[),.!?]+$/,
+              ""
+            );
+
+          let trailing =
+            url.substring(
+              cleanUrl.length
+            );
+
+          return (
+            prefix +
+            '<a href="' +
+            cleanUrl +
+            '" target="_blank" rel="noopener noreferrer">' +
+            cleanUrl +
+            "</a>" +
+            trailing
+          );
+
+        }
+      );
+
+
+    /* -----------------------------------------------------
+       BOLD TEXT
+       ----------------------------------------------------- */
+
+    safeText =
+      safeText.replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong>"
+      );
+
+
+    /* -----------------------------------------------------
+       LINE BREAKS
+       ----------------------------------------------------- */
+
+    safeText =
+      safeText.replace(
+        /\n/g,
+        "<br>"
+      );
+
 
     return safeText;
+
   }
 
 
@@ -1251,10 +1884,13 @@ document.addEventListener("DOMContentLoaded", function () {
     message.innerHTML =
       text;
 
-    aiMessages.appendChild(message);
+    aiMessages.appendChild(
+      message
+    );
 
     aiMessages.scrollTop =
       aiMessages.scrollHeight;
+
   }
 
 
@@ -1281,7 +1917,9 @@ document.addEventListener("DOMContentLoaded", function () {
       </span>
     `;
 
-    aiMessages.appendChild(typing);
+    aiMessages.appendChild(
+      typing
+    );
 
     aiMessages.scrollTop =
       aiMessages.scrollHeight;
@@ -1297,7 +1935,9 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
     if (typing) {
+
       typing.remove();
+
     }
 
   }
@@ -1307,7 +1947,9 @@ document.addEventListener("DOMContentLoaded", function () {
      REAL AI RESPONSE
      ===================================================== */
 
-  async function getAIResponse(question) {
+  async function getAIResponse(
+    question
+  ) {
 
     try {
 
@@ -1318,12 +1960,15 @@ document.addEventListener("DOMContentLoaded", function () {
             method: "POST",
 
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type":
+                "application/json"
             },
 
             body: JSON.stringify({
-              message: question
+              message:
+                question
             })
+
           }
         );
 
@@ -1331,9 +1976,14 @@ document.addEventListener("DOMContentLoaded", function () {
       let data = {};
 
       try {
-        data = await response.json();
+
+        data =
+          await response.json();
+
       } catch (jsonError) {
+
         data = {};
+
       }
 
 
@@ -1352,9 +2002,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
-      if (
-        !data.answer
-      ) {
+      if (!data.answer) {
 
         throw new Error(
           "No AI response was returned."
@@ -1393,7 +2041,9 @@ document.addEventListener("DOMContentLoaded", function () {
      SEND MESSAGE
      ===================================================== */
 
-  async function sendAIMessage(question) {
+  async function sendAIMessage(
+    question
+  ) {
 
     const cleanQuestion =
       question.trim();
@@ -1409,12 +2059,15 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    aiInput.value = "";
+    aiInput.value =
+      "";
 
 
-    aiSend.disabled = true;
+    aiSend.disabled =
+      true;
 
-    aiInput.disabled = true;
+    aiInput.disabled =
+      true;
 
 
     addTypingIndicator();
@@ -1435,9 +2088,11 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    aiSend.disabled = false;
+    aiSend.disabled =
+      false;
 
-    aiInput.disabled = false;
+    aiInput.disabled =
+      false;
 
 
     aiInput.focus();
@@ -1502,5 +2157,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
   );
+
 
 });
