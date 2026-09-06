@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  /* =========================================
+  /* =====================================================
      GUNKOWII SABA — LIVE ACTIVITY POPUP
-     ========================================= */
+     ===================================================== */
 
   const liveActivities = [
     {
@@ -71,9 +71,9 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
 
-  /* =========================================
-     POPUP STYLES
-     ========================================= */
+  /* =====================================================
+     LIVE POPUP STYLES
+     ===================================================== */
 
   const popupStyles = document.createElement("style");
 
@@ -83,37 +83,291 @@ document.addEventListener("DOMContentLoaded", function () {
       position: fixed;
       left: 24px;
       bottom: 24px;
-
       width: 350px;
       max-width: calc(100vw - 32px);
-
       background: #fffdf8;
       color: #24342e;
-
       border: 1px solid #c9a227;
       border-radius: 16px;
-
       padding: 18px;
-
       z-index: 99999;
-
       box-shadow: 0 18px 45px rgba(0,0,0,.20);
-
       opacity: 0;
       visibility: hidden;
-
-      transform:
-        translateY(25px)
-        scale(.96);
-
+      transform: translateY(25px) scale(.96);
       transition:
         opacity .4s ease,
         transform .4s ease,
         visibility .4s ease;
     }
 
-
     .gunkowii-live-popup.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .gunkowii-live-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 13px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      color: #063d2e;
+    }
+
+    .gunkowii-live-status {
+      width: 8px;
+      height: 8px;
+      background: #c9a227;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(201,162,39,.15);
+      animation: gunkowiiLivePulse 1.6s infinite;
+    }
+
+    .gunkowii-live-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+    }
+
+    .gunkowii-live-icon {
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #063d2e;
+      color: #e3c65a;
+      border-radius: 12px;
+      font-size: 19px;
+    }
+
+    .gunkowii-live-text {
+      flex: 1;
+    }
+
+    .gunkowii-live-label {
+      color: #063d2e;
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .gunkowii-live-message {
+      color: #6b7771;
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 0 0 8px;
+    }
+
+    .gunkowii-live-link {
+      display: inline-block;
+      color: #927116;
+      font-size: 12px;
+      font-weight: 800;
+      border-bottom: 1px solid #c9a227;
+      transition: .3s ease;
+    }
+
+    .gunkowii-live-link:hover {
+      color: #063d2e;
+    }
+
+    .gunkowii-live-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 25px;
+      height: 25px;
+      border: none;
+      background: transparent;
+      color: #6d7771;
+      font-size: 21px;
+      line-height: 1;
+      cursor: pointer;
+      transition: .3s ease;
+    }
+
+    .gunkowii-live-close:hover {
+      color: #063d2e;
+    }
+
+    @keyframes gunkowiiLivePulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(201,162,39,.45);
+      }
+
+      70% {
+        box-shadow: 0 0 0 7px rgba(201,162,39,0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(201,162,39,0);
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .gunkowii-live-popup {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        width: auto;
+        max-width: none;
+        padding: 16px;
+      }
+
+      .gunkowii-live-icon {
+        width: 39px;
+        height: 39px;
+        font-size: 17px;
+      }
+
+      .gunkowii-live-message {
+        font-size: 12.5px;
+      }
+
+    }
+
+
+    /* =====================================================
+       GUNKOWII AI BUTTON
+       ===================================================== */
+
+    .gunkowii-ai-button {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+
+      width: 62px;
+      height: 62px;
+
+      border: 1px solid #d4af37;
+      border-radius: 50%;
+
+      background: #063d2e;
+      color: #e3c65a;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 27px;
+
+      cursor: pointer;
+
+      z-index: 100000;
+
+      box-shadow:
+        0 12px 35px rgba(0,0,0,.22);
+
+      transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+    }
+
+    .gunkowii-ai-button:hover {
+      transform: translateY(-4px) scale(1.04);
+
+      box-shadow:
+        0 18px 40px rgba(0,0,0,.28);
+    }
+
+
+    .gunkowii-ai-button::after {
+      content: "";
+
+      position: absolute;
+
+      width: 10px;
+      height: 10px;
+
+      right: 3px;
+      top: 3px;
+
+      background: #d4af37;
+
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 0 4px rgba(212,175,55,.15);
+
+      animation: gunkowiiAiPulse 1.8s infinite;
+    }
+
+
+    @keyframes gunkowiiAiPulse {
+
+      0% {
+        box-shadow:
+          0 0 0 0 rgba(212,175,55,.45);
+      }
+
+      70% {
+        box-shadow:
+          0 0 0 7px rgba(212,175,55,0);
+      }
+
+      100% {
+        box-shadow:
+          0 0 0 0 rgba(212,175,55,0);
+      }
+
+    }
+
+
+    /* =====================================================
+       GUNKOWII AI CHAT WINDOW
+       ===================================================== */
+
+    .gunkowii-ai-chat {
+      position: fixed;
+
+      right: 24px;
+      bottom: 98px;
+
+      width: 380px;
+      max-width: calc(100vw - 32px);
+
+      height: 560px;
+      max-height: calc(100vh - 125px);
+
+      background: #fffdf8;
+
+      border:
+        1px solid rgba(212,175,55,.65);
+
+      border-radius: 18px;
+
+      overflow: hidden;
+
+      z-index: 100001;
+
+      box-shadow:
+        0 25px 65px rgba(0,0,0,.25);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transform:
+        translateY(20px)
+        scale(.97);
+
+      transition:
+        opacity .3s ease,
+        visibility .3s ease,
+        transform .3s ease;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    .gunkowii-ai-chat.open {
       opacity: 1;
       visibility: visible;
 
@@ -123,178 +377,319 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    .gunkowii-live-top {
+    /* AI HEADER */
+
+    .gunkowii-ai-header {
+      background: #063d2e;
+
+      color: #fff;
+
+      padding: 17px 18px;
+
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
 
-      margin-bottom: 13px;
-
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.8px;
-
-      color: #063d2e;
+      border-bottom:
+        1px solid rgba(212,175,55,.4);
     }
 
 
-    .gunkowii-live-status {
-      width: 8px;
-      height: 8px;
-
-      background: #c9a227;
-
-      border-radius: 50%;
-
-      box-shadow:
-        0 0 0 4px rgba(201,162,39,.15);
-
-      animation: gunkowiiLivePulse 1.6s infinite;
-    }
-
-
-    .gunkowii-live-content {
+    .gunkowii-ai-brand {
       display: flex;
-      align-items: flex-start;
-      gap: 13px;
+      align-items: center;
+      gap: 11px;
     }
 
 
-    .gunkowii-live-icon {
-      width: 43px;
-      height: 43px;
+    .gunkowii-ai-avatar {
+      width: 40px;
+      height: 40px;
 
-      flex-shrink: 0;
+      border-radius: 12px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      background: #063d2e;
-      color: #e3c65a;
-
-      border-radius: 12px;
-
-      font-size: 19px;
-    }
-
-
-    .gunkowii-live-text {
-      flex: 1;
-    }
-
-
-    .gunkowii-live-label {
+      background: #d4af37;
       color: #063d2e;
 
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+
+    .gunkowii-ai-title {
       font-size: 15px;
       font-weight: 800;
 
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
 
-    .gunkowii-live-message {
-      color: #6b7771;
+    .gunkowii-ai-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
 
-      font-size: 13px;
-      line-height: 1.55;
+      color: #dce5e0;
 
-      margin: 0 0 8px;
+      font-size: 11px;
     }
 
 
-    .gunkowii-live-link {
-      display: inline-block;
+    .gunkowii-ai-status-dot {
+      width: 6px;
+      height: 6px;
 
-      color: #927116;
+      background: #d4af37;
 
-      font-size: 12px;
-      font-weight: 800;
-
-      border-bottom: 1px solid #c9a227;
-
-      transition: .3s ease;
+      border-radius: 50%;
     }
 
 
-    .gunkowii-live-link:hover {
-      color: #063d2e;
-    }
-
-
-    .gunkowii-live-close {
-      position: absolute;
-
-      top: 8px;
-      right: 10px;
-
-      width: 25px;
-      height: 25px;
+    .gunkowii-ai-close {
+      width: 30px;
+      height: 30px;
 
       border: none;
       background: transparent;
 
-      color: #6d7771;
+      color: #fff;
 
-      font-size: 21px;
-      line-height: 1;
+      font-size: 22px;
 
       cursor: pointer;
 
-      transition: .3s ease;
+      border-radius: 6px;
+
+      transition: .2s ease;
     }
 
 
-    .gunkowii-live-close:hover {
+    .gunkowii-ai-close:hover {
+      background: rgba(255,255,255,.1);
+    }
+
+
+    /* AI MESSAGES */
+
+    .gunkowii-ai-messages {
+      flex: 1;
+
+      overflow-y: auto;
+
+      padding: 18px;
+
+      background: #f7f2e8;
+    }
+
+
+    .gunkowii-ai-message {
+      max-width: 88%;
+
+      padding: 12px 14px;
+
+      margin-bottom: 12px;
+
+      border-radius: 13px;
+
+      font-size: 13px;
+
+      line-height: 1.55;
+    }
+
+
+    .gunkowii-ai-message.bot {
+      background: #fff;
+
+      color: #35463f;
+
+      border:
+        1px solid #e4dac8;
+
+      border-top-left-radius: 4px;
+    }
+
+
+    .gunkowii-ai-message.user {
+      margin-left: auto;
+
+      background: #063d2e;
+
+      color: #fff;
+
+      border-top-right-radius: 4px;
+    }
+
+
+    /* QUICK QUESTIONS */
+
+    .gunkowii-ai-quick {
+      padding: 10px 14px;
+
+      display: flex;
+      gap: 7px;
+
+      overflow-x: auto;
+
+      background: #fffdf8;
+
+      border-top:
+        1px solid #e7dece;
+    }
+
+
+    .gunkowii-ai-quick button {
+      flex-shrink: 0;
+
+      border:
+        1px solid #c9a227;
+
+      background: #fff;
+
       color: #063d2e;
+
+      padding: 8px 10px;
+
+      border-radius: 20px;
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .2s ease;
     }
 
 
-    @keyframes gunkowiiLivePulse {
+    .gunkowii-ai-quick button:hover {
+      background: #063d2e;
 
-      0% {
-        box-shadow:
-          0 0 0 0 rgba(201,162,39,.45);
-      }
+      color: #fff;
+    }
 
-      70% {
-        box-shadow:
-          0 0 0 7px rgba(201,162,39,0);
-      }
 
-      100% {
-        box-shadow:
-          0 0 0 0 rgba(201,162,39,0);
-      }
+    /* AI INPUT */
 
+    .gunkowii-ai-input-area {
+      display: flex;
+
+      gap: 8px;
+
+      padding: 12px;
+
+      background: #fff;
+
+      border-top:
+        1px solid #e7dece;
+    }
+
+
+    .gunkowii-ai-input {
+      flex: 1;
+
+      min-width: 0;
+
+      border:
+        1px solid #d8cdbb;
+
+      border-radius: 10px;
+
+      padding: 11px 12px;
+
+      font-family: Arial, Helvetica, sans-serif;
+
+      font-size: 13px;
+
+      color: #24342e;
+
+      background: #fffdf8;
+
+      outline: none;
+    }
+
+
+    .gunkowii-ai-input:focus {
+      border-color: #c9a227;
+
+      box-shadow:
+        0 0 0 3px rgba(201,162,39,.10);
+    }
+
+
+    .gunkowii-ai-send {
+      width: 44px;
+      height: 44px;
+
+      flex-shrink: 0;
+
+      border: none;
+
+      border-radius: 10px;
+
+      background: #063d2e;
+
+      color: #e3c65a;
+
+      font-size: 17px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition: .2s ease;
+    }
+
+
+    .gunkowii-ai-send:hover {
+      background: #0b503e;
+    }
+
+
+    .gunkowii-ai-note {
+      text-align: center;
+
+      background: #fff;
+
+      color: #8a928d;
+
+      font-size: 9px;
+
+      padding:
+        0 12px 10px;
     }
 
 
     @media (max-width: 600px) {
 
-      .gunkowii-live-popup {
-        left: 16px;
+      .gunkowii-ai-button {
+        right: 18px;
+        bottom: 18px;
+
+        width: 56px;
+        height: 56px;
+
+        font-size: 24px;
+      }
+
+
+      .gunkowii-ai-chat {
         right: 16px;
-        bottom: 16px;
+        left: 16px;
+
+        bottom: 86px;
 
         width: auto;
-        max-width: none;
 
-        padding: 16px;
-      }
+        height: 530px;
 
+        max-height:
+          calc(100vh - 105px);
 
-      .gunkowii-live-icon {
-        width: 39px;
-        height: 39px;
-
-        font-size: 17px;
-      }
-
-
-      .gunkowii-live-message {
-        font-size: 12.5px;
+        border-radius: 16px;
       }
 
     }
@@ -304,9 +699,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document.head.appendChild(popupStyles);
 
 
-  /* =========================================
-     CREATE POPUP
-     ========================================= */
+  /* =====================================================
+     CREATE LIVE ACTIVITY POPUP
+     ===================================================== */
 
   const popup = document.createElement("div");
 
@@ -316,19 +711,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <button
       class="gunkowii-live-close"
-      aria-label="Close notification"
-    >
+      aria-label="Close notification">
       ×
     </button>
 
     <div class="gunkowii-live-top">
-
       <span class="gunkowii-live-status"></span>
-
       <span>LIVE ACTIVITY</span>
-
     </div>
-
 
     <div class="gunkowii-live-content">
 
@@ -336,23 +726,19 @@ document.addEventListener("DOMContentLoaded", function () {
         ⭐
       </div>
 
-
       <div class="gunkowii-live-text">
 
         <div class="gunkowii-live-label">
           Client Feedback
         </div>
 
-
         <p class="gunkowii-live-message">
           Professional communication and practical Shopify optimization.
         </p>
 
-
         <a
           href="reviews.html"
-          class="gunkowii-live-link"
-        >
+          class="gunkowii-live-link">
           View Reviews →
         </a>
 
@@ -362,13 +748,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   `;
 
-
   document.body.appendChild(popup);
 
 
-  /* =========================================
+  /* =====================================================
      POPUP ELEMENTS
-     ========================================= */
+     ===================================================== */
 
   const icon =
     popup.querySelector(".gunkowii-live-icon");
@@ -386,44 +771,33 @@ document.addEventListener("DOMContentLoaded", function () {
     popup.querySelector(".gunkowii-live-close");
 
 
-  /* =========================================
-     POPUP STATE
-     ========================================= */
-
   let currentActivity = 0;
-
   let popupTimer = null;
-
   let rotationTimer = null;
-
   let manuallyClosed = false;
 
 
-  /* =========================================
-     LOAD ACTIVITY
-     ========================================= */
-
   function loadActivity(index) {
 
-    const activity = liveActivities[index];
+    const activity =
+      liveActivities[index];
 
-    icon.textContent = activity.icon;
+    icon.textContent =
+      activity.icon;
 
-    label.textContent = activity.label;
+    label.textContent =
+      activity.label;
 
-    message.textContent = activity.text;
+    message.textContent =
+      activity.text;
 
     link.textContent =
       activity.linkText + " →";
 
-    link.href = activity.link;
-
+    link.href =
+      activity.link;
   }
 
-
-  /* =========================================
-     SHOW POPUP
-     ========================================= */
 
   function showPopup() {
 
@@ -435,29 +809,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     clearTimeout(popupTimer);
 
-    popupTimer = setTimeout(function () {
+    popupTimer =
+      setTimeout(function () {
 
-      popup.classList.remove("show");
+        popup.classList.remove("show");
 
-    }, 7000);
-
+      }, 7000);
   }
 
-
-  /* =========================================
-     HIDE POPUP
-     ========================================= */
 
   function hidePopup() {
 
     popup.classList.remove("show");
-
   }
 
-
-  /* =========================================
-     NEXT ACTIVITY
-     ========================================= */
 
   function nextActivity() {
 
@@ -468,7 +833,8 @@ document.addEventListener("DOMContentLoaded", function () {
       currentActivity++;
 
       if (
-        currentActivity >= liveActivities.length
+        currentActivity >=
+        liveActivities.length
       ) {
         currentActivity = 0;
       }
@@ -478,13 +844,8 @@ document.addEventListener("DOMContentLoaded", function () {
       showPopup();
 
     }, 500);
-
   }
 
-
-  /* =========================================
-     CLOSE BUTTON
-     ========================================= */
 
   closeButton.addEventListener(
     "click",
@@ -502,10 +863,6 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
 
-  /* =========================================
-     START POPUP
-     ========================================= */
-
   loadActivity(currentActivity);
 
 
@@ -513,16 +870,532 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showPopup();
 
+    rotationTimer =
+      setInterval(
+        function () {
 
-    rotationTimer = setInterval(
-      function () {
+          nextActivity();
 
-        nextActivity();
-
-      },
-      12000
-    );
+        },
+        12000
+      );
 
   }, 4000);
+
+
+  /* =====================================================
+     GUNKOWII AI — STAGE 1 INTERFACE
+     ===================================================== */
+
+  const aiButton =
+    document.createElement("button");
+
+  aiButton.className =
+    "gunkowii-ai-button";
+
+  aiButton.setAttribute(
+    "aria-label",
+    "Open GUNKOWII AI"
+  );
+
+  aiButton.innerHTML =
+    "🤖";
+
+  document.body.appendChild(aiButton);
+
+
+  /* =====================================================
+     CREATE AI CHAT
+     ===================================================== */
+
+  const aiChat =
+    document.createElement("div");
+
+  aiChat.className =
+    "gunkowii-ai-chat";
+
+  aiChat.innerHTML = `
+
+    <div class="gunkowii-ai-header">
+
+      <div class="gunkowii-ai-brand">
+
+        <div class="gunkowii-ai-avatar">
+          ✦
+        </div>
+
+        <div>
+
+          <div class="gunkowii-ai-title">
+            GUNKOWII AI
+          </div>
+
+          <div class="gunkowii-ai-status">
+
+            <span class="gunkowii-ai-status-dot"></span>
+
+            E-commerce Growth Assistant
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="gunkowii-ai-close"
+        aria-label="Close GUNKOWII AI">
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="gunkowii-ai-messages">
+
+      <div class="gunkowii-ai-message bot">
+
+        👋 Welcome to GUNKOWII AI.
+
+        <br><br>
+
+        I’m the digital assistant for
+        <strong>GUNKOWII SABA</strong>.
+
+        <br><br>
+
+        You can ask about Shopify, Etsy,
+        SEO, CRO, digital marketing,
+        e-commerce growth, or the services
+        available here.
+
+        <br><br>
+
+        What would you like to explore?
+
+      </div>
+
+    </div>
+
+
+    <div class="gunkowii-ai-quick">
+
+      <button data-question="How can you help with Shopify?">
+        Shopify
+      </button>
+
+      <button data-question="How can you help with Etsy?">
+        Etsy
+      </button>
+
+      <button data-question="What is CRO?">
+        CRO
+      </button>
+
+      <button data-question="Which service is right for me?">
+        Services
+      </button>
+
+      <button data-question="How can I get an audit?">
+        Free Audit
+      </button>
+
+    </div>
+
+
+    <div class="gunkowii-ai-input-area">
+
+      <input
+        type="text"
+        class="gunkowii-ai-input"
+        placeholder="Ask GUNKOWII AI..."
+        autocomplete="off">
+
+      <button
+        class="gunkowii-ai-send"
+        aria-label="Send message">
+        ➤
+      </button>
+
+    </div>
+
+
+    <div class="gunkowii-ai-note">
+      GUNKOWII AI • E-commerce & Digital Growth
+    </div>
+
+  `;
+
+  document.body.appendChild(aiChat);
+
+
+  /* =====================================================
+     AI ELEMENTS
+     ===================================================== */
+
+  const aiClose =
+    aiChat.querySelector(
+      ".gunkowii-ai-close"
+    );
+
+  const aiMessages =
+    aiChat.querySelector(
+      ".gunkowii-ai-messages"
+    );
+
+  const aiInput =
+    aiChat.querySelector(
+      ".gunkowii-ai-input"
+    );
+
+  const aiSend =
+    aiChat.querySelector(
+      ".gunkowii-ai-send"
+    );
+
+  const quickButtons =
+    aiChat.querySelectorAll(
+      ".gunkowii-ai-quick button"
+    );
+
+
+  /* =====================================================
+     OPEN / CLOSE AI
+     ===================================================== */
+
+  function openAI() {
+
+    aiChat.classList.add("open");
+
+    setTimeout(function () {
+      aiInput.focus();
+    }, 250);
+
+  }
+
+
+  function closeAI() {
+
+    aiChat.classList.remove("open");
+
+  }
+
+
+  aiButton.addEventListener(
+    "click",
+    function () {
+
+      if (
+        aiChat.classList.contains("open")
+      ) {
+        closeAI();
+      } else {
+        openAI();
+      }
+
+    }
+  );
+
+
+  aiClose.addEventListener(
+    "click",
+    closeAI
+  );
+
+
+  /* =====================================================
+     STAGE 1 DEMO RESPONSES
+     ===================================================== */
+
+  function getDemoResponse(question) {
+
+    const q =
+      question.toLowerCase();
+
+
+    if (
+      q.includes("shopify")
+    ) {
+
+      return `
+        I can help you understand Shopify store
+        structure, product pages, navigation,
+        user experience, conversion opportunities,
+        SEO and overall store optimization.
+        <br><br>
+        You can explore the
+        <a href="services.html">
+        Shopify services
+        </a>
+        or request a
+        <a href="audit.html">
+        free store audit
+        </a>.
+      `;
+    }
+
+
+    if (
+      q.includes("etsy")
+    ) {
+
+      return `
+        Etsy work can include listing optimization,
+        product presentation, keyword targeting,
+        search visibility and conversion-focused
+        improvements.
+        <br><br>
+        Visit the
+        <a href="services.html">
+        services page
+        </a>
+        to see the broader Etsy and e-commerce
+        services available.
+      `;
+    }
+
+
+    if (
+      q.includes("cro") ||
+      q.includes("conversion")
+    ) {
+
+      return `
+        CRO means Conversion Rate Optimization.
+        It focuses on improving the experience
+        visitors have before they take an important
+        action such as purchasing, submitting an
+        inquiry or contacting a business.
+        <br><br>
+        I look at areas such as product pages,
+        navigation, trust, calls to action,
+        mobile UX and customer journey friction.
+        <br><br>
+        You can start with the
+        <a href="audit.html">
+        free audit
+        </a>.
+      `;
+    }
+
+
+    if (
+      q.includes("audit")
+    ) {
+
+      return `
+        The free e-commerce audit looks at areas
+        such as store structure, product pages,
+        customer experience, SEO, conversion
+        opportunities and growth opportunities.
+        <br><br>
+        Start here:
+        <a href="audit.html">
+        Free E-commerce Audit
+        </a>.
+      `;
+    }
+
+
+    if (
+      q.includes("service") ||
+      q.includes("help")
+    ) {
+
+      return `
+        GUNKOWII SABA works across e-commerce,
+        Shopify, Etsy, SEO, CRO, digital marketing,
+        email marketing, web development and
+        digital solutions.
+        <br><br>
+        Explore all available
+        <a href="services.html">
+        services
+        </a>
+        or view the
+        <a href="portfolio.html">
+        project portfolio
+        </a>.
+      `;
+    }
+
+
+    if (
+      q.includes("price") ||
+      q.includes("plan") ||
+      q.includes("cost")
+    ) {
+
+      return `
+        There are four ways to work with GUNKOWII SABA:
+        Expert, Commission, Trial and Reward.
+        <br><br>
+        Each model has a different structure,
+        depending on the project, scope and
+        preferred working arrangement.
+        <br><br>
+        See the
+        <a href="pricing.html">
+        pricing and plans
+        </a>.
+      `;
+    }
+
+
+    if (
+      q.includes("contact") ||
+      q.includes("hire") ||
+      q.includes("work together")
+    ) {
+
+      return `
+        If you would like to discuss a project,
+        you can use the
+        <a href="contact.html">
+        contact page
+        </a>
+        or message Gunkowii directly through
+        WhatsApp.
+      `;
+    }
+
+
+    return `
+      I can help you explore GUNKOWII SABA’s
+      e-commerce and digital services.
+      <br><br>
+      Try asking me about
+      <strong>Shopify, Etsy, CRO, SEO,
+      digital marketing, services, plans,
+      or a free audit.</strong>
+    `;
+
+  }
+
+
+  /* =====================================================
+     ADD MESSAGE
+     ===================================================== */
+
+  function addMessage(
+    text,
+    type
+  ) {
+
+    const message =
+      document.createElement("div");
+
+    message.className =
+      "gunkowii-ai-message " +
+      type;
+
+    message.innerHTML =
+      text;
+
+    aiMessages.appendChild(message);
+
+    aiMessages.scrollTop =
+      aiMessages.scrollHeight;
+  }
+
+
+  /* =====================================================
+     SEND MESSAGE
+     ===================================================== */
+
+  function sendAIMessage(question) {
+
+    const cleanQuestion =
+      question.trim();
+
+    if (!cleanQuestion) {
+      return;
+    }
+
+
+    addMessage(
+      cleanQuestion,
+      "user"
+    );
+
+
+    aiInput.value = "";
+
+
+    setTimeout(function () {
+
+      const response =
+        getDemoResponse(
+          cleanQuestion
+        );
+
+      addMessage(
+        response,
+        "bot"
+      );
+
+    }, 500);
+
+  }
+
+
+  aiSend.addEventListener(
+    "click",
+    function () {
+
+      sendAIMessage(
+        aiInput.value
+      );
+
+    }
+  );
+
+
+  aiInput.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        event.preventDefault();
+
+        sendAIMessage(
+          aiInput.value
+        );
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     QUICK QUESTIONS
+     ===================================================== */
+
+  quickButtons.forEach(
+    function (button) {
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          const question =
+            button.getAttribute(
+              "data-question"
+            );
+
+          sendAIMessage(
+            question
+          );
+
+        }
+      );
+
+    }
+  );
 
 });
