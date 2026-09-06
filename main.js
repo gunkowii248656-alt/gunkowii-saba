@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link: "reviews.html",
       linkText: "View Reviews"
     },
-
     {
       icon: "🛒",
       label: "Shopify Work",
@@ -20,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link: "services.html",
       linkText: "Explore Shopify"
     },
-
     {
       icon: "🎨",
       label: "Etsy Growth",
@@ -28,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link: "services.html",
       linkText: "Explore Etsy"
     },
-
     {
       icon: "📈",
       label: "CRO Insight",
@@ -36,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link: "audit.html",
       linkText: "Get a Free Audit"
     },
-
     {
       icon: "🔎",
       label: "SEO Focus",
@@ -44,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link: "services.html",
       linkText: "Explore SEO"
     },
-
     {
       icon: "🚀",
       label: "Growth Strategy",
@@ -52,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link: "process.html",
       linkText: "See the Process"
     },
-
     {
       icon: "💻",
       label: "Featured Project",
@@ -60,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link: "portfolio.html",
       linkText: "View Portfolio"
     },
-
     {
       icon: "🤝",
       label: "Available",
@@ -94,7 +87,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const AI_MEMORY_KEY =
     "gunkowii_ai_conversation";
 
+  const AI_HANDOFF_KEY =
+    "gunkowii_ai_handoff";
+
   let aiConversation = [];
+
+  let latestLeadSummary = null;
+
+  let latestStoreAnalysis = null;
+
+  let latestHandoff = null;
+
 
   function loadAIConversation() {
 
@@ -165,10 +168,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     aiConversation = [];
 
+    latestLeadSummary = null;
+
+    latestStoreAnalysis = null;
+
+    latestHandoff = null;
+
     try {
 
       localStorage.removeItem(
         AI_MEMORY_KEY
+      );
+
+      localStorage.removeItem(
+        AI_HANDOFF_KEY
       );
 
     } catch (error) {
@@ -188,10 +201,114 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
+     GUNKOWII AI — HANDOFF MEMORY
+     ===================================================== */
+
+  function saveHandoffData(data) {
+
+    if (!data) {
+      return;
+    }
+
+    latestLeadSummary =
+      data.leadSummary || latestLeadSummary;
+
+    latestStoreAnalysis =
+      data.storeAnalysis || latestStoreAnalysis;
+
+    latestHandoff =
+      data.handoff || latestHandoff;
+
+    try {
+
+      localStorage.setItem(
+        AI_HANDOFF_KEY,
+        JSON.stringify({
+
+          leadSummary:
+            latestLeadSummary,
+
+          storeAnalysis:
+            latestStoreAnalysis,
+
+          handoff:
+            latestHandoff,
+
+          conversation:
+            aiConversation,
+
+          updatedAt:
+            new Date().toISOString()
+
+        })
+      );
+
+    } catch (error) {
+
+      console.warn(
+        "Unable to save GUNKOWII AI handoff.",
+        error
+      );
+
+    }
+
+  }
+
+
+  function loadHandoffData() {
+
+    try {
+
+      const saved =
+        localStorage.getItem(
+          AI_HANDOFF_KEY
+        );
+
+      if (!saved) {
+        return null;
+      }
+
+      const parsed =
+        JSON.parse(saved);
+
+      if (!parsed || typeof parsed !== "object") {
+        return null;
+      }
+
+      latestLeadSummary =
+        parsed.leadSummary || null;
+
+      latestStoreAnalysis =
+        parsed.storeAnalysis || null;
+
+      latestHandoff =
+        parsed.handoff || null;
+
+      return parsed;
+
+    } catch (error) {
+
+      console.warn(
+        "Unable to load GUNKOWII AI handoff.",
+        error
+      );
+
+      return null;
+
+    }
+
+  }
+
+
+  loadHandoffData();
+
+
+  /* =====================================================
      LIVE POPUP + AI STYLES
      ===================================================== */
 
-  const popupStyles = document.createElement("style");
+  const popupStyles =
+    document.createElement("style");
 
   popupStyles.textContent = `
 
@@ -327,9 +444,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       GUNKOWII AI BUTTON
-       ===================================================== */
+    /* AI BUTTON */
 
     .gunkowii-ai-button {
       position: fixed;
@@ -422,9 +537,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       GUNKOWII AI CHAT WINDOW
-       ===================================================== */
+    /* AI CHAT */
 
     .gunkowii-ai-chat {
       position: fixed;
@@ -468,9 +581,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       AI HEADER
-       ===================================================== */
+    /* HEADER */
 
     .gunkowii-ai-header {
       background: #063d2e;
@@ -561,9 +672,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       NEW CHAT BUTTON
-       ===================================================== */
+    /* NEW CHAT */
 
     .gunkowii-ai-new-chat {
       border: 1px solid rgba(212,175,55,.55);
@@ -584,9 +693,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       AI MESSAGES
-       ===================================================== */
+    /* MESSAGES */
 
     .gunkowii-ai-messages {
       flex: 1;
@@ -628,9 +735,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       AI TYPING
-       ===================================================== */
+    /* TYPING */
 
     .gunkowii-ai-typing {
       display: inline-flex;
@@ -669,9 +774,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       QUICK QUESTIONS
-       ===================================================== */
+    /* QUICK QUESTIONS */
 
     .gunkowii-ai-quick {
       padding: 10px 14px;
@@ -703,9 +806,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       AI INPUT
-       ===================================================== */
+    /* INPUT */
 
     .gunkowii-ai-input-area {
       display: flex;
@@ -770,8 +871,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       MOBILE
+       HANDOFF NOTICE
        ===================================================== */
+
+    .gunkowii-ai-handoff {
+      max-width: 92%;
+      background: #063d2e;
+      color: #fff;
+      border: 1px solid #d4af37;
+      border-radius: 13px;
+      padding: 14px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .gunkowii-ai-handoff-title {
+      color: #e3c65a;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .gunkowii-ai-handoff-button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 9px 12px;
+      border-radius: 9px;
+      background: #d4af37;
+      color: #063d2e !important;
+      text-decoration: none !important;
+      font-weight: 800;
+    }
+
+
+    /* MOBILE */
 
     @media (max-width: 600px) {
 
@@ -816,7 +949,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   `;
 
-  document.head.appendChild(popupStyles);
+  document.head.appendChild(
+    popupStyles
+  );
 
 
   /* =====================================================
@@ -870,23 +1005,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
   `;
 
-  document.body.appendChild(popup);
+  document.body.appendChild(
+    popup
+  );
 
 
   const icon =
-    popup.querySelector(".gunkowii-live-icon");
+    popup.querySelector(
+      ".gunkowii-live-icon"
+    );
 
   const label =
-    popup.querySelector(".gunkowii-live-label");
+    popup.querySelector(
+      ".gunkowii-live-label"
+    );
 
   const message =
-    popup.querySelector(".gunkowii-live-message");
+    popup.querySelector(
+      ".gunkowii-live-message"
+    );
 
   const link =
-    popup.querySelector(".gunkowii-live-link");
+    popup.querySelector(
+      ".gunkowii-live-link"
+    );
 
   const closeButton =
-    popup.querySelector(".gunkowii-live-close");
+    popup.querySelector(
+      ".gunkowii-live-close"
+    );
 
 
   let currentActivity = 0;
@@ -925,7 +1072,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     popup.classList.add("show");
 
-    clearTimeout(popupTimer);
+    clearTimeout(
+      popupTimer
+    );
 
     popupTimer =
       setTimeout(function () {
@@ -938,7 +1087,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function hidePopup() {
 
-    popup.classList.remove("show");
+    popup.classList.remove(
+      "show"
+    );
 
   }
 
@@ -958,12 +1109,13 @@ document.addEventListener("DOMContentLoaded", function () {
         currentActivity = 0;
       }
 
-      loadActivity(currentActivity);
+      loadActivity(
+        currentActivity
+      );
 
       showPopup();
 
     }, 500);
-
   }
 
 
@@ -975,15 +1127,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
       hidePopup();
 
-      clearTimeout(popupTimer);
+      clearTimeout(
+        popupTimer
+      );
 
-      clearInterval(rotationTimer);
+      clearInterval(
+        rotationTimer
+      );
 
     }
   );
 
 
-  loadActivity(currentActivity);
+  loadActivity(
+    currentActivity
+  );
 
 
   setTimeout(function () {
@@ -1025,7 +1183,9 @@ document.addEventListener("DOMContentLoaded", function () {
     >
   `;
 
-  document.body.appendChild(aiButton);
+  document.body.appendChild(
+    aiButton
+  );
 
 
   /* =====================================================
@@ -1148,7 +1308,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   `;
 
-  document.body.appendChild(aiChat);
+  document.body.appendChild(
+    aiChat
+  );
 
 
   /* =====================================================
@@ -1235,7 +1397,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     aiMessages.innerHTML = "";
 
-    if (aiConversation.length === 0) {
+    if (
+      aiConversation.length === 0
+    ) {
 
       const welcome =
         document.createElement("div");
@@ -1251,7 +1415,6 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       return;
-
     }
 
 
@@ -1303,10 +1466,14 @@ document.addEventListener("DOMContentLoaded", function () {
       "gunkowii-ai-message " +
       type;
 
-    if (type === "bot") {
+    if (
+      type === "bot"
+    ) {
 
       message.innerHTML =
-        formatAIResponse(text);
+        formatAIResponse(
+          text
+        );
 
     } else {
 
@@ -1323,9 +1490,12 @@ document.addEventListener("DOMContentLoaded", function () {
       aiMessages.scrollHeight;
 
 
-    if (saveToMemory) {
+    if (
+      saveToMemory
+    ) {
 
       aiConversation.push({
+
         role:
           type === "user"
             ? "user"
@@ -1333,6 +1503,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         content:
           String(text)
+
       });
 
       saveAIConversation();
@@ -1366,7 +1537,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       renderSavedConversation();
 
-      aiInput.value = "";
+      aiInput.value =
+        "";
 
       aiInput.focus();
 
@@ -1375,7 +1547,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     DRAGGABLE GUNKOWII AI BUTTON
+     DRAGGABLE AI BUTTON
      ===================================================== */
 
   const AI_POSITION_KEY =
@@ -1404,15 +1576,25 @@ document.addEventListener("DOMContentLoaded", function () {
       margin;
 
     return {
-      x: Math.max(
-        margin,
-        Math.min(x, maxX)
-      ),
 
-      y: Math.max(
-        margin,
-        Math.min(y, maxY)
-      )
+      x:
+        Math.max(
+          margin,
+          Math.min(
+            x,
+            maxX
+          )
+        ),
+
+      y:
+        Math.max(
+          margin,
+          Math.min(
+            y,
+            maxY
+          )
+        )
+
     };
 
   }
@@ -1459,7 +1641,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const position =
-        JSON.parse(saved);
+        JSON.parse(
+          saved
+        );
 
       if (
         typeof position.x !== "number" ||
@@ -1521,8 +1705,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const rect =
       aiButton.getBoundingClientRect();
 
-    aiButtonDragging = true;
-    aiButtonMoved = false;
+    aiButtonDragging =
+      true;
+
+    aiButtonMoved =
+      false;
 
     aiButtonStartX =
       event.clientX;
@@ -1563,7 +1750,9 @@ document.addEventListener("DOMContentLoaded", function () {
     event
   ) {
 
-    if (!aiButtonDragging) {
+    if (
+      !aiButtonDragging
+    ) {
       return;
     }
 
@@ -1579,7 +1768,10 @@ document.addEventListener("DOMContentLoaded", function () {
       Math.abs(deltaX) > 4 ||
       Math.abs(deltaY) > 4
     ) {
-      aiButtonMoved = true;
+
+      aiButtonMoved =
+        true;
+
     }
 
     const position =
@@ -1606,11 +1798,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function endAIButtonDrag() {
 
-    if (!aiButtonDragging) {
+    if (
+      !aiButtonDragging
+    ) {
       return;
     }
 
-    aiButtonDragging = false;
+    aiButtonDragging =
+      false;
 
     aiButton.classList.remove(
       "dragging"
@@ -1656,22 +1851,32 @@ document.addEventListener("DOMContentLoaded", function () {
     "click",
     function (event) {
 
-      if (aiButtonMoved) {
+      if (
+        aiButtonMoved
+      ) {
 
         event.preventDefault();
+
         event.stopPropagation();
 
-        aiButtonMoved = false;
+        aiButtonMoved =
+          false;
 
         return;
       }
 
       if (
-        aiChat.classList.contains("open")
+        aiChat.classList.contains(
+          "open"
+        )
       ) {
+
         closeAI();
+
       } else {
+
         openAI();
+
       }
 
     }
@@ -1679,7 +1884,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     RESTORE SAVED AI BUTTON POSITION
+     RESTORE AI BUTTON POSITION
      ===================================================== */
 
   setTimeout(
@@ -1687,10 +1892,6 @@ document.addEventListener("DOMContentLoaded", function () {
     50
   );
 
-
-  /* =====================================================
-     KEEP AI BUTTON ON SCREEN AFTER RESIZE
-     ===================================================== */
 
   window.addEventListener(
     "resize",
@@ -1763,8 +1964,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const rect =
       aiChat.getBoundingClientRect();
 
-    aiChatDragging = true;
-    aiChatMoved = false;
+    aiChatDragging =
+      true;
+
+    aiChatMoved =
+      false;
 
     aiChatStartX =
       event.clientX;
@@ -1805,7 +2009,9 @@ document.addEventListener("DOMContentLoaded", function () {
     event
   ) {
 
-    if (!aiChatDragging) {
+    if (
+      !aiChatDragging
+    ) {
       return;
     }
 
@@ -1821,7 +2027,10 @@ document.addEventListener("DOMContentLoaded", function () {
       Math.abs(deltaX) > 4 ||
       Math.abs(deltaY) > 4
     ) {
-      aiChatMoved = true;
+
+      aiChatMoved =
+        true;
+
     }
 
     const rect =
@@ -1874,11 +2083,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function endAIChatDrag() {
 
-    if (!aiChatDragging) {
+    if (
+      !aiChatDragging
+    ) {
       return;
     }
 
-    aiChatDragging = false;
+    aiChatDragging =
+      false;
 
     aiChat.classList.remove(
       "dragging"
@@ -1914,20 +2126,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openAI() {
 
-    aiChat.classList.add("open");
+    aiChat.classList.add(
+      "open"
+    );
 
-    setTimeout(function () {
+    setTimeout(
+      function () {
 
-      aiInput.focus();
+        aiInput.focus();
 
-    }, 250);
+      },
+      250
+    );
 
   }
 
 
   function closeAI() {
 
-    aiChat.classList.remove("open");
+    aiChat.classList.remove(
+      "open"
+    );
 
   }
 
@@ -1946,7 +2165,9 @@ document.addEventListener("DOMContentLoaded", function () {
      FORMAT AI RESPONSE
      ===================================================== */
 
-  function formatAIResponse(text) {
+  function formatAIResponse(
+    text
+  ) {
 
     if (!text) {
 
@@ -1958,9 +2179,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let safeText =
       String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        );
 
 
     safeText =
@@ -2121,7 +2351,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
-      if (!response.ok) {
+      if (
+        !response.ok
+      ) {
 
         console.error(
           "GUNKOWII AI Worker error:",
@@ -2136,7 +2368,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
-      if (!data.answer) {
+      if (
+        !data.answer
+      ) {
 
         throw new Error(
           "No AI response was returned."
@@ -2146,17 +2380,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       return {
+
         answer:
           data.answer,
 
         storeAnalysis:
-          data.storeAnalysis || null,
+          data.storeAnalysis ||
+          null,
 
         leadSummary:
-          data.leadSummary || null,
+          data.leadSummary ||
+          null,
 
         handoff:
-          data.handoff || null
+          data.handoff ||
+          null
 
       };
 
@@ -2196,6 +2434,96 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
+     CREATE CONTACT HANDOFF URL
+     ===================================================== */
+
+  function buildHandoffURL() {
+
+    const params =
+      new URLSearchParams();
+
+
+    /*
+       Store the AI information in the URL.
+
+       The contact page will read these
+       values and automatically populate
+       the project details.
+    */
+
+    if (
+      latestLeadSummary
+    ) {
+
+      params.set(
+        "ai_summary",
+        String(
+          latestLeadSummary
+        )
+      );
+
+    }
+
+
+    if (
+      latestStoreAnalysis
+    ) {
+
+      params.set(
+        "store_analysis",
+        String(
+          latestStoreAnalysis
+        )
+      );
+
+    }
+
+
+    if (
+      latestHandoff
+    ) {
+
+      params.set(
+        "handoff",
+        typeof latestHandoff === "string"
+          ? latestHandoff
+          : JSON.stringify(
+              latestHandoff
+            )
+      );
+
+    }
+
+
+    if (
+      aiConversation.length
+    ) {
+
+      params.set(
+        "conversation",
+        JSON.stringify(
+          aiConversation
+        )
+      );
+
+    }
+
+
+    params.set(
+      "source",
+      "gunkowii-ai"
+    );
+
+
+    return (
+      "contact.html?" +
+      params.toString()
+    );
+
+  }
+
+
+  /* =====================================================
      STORE / LEAD HANDOFF NOTICE
      ===================================================== */
 
@@ -2207,34 +2535,72 @@ document.addEventListener("DOMContentLoaded", function () {
       !data ||
       !data.handoff
     ) {
+
+      return;
+
+    }
+
+
+    saveHandoffData(
+      data
+    );
+
+
+    /*
+       Prevent duplicate handoff
+       notices for the same response.
+    */
+
+    const existing =
+      aiMessages.querySelector(
+        ".gunkowii-ai-handoff"
+      );
+
+    if (existing) {
       return;
     }
 
+
+    const handoffURL =
+      buildHandoffURL();
+
+
     const notice =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     notice.className =
-      "gunkowii-ai-message bot";
+      "gunkowii-ai-handoff";
+
 
     notice.innerHTML = `
 
-      <strong>Ready to continue with GUNKOWII SABA?</strong>
+      <div class="gunkowii-ai-handoff-title">
+        Ready to continue with GUNKOWII SABA?
+      </div>
 
-      <br><br>
+      <br>
 
       I can connect you with GUNKOWII SABA
       so the work can continue from this conversation.
 
-      <br><br>
+      <br>
+
+      Your conversation context can be carried
+      into the contact form, so you don't need
+      to explain everything again.
+
+      <br>
 
       <a
-        href="contact.html"
-        target="_blank"
-        rel="noopener noreferrer">
-        Connect with GUNKOWII SABA →
+        class="gunkowii-ai-handoff-button"
+        href="${handoffURL}">
+        Continue with GUNKOWII SABA →
       </a>
 
     `;
+
 
     aiMessages.appendChild(
       notice
@@ -2257,8 +2623,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const cleanQuestion =
       question.trim();
 
-    if (!cleanQuestion) {
+    if (
+      !cleanQuestion
+    ) {
+
       return;
+
     }
 
 
@@ -2292,7 +2662,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-       Save the AI response to memory.
+       Save the AI response.
     */
 
     aiConversation.push({
@@ -2305,7 +2675,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+
     saveAIConversation();
+
+
+    /*
+       Save lead information
+       returned by the Worker.
+    */
+
+    if (
+      result.leadSummary ||
+      result.storeAnalysis ||
+      result.handoff
+    ) {
+
+      saveHandoffData(
+        result
+      );
+
+    }
 
 
     addMessage(
@@ -2316,8 +2705,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-       Show GUNKOWII handoff when
-       the Worker determines it is useful.
+       Show handoff only when
+       the Worker says it is appropriate.
     */
 
     showHandoffNotice(
