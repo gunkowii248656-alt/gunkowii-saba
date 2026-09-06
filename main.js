@@ -80,6 +80,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
+     GUNKOWII AI — CLOUDFLARE WORKER
+     ===================================================== */
+
+  const AI_WORKER_URL =
+    "https://gunkowii-ai.gunkowii248656.workers.dev/";
+
+
+  /* =====================================================
      LIVE POPUP + AI STYLES
      ===================================================== */
 
@@ -531,6 +539,55 @@ document.addEventListener("DOMContentLoaded", function () {
       border-top-right-radius: 4px;
     }
 
+    .gunkowii-ai-message a {
+      color: #927116;
+      font-weight: 800;
+      text-decoration: underline;
+    }
+
+    .gunkowii-ai-message.user {
+      white-space: pre-wrap;
+    }
+
+
+    /* =====================================================
+       AI TYPING
+       ===================================================== */
+
+    .gunkowii-ai-typing {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .gunkowii-ai-typing span {
+      width: 6px;
+      height: 6px;
+      background: #927116;
+      border-radius: 50%;
+      animation: gunkowiiTyping 1.2s infinite;
+    }
+
+    .gunkowii-ai-typing span:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .gunkowii-ai-typing span:nth-child(3) {
+      animation-delay: .30s;
+    }
+
+    @keyframes gunkowiiTyping {
+      0%, 60%, 100% {
+        opacity: .3;
+        transform: translateY(0);
+      }
+
+      30% {
+        opacity: 1;
+        transform: translateY(-3px);
+      }
+    }
+
 
     /* =====================================================
        QUICK QUESTIONS
@@ -652,6 +709,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     .gunkowii-ai-send:hover {
       background: #0b503e;
+    }
+
+    .gunkowii-ai-send:disabled {
+      opacity: .55;
+      cursor: wait;
     }
 
     .gunkowii-ai-note {
@@ -909,7 +971,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     GUNKOWII AI — STAGE 1 INTERFACE
+     GUNKOWII AI
      ===================================================== */
 
   const aiButton =
@@ -1137,172 +1199,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     STAGE 1 DEMO RESPONSES
+     FORMAT AI RESPONSE
      ===================================================== */
 
-  function getDemoResponse(question) {
+  function formatAIResponse(text) {
 
-    const q =
-      question.toLowerCase();
-
-
-    if (
-      q.includes("shopify")
-    ) {
-
-      return `
-        I can help you understand Shopify store
-        structure, product pages, navigation,
-        user experience, conversion opportunities,
-        SEO and overall store optimization.
-        <br><br>
-        You can explore the
-        <a href="services.html">
-        Shopify services
-        </a>
-        or request a
-        <a href="audit.html">
-        free store audit
-        </a>.
-      `;
+    if (!text) {
+      return "I'm sorry, I couldn't generate a response right now.";
     }
 
+    let safeText = String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
 
-    if (
-      q.includes("etsy")
-    ) {
+    safeText = safeText.replace(
+      /(https?:\/\/[^\s<]+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+    );
 
-      return `
-        Etsy work can include listing optimization,
-        product presentation, keyword targeting,
-        search visibility and conversion-focused
-        improvements.
-        <br><br>
-        Visit the
-        <a href="services.html">
-        services page
-        </a>
-        to see the broader Etsy and e-commerce
-        services available.
-      `;
-    }
+    safeText = safeText.replace(
+      /\*\*(.*?)\*\*/g,
+      "<strong>$1</strong>"
+    );
 
+    safeText = safeText.replace(
+      /\n/g,
+      "<br>"
+    );
 
-    if (
-      q.includes("cro") ||
-      q.includes("conversion")
-    ) {
-
-      return `
-        CRO means Conversion Rate Optimization.
-        It focuses on improving the experience
-        visitors have before they take an important
-        action such as purchasing, submitting an
-        inquiry or contacting a business.
-        <br><br>
-        I look at areas such as product pages,
-        navigation, trust, calls to action,
-        mobile UX and customer journey friction.
-        <br><br>
-        You can start with the
-        <a href="audit.html">
-        free audit
-        </a>.
-      `;
-    }
-
-
-    if (
-      q.includes("audit")
-    ) {
-
-      return `
-        The free e-commerce audit looks at areas
-        such as store structure, product pages,
-        customer experience, SEO, conversion
-        opportunities and growth opportunities.
-        <br><br>
-        Start here:
-        <a href="audit.html">
-        Free E-commerce Audit
-        </a>.
-      `;
-    }
-
-
-    if (
-      q.includes("service") ||
-      q.includes("help")
-    ) {
-
-      return `
-        GUNKOWII SABA works across e-commerce,
-        Shopify, Etsy, SEO, CRO, digital marketing,
-        email marketing, web development and
-        digital solutions.
-        <br><br>
-        Explore all available
-        <a href="services.html">
-        services
-        </a>
-        or view the
-        <a href="portfolio.html">
-        project portfolio
-        </a>.
-      `;
-    }
-
-
-    if (
-      q.includes("price") ||
-      q.includes("plan") ||
-      q.includes("cost")
-    ) {
-
-      return `
-        There are four ways to work with GUNKOWII SABA:
-        Expert, Commission, Trial and Reward.
-        <br><br>
-        Each model has a different structure,
-        depending on the project, scope and
-        preferred working arrangement.
-        <br><br>
-        See the
-        <a href="pricing.html">
-        pricing and plans
-        </a>.
-      `;
-    }
-
-
-    if (
-      q.includes("contact") ||
-      q.includes("hire") ||
-      q.includes("work together")
-    ) {
-
-      return `
-        If you would like to discuss a project,
-        you can use the
-        <a href="contact.html">
-        contact page
-        </a>
-        or message Gunkowii directly through
-        WhatsApp.
-      `;
-    }
-
-
-    return `
-      I can help you explore GUNKOWII SABA’s
-      e-commerce and digital services.
-      <br><br>
-      Try asking me about
-      <strong>Shopify, Etsy, CRO, SEO,
-      digital marketing, services, plans,
-      or a free audit.</strong>
-    `;
-
+    return safeText;
   }
 
 
@@ -1333,10 +1259,141 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
+     TYPING INDICATOR
+     ===================================================== */
+
+  function addTypingIndicator() {
+
+    const typing =
+      document.createElement("div");
+
+    typing.className =
+      "gunkowii-ai-message bot";
+
+    typing.id =
+      "gunkowii-ai-typing";
+
+    typing.innerHTML = `
+      <span class="gunkowii-ai-typing">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    `;
+
+    aiMessages.appendChild(typing);
+
+    aiMessages.scrollTop =
+      aiMessages.scrollHeight;
+
+  }
+
+
+  function removeTypingIndicator() {
+
+    const typing =
+      document.getElementById(
+        "gunkowii-ai-typing"
+      );
+
+    if (typing) {
+      typing.remove();
+    }
+
+  }
+
+
+  /* =====================================================
+     REAL AI RESPONSE
+     ===================================================== */
+
+  async function getAIResponse(question) {
+
+    try {
+
+      const response =
+        await fetch(
+          AI_WORKER_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+              message: question
+            })
+          }
+        );
+
+
+      let data = {};
+
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        data = {};
+      }
+
+
+      if (!response.ok) {
+
+        console.error(
+          "GUNKOWII AI Worker error:",
+          data
+        );
+
+        throw new Error(
+          data.error ||
+          "AI service unavailable."
+        );
+
+      }
+
+
+      if (
+        !data.answer
+      ) {
+
+        throw new Error(
+          "No AI response was returned."
+        );
+
+      }
+
+
+      return formatAIResponse(
+        data.answer
+      );
+
+    } catch (error) {
+
+      console.error(
+        "GUNKOWII AI error:",
+        error
+      );
+
+      return `
+        I'm having trouble connecting to GUNKOWII AI right now.
+        <br><br>
+        Please try again in a moment, or use the
+        <a href="contact.html">
+        contact page
+        </a>
+        to reach GUNKOWII SABA directly.
+      `;
+
+    }
+
+  }
+
+
+  /* =====================================================
      SEND MESSAGE
      ===================================================== */
 
-  function sendAIMessage(question) {
+  async function sendAIMessage(question) {
 
     const cleanQuestion =
       question.trim();
@@ -1355,19 +1412,35 @@ document.addEventListener("DOMContentLoaded", function () {
     aiInput.value = "";
 
 
-    setTimeout(function () {
+    aiSend.disabled = true;
 
-      const response =
-        getDemoResponse(
-          cleanQuestion
-        );
+    aiInput.disabled = true;
 
-      addMessage(
-        response,
-        "bot"
+
+    addTypingIndicator();
+
+
+    const response =
+      await getAIResponse(
+        cleanQuestion
       );
 
-    }, 500);
+
+    removeTypingIndicator();
+
+
+    addMessage(
+      response,
+      "bot"
+    );
+
+
+    aiSend.disabled = false;
+
+    aiInput.disabled = false;
+
+
+    aiInput.focus();
 
   }
 
