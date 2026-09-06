@@ -1,6 +1,6 @@
 /* =========================================================
-   GUNKOWII SABA — MAIN JAVASCRIPT
-   Portfolio + GUNKOWII AI + Live Activity + AI Handoff
+   GUNKOWII SABA PORTFOLIO — MAIN.JS
+   AI CONSULTANT + LIVE ACTIVITY + HANDOFF SYSTEM
    ========================================================= */
 
 (() => {
@@ -17,49 +17,48 @@
     "https://wa.me/message/V26H2754ROXUB1";
 
   const CONTACT_URL =
-    "contact.html";
+    "https://gunkowii-saba.pages.dev/contact.html";
 
-  const AI_MEMORY_KEY =
+  const AUDIT_URL =
+    "https://gunkowii-saba.pages.dev/audit.html";
+
+  const AI_AVATAR =
+    "Screenshot_2026-09-04-12-55-24-480_com.openai.chatgpt-edit.jpg";
+
+  const AI_CONVERSATION_KEY =
     "gunkowii_ai_conversation";
 
   const AI_HANDOFF_KEY =
     "gunkowii_ai_handoff";
 
-  const AI_HANDOFF_MAX_AGE =
-    24 * 60 * 60 * 1000;
+  const AI_PANEL_POSITION_KEY =
+    "gunkowii_ai_panel_position";
 
-  const AI_AVATAR =
-    "Screenshot_2026-09-04-12-55-24-480_com.openai.chatgpt-edit.jpg";
-
+  const AI_LAUNCHER_POSITION_KEY =
+    "gunkowii_ai_launcher_position";
 
   /* =========================================================
-     GLOBAL AI STATE
+     STATE
      ========================================================= */
 
   let aiConversation = [];
-  let latestLeadSummary = null;
-  let latestStoreAnalysis = null;
-  let latestHandoff = null;
-
+  let aiBusy = false;
   let aiPanel = null;
-  let aiLauncher = null;
   let aiMessages = null;
   let aiInput = null;
-  let aiSendButton = null;
+  let aiLauncher = null;
+  let aiTyping = null;
+  let aiHandoffNotice = null;
 
-  let aiBusy = false;
-
+  let launcherMoved = false;
+  let panelMoved = false;
 
   /* =========================================================
-     BASIC HELPERS
+     HELPERS
      ========================================================= */
 
   function escapeHTML(value) {
-    if (value === null || value === undefined) {
-      return "";
-    }
-
-    return String(value)
+    return String(value ?? "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -67,441 +66,344 @@
       .replace(/'/g, "&#039;");
   }
 
-
   function safeJSONParse(value, fallback = null) {
     try {
       return JSON.parse(value);
-    } catch (error) {
+    } catch {
       return fallback;
     }
   }
 
-
   function normalize(value) {
-    if (value === null || value === undefined) {
-      return "";
-    }
-
-    if (typeof value === "string") {
-      return value;
-    }
-
-    try {
-      return JSON.stringify(value, null, 2);
-    } catch (error) {
-      return String(value);
-    }
+    return String(value ?? "").trim();
   }
 
-
-  function getPageName() {
-    const path = window.location.pathname;
-
-    if (!path || path === "/") {
-      return "index.html";
-    }
-
-    return path.split("/").pop() || "index.html";
-  }
-
-
-  function isValidHttpUrl(value) {
-    if (!value) return false;
-
+  function isValidHttpUrl(url) {
     try {
-      const url = new URL(value);
-
-      return (
-        url.protocol === "http:" ||
-        url.protocol === "https:"
-      );
-    } catch (error) {
+      const parsed = new URL(url);
+      return parsed.protocol === "http:" || parsed.protocol === "https:";
+    } catch {
       return false;
     }
   }
 
+  function getPageName() {
+    const path = window.location.pathname.toLowerCase();
+
+    if (path.includes("services")) return "Services";
+    if (path.includes("portfolio")) return "Portfolio";
+    if (path.includes("reviews")) return "Reviews";
+    if (path.includes("pricing")) return "Pricing";
+    if (path.includes("process")) return "Process";
+    if (path.includes("audit")) return "Free Audit";
+    if (path.includes("contact")) return "Contact";
+    if (path.includes("about")) return "About";
+
+    return "Home";
+  }
 
   /* =========================================================
-     AI CONVERSATION MEMORY
+     AI CONVERSATION STORAGE
      ========================================================= */
 
   function loadAIConversation() {
     try {
-      const saved =
-        localStorage.getItem(AI_MEMORY_KEY);
+      const saved = localStorage.getItem(AI_CONVERSATION_KEY);
 
       if (!saved) {
         aiConversation = [];
         return;
       }
 
-      const parsed =
-        safeJSONParse(saved, []);
+      const parsed = safeJSONParse(saved, []);
 
       if (Array.isArray(parsed)) {
         aiConversation = parsed;
       } else {
         aiConversation = [];
       }
-    } catch (error) {
-      console.warn(
-        "Unable to load GUNKOWII AI conversation.",
-        error
-      );
-
+    } catch {
       aiConversation = [];
     }
   }
 
-
   function saveAIConversation() {
     try {
       localStorage.setItem(
-        AI_MEMORY_KEY,
+        AI_CONVERSATION_KEY,
         JSON.stringify(aiConversation)
       );
-    } catch (error) {
-      console.warn(
-        "Unable to save GUNKOWII AI conversation.",
-        error
-      );
-    }
+    } catch {}
   }
-
 
   function clearAIConversation() {
     aiConversation = [];
 
     try {
-      localStorage.removeItem(AI_MEMORY_KEY);
-    } catch (error) {
-      console.warn(
-        "Unable to clear GUNKOWII AI conversation.",
-        error
-      );
-    }
+      localStorage.removeItem(AI_CONVERSATION_KEY);
+    } catch {}
 
     if (aiMessages) {
       aiMessages.innerHTML = "";
-
-      showInitialGreeting();
+      aiMessages.scrollTop = 0;
     }
-  }
 
+    showInitialGreeting();
+  }
 
   /* =========================================================
      AI HANDOFF STORAGE
      ========================================================= */
 
   function saveHandoffData(data) {
-    if (!data) return;
-
-    latestLeadSummary =
-      data.leadSummary ||
-      latestLeadSummary;
-
-    latestStoreAnalysis =
-      data.storeAnalysis ||
-      latestStoreAnalysis;
-
-    latestHandoff =
-      data.handoff ||
-      latestHandoff;
-
     try {
-      const handoffData = {
-        leadSummary:
-          normalize(latestLeadSummary),
-
-        storeAnalysis:
-          normalize(latestStoreAnalysis),
-
-        handoff:
-          latestHandoff,
-
-        conversation:
-          Array.isArray(data.conversation)
-            ? data.conversation
-            : aiConversation,
-
-        updatedAt:
-          new Date().toISOString()
-      };
-
       localStorage.setItem(
         AI_HANDOFF_KEY,
-        JSON.stringify(handoffData)
+        JSON.stringify(data)
       );
-    } catch (error) {
-      console.warn(
-        "Unable to save GUNKOWII AI handoff.",
-        error
-      );
-    }
+    } catch {}
   }
-
 
   function loadHandoffData() {
     try {
-      const saved =
-        localStorage.getItem(AI_HANDOFF_KEY);
+      const saved = localStorage.getItem(AI_HANDOFF_KEY);
 
-      if (!saved) {
-        return null;
-      }
+      if (!saved) return null;
 
-      const parsed =
-        safeJSONParse(saved, null);
-
-      if (
-        !parsed ||
-        typeof parsed !== "object"
-      ) {
-        return null;
-      }
-
-      if (parsed.updatedAt) {
-        const updated =
-          new Date(parsed.updatedAt).getTime();
-
-        if (
-          Number.isFinite(updated) &&
-          Date.now() - updated >
-            AI_HANDOFF_MAX_AGE
-        ) {
-          localStorage.removeItem(
-            AI_HANDOFF_KEY
-          );
-
-          return null;
-        }
-      }
-
-      latestLeadSummary =
-        parsed.leadSummary || null;
-
-      latestStoreAnalysis =
-        parsed.storeAnalysis || null;
-
-      latestHandoff =
-        parsed.handoff || null;
-
-      return parsed;
-    } catch (error) {
-      console.warn(
-        "Unable to load GUNKOWII AI handoff.",
-        error
-      );
-
+      return safeJSONParse(saved, null);
+    } catch {
       return null;
     }
   }
 
-
   function clearHandoffData() {
-    latestLeadSummary = null;
-    latestStoreAnalysis = null;
-    latestHandoff = null;
-
     try {
-      localStorage.removeItem(
-        AI_HANDOFF_KEY
-      );
-    } catch (error) {
-      console.warn(
-        "Unable to clear GUNKOWII AI handoff.",
-        error
-      );
-    }
+      localStorage.removeItem(AI_HANDOFF_KEY);
+    } catch {}
   }
 
-
   /* =========================================================
-     HANDOFF URL
+     BUILD HANDOFF URL
      ========================================================= */
 
   function buildHandoffURL() {
     return `${CONTACT_URL}?ai_handoff=1`;
   }
 
-
   /* =========================================================
      AI RESPONSE FORMATTER
      ========================================================= */
 
-  function formatAIResponse(text) {
-    if (!text) {
-      return "";
+  function formatAIResponse(rawText) {
+    let text = normalize(rawText);
+
+    if (!text) return "";
+
+    /*
+      Remove accidental HTML that the AI may return.
+      This prevents raw href="..." markup from appearing.
+    */
+    text = text
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<\/p>/gi, "\n")
+      .replace(/<p[^>]*>/gi, "")
+      .replace(/<div[^>]*>/gi, "")
+      .replace(/<\/div>/gi, "")
+      .replace(/<[^>]+>/g, "");
+
+    /*
+      Decode common HTML entities.
+    */
+    const entityBox = document.createElement("textarea");
+    entityBox.innerHTML = text;
+    text = entityBox.value;
+
+    const lines = text.split(/\r?\n/);
+
+    const output = [];
+
+    for (let line of lines) {
+      line = line.trim();
+
+      if (!line) {
+        output.push("<div class=\"gunkowii-ai-spacer\"></div>");
+        continue;
+      }
+
+      /*
+        Markdown links:
+        [Free Audit](https://example.com)
+      */
+
+      let safeLine = escapeHTML(line);
+
+      safeLine = safeLine.replace(
+        /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/gi,
+        (match, label, url) => {
+          const cleanURL = url.replace(/&amp;/g, "&");
+
+          if (!isValidHttpUrl(cleanURL)) {
+            return escapeHTML(label);
+          }
+
+          return `
+            <a
+              class="gunkowii-ai-link"
+              href="${escapeHTML(cleanURL)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >${escapeHTML(label)}</a>
+          `;
+        }
+      );
+
+      /*
+        Raw URLs.
+      */
+
+      safeLine = safeLine.replace(
+        /(^|\s)(https?:\/\/[^\s<]+)/gi,
+        (match, prefix, url) => {
+          const cleanURL = url.replace(/[),.!?]+$/g, "");
+
+          if (!isValidHttpUrl(cleanURL)) {
+            return match;
+          }
+
+          return `${prefix}<a
+            class="gunkowii-ai-link"
+            href="${escapeHTML(cleanURL)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >${escapeHTML(cleanURL)}</a>`;
+        }
+      );
+
+      /*
+        Bold markdown.
+      */
+
+      safeLine = safeLine.replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong>"
+      );
+
+      /*
+        Headings.
+      */
+
+      if (/^#{1,3}\s+/.test(line)) {
+        const heading = line.replace(/^#{1,3}\s+/, "");
+
+        output.push(`
+          <div class="gunkowii-ai-heading">
+            ${escapeHTML(heading)}
+          </div>
+        `);
+
+        continue;
+      }
+
+      /*
+        Bullet points.
+      */
+
+      if (/^[•\-*]\s+/.test(line)) {
+        const bullet = line.replace(/^[•\-*]\s+/, "");
+
+        let formattedBullet = escapeHTML(bullet);
+
+        formattedBullet = formattedBullet.replace(
+          /\*\*(.*?)\*\*/g,
+          "<strong>$1</strong>"
+        );
+
+        output.push(`
+          <div class="gunkowii-ai-bullet">
+            <span>•</span>
+            <div>${formattedBullet}</div>
+          </div>
+        `);
+
+        continue;
+      }
+
+      output.push(`
+        <div class="gunkowii-ai-paragraph">
+          ${safeLine}
+        </div>
+      `);
     }
 
-    let output =
-      escapeHTML(String(text));
-
-    /*
-     * Markdown links
-     */
-    output = output.replace(
-      /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/gi,
-      (match, label, url) => {
-        return `
-          <a
-            href="${url}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >${label}</a>
-        `;
-      }
-    );
-
-    /*
-     * Bold
-     */
-    output = output.replace(
-      /\*\*(.*?)\*\*/g,
-      "<strong>$1</strong>"
-    );
-
-    /*
-     * Headings
-     */
-    output = output.replace(
-      /^### (.*)$/gm,
-      '<div class="gunkowii-ai-heading small">$1</div>'
-    );
-
-    output = output.replace(
-      /^## (.*)$/gm,
-      '<div class="gunkowii-ai-heading">$1</div>'
-    );
-
-    output = output.replace(
-      /^# (.*)$/gm,
-      '<div class="gunkowii-ai-heading large">$1</div>'
-    );
-
-    /*
-     * Numbered lists
-     */
-    output = output.replace(
-      /^\s*(\d+)\.\s+(.*)$/gm,
-      '<div class="gunkowii-ai-list-item"><span>$1.</span><div>$2</div></div>'
-    );
-
-    /*
-     * Bullets
-     */
-    output = output.replace(
-      /^\s*[-•*]\s+(.*)$/gm,
-      '<div class="gunkowii-ai-bullet"><span>•</span><div>$1</div></div>'
-    );
-
-    /*
-     * Bare URLs
-     */
-    output = output.replace(
-      /(^|[\s>])(https?:\/\/[^\s<]+)/gi,
-      (match, prefix, url) => {
-        if (
-          output.includes(
-            `href="${url}"`
-          )
-        ) {
-          return match;
-        }
-
-        return `
-          ${prefix}
-          <a
-            href="${url}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >${url}</a>
-        `;
-      }
-    );
-
-    /*
-     * Line breaks
-     */
-    output = output.replace(
-      /\n/g,
-      "<br>"
-    );
-
-    /*
-     * Remove excessive breaks
-     */
-    output = output.replace(
-      /(<br>\s*){2,}/g,
-      "<br>"
-    );
-
-    output = output.replace(
-      /(<div class="gunkowii-ai-heading[^>]*>.*?<\/div>)<br>/g,
-      "$1"
-    );
-
-    return output;
+    return output.join("");
   }
 
-
   /* =========================================================
-     ADD AI MESSAGE
+     AI MESSAGE UI
      ========================================================= */
 
-  function addAIMessage(
-    text,
-    type = "ai"
-  ) {
-    if (!aiMessages) {
-      return;
-    }
+  function addAIMessage(role, text) {
+    if (!aiMessages) return;
 
-    const message =
-      document.createElement("div");
+    const wrapper = document.createElement("div");
 
-    message.className =
-      `gunkowii-ai-message ${type}`;
+    wrapper.className =
+      role === "user"
+        ? "gunkowii-ai-message gunkowii-ai-user"
+        : "gunkowii-ai-message gunkowii-ai-assistant";
 
-    if (type === "ai") {
-      message.innerHTML = `
+    if (role === "assistant") {
+      wrapper.innerHTML = `
         <div class="gunkowii-ai-message-avatar">
           <img
-            src="${AI_AVATAR}"
+            src="${escapeHTML(AI_AVATAR)}"
             alt="GUNKOWII AI"
           >
         </div>
 
         <div class="gunkowii-ai-message-body">
-          ${formatAIResponse(text)}
+          <div class="gunkowii-ai-message-name">
+            GUNKOWII AI
+          </div>
+
+          <div class="gunkowii-ai-message-text">
+            ${formatAIResponse(text)}
+          </div>
         </div>
       `;
     } else {
-      message.innerHTML = `
-        <div class="gunkowii-ai-message-body">
+      wrapper.innerHTML = `
+        <div class="gunkowii-ai-user-label">
+          You
+        </div>
+
+        <div class="gunkowii-ai-message-text">
           ${formatAIResponse(text)}
         </div>
       `;
     }
 
-    aiMessages.appendChild(message);
+    aiMessages.appendChild(wrapper);
 
-    aiMessages.scrollTop =
-      aiMessages.scrollHeight;
+    requestAnimationFrame(() => {
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+    });
   }
 
-
   /* =========================================================
-     INITIAL GREETING
+     INITIAL AI GREETING
      ========================================================= */
 
   function showInitialGreeting() {
-    addAIMessage(
-      `Hi, I'm GUNKOWII AI 👋
+    if (!aiMessages) return;
+
+    const greeting = `
+Hi, I'm GUNKOWII AI 👋
 
 I'm here to help you understand and improve your e-commerce business.
 
 I can help with:
+
 • Shopify
 • Etsy
 • SEO
@@ -514,232 +416,203 @@ I can help with:
 
 Tell me what you're working on, and I'll guide you step by step.
 
-If you're dealing with a specific store or shop problem, you can also send me the URL.`,
-      "ai"
-    );
-  }
+If you're dealing with a specific store or shop problem, you can also send me the URL.
+`;
 
+    addAIMessage("assistant", greeting);
+  }
 
   /* =========================================================
      TYPING INDICATOR
      ========================================================= */
 
-  function showTypingIndicator() {
+  function showTyping() {
     if (!aiMessages) return;
 
-    removeTypingIndicator();
+    hideTyping();
 
-    const typing =
-      document.createElement("div");
+    aiTyping = document.createElement("div");
 
-    typing.className =
-      "gunkowii-ai-message ai gunkowii-ai-typing";
+    aiTyping.className =
+      "gunkowii-ai-message gunkowii-ai-assistant gunkowii-ai-typing-wrapper";
 
-    typing.innerHTML = `
+    aiTyping.innerHTML = `
       <div class="gunkowii-ai-message-avatar">
         <img
-          src="${AI_AVATAR}"
+          src="${escapeHTML(AI_AVATAR)}"
           alt="GUNKOWII AI"
         >
       </div>
 
       <div class="gunkowii-ai-message-body">
-        <span></span>
-        <span></span>
-        <span></span>
+        <div class="gunkowii-ai-message-name">
+          GUNKOWII AI
+        </div>
+
+        <div class="gunkowii-ai-typing">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     `;
 
-    aiMessages.appendChild(typing);
-
-    aiMessages.scrollTop =
-      aiMessages.scrollHeight;
+    aiMessages.appendChild(aiTyping);
+    aiMessages.scrollTop = aiMessages.scrollHeight;
   }
 
-
-  function removeTypingIndicator() {
-    if (!aiMessages) return;
-
-    const typing =
-      aiMessages.querySelector(
-        ".gunkowii-ai-typing"
-      );
-
-    if (typing) {
-      typing.remove();
+  function hideTyping() {
+    if (aiTyping) {
+      aiTyping.remove();
+      aiTyping = null;
     }
   }
-
 
   /* =========================================================
-     AI HANDOFF NOTICE
+     CONSULTATION HANDOFF
      ========================================================= */
 
-  function showHandoffNotice(data) {
-    if (!data || !data.handoff) {
-      return;
+  function showHandoffNotice(data = {}) {
+    if (!aiMessages) return;
+
+    if (aiHandoffNotice) {
+      aiHandoffNotice.remove();
     }
 
-    saveHandoffData(data);
+    aiHandoffNotice = document.createElement("div");
 
-    if (!aiMessages) {
-      return;
-    }
-
-    const existing =
-      aiMessages.querySelector(
-        ".gunkowii-ai-handoff"
-      );
-
-    if (existing) {
-      return;
-    }
-
-    const handoffURL =
-      buildHandoffURL();
-
-    const notice =
-      document.createElement("div");
-
-    notice.className =
+    aiHandoffNotice.className =
       "gunkowii-ai-handoff";
 
-    notice.innerHTML = `
+    aiHandoffNotice.innerHTML = `
       <div class="gunkowii-ai-handoff-icon">
         ✓
       </div>
 
-      <div class="gunkowii-ai-handoff-title">
-        Consultation ready
-      </div>
+      <div class="gunkowii-ai-handoff-content">
+        <strong>Ready to continue with GUNKOWII SABA</strong>
 
-      <div class="gunkowii-ai-handoff-text">
-        I've organized the important details from this conversation so you can continue with GUNKOWII SABA without having to explain everything again.
-      </div>
+        <p>
+          I've organized the key details from this conversation so you
+          won't need to explain everything again.
+        </p>
 
-      <a
-        class="gunkowii-ai-handoff-button"
-        href="${handoffURL}"
-      >
-        Continue with GUNKOWII SABA →
-      </a>
+        <a
+          class="gunkowii-ai-handoff-button"
+          href="${escapeHTML(buildHandoffURL())}"
+        >
+          Continue with GUNKOWII SABA →
+        </a>
+      </div>
     `;
 
-    aiMessages.appendChild(notice);
+    aiMessages.appendChild(aiHandoffNotice);
 
-    aiMessages.scrollTop =
-      aiMessages.scrollHeight;
+    requestAnimationFrame(() => {
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+    });
   }
 
+  /* =========================================================
+     SAVE AI HANDOFF
+     ========================================================= */
+
+  function createHandoffData(data) {
+    const conversationText = aiConversation
+      .map(item => {
+        const speaker =
+          item.role === "user"
+            ? "Visitor"
+            : "GUNKOWII AI";
+
+        return `${speaker}: ${item.content}`;
+      })
+      .join("\n\n");
+
+    return {
+      timestamp: new Date().toISOString(),
+      page: getPageName(),
+
+      leadSummary:
+        data?.leadSummary ||
+        data?.summary ||
+        "",
+
+      storeAnalysis:
+        data?.storeAnalysis ||
+        "",
+
+      recommendedService:
+        data?.recommendedService ||
+        data?.service ||
+        "",
+
+      conversation:
+        conversationText,
+
+      aiAnswer:
+        data?.answer ||
+        ""
+    };
+  }
 
   /* =========================================================
      SEND AI MESSAGE
      ========================================================= */
 
-  async function sendAIMessage(
-    userMessage
-  ) {
-    if (
-      !userMessage ||
-      aiBusy
-    ) {
-      return;
-    }
+  async function sendAIMessage() {
+    if (!aiInput || aiBusy) return;
 
-    const cleanMessage =
-      String(userMessage).trim();
+    const question = normalize(aiInput.value);
 
-    if (!cleanMessage) {
-      return;
-    }
+    if (!question) return;
 
     aiBusy = true;
 
-    if (aiSendButton) {
-      aiSendButton.disabled = true;
-    }
+    aiInput.value = "";
+    aiInput.disabled = true;
 
-    if (aiInput) {
-      aiInput.disabled = true;
-    }
-
-    addAIMessage(
-      cleanMessage,
-      "user"
-    );
+    addAIMessage("user", question);
 
     aiConversation.push({
       role: "user",
-      content: cleanMessage
+      content: question
     });
 
     saveAIConversation();
 
-    showTypingIndicator();
+    showTyping();
 
     try {
-      const response =
-        await fetch(
-          AI_WORKER_URL,
-          {
-            method: "POST",
+      const response = await fetch(AI_WORKER_URL, {
+        method: "POST",
 
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
+        headers: {
+          "Content-Type": "application/json"
+        },
 
-            body: JSON.stringify({
-              message:
-                cleanMessage,
-
-              history:
-                aiConversation
-            })
-          }
-        );
-
-      const contentType =
-        response.headers.get(
-          "content-type"
-        ) || "";
-
-      let data;
-
-      if (
-        contentType.includes(
-          "application/json"
-        )
-      ) {
-        data =
-          await response.json();
-      } else {
-        const text =
-          await response.text();
-
-        data = {
-          answer: text
-        };
-      }
-
-      removeTypingIndicator();
+        body: JSON.stringify({
+          message: question,
+          conversation: aiConversation,
+          page: getPageName()
+        })
+      });
 
       if (!response.ok) {
         throw new Error(
-          data?.error ||
-          data?.answer ||
-          `AI request failed (${response.status})`
+          `AI request failed with status ${response.status}`
         );
       }
 
-      const answer =
-        data?.answer ||
-        "I couldn't generate a response right now. Please try again.";
+      const data = await response.json();
 
-      addAIMessage(
-        answer,
-        "ai"
-      );
+      hideTyping();
+
+      const answer =
+        normalize(data.answer) ||
+        "I’m ready to help. Tell me a little more about the store or problem you're dealing with.";
+
+      addAIMessage("assistant", answer);
 
       aiConversation.push({
         role: "assistant",
@@ -748,56 +621,41 @@ If you're dealing with a specific store or shop problem, you can also send me th
 
       saveAIConversation();
 
-      if (data.leadSummary) {
-        latestLeadSummary =
-          data.leadSummary;
+      /*
+        Only create the consultation handoff when the Worker
+        indicates that enough information has been gathered.
+      */
+
+      const handoff =
+        data.handoff === true ||
+        data.readyForHandoff === true ||
+        data.consultationReady === true;
+
+      if (handoff) {
+        const handoffData = createHandoffData(data);
+
+        saveHandoffData(handoffData);
+
+        showHandoffNotice(handoffData);
       }
 
-      if (data.storeAnalysis) {
-        latestStoreAnalysis =
-          data.storeAnalysis;
-      }
-
-      if (data.handoff) {
-        latestHandoff =
-          data.handoff;
-
-        showHandoffNotice({
-          answer,
-
-          leadSummary:
-            data.leadSummary,
-
-          storeAnalysis:
-            data.storeAnalysis,
-
-          handoff:
-            data.handoff,
-
-          conversation:
-            aiConversation
-        });
-      }
     } catch (error) {
-      removeTypingIndicator();
+      console.error("GUNKOWII AI error:", error);
 
-      console.error(
-        "GUNKOWII AI error:",
-        error
-      );
+      hideTyping();
 
-      addAIMessage(
-        `I'm having trouble connecting right now.
+      const fallback = `
+I’m having trouble connecting to the consultation service right now.
 
-Please try again in a moment. If you need immediate assistance, you can continue directly with GUNKOWII SABA.`,
-        "ai"
-      );
+You can still continue directly with GUNKOWII SABA through WhatsApp, or send your store URL and project details through the contact page.
+
+<a href="${AUDIT_URL}" target="_blank" rel="noopener noreferrer" class="gunkowii-ai-link">Free Audit →</a>
+`;
+
+      addAIMessage("assistant", fallback);
+
     } finally {
       aiBusy = false;
-
-      if (aiSendButton) {
-        aiSendButton.disabled = false;
-      }
 
       if (aiInput) {
         aiInput.disabled = false;
@@ -806,15 +664,12 @@ Please try again in a moment. If you need immediate assistance, you can continue
     }
   }
 
-
   /* =========================================================
-     DRAG SYSTEM
+     DRAGGABLE ELEMENT
      ========================================================= */
 
-  function makeDraggable(element, handle) {
-    if (!element || !handle) {
-      return;
-    }
+  function makeDraggable(element, handle, storageKey = null) {
+    if (!element || !handle) return;
 
     let dragging = false;
     let startX = 0;
@@ -822,246 +677,210 @@ Please try again in a moment. If you need immediate assistance, you can continue
     let startLeft = 0;
     let startTop = 0;
 
+    function restorePosition() {
+      if (!storageKey) return;
+
+      try {
+        const saved = safeJSONParse(
+          localStorage.getItem(storageKey),
+          null
+        );
+
+        if (
+          saved &&
+          Number.isFinite(saved.left) &&
+          Number.isFinite(saved.top)
+        ) {
+          element.style.left = `${saved.left}px`;
+          element.style.top = `${saved.top}px`;
+          element.style.right = "auto";
+          element.style.bottom = "auto";
+        }
+      } catch {}
+    }
+
+    function clampPosition(left, top) {
+      const rect = element.getBoundingClientRect();
+
+      const maxLeft = Math.max(
+        8,
+        window.innerWidth - rect.width - 8
+      );
+
+      const maxTop = Math.max(
+        8,
+        window.innerHeight - rect.height - 8
+      );
+
+      return {
+        left: Math.min(Math.max(8, left), maxLeft),
+        top: Math.min(Math.max(8, top), maxTop)
+      };
+    }
+
     function pointerDown(event) {
-      if (
-        event.target.closest(
-          "button, a, input, textarea"
-        )
-      ) {
+      if (event.target.closest("button, a, input, textarea, select")) {
         return;
       }
 
       dragging = true;
 
-      const rect =
-        element.getBoundingClientRect();
+      const rect = element.getBoundingClientRect();
 
-      startX =
-        event.clientX;
+      startX = event.clientX;
+      startY = event.clientY;
+      startLeft = rect.left;
+      startTop = rect.top;
 
-      startY =
-        event.clientY;
+      element.style.left = `${rect.left}px`;
+      element.style.top = `${rect.top}px`;
+      element.style.right = "auto";
+      element.style.bottom = "auto";
 
-      startLeft =
-        rect.left;
+      element.classList.add("gunkowii-ai-dragging");
 
-      startTop =
-        rect.top;
-
-      element.style.left =
-        `${rect.left}px`;
-
-      element.style.top =
-        `${rect.top}px`;
-
-      element.style.right =
-        "auto";
-
-      element.style.bottom =
-        "auto";
-
-      handle.setPointerCapture?.(
-        event.pointerId
-      );
-
-      element.classList.add(
-        "gunkowii-ai-dragging"
-      );
+      try {
+        handle.setPointerCapture(event.pointerId);
+      } catch {}
 
       event.preventDefault();
     }
 
-
     function pointerMove(event) {
-      if (!dragging) {
-        return;
-      }
+      if (!dragging) return;
 
-      const dx =
-        event.clientX - startX;
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
 
-      const dy =
-        event.clientY - startY;
+      const position = clampPosition(
+        startLeft + deltaX,
+        startTop + deltaY
+      );
 
-      let left =
-        startLeft + dx;
-
-      let top =
-        startTop + dy;
-
-      const rect =
-        element.getBoundingClientRect();
-
-      const maxLeft =
-        window.innerWidth -
-        rect.width;
-
-      const maxTop =
-        window.innerHeight -
-        rect.height;
-
-      left =
-        Math.max(
-          5,
-          Math.min(
-            left,
-            maxLeft - 5
-          )
-        );
-
-      top =
-        Math.max(
-          5,
-          Math.min(
-            top,
-            maxTop - 5
-          )
-        );
-
-      element.style.left =
-        `${left}px`;
-
-      element.style.top =
-        `${top}px`;
+      element.style.left = `${position.left}px`;
+      element.style.top = `${position.top}px`;
     }
 
-
     function pointerUp(event) {
-      if (!dragging) {
-        return;
-      }
+      if (!dragging) return;
 
       dragging = false;
 
-      handle.releasePointerCapture?.(
-        event.pointerId
-      );
+      element.classList.remove("gunkowii-ai-dragging");
 
-      element.classList.remove(
-        "gunkowii-ai-dragging"
-      );
+      try {
+        handle.releasePointerCapture(event.pointerId);
+      } catch {}
+
+      if (storageKey) {
+        try {
+          const rect = element.getBoundingClientRect();
+
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify({
+              left: rect.left,
+              top: rect.top
+            })
+          );
+        } catch {}
+      }
     }
 
+    handle.addEventListener("pointerdown", pointerDown);
+    handle.addEventListener("pointermove", pointerMove);
+    handle.addEventListener("pointerup", pointerUp);
+    handle.addEventListener("pointercancel", pointerUp);
 
-    handle.addEventListener(
-      "pointerdown",
-      pointerDown
-    );
-
-    handle.addEventListener(
-      "pointermove",
-      pointerMove
-    );
-
-    handle.addEventListener(
-      "pointerup",
-      pointerUp
-    );
-
-    handle.addEventListener(
-      "pointercancel",
-      pointerUp
-    );
+    restorePosition();
   }
 
-
   /* =========================================================
-     AI STYLES
+     AI CSS
      ========================================================= */
 
-  function injectAIStyles() {
-    if (
-      document.getElementById(
-        "gunkowii-ai-styles"
-      )
-    ) {
-      return;
-    }
+  function injectAICSS() {
+    if (document.getElementById("gunkowii-ai-styles")) return;
 
-    const style =
-      document.createElement("style");
+    const style = document.createElement("style");
 
-    style.id =
-      "gunkowii-ai-styles";
+    style.id = "gunkowii-ai-styles";
 
     style.textContent = `
-
-      /* =========================================
-         FLOATING AI LAUNCHER
-         ========================================= */
+      /* =====================================================
+         AI LAUNCHER
+         ===================================================== */
 
       .gunkowii-ai-launcher {
         position: fixed;
-
         right: 20px;
         bottom: 20px;
-
         z-index: 9998;
 
+        width: 76px;
+
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 9px;
+        justify-content: center;
+        gap: 5px;
 
         cursor: grab;
-
         user-select: none;
         touch-action: none;
       }
 
-      .gunkowii-ai-launcher.dragging {
+      .gunkowii-ai-launcher:active {
         cursor: grabbing;
       }
 
       .gunkowii-ai-launcher-avatar {
-        width: 58px;
-        height: 58px;
-
-        border-radius: 50%;
+        width: 54px;
+        height: 54px;
 
         object-fit: cover;
 
-        border:
-          3px solid #c9a227;
+        border-radius: 50%;
 
-        background: #fff;
+        border: 2px solid #c9a227;
 
-        box-shadow:
-          0 8px 25px rgba(0,0,0,.20);
-
-        transition:
-          transform .2s ease,
-          box-shadow .2s ease;
-      }
-
-      .gunkowii-ai-launcher:hover
-      .gunkowii-ai-launcher-avatar {
-        transform: scale(1.05);
+        background: #f7f1df;
 
         box-shadow:
-          0 12px 32px rgba(0,0,0,.24);
+          0 7px 24px rgba(0,0,0,.20),
+          0 0 0 4px rgba(255,255,255,.85);
+
+        pointer-events: none;
       }
 
       .gunkowii-ai-launcher-label {
-        padding: 10px 14px;
+        display: block;
+
+        max-width: 76px;
+
+        padding: 5px 7px;
 
         border-radius: 999px;
 
         background: #0b5d46;
         color: #fff;
 
-        font-size: 13px;
+        font-size: 9px;
+        line-height: 1.15;
         font-weight: 800;
 
+        text-align: center;
         white-space: nowrap;
 
         box-shadow:
-          0 8px 25px rgba(0,0,0,.16);
+          0 5px 16px rgba(11,93,70,.25);
+
+        pointer-events: none;
       }
 
-
-      /* =========================================
+      /* =====================================================
          AI PANEL
-         ========================================= */
+         ===================================================== */
 
       .gunkowii-ai-panel {
         position: fixed;
@@ -1069,613 +888,857 @@ Please try again in a moment. If you need immediate assistance, you can continue
         right: 20px;
         bottom: 92px;
 
-        width:
-          min(410px, calc(100vw - 30px));
-
-        height:
-          min(640px, calc(100vh - 120px));
+        width: min(410px, calc(100vw - 28px));
+        height: min(650px, calc(100vh - 120px));
 
         z-index: 9999;
 
-        display: none;
+        display: flex;
         flex-direction: column;
 
         overflow: hidden;
 
-        background: #fffdf8;
+        background: #fffdf7;
 
         border:
-          1px solid rgba(11,93,70,.18);
+          1px solid rgba(11,93,70,.16);
 
         border-radius: 22px;
 
         box-shadow:
-          0 25px 70px rgba(0,0,0,.25);
+          0 22px 60px rgba(0,0,0,.22);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transform:
+          translateY(14px)
+          scale(.98);
+
+        transition:
+          opacity .2s ease,
+          transform .2s ease,
+          visibility .2s ease;
       }
 
-      .gunkowii-ai-panel.open {
-        display: flex;
+      .gunkowii-ai-panel.gunkowii-ai-open {
+        opacity: 1;
+        visibility: visible;
+
+        transform:
+          translateY(0)
+          scale(1);
       }
-
-      .gunkowii-ai-panel.gunkowii-ai-dragging {
-        transition: none;
-      }
-
-
-      /* =========================================
-         HEADER
-         ========================================= */
 
       .gunkowii-ai-header {
+        flex: 0 0 auto;
+
         display: flex;
         align-items: center;
-        justify-content: space-between;
 
-        padding: 13px 15px;
+        gap: 10px;
 
-        background: #0b5d46;
+        padding: 13px 14px;
+
+        background:
+          linear-gradient(
+            135deg,
+            #0b5d46,
+            #094b39
+          );
+
         color: #fff;
 
         cursor: grab;
+        touch-action: none;
 
         user-select: none;
-        touch-action: none;
       }
 
       .gunkowii-ai-header:active {
         cursor: grabbing;
       }
 
-      .gunkowii-ai-brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .gunkowii-ai-avatar {
+      .gunkowii-ai-header-avatar {
         width: 43px;
         height: 43px;
+
+        flex: 0 0 43px;
 
         border-radius: 50%;
 
         object-fit: cover;
 
-        border:
-          2px solid rgba(255,255,255,.9);
+        border: 2px solid #d5b348;
+
+        background: #fff;
       }
 
-      .gunkowii-ai-title {
-        font-size: 14px;
+      .gunkowii-ai-header-info {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .gunkowii-ai-header-title {
+        font-size: 15px;
         font-weight: 900;
+
+        line-height: 1.15;
       }
 
-      .gunkowii-ai-status {
-        margin-top: 2px;
+      .gunkowii-ai-header-subtitle {
+        margin-top: 3px;
 
         font-size: 10px;
+        line-height: 1.3;
 
-        opacity: .82;
+        color: rgba(255,255,255,.82);
       }
 
       .gunkowii-ai-header-actions {
         display: flex;
         align-items: center;
+
         gap: 5px;
+
+        flex: 0 0 auto;
       }
 
       .gunkowii-ai-new-chat,
       .gunkowii-ai-close {
-        border: none;
-
-        border-radius: 9px;
-
-        background:
-          rgba(255,255,255,.12);
+        border: 0;
 
         color: #fff;
 
         cursor: pointer;
+
+        touch-action: manipulation;
       }
 
       .gunkowii-ai-new-chat {
         padding: 7px 9px;
 
+        border-radius: 8px;
+
+        background:
+          rgba(255,255,255,.12);
+
         font-size: 10px;
         font-weight: 800;
       }
 
-      .gunkowii-ai-close {
-        width: 33px;
-        height: 33px;
-
-        font-size: 19px;
+      .gunkowii-ai-new-chat:hover {
+        background:
+          rgba(255,255,255,.2);
       }
 
-      .gunkowii-ai-new-chat:hover,
+      .gunkowii-ai-close {
+        width: 30px;
+        height: 30px;
+
+        display: grid;
+        place-items: center;
+
+        background: transparent;
+
+        font-size: 22px;
+        line-height: 1;
+      }
+
       .gunkowii-ai-close:hover {
         background:
-          rgba(255,255,255,.22);
+          rgba(255,255,255,.12);
+
+        border-radius: 50%;
       }
 
-
-      /* =========================================
-         MESSAGES
-         ========================================= */
+      /* =====================================================
+         AI MESSAGES
+         ===================================================== */
 
       .gunkowii-ai-messages {
         flex: 1;
 
         overflow-y: auto;
 
-        padding: 17px;
+        padding: 17px 14px 15px;
 
         scroll-behavior: smooth;
       }
 
       .gunkowii-ai-message {
-        display: flex;
-
-        max-width: 94%;
-
         margin-bottom: 14px;
       }
 
-      .gunkowii-ai-message.ai {
-        margin-right: auto;
+      .gunkowii-ai-assistant {
+        display: flex;
+        align-items: flex-start;
 
         gap: 8px;
       }
 
-      .gunkowii-ai-message.user {
-        margin-left: auto;
-      }
-
-      .gunkowii-ai-message-body {
-        padding: 12px 14px;
-
-        border-radius: 15px;
-
-        font-size: 13px;
-
-        line-height: 1.6;
-
-        word-break: break-word;
-      }
-
-      .gunkowii-ai-message.ai
-      .gunkowii-ai-message-body {
-        background: #f1eee6;
-        color: #242424;
-
-        border-top-left-radius: 5px;
-      }
-
-      .gunkowii-ai-message.user
-      .gunkowii-ai-message-body {
-        background: #0b5d46;
-        color: #fff;
-
-        border-top-right-radius: 5px;
-      }
-
       .gunkowii-ai-message-avatar {
-        flex: 0 0 auto;
-      }
+        width: 31px;
+        height: 31px;
 
-      .gunkowii-ai-message-avatar img {
-        width: 30px;
-        height: 30px;
+        flex: 0 0 31px;
+
+        overflow: hidden;
 
         border-radius: 50%;
 
+        background: #f4ecd5;
+
+        border: 1px solid #d8c27b;
+      }
+
+      .gunkowii-ai-message-avatar img {
+        width: 100%;
+        height: 100%;
+
         object-fit: cover;
-
-        border:
-          1px solid rgba(11,93,70,.2);
       }
 
-      .gunkowii-ai-message-body a {
-        color: inherit;
-
-        font-weight: 800;
-
-        text-decoration: underline;
+      .gunkowii-ai-message-body {
+        max-width: calc(100% - 39px);
       }
 
-      .gunkowii-ai-heading {
-        margin: 8px 0 6px;
+      .gunkowii-ai-message-name {
+        margin-bottom: 4px;
 
         color: #0b5d46;
 
-        font-size: 14px;
+        font-size: 10px;
         font-weight: 900;
+        letter-spacing: .3px;
       }
 
-      .gunkowii-ai-heading.large {
-        font-size: 16px;
+      .gunkowii-ai-message-text {
+        padding: 11px 12px;
+
+        border-radius:
+          5px 15px 15px 15px;
+
+        background: #f3f0e7;
+
+        color: #202820;
+
+        font-size: 12px;
+        line-height: 1.58;
+
+        overflow-wrap: anywhere;
       }
 
-      .gunkowii-ai-heading.small {
+      .gunkowii-ai-user {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .gunkowii-ai-user .gunkowii-ai-message-text {
+        max-width: 84%;
+
+        background: #0b5d46;
+        color: #fff;
+
+        border-radius:
+          15px 5px 15px 15px;
+      }
+
+      .gunkowii-ai-user-label {
+        margin-bottom: 3px;
+
+        font-size: 9px;
+        font-weight: 800;
+
+        color: #777;
+      }
+
+      .gunkowii-ai-paragraph {
+        margin-bottom: 7px;
+      }
+
+      .gunkowii-ai-paragraph:last-child {
+        margin-bottom: 0;
+      }
+
+      .gunkowii-ai-spacer {
+        height: 5px;
+      }
+
+      .gunkowii-ai-heading {
+        margin:
+          3px 0 8px;
+
+        color: #0b5d46;
+
         font-size: 13px;
+        font-weight: 900;
       }
 
       .gunkowii-ai-bullet {
         display: flex;
+        align-items: flex-start;
 
         gap: 7px;
 
-        margin: 5px 0;
+        margin-bottom: 5px;
       }
 
-      .gunkowii-ai-bullet span {
+      .gunkowii-ai-bullet > span {
         color: #c9a227;
-
         font-weight: 900;
       }
 
-      .gunkowii-ai-list-item {
-        display: flex;
+      .gunkowii-ai-link {
+        display: inline-block;
 
-        gap: 7px;
+        margin-top: 4px;
 
-        margin: 5px 0;
-      }
-
-      .gunkowii-ai-list-item > span {
         color: #0b5d46;
 
         font-weight: 900;
+        text-decoration: underline;
       }
 
+      .gunkowii-ai-user .gunkowii-ai-link {
+        color: #fff;
+      }
 
-      /* =========================================
+      /* =====================================================
          TYPING
-         ========================================= */
+         ===================================================== */
 
-      .gunkowii-ai-typing
-      .gunkowii-ai-message-body {
+      .gunkowii-ai-typing {
         display: flex;
         align-items: center;
+
         gap: 4px;
 
-        padding: 14px 16px;
+        padding: 11px 13px;
+
+        background: #f3f0e7;
+
+        border-radius:
+          5px 15px 15px 15px;
       }
 
-      .gunkowii-ai-typing
-      .gunkowii-ai-message-body span {
+      .gunkowii-ai-typing span {
         width: 6px;
         height: 6px;
 
         border-radius: 50%;
 
-        background: #777;
+        background: #0b5d46;
 
         animation:
-          gunkowiiTyping 1.2s infinite;
+          gunkowiiAItyping 1.2s infinite ease-in-out;
       }
 
-      .gunkowii-ai-typing
-      .gunkowii-ai-message-body
-      span:nth-child(2) {
+      .gunkowii-ai-typing span:nth-child(2) {
         animation-delay: .15s;
       }
 
-      .gunkowii-ai-typing
-      .gunkowii-ai-message-body
-      span:nth-child(3) {
+      .gunkowii-ai-typing span:nth-child(3) {
         animation-delay: .3s;
       }
 
-      @keyframes gunkowiiTyping {
+      @keyframes gunkowiiAItyping {
         0%, 60%, 100% {
-          opacity: .35;
           transform: translateY(0);
+          opacity: .45;
         }
 
         30% {
+          transform: translateY(-4px);
           opacity: 1;
-          transform: translateY(-3px);
         }
       }
 
-
-      /* =========================================
-         INPUT
-         ========================================= */
-
-      .gunkowii-ai-input-area {
-        display: flex;
-        gap: 8px;
-
-        padding: 12px;
-
-        border-top:
-          1px solid rgba(0,0,0,.08);
-
-        background: #fff;
-      }
-
-      .gunkowii-ai-input {
-        flex: 1;
-
-        min-width: 0;
-
-        resize: none;
-
-        border:
-          1px solid #d9d4c9;
-
-        border-radius: 12px;
-
-        padding: 10px 12px;
-
-        font-family: inherit;
-        font-size: 13px;
-
-        outline: none;
-      }
-
-      .gunkowii-ai-input:focus {
-        border-color: #0b5d46;
-      }
-
-      .gunkowii-ai-send {
-        align-self: flex-end;
-
-        border: none;
-
-        border-radius: 12px;
-
-        padding: 10px 14px;
-
-        background: #c9a227;
-        color: #171717;
-
-        font-weight: 900;
-
-        cursor: pointer;
-      }
-
-      .gunkowii-ai-send:disabled {
-        opacity: .5;
-
-        cursor: not-allowed;
-      }
-
-
-      /* =========================================
+      /* =====================================================
          HANDOFF
-         ========================================= */
+         ===================================================== */
 
       .gunkowii-ai-handoff {
-        margin: 15px 0 5px;
+        display: flex;
+        align-items: flex-start;
 
-        padding: 16px;
+        gap: 10px;
 
-        border-radius: 15px;
+        margin:
+          12px 2px 4px;
+
+        padding: 13px;
 
         background:
           linear-gradient(
             135deg,
-            #f7f0d8,
-            #fffaf0
+            #f8f2df,
+            #fffdf7
           );
 
         border:
           1px solid rgba(201,162,39,.35);
 
-        color: #222;
-
-        font-size: 12px;
-
-        line-height: 1.55;
+        border-radius: 15px;
       }
 
       .gunkowii-ai-handoff-icon {
-        display: inline-flex;
+        width: 27px;
+        height: 27px;
 
-        width: 28px;
-        height: 28px;
+        flex: 0 0 27px;
 
-        align-items: center;
-        justify-content: center;
-
-        margin-bottom: 7px;
+        display: grid;
+        place-items: center;
 
         border-radius: 50%;
 
         background: #0b5d46;
         color: #fff;
 
+        font-size: 12px;
         font-weight: 900;
       }
 
-      .gunkowii-ai-handoff-title {
-        margin-bottom: 5px;
+      .gunkowii-ai-handoff-content {
+        min-width: 0;
+      }
+
+      .gunkowii-ai-handoff-content strong {
+        display: block;
+
+        margin-bottom: 4px;
 
         color: #0b5d46;
 
-        font-size: 14px;
-        font-weight: 900;
+        font-size: 11px;
       }
 
-      .gunkowii-ai-handoff-text {
-        margin-bottom: 12px;
+      .gunkowii-ai-handoff-content p {
+        margin:
+          0 0 9px;
+
+        color: #555;
+
+        font-size: 10px;
+        line-height: 1.45;
       }
 
       .gunkowii-ai-handoff-button {
         display: inline-block;
 
-        padding: 10px 14px;
+        padding: 8px 11px;
+
+        border-radius: 9px;
+
+        background: #0b5d46;
+        color: #fff;
+
+        font-size: 10px;
+        font-weight: 900;
+
+        text-decoration: none;
+      }
+
+      .gunkowii-ai-handoff-button:hover {
+        background: #084b39;
+      }
+
+      /* =====================================================
+         AI INPUT
+         ===================================================== */
+
+      .gunkowii-ai-input-area {
+        flex: 0 0 auto;
+
+        padding: 10px;
+
+        background: #fff;
+
+        border-top:
+          1px solid rgba(11,93,70,.10);
+      }
+
+      .gunkowii-ai-input-wrap {
+        display: flex;
+        align-items: flex-end;
+
+        gap: 7px;
+
+        padding: 6px;
+
+        background: #f4f1e9;
+
+        border-radius: 13px;
+      }
+
+      .gunkowii-ai-input {
+        flex: 1;
+
+        min-height: 38px;
+        max-height: 105px;
+
+        resize: none;
+
+        padding:
+          8px 9px;
+
+        border: 0;
+        outline: none;
+
+        background: transparent;
+
+        color: #202820;
+
+        font-family: inherit;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .gunkowii-ai-input::placeholder {
+        color: #888;
+      }
+
+      .gunkowii-ai-send {
+        width: 38px;
+        height: 38px;
+
+        flex: 0 0 38px;
+
+        border: 0;
 
         border-radius: 10px;
 
         background: #0b5d46;
-        color: #fff !important;
+        color: #fff;
 
-        text-decoration: none !important;
+        cursor: pointer;
 
+        font-size: 16px;
         font-weight: 900;
       }
 
+      .gunkowii-ai-send:hover {
+        background: #084b39;
+      }
 
-      /* =========================================
-         MOBILE
-         ========================================= */
+      .gunkowii-ai-send:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+      }
+
+      /* =====================================================
+         DRAGGING
+         ===================================================== */
+
+      .gunkowii-ai-dragging {
+        transition: none !important;
+      }
+
+      /* =====================================================
+         LIVE ACTIVITY POPUP
+         ===================================================== */
+
+      .gunkowii-live-activity {
+        position: fixed;
+
+        left: 18px;
+        bottom: 18px;
+
+        z-index: 9990;
+
+        width: min(
+          400px,
+          calc(100vw - 36px)
+        );
+
+        min-height: 98px;
+
+        padding: 12px 14px;
+
+        display: flex;
+        align-items: center;
+
+        gap: 12px;
+
+        background:
+          linear-gradient(
+            135deg,
+            #fffdf7,
+            #f5f0df
+          );
+
+        border:
+          1px solid rgba(11,93,70,.16);
+
+        border-left:
+          4px solid #c9a227;
+
+        border-radius: 17px;
+
+        box-shadow:
+          0 15px 38px rgba(0,0,0,.16);
+
+        opacity: 0;
+
+        transform:
+          translateX(-120%);
+
+        transition:
+          transform .45s ease,
+          opacity .35s ease;
+
+        cursor: pointer;
+      }
+
+      .gunkowii-live-activity.gunkowii-live-show {
+        opacity: 1;
+
+        transform:
+          translateX(0);
+      }
+
+      .gunkowii-live-media {
+        position: relative;
+
+        width: 68px;
+        height: 68px;
+
+        flex: 0 0 68px;
+
+        overflow: hidden;
+
+        border-radius: 13px;
+
+        background:
+          linear-gradient(
+            135deg,
+            #0b5d46,
+            #c9a227
+          );
+
+        border:
+          1px solid rgba(201,162,39,.4);
+      }
+
+      .gunkowii-live-media img {
+        width: 100%;
+        height: 100%;
+
+        display: block;
+
+        object-fit: cover;
+      }
+
+      .gunkowii-live-placeholder {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: #fff;
+
+        font-size: 17px;
+        font-weight: 900;
+        letter-spacing: .5px;
+      }
+
+      .gunkowii-live-content {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .gunkowii-live-title {
+        margin-bottom: 4px;
+
+        color: #0b5d46;
+
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .gunkowii-live-text {
+        color: #4d514c;
+
+        font-size: 11px;
+        line-height: 1.45;
+      }
+
+      .gunkowii-live-close {
+        width: 26px;
+        height: 26px;
+
+        flex: 0 0 26px;
+
+        display: grid;
+        place-items: center;
+
+        border: 0;
+
+        border-radius: 50%;
+
+        background:
+          rgba(11,93,70,.07);
+
+        color: #555;
+
+        cursor: pointer;
+
+        font-size: 17px;
+        line-height: 1;
+      }
+
+      .gunkowii-live-close:hover {
+        background:
+          rgba(11,93,70,.13);
+      }
 
       @media (max-width: 600px) {
 
         .gunkowii-ai-launcher {
-          right: 14px;
-          bottom: 14px;
-        }
-
-        .gunkowii-ai-launcher-avatar {
-          width: 54px;
-          height: 54px;
-        }
-
-        .gunkowii-ai-launcher-label {
-          padding: 9px 12px;
-
-          font-size: 12px;
+          right: 12px;
+          bottom: 12px;
         }
 
         .gunkowii-ai-panel {
           right: 10px;
-          bottom: 80px;
+          bottom: 88px;
 
           width:
             calc(100vw - 20px);
 
           height:
-            calc(100vh - 100px);
+            min(650px, calc(100vh - 105px));
 
-          border-radius: 17px;
+          border-radius: 18px;
         }
 
-      }
+        .gunkowii-ai-header {
+          padding: 11px;
+        }
 
+        .gunkowii-ai-header-avatar {
+          width: 39px;
+          height: 39px;
+          flex-basis: 39px;
+        }
+
+        .gunkowii-ai-header-title {
+          font-size: 13px;
+        }
+
+        .gunkowii-ai-header-subtitle {
+          font-size: 9px;
+        }
+
+        .gunkowii-ai-new-chat {
+          padding: 6px 7px;
+          font-size: 9px;
+        }
+
+        .gunkowii-live-activity {
+          left: 10px;
+          bottom: 10px;
+
+          width:
+            calc(100vw - 20px);
+
+          min-height: 94px;
+
+          padding: 11px;
+        }
+
+        .gunkowii-live-media {
+          width: 60px;
+          height: 60px;
+          flex-basis: 60px;
+        }
+
+        .gunkowii-live-title {
+          font-size: 11px;
+        }
+
+        .gunkowii-live-text {
+          font-size: 10px;
+        }
+      }
     `;
 
     document.head.appendChild(style);
   }
-
 
   /* =========================================================
      CREATE AI PANEL
      ========================================================= */
 
   function createAIPanel() {
-
-    /*
-     * Existing panel
-     */
-    if (
-      document.getElementById(
-        "gunkowii-ai-panel"
-      )
-    ) {
-
-      aiPanel =
-        document.getElementById(
-          "gunkowii-ai-panel"
-        );
-
+    if (document.querySelector(".gunkowii-ai-panel")) {
+      aiPanel = document.querySelector(".gunkowii-ai-panel");
       aiMessages =
-        document.getElementById(
-          "gunkowii-ai-messages"
-        );
-
+        aiPanel.querySelector(".gunkowii-ai-messages");
       aiInput =
-        document.getElementById(
-          "gunkowii-ai-input"
-        );
-
-      aiSendButton =
-        document.getElementById(
-          "gunkowii-ai-send"
-        );
+        aiPanel.querySelector(".gunkowii-ai-input");
 
       return;
     }
 
+    aiLauncher = document.createElement("div");
 
-    /* =========================================
-       FLOATING LAUNCHER
-       ========================================= */
-
-    const launcher =
-      document.createElement("div");
-
-    launcher.className =
+    aiLauncher.className =
       "gunkowii-ai-launcher";
 
-    launcher.setAttribute(
-      "role",
-      "button"
+    aiLauncher.setAttribute(
+      "aria-label",
+      "Ask GUNKOWII AI"
     );
 
-    launcher.setAttribute(
-      "tabindex",
-      "0"
-    );
+    aiLauncher.innerHTML = `
+      <img
+        class="gunkowii-ai-launcher-avatar"
+        src="${escapeHTML(AI_AVATAR)}"
+        alt="GUNKOWII AI"
+      >
 
-    launcher.innerHTML = `
       <span class="gunkowii-ai-launcher-label">
         Ask GUNKOWII AI
       </span>
-
-      <img
-        class="gunkowii-ai-launcher-avatar"
-        src="${AI_AVATAR}"
-        alt="Ask GUNKOWII AI"
-      >
     `;
 
-    document.body.appendChild(
-      launcher
+    document.body.appendChild(aiLauncher);
+
+    aiPanel = document.createElement("section");
+
+    aiPanel.className =
+      "gunkowii-ai-panel";
+
+    aiPanel.setAttribute(
+      "aria-label",
+      "GUNKOWII AI consultation"
     );
 
-    aiLauncher =
-      launcher;
-
-
-    /* =========================================
-       AI PANEL
-       ========================================= */
-
-    const panel =
-      document.createElement("div");
-
-    panel.id =
-      "gunkowii-ai-panel";
-
-    panel.className =
-      "gunkowii-ai-panel";
-
-    panel.innerHTML = `
+    aiPanel.innerHTML = `
       <div
         class="gunkowii-ai-header"
         id="gunkowii-ai-drag-handle"
       >
 
-        <div class="gunkowii-ai-brand">
+        <img
+          class="gunkowii-ai-header-avatar"
+          src="${escapeHTML(AI_AVATAR)}"
+          alt="GUNKOWII AI"
+        >
 
-          <img
-            class="gunkowii-ai-avatar"
-            src="${AI_AVATAR}"
-            alt="GUNKOWII AI"
-          >
+        <div class="gunkowii-ai-header-info">
 
-          <div>
-            <div class="gunkowii-ai-title">
-              GUNKOWII AI
-            </div>
+          <div class="gunkowii-ai-header-title">
+            GUNKOWII AI
+          </div>
 
-            <div class="gunkowii-ai-status">
-              E-commerce • Shopify • Etsy • SEO • CRO
-            </div>
+          <div class="gunkowii-ai-header-subtitle">
+            E-commerce • Shopify • Etsy • SEO • CRO
           </div>
 
         </div>
@@ -1703,549 +1766,367 @@ Please try again in a moment. If you need immediate assistance, you can continue
       </div>
 
       <div
-        id="gunkowii-ai-messages"
         class="gunkowii-ai-messages"
+        aria-live="polite"
       ></div>
 
-      <form
-        id="gunkowii-ai-form"
-        class="gunkowii-ai-input-area"
-      >
+      <div class="gunkowii-ai-input-area">
 
-        <textarea
-          id="gunkowii-ai-input"
-          class="gunkowii-ai-input"
-          rows="2"
-          placeholder="Tell me what you need help with..."
-          aria-label="Message GUNKOWII AI"
-        ></textarea>
+        <div class="gunkowii-ai-input-wrap">
 
-        <button
-          id="gunkowii-ai-send"
-          class="gunkowii-ai-send"
-          type="submit"
-        >
-          Send
-        </button>
+          <textarea
+            class="gunkowii-ai-input"
+            rows="1"
+            placeholder="Tell me what you're dealing with..."
+            aria-label="Message GUNKOWII AI"
+          ></textarea>
 
-      </form>
+          <button
+            type="button"
+            class="gunkowii-ai-send"
+            aria-label="Send message"
+          >
+            ↑
+          </button>
+
+        </div>
+
+      </div>
     `;
 
-    document.body.appendChild(
-      panel
-    );
-
-    aiPanel =
-      panel;
+    document.body.appendChild(aiPanel);
 
     aiMessages =
-      document.getElementById(
-        "gunkowii-ai-messages"
-      );
+      aiPanel.querySelector(".gunkowii-ai-messages");
 
     aiInput =
-      document.getElementById(
-        "gunkowii-ai-input"
-      );
+      aiPanel.querySelector(".gunkowii-ai-input");
 
-    aiSendButton =
-      document.getElementById(
-        "gunkowii-ai-send"
-      );
+    const sendButton =
+      aiPanel.querySelector(".gunkowii-ai-send");
 
+    const closeButton =
+      aiPanel.querySelector(".gunkowii-ai-close");
 
-    /* =========================================
-       OPEN AI
-       ========================================= */
+    const newChatButton =
+      aiPanel.querySelector(".gunkowii-ai-new-chat");
+
+    const header =
+      aiPanel.querySelector(".gunkowii-ai-header");
+
+    /* =======================================================
+       OPEN / CLOSE
+       ======================================================= */
 
     function openAI() {
-      aiPanel.classList.add(
-        "open"
-      );
+      aiPanel.classList.add("gunkowii-ai-open");
 
-      if (
-        aiInput &&
-        !aiInput.disabled
-      ) {
-        setTimeout(() => {
-          aiInput.focus();
-        }, 100);
-      }
+      setTimeout(() => {
+        if (aiInput) aiInput.focus();
+      }, 220);
     }
 
+    function closeAI() {
+      aiPanel.classList.remove("gunkowii-ai-open");
+    }
 
-    launcher.addEventListener(
-      "click",
-      openAI
+    /*
+      Launcher click.
+      Only open when the launcher wasn't being dragged.
+    */
+
+    let launcherDragging = false;
+    let launcherStartX = 0;
+    let launcherStartY = 0;
+
+    aiLauncher.addEventListener(
+      "pointerdown",
+      event => {
+        launcherDragging = false;
+
+        launcherStartX = event.clientX;
+        launcherStartY = event.clientY;
+      }
     );
 
-    launcher.addEventListener(
-      "keydown",
-      (event) => {
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
-          event.preventDefault();
+    aiLauncher.addEventListener(
+      "pointermove",
+      event => {
+        const distance = Math.sqrt(
+          Math.pow(event.clientX - launcherStartX, 2) +
+          Math.pow(event.clientY - launcherStartY, 2)
+        );
 
-          openAI();
+        if (distance > 6) {
+          launcherDragging = true;
         }
       }
     );
 
+    aiLauncher.addEventListener(
+      "click",
+      event => {
+        if (launcherDragging) {
+          event.preventDefault();
+          event.stopPropagation();
 
-    /* =========================================
+          launcherDragging = false;
+
+          return;
+        }
+
+        openAI();
+      }
+    );
+
+    /* =======================================================
        CLOSE
-       ========================================= */
+       ======================================================= */
 
-    const closeButton =
-      panel.querySelector(
-        ".gunkowii-ai-close"
-      );
+    closeButton.addEventListener(
+      "pointerdown",
+      event => {
+        event.stopPropagation();
+      }
+    );
 
     closeButton.addEventListener(
       "click",
-      () => {
-        aiPanel.classList.remove(
-          "open"
-        );
+      event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        closeAI();
       }
     );
 
-
-    /* =========================================
+    /* =======================================================
        NEW CHAT
-       ========================================= */
+       ======================================================= */
 
-    const newChatButton =
-      document.getElementById(
-        "gunkowii-ai-new-chat"
-      );
+    /*
+      New Chat belongs to the draggable header.
+      It moves with the header, but clicking it must NOT
+      initiate a drag.
+    */
+
+    newChatButton.addEventListener(
+      "pointerdown",
+      event => {
+        event.stopPropagation();
+      }
+    );
+
+    newChatButton.addEventListener(
+      "mousedown",
+      event => {
+        event.stopPropagation();
+      }
+    );
+
+    newChatButton.addEventListener(
+      "touchstart",
+      event => {
+        event.stopPropagation();
+      },
+      { passive: true }
+    );
 
     newChatButton.addEventListener(
       "click",
-      () => {
+      event => {
+        event.preventDefault();
+        event.stopPropagation();
 
-        if (aiBusy) {
-          return;
-        }
+        if (aiBusy) return;
 
         clearAIConversation();
-
         clearHandoffData();
 
-        aiInput.value = "";
+        if (aiInput) {
+          aiInput.value = "";
+          aiInput.disabled = false;
+          aiInput.focus();
+        }
 
-        aiInput.focus();
+        if (aiMessages) {
+          aiMessages.scrollTop = 0;
+        }
       }
     );
 
+    /* =======================================================
+       SEND
+       ======================================================= */
 
-    /* =========================================
-       SUBMIT
-       ========================================= */
-
-    const form =
-      document.getElementById(
-        "gunkowii-ai-form"
-      );
-
-    form.addEventListener(
-      "submit",
-      async (event) => {
-
+    sendButton.addEventListener(
+      "click",
+      event => {
         event.preventDefault();
+        event.stopPropagation();
 
-        if (!aiInput) {
-          return;
-        }
-
-        const message =
-          aiInput.value.trim();
-
-        if (!message) {
-          return;
-        }
-
-        aiInput.value = "";
-
-        await sendAIMessage(
-          message
-        );
+        sendAIMessage();
       }
     );
-
-
-    /* =========================================
-       ENTER SEND
-       ========================================= */
 
     aiInput.addEventListener(
       "keydown",
-      (event) => {
-
+      event => {
         if (
           event.key === "Enter" &&
           !event.shiftKey
         ) {
-
           event.preventDefault();
 
-          form.requestSubmit();
+          sendAIMessage();
         }
       }
     );
 
+    /*
+      Automatically grow textarea.
+    */
 
-    /* =========================================
-       DRAG AI LAUNCHER
-       ========================================= */
+    aiInput.addEventListener(
+      "input",
+      () => {
+        aiInput.style.height = "auto";
 
-    makeDraggable(
-      launcher,
-      launcher
+        aiInput.style.height =
+          Math.min(
+            aiInput.scrollHeight,
+            105
+          ) + "px";
+      }
     );
 
-
-    /* =========================================
-       DRAG AI WINDOW
-       ========================================= */
+    /* =======================================================
+       DRAG PANEL
+       ======================================================= */
 
     makeDraggable(
-      panel,
-      document.getElementById(
-        "gunkowii-ai-drag-handle"
-      )
+      aiPanel,
+      header,
+      AI_PANEL_POSITION_KEY
     );
 
+    /* =======================================================
+       DRAG LAUNCHER
+       ======================================================= */
 
-    /* =========================================
-       INITIAL CONTENT
-       ========================================= */
+    makeDraggable(
+      aiLauncher,
+      aiLauncher,
+      AI_LAUNCHER_POSITION_KEY
+    );
 
-    if (
-      aiConversation.length === 0
-    ) {
-      showInitialGreeting();
+    /* =======================================================
+       RESTORE CONVERSATION
+       ======================================================= */
+
+    loadAIConversation();
+
+    if (aiConversation.length > 0) {
+      aiConversation.forEach(item => {
+        if (
+          item &&
+          (item.role === "user" ||
+            item.role === "assistant")
+        ) {
+          addAIMessage(
+            item.role,
+            item.content
+          );
+        }
+      });
     } else {
-      restoreConversationToPanel();
+      showInitialGreeting();
     }
   }
-
 
   /* =========================================================
-     RESTORE CONVERSATION
+     LIVE ACTIVITY DATA
      ========================================================= */
 
-  function restoreConversationToPanel() {
+  const liveActivities = [
+    {
+      title: "Client Feedback",
+      text: "Real client and team feedback from recent digital work.",
+      url: "reviews.html",
+      image:
+        "Screenshot_2026-09-04-12-50-03-770_com.openai.chatgpt-edit.jpg",
+      initials: "GS"
+    },
 
-    if (!aiMessages) {
-      return;
+    {
+      title: "Shopify Work",
+      text: "Shopify optimization, product presentation and e-commerce growth.",
+      url: "services.html",
+      image:
+        "assets/projects/teeology/teeology-home.jpg",
+      initials: "SH"
+    },
+
+    {
+      title: "Etsy Growth",
+      text: "Etsy listing optimization, visibility and growth opportunities.",
+      url: "services.html",
+      image:
+        "gunkowii-saba-logo.png",
+      initials: "ET"
+    },
+
+    {
+      title: "CRO Insight",
+      text: "Finding friction between visitors, product pages and purchases.",
+      url: "audit.html",
+      image:
+        "assets/projects/beeyouti/beeyouti-product.jpg",
+      initials: "CR"
+    },
+
+    {
+      title: "SEO Focus",
+      text: "Improving search visibility across products, collections and content.",
+      url: "services.html",
+      image:
+        "assets/projects/look-for-it-here/look-for-it-here-products.jpg",
+      initials: "SE"
+    },
+
+    {
+      title: "Growth Strategy",
+      text: "Connecting traffic, trust, conversion and customer retention.",
+      url: "process.html",
+      image:
+        "assets/projects/iron-therapy/iron-therapy-home.jpg",
+      initials: "GR"
+    },
+
+    {
+      title: "Featured Project",
+      text: "MANBAUL ANWAR Arabic School Management System.",
+      url: "portfolio.html",
+      image:
+        "assets/projects/manbaul-anwar/manbaul-anwar-dashboard.jpg",
+      initials: "MA"
+    },
+
+    {
+      title: "Available",
+      text: "Open to professional e-commerce, digital and technology projects.",
+      url: "contact.html",
+      image:
+        "gunkowii-saba-logo.png",
+      initials: "GS"
     }
-
-    aiMessages.innerHTML = "";
-
-    for (
-      const message of aiConversation
-    ) {
-
-      if (
-        !message ||
-        !message.content
-      ) {
-        continue;
-      }
-
-      const type =
-        message.role === "user"
-          ? "user"
-          : "ai";
-
-      addAIMessage(
-        message.content,
-        type
-      );
-    }
-
-    const handoff =
-      loadHandoffData();
-
-    if (
-      handoff &&
-      handoff.handoff
-    ) {
-
-      showHandoffNotice(
-        handoff
-      );
-    }
-  }
-
+  ];
 
   /* =========================================================
      LIVE ACTIVITY POPUP
      ========================================================= */
 
-  function injectActivityStyles() {
-
-    if (
-      document.getElementById(
-        "gunkowii-activity-styles"
-      )
-    ) {
-      return;
-    }
-
-    const style =
-      document.createElement("style");
-
-    style.id =
-      "gunkowii-activity-styles";
-
-    style.textContent = `
-
-      .gunkowii-live-activity {
-
-        position: fixed;
-
-        left: 18px;
-        bottom: 18px;
-
-        z-index: 9990;
-
-        width: min(350px, calc(100vw - 36px));
-
-        min-height: 72px;
-
-        padding: 13px 15px;
-
-        background:
-          linear-gradient(
-            135deg,
-            #fffdf8,
-            #f8f3e7
-          );
-
-        border:
-          1px solid rgba(11,93,70,.15);
-
-        border-left:
-          4px solid #c9a227;
-
-        border-radius: 16px;
-
-        box-shadow:
-          0 16px 40px rgba(0,0,0,.17);
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 11px;
-
-        font-size: 12px;
-
-        transform:
-          translateX(-120%);
-
-        opacity: 0;
-
-        transition:
-          opacity .4s ease,
-          transform .5s cubic-bezier(.2,.8,.2,1);
-
-        cursor: pointer;
-      }
-
-      .gunkowii-live-activity.show {
-
-        opacity: 1;
-
-        transform:
-          translateX(0);
-      }
-
-      .gunkowii-live-dot {
-
-        width: 10px;
-        height: 10px;
-
-        flex: 0 0 auto;
-
-        border-radius: 50%;
-
-        background: #0b5d46;
-
-        box-shadow:
-          0 0 0 5px
-          rgba(11,93,70,.10);
-      }
-
-      .gunkowii-live-content {
-
-        min-width: 0;
-      }
-
-      .gunkowii-live-title {
-
-        font-weight: 900;
-
-        color: #0b5d46;
-
-        margin-bottom: 3px;
-      }
-
-      .gunkowii-live-text {
-
-        color: #555;
-
-        line-height: 1.45;
-      }
-
-      .gunkowii-live-close {
-
-        margin-left: auto;
-
-        width: 28px;
-        height: 28px;
-
-        flex: 0 0 auto;
-
-        border: none;
-
-        border-radius: 50%;
-
-        background: rgba(0,0,0,.04);
-
-        color: #777;
-
-        cursor: pointer;
-
-        font-size: 16px;
-      }
-
-      @media (max-width: 600px) {
-
-        .gunkowii-live-activity {
-
-          left: 12px;
-          bottom: 12px;
-
-          width:
-            calc(100vw - 24px);
-
-        }
-
-      }
-
-    `;
-
-    document.head.appendChild(
-      style
-    );
-  }
-
-
-  const liveActivities = [
-
-    {
-      title:
-        "Client Feedback",
-
-      text:
-        "Professional feedback from recent project work.",
-
-      url:
-        "reviews.html"
-    },
-
-    {
-      title:
-        "Shopify Work",
-
-      text:
-        "Shopify optimization and e-commerce growth work.",
-
-      url:
-        "services.html"
-    },
-
-    {
-      title:
-        "Etsy Growth",
-
-      text:
-        "Etsy listing, visibility and growth opportunities.",
-
-      url:
-        "services.html"
-    },
-
-    {
-      title:
-        "CRO Insight",
-
-      text:
-        "Conversion opportunities can often be found beyond store design.",
-
-      url:
-        "audit.html"
-    },
-
-    {
-      title:
-        "SEO Focus",
-
-      text:
-        "Search visibility is part of a complete e-commerce growth strategy.",
-
-      url:
-        "services.html"
-    },
-
-    {
-      title:
-        "Growth Strategy",
-
-      text:
-        "Traffic, UX, trust, conversion and retention work together.",
-
-      url:
-        "process.html"
-    },
-
-    {
-      title:
-        "Featured Project",
-
-      text:
-        "Explore real e-commerce and digital projects.",
-
-      url:
-        "portfolio.html"
-    },
-
-    {
-      title:
-        "Available",
-
-      text:
-        "Professional project and collaboration inquiries are welcome.",
-
-      url:
-        "contact.html"
-    }
-
-  ];
-
-
-  let activityIndex = 0;
-  let activityElement = null;
-  let activityTimer = null;
-
-
   function createLiveActivity() {
-
     if (
       document.querySelector(
         ".gunkowii-live-activity"
@@ -2254,29 +2135,47 @@ Please try again in a moment. If you need immediate assistance, you can continue
       return;
     }
 
-    const item =
-      liveActivities[
-        activityIndex
-      ];
-
-    const activity =
+    const popup =
       document.createElement("div");
 
-    activity.className =
+    popup.className =
       "gunkowii-live-activity";
 
-    activity.innerHTML = `
+    popup.setAttribute(
+      "role",
+      "button"
+    );
 
-      <span class="gunkowii-live-dot"></span>
+    popup.setAttribute(
+      "tabindex",
+      "0"
+    );
+
+    popup.innerHTML = `
+      <div class="gunkowii-live-media">
+
+        <img
+          class="gunkowii-live-image"
+          alt=""
+        >
+
+        <div
+          class="gunkowii-live-placeholder"
+          style="display:none;"
+        >
+          GS
+        </div>
+
+      </div>
 
       <div class="gunkowii-live-content">
 
         <div class="gunkowii-live-title">
-          ${escapeHTML(item.title)}
+          Activity
         </div>
 
         <div class="gunkowii-live-text">
-          ${escapeHTML(item.text)}
+          Discover the latest work.
         </div>
 
       </div>
@@ -2288,21 +2187,102 @@ Please try again in a moment. If you need immediate assistance, you can continue
       >
         ×
       </button>
-
     `;
 
-    document.body.appendChild(
-      activity
+    document.body.appendChild(popup);
+
+    const image =
+      popup.querySelector(
+        ".gunkowii-live-image"
+      );
+
+    const placeholder =
+      popup.querySelector(
+        ".gunkowii-live-placeholder"
+      );
+
+    const title =
+      popup.querySelector(
+        ".gunkowii-live-title"
+      );
+
+    const text =
+      popup.querySelector(
+        ".gunkowii-live-text"
+      );
+
+    const close =
+      popup.querySelector(
+        ".gunkowii-live-close"
+      );
+
+    let currentActivity = null;
+
+    function setActivity(activity) {
+      currentActivity = activity;
+
+      title.textContent =
+        activity.title;
+
+      text.textContent =
+        activity.text;
+
+      placeholder.textContent =
+        activity.initials || "GS";
+
+      image.style.display = "block";
+      placeholder.style.display = "none";
+
+      if (activity.image) {
+        image.src = activity.image;
+      } else {
+        image.removeAttribute("src");
+        image.style.display = "none";
+        placeholder.style.display = "flex";
+      }
+
+      image.onerror = () => {
+        image.style.display = "none";
+        placeholder.style.display = "flex";
+      };
+    }
+
+    function hidePopup() {
+      popup.classList.remove(
+        "gunkowii-live-show"
+      );
+    }
+
+    function showPopup() {
+      popup.classList.add(
+        "gunkowii-live-show"
+      );
+    }
+
+    function openActivity() {
+      if (!currentActivity) return;
+
+      const target =
+        currentActivity.url;
+
+      if (!target) return;
+
+      window.location.href = target;
+    }
+
+    close.addEventListener(
+      "click",
+      event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        hidePopup();
+      }
     );
 
-    activityElement =
-      activity;
-
-
-    activity.addEventListener(
+    popup.addEventListener(
       "click",
-      (event) => {
-
+      event => {
         if (
           event.target.closest(
             ".gunkowii-live-close"
@@ -2311,113 +2291,84 @@ Please try again in a moment. If you need immediate assistance, you can continue
           return;
         }
 
-        window.location.href =
-          item.url;
+        openActivity();
       }
     );
 
+    popup.addEventListener(
+      "keydown",
+      event => {
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+          event.preventDefault();
 
-    const close =
-      activity.querySelector(
-        ".gunkowii-live-close"
+          openActivity();
+        }
+      }
+    );
+
+    let index = 0;
+    let permanentlyClosed = false;
+
+    function displayNext() {
+      if (permanentlyClosed) return;
+
+      setActivity(
+        liveActivities[index]
       );
+
+      index =
+        (index + 1) %
+        liveActivities.length;
+
+      showPopup();
+
+      setTimeout(() => {
+        if (!permanentlyClosed) {
+          hidePopup();
+        }
+      }, 7000);
+    }
 
     close.addEventListener(
       "click",
-      (event) => {
-
-        event.stopPropagation();
-
-        hideLiveActivity();
-
-        sessionStorage.setItem(
-          "gunkowii_live_activity_closed",
-          "1"
-        );
+      () => {
+        permanentlyClosed = true;
       }
     );
 
-
-    requestAnimationFrame(() => {
-
-      activity.classList.add(
-        "show"
-      );
-
-    });
-
+    /*
+      First appearance.
+    */
 
     setTimeout(
-      hideLiveActivity,
-      7000
-    );
-  }
-
-
-  function hideLiveActivity() {
-
-    if (!activityElement) {
-      return;
-    }
-
-    activityElement.classList.remove(
-      "show"
+      displayNext,
+      4000
     );
 
-    setTimeout(() => {
+    /*
+      Continue rotating.
+    */
 
-      if (
-        activityElement
-      ) {
-
-        activityElement.remove();
-
-        activityElement = null;
-      }
-
-    }, 500);
+    setInterval(
+      displayNext,
+      12000
+    );
   }
-
-
-  function startLiveActivity() {
-
-    if (
-      sessionStorage.getItem(
-        "gunkowii_live_activity_closed"
-      ) === "1"
-    ) {
-      return;
-    }
-
-    setTimeout(() => {
-
-      createLiveActivity();
-
-      activityTimer =
-        setInterval(() => {
-
-          hideLiveActivity();
-
-          activityIndex =
-            (activityIndex + 1) %
-            liveActivities.length;
-
-          setTimeout(
-            createLiveActivity,
-            800
-          );
-
-        }, 12000);
-
-    }, 4000);
-  }
-
 
   /* =========================================================
      CONTACT PAGE HANDOFF
      ========================================================= */
 
-  function prepareContactPage() {
+  function setupContactHandoff() {
+    const form =
+      document.querySelector(
+        "form"
+      );
+
+    if (!form) return;
 
     const params =
       new URLSearchParams(
@@ -2429,211 +2380,273 @@ Please try again in a moment. If you need immediate assistance, you can continue
         "ai_handoff"
       ) === "1";
 
-    if (!isHandoff) {
-      return;
-    }
+    if (!isHandoff) return;
 
-    const handoff =
+    const data =
       loadHandoffData();
 
-    if (!handoff) {
-      return;
-    }
+    if (!data) return;
 
-    window.GunkowiiAIHandoff =
-      handoff;
+    /*
+      AI information stays hidden.
+      It is only attached to the form submission.
+    */
 
-    document.body.classList.add(
-      "gunkowii-ai-handoff-page"
-    );
+    const hiddenFields = {
+      ai_handoff: "1",
 
-    window.dispatchEvent(
-      new CustomEvent(
-        "gunkowiiAIHandoffReady",
-        {
-          detail: handoff
+      ai_lead_summary:
+        data.leadSummary || "",
+
+      ai_store_analysis:
+        data.storeAnalysis || "",
+
+      ai_recommended_service:
+        data.recommendedService || "",
+
+      ai_conversation:
+        data.conversation || "",
+
+      ai_handoff_time:
+        data.timestamp || ""
+    };
+
+    Object.entries(hiddenFields)
+      .forEach(([name, value]) => {
+        let field =
+          form.querySelector(
+            `[name="${name}"]`
+          );
+
+        if (!field) {
+          field =
+            document.createElement(
+              "input"
+            );
+
+          field.type = "hidden";
+          field.name = name;
+
+          form.appendChild(field);
         }
-      )
-    );
-  }
 
+        field.value = value;
+      });
+  }
 
   /* =========================================================
-     WHATSAPP HANDOFF
+     CONTACT WHATSAPP HANDOFF
      ========================================================= */
 
-  function buildWhatsAppHandoffMessage() {
-
-    const handoff =
-      loadHandoffData();
-
-    if (!handoff) {
-      return "";
-    }
-
-    const leadSummary =
-      normalize(
-        handoff.leadSummary
+  function setupWhatsAppHandoff() {
+    const form =
+      document.querySelector(
+        "form"
       );
 
-    const storeAnalysis =
-      normalize(
-        handoff.storeAnalysis
+    if (!form) return;
+
+    const whatsappButton =
+      Array.from(
+        form.querySelectorAll(
+          "button, a"
+        )
+      ).find(button =>
+        normalize(
+          button.textContent
+        )
+          .toLowerCase()
+          .includes(
+            "continue to whatsapp"
+          )
       );
 
-    const conversation =
-      Array.isArray(
-        handoff.conversation
-      )
-        ? handoff.conversation
-        : [];
+    if (!whatsappButton) return;
 
-    const recentConversation =
-      conversation
-        .slice(-10)
-        .map((message) => {
+    whatsappButton.addEventListener(
+      "click",
+      async event => {
+        event.preventDefault();
 
-          const role =
-            message.role === "user"
-              ? "Buyer"
-              : "GUNKOWII AI";
+        if (
+          typeof form.reportValidity ===
+          "function" &&
+          !form.reportValidity()
+        ) {
+          return;
+        }
 
-          return `${role}: ${message.content}`;
+        const name =
+          form.querySelector(
+            '[name="name"]'
+          )?.value || "";
 
-        })
-        .join("\n\n");
+        const email =
+          form.querySelector(
+            '[name="email"]'
+          )?.value || "";
 
-    return `
+        const store =
+          form.querySelector(
+            '[name="store"]'
+          )?.value || "";
+
+        const service =
+          form.querySelector(
+            '[name="service"]'
+          )?.value || "";
+
+        const project =
+          form.querySelector(
+            '[name="message"]'
+          )?.value ||
+          form.querySelector(
+            "textarea"
+          )?.value ||
+          "";
+
+        const handoff =
+          loadHandoffData();
+
+        let message = `
 Hello GUNKOWII SABA,
 
-I continued through GUNKOWII AI and would like to continue the discussion with you.
+I would like to discuss a project.
 
-AI Lead Summary:
-${leadSummary || "Not available"}
-
-Store Analysis:
-${storeAnalysis || "Not available"}
-
-Recent AI Conversation:
-${recentConversation || "Not available"}
-
-Please continue from here.
+Name: ${name}
+Email: ${email}
+Store / Website: ${store || "Not provided"}
+Service: ${service}
+Project details:
+${project}
 `.trim();
+
+        if (handoff) {
+          message += `
+
+AI consultation summary:
+${handoff.leadSummary || "Not available"}
+
+AI store analysis:
+${handoff.storeAnalysis || "Not available"}
+
+Recommended service:
+${handoff.recommendedService || "Not specified"}
+
+AI conversation:
+${handoff.conversation || "Not available"}
+`;
+        }
+
+        try {
+          await navigator.clipboard.writeText(
+            message
+          );
+
+          alert(
+            "Your consultation message has been prepared and copied. WhatsApp will open next — please paste and send the message."
+          );
+        } catch {
+          alert(
+            "Your consultation message is ready. WhatsApp will open next. Please paste your message there."
+          );
+        }
+
+        window.open(
+          WHATSAPP_URL,
+          "_blank",
+          "noopener,noreferrer"
+        );
+      }
+    );
   }
 
+  /* =========================================================
+     INIT
+     ========================================================= */
 
-  async function copyWhatsAppHandoff() {
+  function init() {
+    injectAICSS();
 
-    const message =
-      buildWhatsAppHandoffMessage();
+    createAIPanel();
 
-    if (!message) {
+    createLiveActivity();
 
-      window.open(
-        WHATSAPP_URL,
-        "_blank"
-      );
+    setupContactHandoff();
 
-      return;
-    }
-
-    try {
-
-      await navigator.clipboard.writeText(
-        message
-      );
-
-      window.open(
-        WHATSAPP_URL,
-        "_blank"
-      );
-
-    } catch (error) {
-
-      console.warn(
-        "Clipboard access failed.",
-        error
-      );
-
-      window.open(
-        WHATSAPP_URL,
-        "_blank"
-      );
-    }
+    setupWhatsAppHandoff();
   }
-
 
   /* =========================================================
      PUBLIC API
      ========================================================= */
 
   window.GunkowiiAI = {
+    open: () => {
+      const panel =
+        document.querySelector(
+          ".gunkowii-ai-panel"
+        );
 
-    sendMessage:
-      sendAIMessage,
+      if (panel) {
+        panel.classList.add(
+          "gunkowii-ai-open"
+        );
 
-    clearConversation:
-      clearAIConversation,
+        setTimeout(() => {
+          const input =
+            panel.querySelector(
+              ".gunkowii-ai-input"
+            );
 
-    getConversation:
-      () => aiConversation,
+          if (input) input.focus();
+        }, 200);
+      }
+    },
 
-    getHandoff:
-      loadHandoffData,
+    close: () => {
+      const panel =
+        document.querySelector(
+          ".gunkowii-ai-panel"
+        );
 
-    clearHandoff:
-      clearHandoffData,
+      if (panel) {
+        panel.classList.remove(
+          "gunkowii-ai-open"
+        );
+      }
+    },
 
-    buildWhatsAppMessage:
-      buildWhatsAppHandoffMessage,
+    newChat: () => {
+      clearAIConversation();
+      clearHandoffData();
 
-    copyWhatsAppHandoff,
+      if (aiInput) {
+        aiInput.value = "";
+        aiInput.disabled = false;
+        aiInput.focus();
+      }
 
-    contactURL:
-      buildHandoffURL,
-
-    whatsappURL:
-      WHATSAPP_URL
-
+      if (aiMessages) {
+        aiMessages.scrollTop = 0;
+      }
+    }
   };
 
-
   /* =========================================================
-     INITIALIZATION
+     START
      ========================================================= */
-
-  function init() {
-
-    loadAIConversation();
-
-    loadHandoffData();
-
-    injectAIStyles();
-
-    injectActivityStyles();
-
-    createAIPanel();
-
-    prepareContactPage();
-
-    startLiveActivity();
-  }
-
 
   if (
     document.readyState ===
     "loading"
   ) {
-
     document.addEventListener(
       "DOMContentLoaded",
       init
     );
-
   } else {
-
     init();
-
   }
 
 })();
