@@ -142,6 +142,7 @@
 
   function saveConversation() {
     trimConversation();
+
     saveStorage(
       CONFIG.STORAGE.conversation,
       aiConversation
@@ -150,7 +151,10 @@
 
   function clearConversation() {
     aiConversation = [];
-    removeStorage(CONFIG.STORAGE.conversation);
+
+    removeStorage(
+      CONFIG.STORAGE.conversation
+    );
   }
 
   function getFirstBuyerMessage() {
@@ -222,12 +226,6 @@
     function formatInline(value) {
       let output = escapeHTML(value);
 
-      /*
-        Protect markdown links first.
-        This prevents the raw URL formatter from
-        corrupting the generated anchor.
-      */
-
       const protectedLinks = [];
 
       output = output.replace(
@@ -244,27 +242,15 @@
         }
       );
 
-      /*
-        Bold.
-      */
-
       output = output.replace(
         /\*\*([^*]+)\*\*/g,
         "<strong>$1</strong>"
       );
 
-      /*
-        Italic.
-      */
-
       output = output.replace(
         /(^|[\s])\*([^*]+)\*(?=$|[\s])/g,
         "$1<em>$2</em>"
       );
-
-      /*
-        Raw URLs.
-      */
 
       output = output.replace(
         /(^|[\s>])(https?:\/\/[^\s<]+)/gi,
@@ -275,10 +261,6 @@
           return `${prefix}<a href="${cleanURL}" target="_blank" rel="noopener noreferrer">${cleanURL}</a>`;
         }
       );
-
-      /*
-        Restore protected markdown links.
-      */
 
       protectedLinks.forEach(
         (link, index) => {
@@ -297,9 +279,11 @@
 
       if (!line) {
         closeList();
+
         html.push(
           "<div class='ai-space'></div>"
         );
+
         return;
       }
 
@@ -537,9 +521,9 @@
           min(470px, calc(100vw - 24px));
 
         height:
-          min(760px, calc(100vh - 86px));
+          min(740px, calc(100vh - 86px));
 
-        min-height: 560px;
+        min-height: 520px;
 
         display: none;
         flex-direction: column;
@@ -575,6 +559,7 @@
       @keyframes gunkowiiAIIn {
         from {
           opacity: 0;
+
           transform:
             translateY(12px)
             scale(.98);
@@ -582,6 +567,7 @@
 
         to {
           opacity: 1;
+
           transform:
             translateY(0)
             scale(1);
@@ -602,7 +588,7 @@
         gap: 10px;
 
         padding:
-          12px 12px 11px;
+          11px 12px;
 
         background:
           linear-gradient(
@@ -749,7 +735,7 @@
         overscroll-behavior: contain;
 
         padding:
-          16px 15px 18px;
+          18px 16px 20px;
 
         scrollbar-width: thin;
 
@@ -761,7 +747,7 @@
       .gunkowii-ai-message {
         display: flex;
 
-        margin-bottom: 12px;
+        margin-bottom: 14px;
       }
 
       .gunkowii-ai-message.user {
@@ -776,13 +762,13 @@
         max-width: 90%;
 
         padding:
-          11px 13px;
+          12px 14px;
 
         border-radius: 15px;
 
         font-size: 13px;
 
-        line-height: 1.58;
+        line-height: 1.62;
 
         overflow-wrap: anywhere;
       }
@@ -819,7 +805,7 @@
 
       .gunkowii-ai-bubble p {
         margin:
-          0 0 8px;
+          0 0 9px;
       }
 
       .gunkowii-ai-bubble p:last-child {
@@ -956,10 +942,10 @@
           0 0 auto;
 
         margin:
-          0 14px 10px;
+          0 14px 9px;
 
         padding:
-          11px;
+          10px 11px;
 
         border-radius: 14px;
 
@@ -1044,7 +1030,7 @@
           0 0 auto;
 
         padding:
-          11px;
+          10px 11px 9px;
 
         border-top:
           1px solid rgba(212,175,55,.15);
@@ -1070,7 +1056,7 @@
         resize: none;
 
         padding:
-          11px 12px;
+          10px 12px;
 
         border:
           1px solid rgba(255,255,255,.12);
@@ -1374,18 +1360,33 @@
             calc(100vw - 16px);
 
           height:
-            min(720px, calc(100vh - 94px));
+            min(700px, calc(100vh - 88px));
 
           min-height:
-            500px;
+            460px;
 
           border-radius: 18px;
+        }
+
+        .gunkowii-ai-messages {
+          padding:
+            16px 13px 18px;
+        }
+
+        .gunkowii-ai-message {
+          margin-bottom:
+            13px;
         }
 
         .gunkowii-ai-bubble {
           max-width: 93%;
 
           font-size: 12.5px;
+
+          line-height: 1.6;
+
+          padding:
+            11px 13px;
         }
 
         #gunkowii-live-popup {
@@ -1428,10 +1429,10 @@
           bottom: 78px;
 
           height:
-            calc(100vh - 88px);
+            calc(100vh - 82px);
 
           min-height:
-            480px;
+            440px;
         }
 
         .gunkowii-ai-header {
@@ -1442,11 +1443,16 @@
         .gunkowii-ai-avatar {
           width: 38px;
           height: 38px;
+
           flex-basis: 38px;
         }
 
         .gunkowii-ai-title {
           font-size: 13px;
+        }
+
+        .gunkowii-ai-status {
+          font-size: 8px;
         }
 
         .gunkowii-ai-action {
@@ -1457,6 +1463,43 @@
             0 6px;
 
           font-size: 10px;
+        }
+
+        .gunkowii-ai-messages {
+          padding:
+            14px 11px 16px;
+        }
+
+        .gunkowii-ai-bubble {
+          max-width: 95%;
+
+          font-size: 12px;
+
+          line-height: 1.58;
+
+          padding:
+            10px 12px;
+        }
+
+        .gunkowii-ai-input-area {
+          padding:
+            9px 9px 8px;
+        }
+
+        #gunkowii-ai-input {
+          font-size: 12px;
+
+          padding:
+            9px 10px;
+        }
+
+        #gunkowii-ai-send {
+          width: 42px;
+          height: 40px;
+        }
+
+        .gunkowii-ai-note {
+          font-size: 7.5px;
         }
 
         .gunkowii-popup-image {
@@ -2056,7 +2099,7 @@
         const panelHeight =
           aiPanel.offsetHeight ||
           Math.min(
-            760,
+            740,
             window.innerHeight - 86
           );
 
@@ -2458,12 +2501,6 @@
       "open"
     );
 
-    /*
-      GUARANTEED GREETING:
-      If this is a fresh conversation and there are
-      no rendered messages, show the greeting immediately.
-    */
-
     const messages =
       $("#gunkowii-ai-messages", aiPanel);
 
@@ -2657,11 +2694,6 @@
       }
     );
 
-    /*
-      If an existing conversation exists,
-      show the continuation CTA.
-    */
-
     if (
       aiConversation.some(
         item =>
@@ -2758,11 +2790,6 @@
       question
     );
 
-    /*
-      Make the single continuation CTA available
-      as soon as the buyer has started communicating.
-    */
-
     showContinuationCTA();
 
     setAITyping(true);
@@ -2842,16 +2869,7 @@
         answer
       );
 
-      /*
-        Keep the one clear continuation CTA.
-      */
-
       showContinuationCTA();
-
-      /*
-        If the Worker provides structured handoff data,
-        save it silently.
-      */
 
       if (
         data.handoff ||
@@ -2883,11 +2901,6 @@
         "assistant",
         "I couldn't connect to the consultation service right now. Please try again in a moment."
       );
-
-      /*
-        Keep the continuation path available
-        even if the Worker temporarily fails.
-      */
 
       showContinuationCTA();
     } finally {
@@ -3267,12 +3280,6 @@
     let handoff =
       getHandoff();
 
-    /*
-      If the Worker has not supplied structured
-      handoff information yet, create it locally
-      from the conversation.
-    */
-
     if (!handoff) {
       handoff =
         createHandoffData({});
@@ -3282,16 +3289,7 @@
       );
     }
 
-    /*
-      Save the latest conversation again before leaving.
-    */
-
     saveConversation();
-
-    /*
-      Make sure the complete current conversation
-      is included in the handoff.
-    */
 
     handoff.conversation =
       aiConversation.map(
@@ -3654,10 +3652,6 @@
       getContactForm();
 
     if (!form) return;
-
-    /*
-      AI information only fills empty fields.
-    */
 
     setFieldValue(
       form,
@@ -4178,10 +4172,6 @@
 
         if (!value) return;
 
-        /*
-          For selects, prefer the visible option label.
-        */
-
         if (
           field.tagName
             .toLowerCase() ===
@@ -4351,10 +4341,6 @@
     const handoff =
       getHandoff();
 
-    /*
-      Collect every visible buyer field.
-    */
-
     const buyerFields =
       collectBuyerFields(
         form
@@ -4395,11 +4381,6 @@
         buyerFields,
         handoff
       );
-
-    /*
-      WAIT for clipboard operation before clearing
-      the form. This is important on mobile browsers.
-    */
 
     const copied =
       await copyToClipboard(
@@ -4561,10 +4542,6 @@
         handoff.recommendedNextStep ||
           "Continue with GUNKOWII SABA."
       );
-
-      /*
-        COMPLETE AI CONVERSATION.
-      */
 
       lines.push(
         "",
