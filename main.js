@@ -528,6 +528,17 @@
 
         box-sizing: border-box;
 
+        /*
+          CRITICAL INTERNAL LAYOUT RESET:
+          The AI panel is a <section>, so global website section
+          padding must not create empty space inside the panel.
+          This keeps the header against the top border and the
+          input area against the bottom of the panel.
+        */
+        padding: 0 !important;
+
+        justify-content: flex-start !important;
+
         border:
           1px solid rgba(212,175,55,.52);
 
@@ -553,6 +564,43 @@
           top-to-bottom layout.
         */
         align-items: stretch;
+      }
+
+      /*
+        FORCE THE INTERNAL STACK TO USE THE FULL PANEL HEIGHT.
+        This does NOT change right/bottom/dragged positioning.
+      */
+      #gunkowii-ai-panel > .gunkowii-ai-header {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+      }
+
+      #gunkowii-ai-panel > .gunkowii-ai-messages {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        overflow-y: auto !important;
+      }
+
+      #gunkowii-ai-panel > .gunkowii-ai-typing {
+        flex: 0 0 auto !important;
+        margin-top: 0 !important;
+      }
+
+      #gunkowii-ai-panel > .gunkowii-ai-handoff {
+        flex: 0 0 auto !important;
+      }
+
+      #gunkowii-ai-panel > .gunkowii-ai-input-area {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        margin: 0 !important;
+        margin-top: 0 !important;
+        box-sizing: border-box !important;
       }
 
       #gunkowii-ai-panel.open {
@@ -1070,7 +1118,7 @@
         flex:
           0 0 auto;
 
-        margin: 0;
+        margin: 0 !important;
 
         padding:
           5px 10px 4px;
