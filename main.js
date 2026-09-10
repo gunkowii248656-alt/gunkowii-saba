@@ -509,6 +509,7 @@
 
         z-index: 10000;
 
+        /* POSITIONING PRESERVED */
         right: 18px;
         bottom: 18px;
 
@@ -544,6 +545,14 @@
         box-shadow:
           0 28px 78px rgba(0,0,0,.42),
           0 0 0 1px rgba(255,255,255,.04) inset;
+
+        /*
+          INTERFACE-ONLY LAYOUT:
+          The panel itself keeps its existing position.
+          Internal sections are locked into a clean
+          top-to-bottom layout.
+        */
+        align-items: stretch;
       }
 
       #gunkowii-ai-panel.open {
@@ -571,6 +580,7 @@
 
       /* =====================================================
          AI HEADER
+         INTERFACE ONLY
          ===================================================== */
 
       .gunkowii-ai-header {
@@ -582,10 +592,17 @@
 
         gap: 10px;
 
-        padding:
-          9px 12px;
+        /*
+          Flush with the panel's top edge.
+          No external margin and minimal internal
+          vertical padding.
+        */
+        margin: 0;
 
-        min-height: 62px;
+        padding:
+          6px 12px;
+
+        min-height: 58px;
 
         box-sizing: border-box;
 
@@ -721,9 +738,13 @@
 
       /* =====================================================
          AI MESSAGES
+         INTERFACE ONLY
          ===================================================== */
 
       .gunkowii-ai-messages {
+        /*
+          Messages consume ALL available middle space.
+        */
         flex:
           1 1 auto;
 
@@ -734,8 +755,14 @@
 
         overscroll-behavior: contain;
 
+        /*
+          Small top/bottom breathing room only.
+          No large empty area.
+        */
         padding:
-          14px 15px 10px;
+          9px 15px 5px;
+
+        margin: 0;
 
         box-sizing: border-box;
 
@@ -749,7 +776,7 @@
       .gunkowii-ai-message {
         display: flex;
 
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
 
       .gunkowii-ai-message.user {
@@ -764,7 +791,7 @@
         max-width: 90%;
 
         padding:
-          11px 13px;
+          10px 13px;
 
         border-radius: 15px;
 
@@ -858,11 +885,12 @@
       }
 
       .ai-space {
-        height: 4px;
+        height: 3px;
       }
 
       /* =====================================================
          TYPING
+         INTERFACE ONLY
          ===================================================== */
 
       .gunkowii-ai-typing {
@@ -876,14 +904,14 @@
         gap: 4px;
 
         padding:
-          7px 11px;
+          5px 10px;
 
         margin:
-          0 15px 5px;
+          0 15px 3px;
 
         width: fit-content;
 
-        border-radius: 13px;
+        border-radius: 12px;
 
         background:
           rgba(255,255,255,.07);
@@ -938,6 +966,7 @@
 
       /* =====================================================
          AI HANDOFF
+         INTERFACE ONLY
          ===================================================== */
 
       .gunkowii-ai-handoff {
@@ -947,12 +976,12 @@
           0 0 auto;
 
         margin:
-          0 14px 7px;
+          0 14px 4px;
 
         padding:
-          9px 10px;
+          7px 9px;
 
-        border-radius: 14px;
+        border-radius: 13px;
 
         background:
           linear-gradient(
@@ -963,6 +992,8 @@
 
         border:
           1px solid rgba(212,175,55,.3);
+
+        box-sizing: border-box;
       }
 
       .gunkowii-ai-handoff.show {
@@ -977,18 +1008,18 @@
         color:
           #f6d76d;
 
-        margin-bottom: 4px;
+        margin-bottom: 3px;
       }
 
       .gunkowii-ai-handoff-text {
         font-size: 10px;
 
-        line-height: 1.45;
+        line-height: 1.4;
 
         color:
           rgba(255,255,255,.72);
 
-        margin-bottom: 8px;
+        margin-bottom: 6px;
       }
 
       .gunkowii-ai-handoff-button {
@@ -999,7 +1030,7 @@
         border-radius: 10px;
 
         padding:
-          10px 11px;
+          8px 11px;
 
         background:
           linear-gradient(
@@ -1028,14 +1059,21 @@
 
       /* =====================================================
          AI INPUT
+         INTERFACE ONLY
          ===================================================== */
 
       .gunkowii-ai-input-area {
+        /*
+          Always remains at the very bottom of the
+          panel because it is a non-growing flex item.
+        */
         flex:
           0 0 auto;
 
+        margin: 0;
+
         padding:
-          8px 10px 9px;
+          5px 10px 4px;
 
         box-sizing: border-box;
 
@@ -1052,6 +1090,8 @@
         align-items: flex-end;
 
         gap: 7px;
+
+        margin: 0;
       }
 
       #gunkowii-ai-input {
@@ -1063,7 +1103,7 @@
         resize: none;
 
         padding:
-          11px 12px;
+          10px 12px;
 
         border:
           1px solid rgba(255,255,255,.12);
@@ -1159,14 +1199,14 @@
       }
 
       .gunkowii-ai-note {
-        margin-top: 6px;
+        margin-top: 3px;
 
         padding:
-          0 2px;
+          0 2px 0;
 
         font-size: 8px;
 
-        line-height: 1.35;
+        line-height: 1.25;
 
         color:
           rgba(255,255,255,.36);
@@ -1392,6 +1432,9 @@
           height: 44px;
         }
 
+        /*
+          MOBILE POSITIONING PRESERVED
+        */
         #gunkowii-ai-panel {
           right: 8px;
           bottom: 8px;
@@ -1407,10 +1450,45 @@
           border-radius: 18px;
         }
 
+        .gunkowii-ai-header {
+          margin: 0;
+
+          padding:
+            6px 10px;
+
+          min-height:
+            56px;
+        }
+
+        .gunkowii-ai-messages {
+          padding:
+            8px 12px 4px;
+        }
+
         .gunkowii-ai-bubble {
           max-width: 93%;
 
           font-size: 12.5px;
+        }
+
+        .gunkowii-ai-typing {
+          margin:
+            0 12px 3px;
+        }
+
+        .gunkowii-ai-handoff {
+          margin:
+            0 11px 4px;
+        }
+
+        .gunkowii-ai-input-area {
+          padding:
+            5px 8px 3px;
+        }
+
+        .gunkowii-ai-note {
+          margin-top:
+            3px;
         }
 
         #gunkowii-live-popup {
@@ -1449,6 +1527,9 @@
 
       @media (max-width: 430px) {
 
+        /*
+          MOBILE POSITIONING PRESERVED
+        */
         #gunkowii-ai-panel {
           right: 6px;
           bottom: 6px;
@@ -1463,11 +1544,13 @@
         }
 
         .gunkowii-ai-header {
+          margin: 0;
+
           padding:
-            8px 10px;
+            5px 10px;
 
           min-height:
-            58px;
+            54px;
         }
 
         .gunkowii-ai-avatar {
@@ -1493,12 +1576,25 @@
 
         .gunkowii-ai-messages {
           padding:
-            12px 12px 8px;
+            7px 12px 3px;
+        }
+
+        .gunkowii-ai-typing {
+          margin:
+            0 12px 2px;
+        }
+
+        .gunkowii-ai-handoff {
+          margin:
+            0 10px 3px;
+
+          padding:
+            7px 9px;
         }
 
         .gunkowii-ai-input-area {
           padding:
-            7px 8px 8px;
+            4px 8px 2px;
         }
 
         #gunkowii-ai-send {
