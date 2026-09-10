@@ -142,7 +142,6 @@
 
   function saveConversation() {
     trimConversation();
-
     saveStorage(
       CONFIG.STORAGE.conversation,
       aiConversation
@@ -151,10 +150,7 @@
 
   function clearConversation() {
     aiConversation = [];
-
-    removeStorage(
-      CONFIG.STORAGE.conversation
-    );
+    removeStorage(CONFIG.STORAGE.conversation);
   }
 
   function getFirstBuyerMessage() {
@@ -418,7 +414,6 @@
 
         cursor: grab;
         user-select: none;
-
         touch-action: none;
 
         transition:
@@ -515,20 +510,22 @@
         z-index: 10000;
 
         right: 18px;
-        bottom: 94px;
+        bottom: 18px;
 
         width:
           min(470px, calc(100vw - 24px));
 
         height:
-          min(740px, calc(100vh - 86px));
+          min(760px, calc(100vh - 36px));
 
-        min-height: 520px;
+        min-height: 0;
 
         display: none;
         flex-direction: column;
 
         overflow: hidden;
+
+        box-sizing: border-box;
 
         border:
           1px solid rgba(212,175,55,.52);
@@ -559,7 +556,6 @@
       @keyframes gunkowiiAIIn {
         from {
           opacity: 0;
-
           transform:
             translateY(12px)
             scale(.98);
@@ -567,7 +563,6 @@
 
         to {
           opacity: 1;
-
           transform:
             translateY(0)
             scale(1);
@@ -588,7 +583,11 @@
         gap: 10px;
 
         padding:
-          11px 12px;
+          9px 12px;
+
+        min-height: 62px;
+
+        box-sizing: border-box;
 
         background:
           linear-gradient(
@@ -731,11 +730,14 @@
         min-height: 0;
 
         overflow-y: auto;
+        overflow-x: hidden;
 
         overscroll-behavior: contain;
 
         padding:
-          18px 16px 20px;
+          14px 15px 10px;
+
+        box-sizing: border-box;
 
         scrollbar-width: thin;
 
@@ -747,7 +749,7 @@
       .gunkowii-ai-message {
         display: flex;
 
-        margin-bottom: 14px;
+        margin-bottom: 12px;
       }
 
       .gunkowii-ai-message.user {
@@ -762,13 +764,13 @@
         max-width: 90%;
 
         padding:
-          12px 14px;
+          11px 13px;
 
         border-radius: 15px;
 
         font-size: 13px;
 
-        line-height: 1.62;
+        line-height: 1.58;
 
         overflow-wrap: anywhere;
       }
@@ -805,7 +807,7 @@
 
       .gunkowii-ai-bubble p {
         margin:
-          0 0 9px;
+          0 0 8px;
       }
 
       .gunkowii-ai-bubble p:last-child {
@@ -866,15 +868,18 @@
       .gunkowii-ai-typing {
         display: none;
 
+        flex:
+          0 0 auto;
+
         align-items: center;
 
         gap: 4px;
 
         padding:
-          9px 12px;
+          7px 11px;
 
         margin:
-          0 15px 9px;
+          0 15px 5px;
 
         width: fit-content;
 
@@ -942,10 +947,10 @@
           0 0 auto;
 
         margin:
-          0 14px 9px;
+          0 14px 7px;
 
         padding:
-          10px 11px;
+          9px 10px;
 
         border-radius: 14px;
 
@@ -983,7 +988,7 @@
         color:
           rgba(255,255,255,.72);
 
-        margin-bottom: 9px;
+        margin-bottom: 8px;
       }
 
       .gunkowii-ai-handoff-button {
@@ -1030,13 +1035,15 @@
           0 0 auto;
 
         padding:
-          10px 11px 9px;
+          8px 10px 9px;
+
+        box-sizing: border-box;
 
         border-top:
           1px solid rgba(212,175,55,.15);
 
         background:
-          rgba(0,0,0,.1);
+          rgba(0,0,0,.14);
       }
 
       .gunkowii-ai-input-wrap {
@@ -1056,7 +1063,7 @@
         resize: none;
 
         padding:
-          10px 12px;
+          11px 12px;
 
         border:
           1px solid rgba(255,255,255,.12);
@@ -1075,6 +1082,8 @@
         font-size: 13px;
 
         line-height: 1.45;
+
+        box-sizing: border-box;
       }
 
       #gunkowii-ai-input::placeholder {
@@ -1087,11 +1096,15 @@
           rgba(212,175,55,.55);
       }
 
+      /* =====================================================
+         SEND BUTTON
+         ===================================================== */
+
       #gunkowii-ai-send {
         flex:
           0 0 auto;
 
-        width: 44px;
+        width: 68px;
         height: 42px;
 
         border: 0;
@@ -1099,16 +1112,40 @@
         border-radius: 11px;
 
         background:
-          #d4af37;
+          linear-gradient(
+            135deg,
+            #d4af37,
+            #e1c35c
+          );
 
         color:
           #14241d;
 
-        font-size: 18px;
+        font-size: 11px;
 
         font-weight: 900;
 
+        letter-spacing: .3px;
+
         cursor: pointer;
+
+        transition:
+          transform .18s ease,
+          filter .18s ease,
+          opacity .18s ease;
+      }
+
+      #gunkowii-ai-send:hover {
+        filter:
+          brightness(1.06);
+
+        transform:
+          translateY(-1px);
+      }
+
+      #gunkowii-ai-send:active {
+        transform:
+          translateY(0);
       }
 
       #gunkowii-ai-send:disabled {
@@ -1116,6 +1153,9 @@
 
         cursor:
           not-allowed;
+
+        transform:
+          none;
       }
 
       .gunkowii-ai-note {
@@ -1354,39 +1394,23 @@
 
         #gunkowii-ai-panel {
           right: 8px;
-          bottom: 84px;
+          bottom: 8px;
 
           width:
             calc(100vw - 16px);
 
           height:
-            min(700px, calc(100vh - 88px));
+            calc(100vh - 16px);
 
-          min-height:
-            460px;
+          min-height: 0;
 
           border-radius: 18px;
-        }
-
-        .gunkowii-ai-messages {
-          padding:
-            16px 13px 18px;
-        }
-
-        .gunkowii-ai-message {
-          margin-bottom:
-            13px;
         }
 
         .gunkowii-ai-bubble {
           max-width: 93%;
 
           font-size: 12.5px;
-
-          line-height: 1.6;
-
-          padding:
-            11px 13px;
         }
 
         #gunkowii-live-popup {
@@ -1426,18 +1450,24 @@
       @media (max-width: 430px) {
 
         #gunkowii-ai-panel {
-          bottom: 78px;
+          right: 6px;
+          bottom: 6px;
+
+          width:
+            calc(100vw - 12px);
 
           height:
-            calc(100vh - 82px);
+            calc(100vh - 12px);
 
-          min-height:
-            440px;
+          min-height: 0;
         }
 
         .gunkowii-ai-header {
           padding:
-            10px;
+            8px 10px;
+
+          min-height:
+            58px;
         }
 
         .gunkowii-ai-avatar {
@@ -1449,10 +1479,6 @@
 
         .gunkowii-ai-title {
           font-size: 13px;
-        }
-
-        .gunkowii-ai-status {
-          font-size: 8px;
         }
 
         .gunkowii-ai-action {
@@ -1467,39 +1493,16 @@
 
         .gunkowii-ai-messages {
           padding:
-            14px 11px 16px;
-        }
-
-        .gunkowii-ai-bubble {
-          max-width: 95%;
-
-          font-size: 12px;
-
-          line-height: 1.58;
-
-          padding:
-            10px 12px;
+            12px 12px 8px;
         }
 
         .gunkowii-ai-input-area {
           padding:
-            9px 9px 8px;
-        }
-
-        #gunkowii-ai-input {
-          font-size: 12px;
-
-          padding:
-            9px 10px;
+            7px 8px 8px;
         }
 
         #gunkowii-ai-send {
-          width: 42px;
-          height: 40px;
-        }
-
-        .gunkowii-ai-note {
-          font-size: 7.5px;
+          width: 64px;
         }
 
         .gunkowii-popup-image {
@@ -2045,7 +2048,7 @@
             id="gunkowii-ai-send"
             aria-label="Send message"
           >
-            ↑
+            SEND
           </button>
 
         </div>
@@ -2099,8 +2102,8 @@
         const panelHeight =
           aiPanel.offsetHeight ||
           Math.min(
-            740,
-            window.innerHeight - 86
+            760,
+            window.innerHeight - 36
           );
 
         const maxLeft =
